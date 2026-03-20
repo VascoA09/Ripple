@@ -9,14 +9,15 @@ Unit4's design system for product UI. Foundations, tokens, components, and patte
 ## Install
 
 ```bash
-npm install github:VascoA09/Ripple
+npm install github:VascoA09/Ripple --legacy-peer-deps
+npm install lucide-react --legacy-peer-deps
 ```
 
 ## Setup
 
 ```tsx
 // main.tsx or App.tsx
-import '@ripple/ui/dist/style.css'
+import '@ripple/ui/style.css'
 ```
 
 Activate the theme on your root element:
@@ -41,7 +42,7 @@ import { MainNavigation, Footer } from '@ripple/ui'
 | Directory | Contents |
 |-----------|----------|
 | `foundations/` | Color, typography, spacing, grid, themes, accessibility |
-| `components/` | Specs for all 45 components |
+| `components/` | Specs for all 44 components |
 | `patterns/` | Composed UI patterns (Footer, Main Navigation) |
 | `layouts/` | Structural layout scaffolds (Micro Navigation) |
 | `templates/` | Authoring templates for new specs |
