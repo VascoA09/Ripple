@@ -2,9 +2,10 @@
 
 Ripple is Unit4's design system for product UI. This file is the entry point for AI tools (Claude Code, Figma Make, etc.) consuming Ripple as a source of truth.
 
-**Stack**: React 18, TypeScript, CSS custom properties
+**Stack**: React 18+, TypeScript, CSS custom properties
 **Package**: `@ripple/ui`
-**Install**: `npm install github:VascoA09/Ripple`
+**Install**: `npm install github:VascoA09/Ripple --legacy-peer-deps`
+**Peer deps**: `npm install lucide-react --legacy-peer-deps` (required, not bundled)
 **Typeface**: Open Sans (via `@fontsource-variable/open-sans`)
 **Scope**: B2B enterprise software, people-centric service organisations
 
@@ -15,7 +16,7 @@ Ripple is Unit4's design system for product UI. This file is the entry point for
 These rules are non-negotiable. Apply them to every file you generate.
 
 1. **Use tokens, not hardcoded values.** Every color, spacing, radius, shadow, font size, and line height must reference a CSS custom property from Ripple's token system. Never use raw hex values, pixel values, or named colors directly in CSS or inline styles.
-2. **Import the stylesheet.** All prototypes must include `import '@ripple/ui/dist/style.css'` at the root of the app. This loads all tokens, themes, and component styles.
+2. **Import the stylesheet.** All prototypes must include `import '@ripple/ui/style.css'` at the root of the app. This loads all tokens, themes, and component styles.
 3. **Use Ripple components.** When a UI need matches an existing Ripple component, use it. Do not build custom equivalents. Check `components/_index.md` before creating anything new.
 4. **Follow Ripple patterns and layouts.** For navigation, footer, and page structure, use `patterns/` and `layouts/` as the reference. Do not invent structural patterns from scratch.
 5. **Accessibility is the baseline.** WCAG 2.2 AA minimum. Semantic HTML, keyboard navigation, visible focus states, sufficient color contrast, screen reader labels. If it is not accessible, it is not done.
@@ -143,7 +144,15 @@ npm install github:VascoA09/Ripple
 ### Setup
 ```tsx
 // main.tsx or App.tsx
-import '@ripple/ui/dist/style.css'
+import '@ripple/ui/style.css'
+```
+
+Clear any template CSS (e.g. Vite's default `src/index.css` and `src/App.css`) — they define conflicting `:root` variables that override Ripple tokens. Replace with a minimal reset:
+```css
+/* src/index.css */
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-family: var(--font-family-base); color: var(--text); background: var(--bg-canvas); }
+#root { min-height: 100svh; }
 ```
 
 Set the theme on the root element:
@@ -163,11 +172,12 @@ import { Footer } from '@ripple/ui'
 ### Use tokens in custom CSS
 ```css
 .my-custom-element {
-  color: var(--color-text-primary);
-  background: var(--color-surface-default);
+  color: var(--text);
+  background: var(--bg-surface);
   padding: var(--spacing-150);
-  border-radius: var(--border-radius-medium);
-  font-size: var(--font-size-200);
+  border-radius: var(--border-radius-200);
+  font-size: var(--font-size-100);
+  border: 1px solid var(--border-neutral);
 }
 ```
 
@@ -181,15 +191,42 @@ Never do this:
 }
 ```
 
+Common semantic tokens:
+| Token | Purpose |
+|-------|---------|
+| `--text` | Default body text |
+| `--text-loud` | High-emphasis text, headings |
+| `--text-soft` | Secondary / muted text |
+| `--text-accent` | Primary brand color text |
+| `--bg-canvas` | Page background |
+| `--bg-surface` | Card / panel surface |
+| `--bg-primary` | Primary action background |
+| `--border-neutral` | Default border |
+| `--border-primary` | Primary accent border |
+| `--spacing-50` | 8px |
+| `--spacing-100` | 16px |
+| `--spacing-150` | 24px |
+| `--spacing-200` | 32px |
+| `--font-size-80` | Small text |
+| `--font-size-100` | Body (16px) |
+| `--font-size-200` | Large body |
+| `--font-size-400` | Heading |
+| `--font-size-500` | Display heading |
+| `--border-radius-100` | 4px |
+| `--border-radius-200` | 8px |
+| `--border-radius-full` | Pill / circle |
+
+Full token reference: `src/tokens/themes.css` (semantic), `src/tokens/primitives.css` (raw values).
+
 ---
 
 ## Token naming conventions
 
 Ripple uses a three-tier token system:
 
-- **Tier 1 — Primitives**: raw values, named by value. `--color-blue-500`, `--spacing-16`. Defined in `src/tokens/primitives.css`. Never use directly in components or custom UI.
-- **Tier 2 — Semantic**: purpose-driven aliases. `--color-text-primary`, `--color-surface-error`, `--spacing-component-gap`. Defined in `src/tokens/themes.css`. Use these in all custom UI.
-- **Tier 3 — Component**: scoped to a specific component. `--button-color-background-primary`. Defined in each component's CSS file. Do not reference these outside their component.
+- **Tier 1 — Primitives**: raw values, named by value. `--color-blue-90`, `--spacing-100`. Defined in `src/tokens/primitives.css`. Never use directly in components or custom UI.
+- **Tier 2 — Semantic**: purpose-driven aliases. `--text`, `--bg-surface`, `--border-neutral`, `--bg-primary`. Defined in `src/tokens/themes.css`. Use these in all custom UI.
+- **Tier 3 — Component**: scoped to a specific component, prefixed with `--_`. Defined in each component's CSS file. Do not reference these outside their component.
 
 All token names use kebab-case with dot-notation expressed as hyphens. No abbreviations. No numbers in semantic or component token names.
 
