@@ -1,0 +1,301 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — BUTTON COMPONENT
+   Source: components/button.md
+
+   Architecture: private CSS custom properties (--_*) initialised in .button,
+   overridden by variant × color selectors. State selectors read the resolved
+   values — no color duplication.
+
+   Improvements incorporated from Figma reference (2026-02-22):
+   - Border-radius varies per size (xsmall 4px → medium/large 8px)
+   - Font sizes updated: medium 16px, large 18px
+   - Fill buttons gain a box-shadow on hover (elevation lift)
+   - Outline/ghost active state flips to a filled appearance
+   - Focus outline-offset increased to 4px
+   - Icon-side padding reduces when an icon is present
+   ============================================================================= */
+
+@keyframes ripple-button-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* =============================================================================
+   BASE
+   ============================================================================= */
+
+.button {
+
+  /* --- Private size tokens (medium defaults) -------------------------------- */
+  --_height:               var(--size-component-height-default);  /* 40px */
+  --_padding-inline:       var(--spacing-100);                    /* 16px */
+  --_padding-inline-start: var(--_padding-inline);
+  --_padding-inline-end:   var(--_padding-inline);
+  --_font-size:            var(--font-size-100);                  /* 16px */
+  --_icon-size:            16px;
+  --_gap:                  var(--spacing-50);                     /* 8px  */
+  --_radius:               var(--border-radius-200);              /* 8px  */
+
+  /* --- Private color tokens (overridden by variant × color rules) --------- */
+  --_bg:           transparent;
+  --_bg-hover:     transparent;
+  --_bg-active:    transparent;
+  --_bg-focus:     transparent;          /* ghost variants override per color  */
+  --_color:        var(--text);
+  --_color-active: var(--_color);        /* outline/ghost override to inverse  */
+  --_border-color: transparent;
+  --_shadow-hover: none;                 /* fill variant overrides this        */
+
+  /* --- Layout --------------------------------------------------------------- */
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             var(--_gap);
+  height:          var(--_height);
+  min-width:       var(--_height);       /* icon-only: min-width = height = square */
+  padding-inline-start: var(--_padding-inline-start);
+  padding-inline-end:   var(--_padding-inline-end);
+
+  /* --- Typography ----------------------------------------------------------- */
+  font-family: var(--font-family-base);
+  font-size:   var(--_font-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-heading);
+  white-space: nowrap;
+
+  /* --- Color --------------------------------------------------------------- */
+  background:    var(--_bg);
+  color:         var(--_color);
+  border:        var(--border-width-default) solid var(--_border-color);
+  border-radius: var(--_radius);
+
+  /* --- Interaction ---------------------------------------------------------- */
+  cursor:              pointer;
+  text-decoration:     none;
+  user-select:         none;
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background   150ms ease,
+    color        150ms ease,
+    border-color 150ms ease,
+    box-shadow   150ms ease,
+    transform    100ms ease;
+}
+
+/* =============================================================================
+   STATES
+   ============================================================================= */
+
+.button:hover:not(:disabled) {
+  background: var(--_bg-hover);
+  box-shadow: var(--_shadow-hover);
+}
+
+.button:active:not(:disabled) {
+  background: var(--_bg-active);
+  color:      var(--_color-active);
+  box-shadow: none;                      /* always clear hover shadow on press */
+  transform:  translateY(1px);
+}
+
+.button:focus-visible {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 2px;
+  background:     var(--_bg-focus);
+}
+
+.button:disabled {
+  opacity: var(--opacity-30);
+  cursor:  not-allowed;
+}
+
+/* Loading: restore opacity — the spinner communicates the in-progress state */
+.button[data-loading="true"] {
+  opacity: 1;
+}
+
+/* =============================================================================
+   SIZES
+   ============================================================================= */
+
+.button[data-size="xsmall"] {
+  --_height:         var(--size-150);          /* 24px */
+  --_padding-inline: var(--spacing-50);        /* 8px  */
+  --_font-size:      var(--font-size-80);      /* 14px */
+  --_icon-size:      12px;
+  --_gap:            var(--spacing-25);        /* 4px  */
+  --_radius:         var(--border-radius-100); /* 4px  */
+}
+
+.button[data-size="small"] {
+  --_height:         var(--size-component-height-small); /* 32px */
+  --_padding-inline: var(--spacing-75);                  /* 12px */
+  --_font-size:      var(--font-size-80);                /* 14px */
+  --_icon-size:      14px;
+  --_gap:            var(--spacing-25);                  /* 4px  */
+  --_radius:         var(--border-radius-150);           /* 6px  */
+}
+
+/* medium: default in .button base — 40px, 16px font, 16px icon, 8px gap, 8px radius */
+
+.button[data-size="large"] {
+  --_height:         var(--size-component-height-large); /* 48px */
+  --_padding-inline: var(--spacing-150);                 /* 24px */
+  --_font-size:      var(--font-size-120);               /* 18px */
+  --_icon-size:      18px;
+  --_gap:            var(--spacing-50);                  /* 8px  */
+  --_radius:         var(--border-radius-200);           /* 8px  */
+}
+
+/* =============================================================================
+   ICON-SIDE PADDING ADJUSTMENTS
+   When an icon occupies the start or end slot, reduce padding on that side by
+   one spacing step. Guarded with :not([data-icon-only]) — icon-only buttons
+   zero out all padding via the icon-only rule below.
+   ============================================================================= */
+
+.button[data-size="xsmall"][data-icon-start]:not([data-icon-only]) { --_padding-inline-start: var(--spacing-25); }
+.button[data-size="xsmall"][data-icon-end]:not([data-icon-only])   { --_padding-inline-end:   var(--spacing-25); }
+
+.button[data-size="small"][data-icon-start]:not([data-icon-only])  { --_padding-inline-start: var(--spacing-25); }
+.button[data-size="small"][data-icon-end]:not([data-icon-only])    { --_padding-inline-end:   var(--spacing-25); }
+
+.button[data-size="medium"][data-icon-start]:not([data-icon-only]) { --_padding-inline-start: var(--spacing-75); }
+.button[data-size="medium"][data-icon-end]:not([data-icon-only])   { --_padding-inline-end:   var(--spacing-75); }
+
+.button[data-size="large"][data-icon-start]:not([data-icon-only])  { --_padding-inline-start: var(--spacing-100); }
+.button[data-size="large"][data-icon-end]:not([data-icon-only])    { --_padding-inline-end:   var(--spacing-100); }
+
+/* Icon-only: collapse all horizontal padding; min-width keeps the button square */
+.button[data-icon-only] {
+  --_padding-inline-start: 0;
+  --_padding-inline-end:   0;
+}
+
+/* =============================================================================
+   SPINNER
+   ============================================================================= */
+
+.button__spinner {
+  display:       block;
+  width:         var(--_icon-size);
+  height:        var(--_icon-size);
+  border:        2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  flex-shrink:   0;
+  animation:     ripple-button-spin 600ms linear infinite;
+}
+
+/* Icon sizing — applies to any svg passed as iconStart or iconEnd */
+.button svg {
+  width:          var(--_icon-size);
+  height:         var(--_icon-size);
+  flex-shrink:    0;
+  pointer-events: none;
+}
+
+/* =============================================================================
+   FILL VARIANT
+   Hover gains a box-shadow (elevation lift). Active clears it.
+   ============================================================================= */
+
+.button[data-variant="fill"][data-color="primary"] {
+  --_bg:           var(--bg-primary);
+  --_bg-hover:     var(--bg-primary-loud);
+  --_bg-active:    var(--bg-neutral);
+  --_bg-focus:     var(--bg-primary);
+  --_color:        var(--text-loud-inverse);
+  --_color-active: var(--text-loud-inverse);
+  --_border-color: transparent;
+  --_shadow-hover: var(--box-shadow-200);
+}
+
+.button[data-variant="fill"][data-color="neutral"] {
+  --_bg:           var(--bg-neutral);
+  --_bg-hover:     var(--bg-neutral-loud);
+  --_bg-active:    var(--bg-neutral-soft);
+  --_bg-focus:     var(--bg-neutral);
+  --_color:        var(--text-loud-inverse);
+  --_color-active: var(--color-neutral);
+  --_border-color: transparent;
+  --_shadow-hover: var(--box-shadow-200);
+}
+
+.button[data-variant="fill"][data-color="negative"] {
+  --_bg:           var(--bg-negative);
+  --_bg-hover:     var(--bg-negative-loud);
+  --_bg-active:    var(--bg-neutral);
+  --_bg-focus:     var(--bg-negative);
+  --_color:        var(--text-loud-inverse);
+  --_color-active: var(--text-loud-inverse);
+  --_border-color: transparent;
+  --_shadow-hover: var(--box-shadow-200);
+}
+
+/* =============================================================================
+   OUTLINE VARIANT
+   Active flips to a filled appearance: loud background + inverse text.
+   This creates a clear "pressed hard" signal consistent with fill active.
+   ============================================================================= */
+
+.button[data-variant="outline"][data-color="primary"] {
+  --_bg:           var(--bg-nav);
+  --_bg-hover:     var(--bg-primary-soft);
+  --_bg-active:    var(--bg-primary-loud);
+  --_color:        var(--text-accent);
+  --_color-active: var(--text-loud-inverse);
+  --_border-color: var(--border-primary);
+}
+
+.button[data-variant="outline"][data-color="neutral"] {
+  --_bg:           var(--bg-nav);
+  --_bg-hover:     var(--bg-neutral-soft);
+  --_bg-active:    var(--bg-neutral);
+  --_color:        var(--text);
+  --_color-active: var(--text-loud-inverse);
+  --_border-color: var(--border-neutral-loud);
+}
+
+.button[data-variant="outline"][data-color="negative"] {
+  --_bg:           var(--bg-nav);
+  --_bg-hover:     var(--bg-negative-softest);
+  --_bg-active:    var(--bg-negative-loud);
+  --_color:        var(--text-negative);
+  --_color-active: var(--text-loud-inverse);
+  --_border-color: var(--border-negative);
+}
+
+/* =============================================================================
+   GHOST VARIANT
+   Same active behaviour as outline — flips to filled on hard press.
+   ============================================================================= */
+
+.button[data-variant="ghost"][data-color="primary"] {
+  --_bg:           transparent;
+  --_bg-hover:     var(--bg-primary-soft);
+  --_bg-active:    var(--bg-primary-loud);
+  --_bg-focus:     var(--bg-primary-softest);
+  --_color:        var(--text-accent);
+  --_color-active: var(--text-loud-inverse);
+  --_border-color: transparent;
+}
+
+.button[data-variant="ghost"][data-color="neutral"] {
+  --_bg:           transparent;
+  --_bg-hover:     var(--bg-neutral-soft);
+  --_bg-active:    var(--bg-neutral);
+  --_bg-focus:     var(--bg-neutral-softest);
+  --_color:        var(--text);
+  --_color-active: var(--text-loud-inverse);
+  --_border-color: transparent;
+}
+
+.button[data-variant="ghost"][data-color="negative"] {
+  --_bg:           transparent;
+  --_bg-hover:     var(--bg-negative-softest);
+  --_bg-active:    var(--bg-negative-loud);
+  --_bg-focus:     var(--bg-negative-softest);
+  --_color:        var(--text-negative);
+  --_color-active: var(--text-loud-inverse);
+  --_border-color: transparent;
+}

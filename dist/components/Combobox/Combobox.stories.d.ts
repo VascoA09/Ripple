@@ -1,0 +1,17 @@
+import { Meta, StoryObj } from '@storybook/react';
+import { ComboboxProps } from './Combobox';
+
+declare const meta: Meta<ComboboxProps>;
+export default meta;
+type Story = StoryObj<ComboboxProps>;
+export declare const Default: Story;
+export declare const Sizes: Story;
+export declare const WithDescriptions: Story;
+export declare const WithGroups: Story;
+export declare const MultiSelect: Story;
+export declare const MultiSelectGrouped: Story;
+export declare const ValidationStates: Story;
+export declare const Disabled: Story;
+export declare const InlineLabel: Story;
+export declare const NoResults: Story;
+export declare const LocationGroups: Story;

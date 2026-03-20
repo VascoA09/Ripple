@@ -1,0 +1,409 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — RANGE COMPONENT
+   Source: components/range.md
+
+   Single handle: styled native <input type="range"> — CSS gradient trick for
+   fill, tooltip overlay.
+
+   Dual handle: two native inputs stacked; only thumbs receive pointer events
+   (pointer-events:none on input, pointer-events:all on ::-webkit-slider-thumb).
+   Custom fill div between handles. Works best in Chromium/Safari.
+
+   Sizes:
+     small:  track 4px, thumb 16px
+     medium: track 6px, thumb 20px  (default)
+   ============================================================================= */
+
+/* ---------------------------------------------------------------------------
+   Root
+   --------------------------------------------------------------------------- */
+
+.range {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-50);   /* 8px between label and track */
+  width:          100%;
+}
+
+.range[data-disabled] {
+  opacity:        0.5;
+  pointer-events: none;
+}
+
+/* Private tokens — overridden by size modifier and validation */
+.range {
+  --_track-h:        6px;
+  --_thumb-size:     20px;
+  --_fill-color:     var(--color-primary);
+  --_thumb-border:   var(--border-primary);
+  --_track-color:    var(--bg-neutral-soft);
+}
+
+.range--small {
+  --_track-h:    4px;
+  --_thumb-size: 16px;
+}
+
+.range[data-validation='negative'] {
+  --_fill-color:   var(--color-negative);
+  --_thumb-border: var(--border-negative);
+}
+
+/* ---------------------------------------------------------------------------
+   Left-label layout — flex row
+   --------------------------------------------------------------------------- */
+
+.range--left-label .range__body {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-100);  /* 16px */
+}
+
+.range--left-label .range__label {
+  min-width:   120px;
+  flex-shrink: 0;
+  margin-bottom: 0;
+}
+
+/* Default (top) layout */
+.range:not(.range--left-label) .range__body {
+  display: contents;
+}
+
+/* ---------------------------------------------------------------------------
+   Label
+   --------------------------------------------------------------------------- */
+
+.range__label {
+  display:     block;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-100);   /* 16px */
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  color:       var(--text);
+  cursor:      default;
+  user-select: none;
+}
+
+.range__label--hidden {
+  position:   absolute;
+  width:      1px;
+  height:     1px;
+  padding:    0;
+  margin:     -1px;
+  overflow:   hidden;
+  clip:       rect(0, 0, 0, 0);
+  border:     0;
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------------
+   Track column — groups min/max, track-area, hint, message
+   --------------------------------------------------------------------------- */
+
+.range__track-column {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-25);   /* 4px */
+  flex:           1;
+  min-width:      0;
+}
+
+/* ---------------------------------------------------------------------------
+   Min / Max labels
+   --------------------------------------------------------------------------- */
+
+.range__minmax {
+  display:         flex;
+  justify-content: space-between;
+}
+
+.range__minmax-label {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  color:       var(--text-soft);
+  line-height: 1;
+}
+
+/* ---------------------------------------------------------------------------
+   Track area — contains input + tooltip + markers + fill
+   --------------------------------------------------------------------------- */
+
+.range__track-area {
+  position:   relative;
+  width:      100%;
+  /* Vertical padding creates safe space for the thumb above/below the track */
+  padding-top:    calc(var(--_thumb-size) / 2);
+  padding-bottom: calc(var(--_thumb-size) / 2);
+  /* Extra bottom space when indicators are present */
+  box-sizing: border-box;
+}
+
+.range__track-area--has-indicators {
+  padding-bottom: calc(var(--_thumb-size) / 2 + var(--spacing-50) + 20px);
+}
+
+/* ---------------------------------------------------------------------------
+   Single-handle native input
+   --------------------------------------------------------------------------- */
+
+.range__input {
+  -webkit-appearance: none;
+  appearance:         none;
+  display:            block;
+  width:              100%;
+  height:             var(--_track-h);
+  margin:             0;
+  padding:            0;
+  border:             none;
+  border-radius:      var(--border-radius-300);
+  background:         linear-gradient(
+    to right,
+    var(--_fill-color)  var(--_fill-pct, 0%),
+    var(--_track-color) var(--_fill-pct, 0%)
+  );
+  cursor:             pointer;
+  outline:            none;
+  position:           relative;
+  z-index:            1;
+}
+
+/* WebKit thumb */
+.range__input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance:         none;
+  width:              var(--_thumb-size);
+  height:             var(--_thumb-size);
+  border-radius:      50%;
+  background:         var(--bg-surface);
+  border:             2px solid var(--_thumb-border);
+  cursor:             grab;
+  box-shadow:         none;
+  transition:         box-shadow 120ms ease;
+  position:           relative;
+  z-index:            1;
+}
+
+.range__input::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 4px var(--bg-primary-soft);
+}
+
+.range__input:active::-webkit-slider-thumb {
+  cursor:     grabbing;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.range__input:focus-visible::-webkit-slider-thumb {
+  outline:        2px solid var(--border-focus);
+  outline-offset: 4px;
+}
+
+/* Mozilla thumb */
+.range__input::-moz-range-thumb {
+  width:        var(--_thumb-size);
+  height:       var(--_thumb-size);
+  border-radius: 50%;
+  background:   var(--bg-surface);
+  border:       2px solid var(--_thumb-border);
+  cursor:       grab;
+  box-sizing:   border-box;
+}
+
+.range__input:focus-visible::-moz-range-thumb {
+  outline:        2px solid var(--border-focus);
+  outline-offset: 4px;
+}
+
+/* Mozilla track */
+.range__input::-moz-range-track {
+  height:        var(--_track-h);
+  border-radius: var(--border-radius-300);
+  background:    transparent;   /* background on input element handles fill */
+}
+
+/* ---------------------------------------------------------------------------
+   Dual-handle inputs — transparent; only thumb is interactive
+   --------------------------------------------------------------------------- */
+
+.range__input--dual {
+  position:         absolute;
+  left:             0;
+  top:              50%;
+  transform:        translateY(-50%);
+  width:            100%;
+  height:           var(--_thumb-size);
+  background:       transparent;
+  pointer-events:   none;   /* clicks fall through to lower layer */
+}
+
+/* Only the thumb receives pointer events */
+.range__input--dual::-webkit-slider-thumb {
+  pointer-events: all;
+}
+
+.range__input--dual::-moz-range-thumb {
+  pointer-events: all;
+}
+
+/* Transparent track for dual inputs */
+.range__input--dual::-webkit-slider-runnable-track {
+  background:    transparent;
+  height:        var(--_track-h);
+  border-radius: var(--border-radius-300);
+}
+
+.range__input--dual::-moz-range-track {
+  background: transparent;
+}
+
+/* Dual range: draw the neutral track as a pseudo-element on the track-area */
+.range__track-area:has(.range__input--dual)::before {
+  content:       '';
+  position:      absolute;
+  left:          0;
+  right:         0;
+  top:           50%;
+  transform:     translateY(-50%);
+  height:        var(--_track-h);
+  border-radius: var(--border-radius-300);
+  background:    var(--_track-color);
+  z-index:       0;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Dual range fill — colored area between handles
+   --------------------------------------------------------------------------- */
+
+.range__dual-fill {
+  position:      absolute;
+  top:           50%;
+  transform:     translateY(-50%);
+  height:        var(--_track-h);
+  background:    var(--_fill-color);
+  border-radius: var(--border-radius-300);
+  z-index:       0;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Tooltip
+   --------------------------------------------------------------------------- */
+
+.range__tooltip {
+  position:       absolute;
+  top:            0;
+  transform:      translateX(-50%) translateY(-100%);
+  margin-top:     calc(-1 * var(--spacing-50));   /* 8px above thumb */
+
+  font-family:    var(--font-family-base);
+  font-size:      var(--font-size-80);
+  font-weight:    var(--font-weight-medium);
+  white-space:    nowrap;
+  color:          var(--text-on-fill);
+  background:     var(--bg-inverse);
+  padding:        var(--spacing-25) var(--spacing-50);   /* 4px 8px */
+  border-radius:  var(--border-radius-100);
+
+  visibility:     hidden;
+  opacity:        0;
+  transition:     opacity 120ms ease;
+  pointer-events: none;
+  z-index:        10;
+}
+
+/* Arrow pointing down */
+.range__tooltip::after {
+  content:        '';
+  position:       absolute;
+  top:            100%;
+  left:           50%;
+  transform:      translateX(-50%);
+  border:         4px solid transparent;
+  border-top-color: var(--bg-inverse);
+}
+
+.range__tooltip[data-visible] {
+  visibility: visible;
+  opacity:    1;
+}
+
+/* ---------------------------------------------------------------------------
+   Markers (tick marks)
+   --------------------------------------------------------------------------- */
+
+.range__markers {
+  position:       absolute;
+  left:           0;
+  right:          0;
+  top:            50%;
+  transform:      translateY(-50%);
+  pointer-events: none;
+  z-index:        0;
+}
+
+.range__marker {
+  position:   absolute;
+  top:        50%;
+  transform:  translate(-50%, -50%);
+  width:      2px;
+  height:     8px;
+  background: var(--border-default);
+  border-radius: 1px;
+}
+
+/* ---------------------------------------------------------------------------
+   Indicators (text labels below markers)
+   --------------------------------------------------------------------------- */
+
+.range__indicators {
+  position:       absolute;
+  left:           0;
+  right:          0;
+  bottom:         calc(var(--_thumb-size) / 2 - var(--spacing-50));
+  pointer-events: none;
+}
+
+.range__indicator {
+  position:   absolute;
+  transform:  translateX(-50%);
+  font-family: var(--font-family-base);
+  font-size:  var(--font-size-80);   /* 14px */
+  color:      var(--text-soft);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* ---------------------------------------------------------------------------
+   Hint text
+   --------------------------------------------------------------------------- */
+
+.range__hint {
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  color:       var(--text-soft);
+  line-height: var(--font-line-height-body);
+}
+
+/* ---------------------------------------------------------------------------
+   Validation message
+   --------------------------------------------------------------------------- */
+
+.range__message {
+  margin:      0;
+  display:     flex;
+  align-items: flex-start;
+  gap:         var(--spacing-25);
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-negative);
+}
+
+.range__msg-icon {
+  flex-shrink: 0;
+  margin-top:  1px;
+}

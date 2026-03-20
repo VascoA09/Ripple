@@ -1,0 +1,141 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — COUNTER COMPONENT
+   Source: components/counter.md
+
+   Architecture: private CSS custom properties (--_*) initialised in .counter,
+   overridden by size selectors. Variant × color rules set color tokens.
+
+   Circular for single-digit values (min-width = height = --_size). Stretches
+   to a pill for double digits and "99+" — this is intentional, not a bug.
+
+   Non-interactive: renders as <span>. Not focusable.
+   ============================================================================= */
+
+/* =============================================================================
+   BASE
+   ============================================================================= */
+
+.counter {
+
+  /* --- Private size tokens (medium defaults) -------------------------------- */
+  --_size:      var(--size-125);       /* 20px — drives both height and min-width */
+  --_font-size: var(--font-size-60);   /* 12px */
+  --_padding:   var(--spacing-25);     /* 4px — breathing room for multi-digit values */
+
+  /* --- Private color tokens (overridden by variant × color rules) --------- */
+  --_bg:           transparent;
+  --_color:        var(--text);
+  --_border-color: transparent;
+
+  /* --- Layout --------------------------------------------------------------- */
+  box-sizing:      border-box;        /* ensures min-width includes padding + border */
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  height:          var(--_size);
+  min-width:       var(--_size);      /* circular for single-digit values; expands for multi-digit */
+  padding-inline:  var(--_padding);
+
+  /* --- Typography ----------------------------------------------------------- */
+  font-family:  var(--font-family-base);
+  font-size:    var(--_font-size);
+  font-weight:  var(--font-weight-semibold);
+  line-height:  var(--font-line-height-heading); /* 1.3 — avoids descender clipping */
+  white-space:  nowrap;
+
+  /* --- Color --------------------------------------------------------------- */
+  background:    var(--_bg);
+  color:         var(--_color);
+  border:        var(--border-width-default) solid var(--_border-color);
+  border-radius: var(--border-radius-pill);
+
+  /* --- Interaction ---------------------------------------------------------- */
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =============================================================================
+   SIZES
+   ============================================================================= */
+
+.counter[data-size="small"] {
+  --_size:      var(--size-100);         /* 16px */
+  --_font-size: var(--font-size-60);     /* 12px — smallest token in the scale */
+  --_padding:   2px;                     /* no spacing-* token at 2px; 4px (--spacing-25) would
+                                            push single digits past the circle threshold at 16px */
+}
+
+/* medium: default in .counter base */
+
+.counter[data-size="large"] {
+  --_size:      var(--size-150);         /* 24px */
+  --_font-size: var(--font-size-80);     /* 14px */
+}
+
+/* =============================================================================
+   FILL VARIANT
+   ============================================================================= */
+
+.counter[data-variant="fill"][data-color="primary"] {
+  --_bg:           var(--bg-primary);
+  --_color:        var(--text-loud-inverse);
+  --_border-color: transparent;
+}
+
+.counter[data-variant="fill"][data-color="notice"] {
+  --_bg:           var(--bg-notice);
+  --_color:        var(--text-loud-inverse);
+  --_border-color: transparent;
+}
+
+.counter[data-variant="fill"][data-color="negative"] {
+  --_bg:           var(--bg-negative);
+  --_color:        var(--text-loud-inverse);
+  --_border-color: transparent;
+}
+
+.counter[data-variant="fill"][data-color="positive"] {
+  --_bg:           var(--bg-positive-loud); /* --bg-positive (#3C8000) is 4.9:1 with white — too close at small sizes */
+  --_color:        var(--text-loud-inverse);
+  --_border-color: transparent;
+}
+
+.counter[data-variant="fill"][data-color="neutral"] {
+  --_bg:           var(--bg-neutral);
+  --_color:        var(--text-loud-inverse);
+  --_border-color: transparent;
+}
+
+/* =============================================================================
+   OUTLINE VARIANT
+   ============================================================================= */
+
+.counter[data-variant="outline"][data-color="primary"] {
+  --_bg:           var(--bg-primary-softest);
+  --_color:        var(--text-accent);
+  --_border-color: var(--border-primary);
+}
+
+.counter[data-variant="outline"][data-color="notice"] {
+  --_bg:           var(--bg-notice-softest);
+  --_color:        var(--text-notice);
+  --_border-color: var(--border-notice);
+}
+
+.counter[data-variant="outline"][data-color="negative"] {
+  --_bg:           var(--bg-negative-softest);
+  --_color:        var(--text-negative);
+  --_border-color: var(--border-negative);
+}
+
+.counter[data-variant="outline"][data-color="positive"] {
+  --_bg:           var(--bg-positive-softest);
+  --_color:        var(--text-positive);
+  --_border-color: var(--border-positive);
+}
+
+.counter[data-variant="outline"][data-color="neutral"] {
+  --_bg:           var(--bg-neutral-softest);
+  --_color:        var(--text);
+  --_border-color: var(--border-neutral-loud);
+}

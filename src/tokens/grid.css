@@ -1,0 +1,96 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — GRID TOKENS
+   Source: foundations/grid.md
+
+   Tier 1 (primitives): named breakpoint values (reference only — cannot be
+                         used inside @media rules as CSS custom properties)
+   Tier 2 (responsive):  --grid-* tokens updated at each breakpoint via
+                         standard @media min-width queries
+
+   Note: --breakpoint-* tokens document the scale. Use the raw px values
+   inside @media rules — browsers cannot resolve custom properties there.
+   ============================================================================= */
+
+:root {
+
+  /* ---------------------------------------------------------------------------
+     BREAKPOINT PRIMITIVES (reference / documentation)
+     --------------------------------------------------------------------------- */
+  --breakpoint-xs:  0px;
+  --breakpoint-s:   576px;
+  --breakpoint-m:   768px;
+  --breakpoint-l:   1024px;
+  --breakpoint-xl:  1400px;
+  --breakpoint-xxl: 1920px;
+
+  /* ---------------------------------------------------------------------------
+     RESPONSIVE GRID TOKENS — xs (default, mobile-first)
+     columns : 12 (constant across all breakpoints)
+     gutter  : 16px  → --spacing-100
+     max-width: 100%
+     --------------------------------------------------------------------------- */
+  --grid-columns:   12;
+  --grid-gutter:    var(--spacing-100);   /* 16px */
+  --grid-max-width: 100%;
+
+}
+
+/* ---------------------------------------------------------------------------
+   s — 576px: max-width caps at 560px, gutter stays 16px
+   --------------------------------------------------------------------------- */
+@media (min-width: 576px) {
+  :root {
+    --grid-max-width: 560px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   m — 768px: max-width caps at 744px, gutter stays 16px
+   --------------------------------------------------------------------------- */
+@media (min-width: 768px) {
+  :root {
+    --grid-max-width: 744px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   l — 1024px: max-width caps at 984px, gutter increases to 24px
+   --------------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  :root {
+    --grid-gutter:    var(--spacing-150);  /* 24px */
+    --grid-max-width: 984px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   xl — 1400px: max-width caps at 1320px, gutter stays 24px
+   --------------------------------------------------------------------------- */
+@media (min-width: 1400px) {
+  :root {
+    --grid-max-width: 1320px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   xxl — 1920px: max-width caps at 1792px, gutter increases to 32px
+   --------------------------------------------------------------------------- */
+@media (min-width: 1920px) {
+  :root {
+    --grid-gutter:    var(--spacing-200);  /* 32px */
+    --grid-max-width: 1792px;
+  }
+}
+
+/* =============================================================================
+   CONTAINER UTILITY
+   Standard page wrapper. Centres content, applies responsive max-width and
+   horizontal padding from --grid-gutter.
+   ============================================================================= */
+
+.container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--grid-gutter);
+  max-width: var(--grid-max-width);
+}

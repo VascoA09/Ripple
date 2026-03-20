@@ -1,0 +1,306 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — STEPPER COMPONENT
+   Source: components/stepper.md
+
+   Architecture: private CSS custom properties (--_*) on .stepper-step__indicator
+   and .stepper-step__connector, overridden by data-type / data-active / data-disabled
+   attribute selectors. State rules read resolved values — no color duplication.
+
+   Layout: vertical flex list. Each step is a flex row:
+     [track col: indicator + connector] + [body col: header + extras + children]
+   The connector (flex: 1 in the track column) fills the height of the body,
+   creating the visual line between adjacent steps.
+   ============================================================================= */
+
+/* =============================================================================
+   STEPPER — WRAPPER <ol>
+   ============================================================================= */
+
+.stepper {
+  list-style:     none;
+  margin:         0;
+  padding:        0;
+  display:        flex;
+  flex-direction: column;
+}
+
+/* =============================================================================
+   STEPPER STEP — <li>
+   ============================================================================= */
+
+.stepper-step {
+  display:     flex;
+  gap:         var(--spacing-75);   /* 12px between track and body */
+  align-items: stretch;             /* track col stretches to body height */
+}
+
+/* =============================================================================
+   TRACK — indicator + connector column
+   ============================================================================= */
+
+.stepper-step__track {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  flex-shrink:    0;
+}
+
+/* =============================================================================
+   INDICATOR — the circular marker
+   Private tokens initialised here, overridden by type / active rules below.
+   ============================================================================= */
+
+.stepper-step__indicator {
+  --_indicator-size:         var(--size-200);           /* 32px */
+  --_indicator-bg:           var(--bg-surface);
+  --_indicator-border-color: var(--border-default);
+  --_indicator-border-width: var(--border-width-default);
+  --_indicator-color:        var(--text-soft);
+
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  width:           var(--_indicator-size);
+  height:          var(--_indicator-size);
+  border-radius:   50%;
+  background:      var(--_indicator-bg);
+  border:          var(--_indicator-border-width) solid var(--_indicator-border-color);
+  color:           var(--_indicator-color);
+  flex-shrink:     0;
+
+  /* Typography for ordered numbers */
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-heading);
+
+  transition:  background 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+/* =============================================================================
+   CONNECTOR — vertical line between steps
+   ============================================================================= */
+
+.stepper-step__connector {
+  --_connector-bg: var(--border-default);
+
+  flex:          1;
+  width:         2px;
+  min-height:    var(--spacing-150);   /* 24px minimum visible line */
+  background:    var(--_connector-bg);
+  margin-top:    2px;
+  margin-bottom: 2px;
+  border-radius: var(--border-radius-pill);
+  transition:    background 150ms ease;
+}
+
+/* No connector on the last step */
+.stepper-step:last-child .stepper-step__connector {
+  display: none;
+}
+
+/* =============================================================================
+   BODY — content column
+   ============================================================================= */
+
+.stepper-step__body {
+  flex:           1;
+  min-width:      0;
+  padding-top:    5px;                   /* aligns title baseline with indicator centre */
+  padding-bottom: var(--spacing-200);    /* 32px gap between steps */
+}
+
+.stepper-step:last-child .stepper-step__body {
+  padding-bottom: 0;
+}
+
+/* =============================================================================
+   HEADER — non-interactive wrapper for title + description
+   ============================================================================= */
+
+.stepper-step__header {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-25);   /* 4px */
+}
+
+/* =============================================================================
+   TRIGGER — <button> wrapping title + description when interactive
+   ============================================================================= */
+
+.stepper-step__trigger {
+  appearance:     none;
+  background:     none;
+  border:         none;
+  padding:        0;
+  margin:         0;
+  cursor:         pointer;
+  text-align:     left;
+  width:          100%;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-25);   /* 4px */
+}
+
+.stepper-step__trigger:focus-visible {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 3px;
+  border-radius:  var(--border-radius-100);
+}
+
+/* =============================================================================
+   TYPOGRAPHY — title, description, extras
+   ============================================================================= */
+
+.stepper-step__title {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);          /* 14px */
+  font-weight: var(--font-weight-semibold);
+  color:       var(--text);
+  margin:      0;
+  transition:  color 150ms ease;
+}
+
+.stepper-step__description {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);          /* 14px */
+  font-weight: var(--font-weight-regular);
+  color:       var(--text-soft);
+  margin:      0;
+}
+
+.stepper-step__extras {
+  margin-top:     var(--spacing-50);         /* 8px */
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-25);
+  font-family:    var(--font-family-base);
+  font-size:      var(--font-size-60);       /* 12px */
+  color:          var(--text-soft);
+}
+
+/* =============================================================================
+   DOT — filled circle for unordered variant
+   ============================================================================= */
+
+.stepper-step__dot {
+  display:       block;
+  width:         8px;
+  height:        8px;
+  border-radius: 50%;
+  background:    currentColor;
+}
+
+/* =============================================================================
+   TYPE: CHECKED
+   ============================================================================= */
+
+.stepper-step[data-type="checked"] .stepper-step__indicator {
+  --_indicator-bg:           var(--bg-primary-softest);
+  --_indicator-border-color: var(--border-primary);
+  --_indicator-color:        var(--text-accent);
+}
+
+/* Connector after a completed step: primary color */
+.stepper-step[data-type="checked"] .stepper-step__connector {
+  --_connector-bg: var(--border-primary);
+}
+
+/* =============================================================================
+   TYPE: NOTICE
+   ============================================================================= */
+
+.stepper-step[data-type="notice"] .stepper-step__indicator {
+  --_indicator-bg:           var(--bg-notice-softest);
+  --_indicator-border-color: var(--border-notice);
+  --_indicator-color:        var(--text-notice);
+}
+
+.stepper-step[data-type="notice"] .stepper-step__title {
+  color: var(--text-notice);
+}
+
+/* =============================================================================
+   TYPE: ERROR
+   ============================================================================= */
+
+.stepper-step[data-type="error"] .stepper-step__indicator {
+  --_indicator-bg:           var(--bg-negative-softest);
+  --_indicator-border-color: var(--border-negative);
+  --_indicator-color:        var(--text-negative);
+}
+
+.stepper-step[data-type="error"] .stepper-step__title {
+  color: var(--text-negative);
+}
+
+/* =============================================================================
+   ACTIVE STATE
+   Filled indicator. 2px border. White indicator text.
+   Active + default/checked → primary fill.
+   Active + notice → notice fill.
+   Active + error → negative fill.
+   ============================================================================= */
+
+/* default and checked share primary as the "current step" fill */
+.stepper-step[data-active]:not([data-type="notice"]):not([data-type="error"]) .stepper-step__indicator {
+  --_indicator-bg:           var(--bg-primary);
+  --_indicator-border-color: var(--border-primary);
+  --_indicator-border-width: var(--border-width-200);
+  --_indicator-color:        var(--text-loud-inverse);
+}
+
+.stepper-step[data-active][data-type="notice"] .stepper-step__indicator {
+  --_indicator-bg:           var(--bg-notice);
+  --_indicator-border-color: var(--border-notice);
+  --_indicator-border-width: var(--border-width-200);
+  --_indicator-color:        var(--text-loud-inverse);
+}
+
+.stepper-step[data-active][data-type="error"] .stepper-step__indicator {
+  --_indicator-bg:           var(--bg-negative);
+  --_indicator-border-color: var(--border-negative);
+  --_indicator-border-width: var(--border-width-200);
+  --_indicator-color:        var(--text-loud-inverse);
+}
+
+/* Active title: semibold → bold */
+.stepper-step[data-active] .stepper-step__title {
+  font-weight: var(--font-weight-bold);
+}
+
+/* =============================================================================
+   INTERACTIVE — hover affordance on title
+   ============================================================================= */
+
+.stepper-step[data-interactive] .stepper-step__trigger:hover .stepper-step__title {
+  color: var(--text-accent);
+}
+
+/* =============================================================================
+   DISABLED STATE
+   ============================================================================= */
+
+.stepper-step[data-disabled] {
+  opacity: 0.5;
+  cursor:  not-allowed;
+}
+
+.stepper-step[data-disabled] .stepper-step__trigger {
+  cursor:         not-allowed;
+  pointer-events: none;
+}
+
+/* =============================================================================
+   NESTED STEPPER — sub-steps inside a step body
+   Smaller indicator (24px) and reduced spacing.
+   ============================================================================= */
+
+.stepper-step__body > .stepper {
+  margin-top: var(--spacing-100);   /* 16px before sub-steps begin */
+}
+
+.stepper-step__body > .stepper .stepper-step__indicator {
+  --_indicator-size: var(--size-150);   /* 24px */
+  font-size: var(--font-size-60);       /* 12px */
+}

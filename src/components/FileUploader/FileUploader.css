@@ -1,0 +1,432 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — FILE UPLOADER COMPONENT
+   Source: components/file-uploader.md
+
+   Structure:
+     .file-uploader
+       .file-uploader__label
+       .file-uploader__description
+       .file-uploader__body             ← flex row/col container
+         .file-uploader__zone           ← drag-and-drop target
+         .file-uploader__list           ← <ul> of file items
+           .file-uploader__item[data-status]
+       .file-uploader__actions          ← upload button row
+       .file-uploader__hint
+       .file-uploader__input            ← hidden <input type="file">
+   ============================================================================= */
+
+/* =============================================================================
+   ROOT
+   ============================================================================= */
+
+.file-uploader {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-25); /* 4px — label → description → body */
+  width:          100%;
+}
+
+/* =============================================================================
+   LABEL + DESCRIPTION
+   ============================================================================= */
+
+.file-uploader__label {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-loud);
+}
+
+.file-uploader__required {
+  color: var(--text-negative);
+}
+
+.file-uploader__description {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text);
+  margin-top:  0;
+}
+
+/* =============================================================================
+   BODY — wraps drop zone + file list
+   ============================================================================= */
+
+.file-uploader__body {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-100); /* 16px between zone and list */
+  margin-top:     var(--spacing-25);
+}
+
+/* Right layout: zone and list side by side */
+.file-uploader[data-position="right"] .file-uploader__body {
+  flex-direction: row;
+  align-items:    flex-start;
+}
+
+.file-uploader[data-position="right"] .file-uploader__zone {
+  flex:      0 0 260px;
+  min-width: 260px;
+}
+
+.file-uploader[data-position="right"] .file-uploader__list {
+  flex: 1;
+}
+
+/* =============================================================================
+   DROP ZONE
+   ============================================================================= */
+
+.file-uploader__zone {
+  --_border-color: var(--border-default);
+  --_border-style: dashed;
+  --_bg:           var(--bg-surface);
+
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  gap:             var(--spacing-50); /* 8px between zone elements */
+
+  min-height:      200px;
+  padding:         var(--spacing-200); /* 32px */
+  border:          2px var(--_border-style) var(--_border-color);
+  border-radius:   var(--border-radius-200);
+  background:      var(--_bg);
+  cursor:          pointer;
+  text-align:      center;
+
+  transition:
+    border-color 150ms ease,
+    background   150ms ease;
+
+  /* Focus ring for keyboard access */
+  outline: none;
+}
+
+.file-uploader__zone:focus-visible {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Hover */
+.file-uploader:not([data-disabled]) .file-uploader__zone:hover {
+  --_border-color: var(--border-primary);
+  --_border-style: solid;
+  --_bg:           var(--bg-primary-softest);
+}
+
+/* Dragging */
+.file-uploader__zone[data-dragging] {
+  --_border-color: var(--border-primary);
+  --_border-style: solid;
+  --_bg:           var(--bg-primary-softest);
+}
+
+/* Disabled */
+.file-uploader[data-disabled] .file-uploader__zone {
+  --_bg:      var(--bg-neutral-soft);
+  opacity:    var(--opacity-60);
+  cursor:     not-allowed;
+}
+
+/* =============================================================================
+   DROP ZONE — content elements
+   ============================================================================= */
+
+.file-uploader__zone-icon {
+  color:       var(--text-soft);
+  flex-shrink: 0;
+}
+
+.file-uploader__zone-text {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-100); /* 16px */
+  font-weight: var(--font-weight-regular);
+  color:       var(--text);
+  line-height: var(--font-line-height-body);
+}
+
+.file-uploader__zone-browse {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-100);
+  font-weight: var(--font-weight-regular);
+  color:       var(--text-soft);
+  line-height: var(--font-line-height-body);
+}
+
+.file-uploader__browse-link {
+  font-weight:     var(--font-weight-semibold);
+  color:           var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.file-uploader__zone-hint {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80); /* 14px */
+  font-weight: var(--font-weight-regular);
+  color:       var(--text-softest);
+  line-height: var(--font-line-height-body);
+}
+
+/* =============================================================================
+   FILE LIST
+   ============================================================================= */
+
+.file-uploader__list {
+  list-style: none;
+  margin:     0;
+  padding:    0;
+  display:    flex;
+  flex-direction: column;
+  gap:        var(--spacing-50); /* 8px between items */
+}
+
+/* =============================================================================
+   FILE ITEM
+   ============================================================================= */
+
+.file-uploader__item {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-75); /* 12px */
+  min-height:  var(--size-300); /* 48px */
+  padding:     0 var(--spacing-75); /* 12px horizontal */
+  border:      var(--border-width-100) solid var(--border-default);
+  border-radius: var(--border-radius-200);
+  background:  var(--bg-surface);
+  box-sizing:  border-box;
+}
+
+/* Status color modifiers */
+.file-uploader__item[data-status="uploaded"] {
+  border-color: var(--border-positive);
+}
+
+.file-uploader__item[data-status="error"] {
+  border-color: var(--border-negative);
+}
+
+/* =============================================================================
+   FILE ITEM — icon
+   ============================================================================= */
+
+.file-uploader__item-icon {
+  display:     flex;
+  align-items: center;
+  flex-shrink: 0;
+  color:       var(--text-soft);
+}
+
+/* =============================================================================
+   FILE ITEM — name + meta
+   ============================================================================= */
+
+.file-uploader__item-info {
+  display:        flex;
+  flex-direction: column;
+  gap:            1px;
+  flex:           1;
+  min-width:      0;
+}
+
+.file-uploader__item-name {
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-80);
+  font-weight:   var(--font-weight-regular);
+  color:         var(--text);
+  line-height:   var(--font-line-height-body);
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+}
+
+.file-uploader__item-meta {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  color:       var(--text-soft);
+  line-height: var(--font-line-height-body);
+}
+
+.file-uploader__item-error {
+  color: var(--text-negative);
+}
+
+/* =============================================================================
+   FILE ITEM — status icon
+   ============================================================================= */
+
+.file-uploader__item-status {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+  width:           20px;
+}
+
+.file-uploader__item[data-status="uploading"] .file-uploader__item-status {
+  color: var(--text-soft);
+}
+
+.file-uploader__item[data-status="uploaded"] .file-uploader__item-status {
+  color: var(--text-positive);
+}
+
+.file-uploader__item[data-status="error"] .file-uploader__item-status {
+  color: var(--text-negative);
+}
+
+/* =============================================================================
+   FILE ITEM — remove button
+   ============================================================================= */
+
+.file-uploader__item-remove {
+  /* Reset */
+  all:        unset;
+  box-sizing: border-box;
+
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+  width:           32px;
+  height:          32px;
+  border-radius:   var(--border-radius-100);
+  cursor:          pointer;
+  color:           var(--text-soft);
+  transition:      color 100ms ease, background 100ms ease;
+}
+
+.file-uploader__item-remove:hover {
+  color:       var(--text);
+  background:  var(--bg-neutral-soft);
+}
+
+.file-uploader__item-remove:focus-visible {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 1px;
+}
+
+.file-uploader__item-remove:disabled {
+  opacity: var(--opacity-60);
+  cursor:  not-allowed;
+}
+
+/* =============================================================================
+   UPLOAD BUTTON ROW
+   ============================================================================= */
+
+.file-uploader__actions {
+  display:     flex;
+  align-items: center;
+}
+
+.file-uploader__upload-btn {
+  /* Reset */
+  all:        unset;
+  box-sizing: border-box;
+
+  display:         inline-flex;
+  align-items:     center;
+  gap:             var(--spacing-50); /* 8px */
+  height:          var(--size-250); /* 40px */
+  padding:         0 var(--spacing-100); /* 16px */
+  border-radius:   var(--border-radius-200);
+  background:      var(--bg-primary);
+  color:           var(--text-loud-inverse);
+  cursor:          pointer;
+  font-family:     var(--font-family-base);
+  font-size:       var(--font-size-100);
+  font-weight:     var(--font-weight-semibold);
+  line-height:     1;
+  transition:      background 150ms ease;
+}
+
+.file-uploader__upload-btn:hover:not(:disabled) {
+  background: var(--bg-primary-loud);
+}
+
+.file-uploader__upload-btn:focus-visible {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.file-uploader__upload-btn:disabled {
+  opacity: var(--opacity-60);
+  cursor:  not-allowed;
+}
+
+/* =============================================================================
+   HINT
+   ============================================================================= */
+
+.file-uploader__hint {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-soft);
+}
+
+/* =============================================================================
+   HIDDEN INPUT
+   ============================================================================= */
+
+.file-uploader__input {
+  position: absolute;
+  width:    1px;
+  height:   1px;
+  overflow: hidden;
+  clip:     rect(0, 0, 0, 0);
+  opacity:  0;
+}
+
+/* =============================================================================
+   SCREEN READER ONLY
+   ============================================================================= */
+
+.file-uploader__sr-only {
+  position:  absolute;
+  width:     1px;
+  height:    1px;
+  padding:   0;
+  margin:    -1px;
+  overflow:  hidden;
+  clip:      rect(0, 0, 0, 0);
+  border:    0;
+  white-space: nowrap;
+}
+
+/* =============================================================================
+   SPIN ANIMATION
+   ============================================================================= */
+
+.file-uploader__spin {
+  animation: file-uploader-spin 700ms linear infinite;
+}
+
+@keyframes file-uploader-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* =============================================================================
+   REDUCED MOTION
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .file-uploader__zone,
+  .file-uploader__item-remove,
+  .file-uploader__upload-btn {
+    transition: none;
+  }
+  .file-uploader__spin {
+    animation: none;
+  }
+}

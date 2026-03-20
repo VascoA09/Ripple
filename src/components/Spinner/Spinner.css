@@ -1,0 +1,118 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — SPINNER COMPONENT
+   Source: components/spinner.md
+
+   Architecture: private CSS custom properties (--_*) for colors and label
+   size, resolved per variant and size. The SVG animation runs on the whole
+   svg element — no transform-origin arithmetic needed for SVG elements.
+   ============================================================================= */
+
+@keyframes ripple-spinner-rotate {
+  to { transform: rotate(360deg); }
+}
+
+/* =============================================================================
+   BASE
+   ============================================================================= */
+
+.spinner {
+  /* Private color tokens — overridden per variant */
+  --_indicator-color: var(--color-primary);
+  --_track-color:     var(--color-cool-gray-30);
+  --_label-color:     var(--text);
+
+  /* Private label token — overridden per size */
+  --_label-font-size: var(--font-size-100);
+
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+}
+
+/* =============================================================================
+   LABEL LAYOUT
+   ============================================================================= */
+
+.spinner[data-label-position="stacked"] {
+  flex-direction: column;
+  gap: var(--spacing-100); /* 16px */
+}
+
+.spinner[data-label-position="inline"] {
+  flex-direction: row;
+  gap: var(--spacing-75); /* 12px */
+}
+
+/* =============================================================================
+   VARIANTS
+   ============================================================================= */
+
+.spinner[data-variant="primary"] {
+  --_indicator-color: var(--color-primary);
+  --_track-color:     var(--color-cool-gray-30);
+  --_label-color:     var(--text);
+}
+
+.spinner[data-variant="neutral"] {
+  --_indicator-color: var(--color-neutral-loud);
+  --_track-color:     var(--color-cool-gray-40);
+  --_label-color:     var(--text);
+}
+
+.spinner[data-variant="inverse"] {
+  --_indicator-color: var(--color-white);
+  --_track-color:     rgba(255, 255, 255, 0.3); /* no primitive equivalent */
+  --_label-color:     var(--text-loud-inverse);
+}
+
+/* =============================================================================
+   SIZES — label font scale
+   Note: --font-size-140 (20px) is not in the type scale; xl falls back to 120.
+   ============================================================================= */
+
+.spinner[data-size="s"]  { --_label-font-size: var(--font-size-60);  }
+.spinner[data-size="m"]  { --_label-font-size: var(--font-size-100); }
+.spinner[data-size="l"]  { --_label-font-size: var(--font-size-120); }
+.spinner[data-size="xl"] { --_label-font-size: var(--font-size-120); }
+
+/* =============================================================================
+   SVG ELEMENTS
+   ============================================================================= */
+
+.spinner__svg {
+  flex-shrink: 0;
+  animation: ripple-spinner-rotate 1s linear infinite;
+  /* transform-origin defaults to 50% 50% of the element bounding box — correct */
+}
+
+.spinner__track {
+  stroke: var(--_track-color);
+  fill:   none;
+}
+
+.spinner__indicator {
+  stroke: var(--_indicator-color);
+  fill:   none;
+}
+
+/* =============================================================================
+   LABEL
+   ============================================================================= */
+
+.spinner__label {
+  font-family: var(--font-family-base);
+  font-size:   var(--_label-font-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--_label-color);
+}
+
+/* =============================================================================
+   REDUCED MOTION
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner__svg {
+    animation: none;
+  }
+}

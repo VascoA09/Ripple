@@ -1,0 +1,264 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — LIST COMPONENT
+
+   Compound: List + ListItem
+   Sizes: medium (48px, default), small (40px)
+
+   Architecture:
+   - .list            <ul role="list"> — container, strips default list styles
+   - .list-item       <li> — row wrapper; owns padding, background
+   - .list-item__bulk-select  checkbox wrapper, always leading
+   - .list-item__inner        <a>, <button>, or <div> — fills remaining space
+   - .list-item__before       leading content slot (avatar, icon)
+   - .list-item__content      header + description stack
+   - .list-item__after        trailing content slot (badges, actions)
+
+   Unread indicator:
+   An 8px primary dot via ::before pseudo-element, absolutely positioned
+   within the item's left padding area. .list-item has position: relative
+   to establish the positioning context.
+
+   Active state:
+   Targeted via :has(.list-item__inner:active) to exclude checkbox clicks
+   from triggering the primary-background active state. Uses --_before-color
+   to cascade icon color into the before slot.
+   ============================================================================= */
+
+/* =============================================================================
+   LIST ROOT
+   ============================================================================= */
+
+.list {
+  list-style:    none;
+  margin:        0;
+  padding:       var(--spacing-50);                      /* 8px */
+  width:         100%;
+  box-sizing:    border-box;
+  border-radius: var(--border-radius-container-default); /* 8px */
+  background:    var(--bg-surface);
+  overflow:      hidden;                                 /* clips item hover/active bg at rounded corners */
+}
+
+/* =============================================================================
+   LIST ITEM
+   ============================================================================= */
+
+.list-item {
+  /* Private custom properties — override per size variant */
+  --_padding-v:        var(--spacing-50);                     /* 8px  — medium */
+  --_padding-h:        var(--spacing-100);                    /* 16px — medium */
+  --_gap:              var(--spacing-75);                     /* 12px — medium */
+  --_min-height:       var(--size-component-height-large);    /* 48px — medium */
+  --_header-font-size: var(--font-size-100);                  /* 16px — medium */
+  --_desc-font-size:   var(--font-size-80);                   /* 14px — medium */
+
+  /* Token aliases for cascading into children */
+  --_header-color:  var(--text-loud);
+  --_desc-color:    var(--text-soft);
+  --_before-color:  currentColor;   /* icons inherit; overridden to white on active */
+
+  position:      relative;         /* for ::before unread dot */
+  display:       flex;
+  align-items:   center;
+  gap:           var(--_gap);
+  min-height:    var(--_min-height);
+  padding:       var(--_padding-v) var(--_padding-h);
+  border-radius: var(--border-radius-100);
+  background:    transparent;
+  cursor:        default;
+  transition:    background 150ms ease;
+}
+
+/* Small size */
+.list-item[data-size="small"] {
+  --_padding-v:        var(--spacing-25);                     /* 4px  */
+  --_padding-h:        var(--spacing-75);                     /* 12px */
+  --_gap:              var(--spacing-50);                     /* 8px  */
+  --_min-height:       var(--size-component-height-default);  /* 40px */
+  --_header-font-size: var(--font-size-80);                   /* 14px */
+  --_desc-font-size:   var(--font-size-60);                   /* 12px */
+}
+
+/* =============================================================================
+   UNREAD INDICATOR
+   8px primary dot, absolutely positioned within the item's left padding area.
+   Centred vertically. Hidden on active (primary background makes it redundant).
+   ============================================================================= */
+
+.list-item[data-unread]::before {
+  content:        '';
+  position:       absolute;
+  left:           var(--spacing-25);    /* 4px from left edge — within padding area */
+  top:            50%;
+  transform:      translateY(-50%);
+  width:          8px;
+  height:         8px;
+  border-radius:  50%;
+  background:     var(--border-primary);
+  pointer-events: none;
+}
+
+/* =============================================================================
+   INTERACTIVE STATES
+   ============================================================================= */
+
+.list-item[data-interactive]:not([data-disabled]) {
+  cursor: pointer;
+}
+
+/* Hover */
+.list-item[data-interactive]:not([data-disabled]):hover {
+  background: var(--bg-primary-softest);
+}
+
+/* Active — targets .list-item__inner (button/a) only, excludes checkbox clicks */
+.list-item[data-interactive]:not([data-disabled]):has(.list-item__inner:active) {
+  background:       var(--bg-primary);
+  --_header-color:  var(--text-loud-inverse);
+  --_desc-color:    var(--text-loud-inverse);
+  --_before-color:  var(--text-loud-inverse);   /* icons → white */
+}
+
+/* Hide unread dot when active (primary bg makes it redundant) */
+.list-item[data-interactive]:not([data-disabled]):has(.list-item__inner:active)::before {
+  opacity: 0;
+}
+
+/* Focus — row-level ring via the inner element's focus-visible */
+.list-item[data-interactive]:not([data-disabled]):has(.list-item__inner:focus-visible) {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: -2px;
+}
+
+/* Suppress the inner element's default focus ring in favour of the row-level ring */
+.list-item__inner:focus-visible {
+  outline: none;
+}
+
+/* Disabled */
+.list-item[data-disabled] {
+  opacity: var(--opacity-30);
+  cursor:  not-allowed;
+}
+
+.list-item[data-disabled] .list-item__inner {
+  cursor:         not-allowed;
+  pointer-events: none;
+}
+
+/* =============================================================================
+   INNER ELEMENT
+   Shared class on <a>, <button>, and <div>.
+   Resets browser defaults for button and anchor; fills available flex space.
+   ============================================================================= */
+
+.list-item__inner {
+  /* Button / link reset */
+  appearance:      none;
+  border:          none;
+  background:      transparent;
+  padding:         0;
+  text-align:      left;
+  text-decoration: none;
+  font-family:     var(--font-family-base);
+  color:           inherit;
+  cursor:          inherit;
+
+  /* Layout */
+  display:     flex;
+  align-items: center;
+  flex:        1 1 0;
+  min-width:   0;
+  gap:         var(--_gap);
+}
+
+/* =============================================================================
+   CONTENT BEFORE
+   Leading slot: avatar, icon, or custom content.
+   ============================================================================= */
+
+.list-item__before {
+  display:     flex;
+  align-items: center;
+  flex-shrink: 0;
+  color:       var(--_before-color);
+  transition:  color 150ms ease;
+}
+
+/* =============================================================================
+   MAIN CONTENT
+   Fills remaining space. Header and optional description stack vertically.
+   ============================================================================= */
+
+.list-item__content {
+  display:        flex;
+  flex-direction: column;
+  gap:            0;
+  flex:           1 1 0;
+  min-width:      0;
+}
+
+.list-item__header {
+  font-family:   var(--font-family-base);
+  font-size:     var(--_header-font-size);
+  font-weight:   var(--font-weight-semibold);
+  line-height:   var(--font-line-height-body);
+  color:         var(--_header-color);
+  white-space:   nowrap;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+}
+
+.list-item__description {
+  font-family:   var(--font-family-base);
+  font-size:     var(--_desc-font-size);
+  font-weight:   var(--font-weight-regular);
+  line-height:   var(--font-line-height-body);
+  color:         var(--_desc-color);
+  white-space:   nowrap;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+}
+
+/* =============================================================================
+   CONTENT AFTER
+   Trailing slot: actions, badges, metadata.
+   ============================================================================= */
+
+.list-item__after {
+  display:     flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap:         var(--spacing-50);       /* 8px between trailing items */
+}
+
+/* =============================================================================
+   BULK SELECT CHECKBOX
+   Always on the leading edge, before contentBefore.
+   Click events stop at this wrapper so they don't trigger the item's onClick.
+   ============================================================================= */
+
+.list-item__bulk-select {
+  display:     flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.list-item__checkbox {
+  width:       var(--size-icon-small);  /* 16px */
+  height:      var(--size-icon-small);
+  accent-color: var(--color-primary);
+  cursor:      pointer;
+  flex-shrink: 0;
+  margin:      0;
+}
+
+/* =============================================================================
+   REDUCED MOTION
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .list-item {
+    transition: none;
+  }
+}

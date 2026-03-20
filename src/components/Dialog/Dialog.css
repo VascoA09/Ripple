@@ -1,0 +1,178 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — DIALOG COMPONENT
+
+   Compound: Dialog, DialogHeader, DialogBody, DialogFooter
+   Sizes: small (max 400px), medium (max 640px)
+   Animation: fade + scale on open/close (200ms)
+   Backdrop: 30% black overlay
+
+   State is driven by data-open="true|false" set from React.
+   A two-rAF technique ensures the closed→open transition always plays.
+   ============================================================================= */
+
+/* =============================================================================
+   BACKDROP
+   Decorative. Covers the viewport. Click is handled by .dialog-positioner.
+   ============================================================================= */
+
+.dialog-backdrop {
+  position:   fixed;
+  inset:      0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index:    1000;
+  transition: opacity 200ms ease;
+}
+
+.dialog-backdrop[data-open="false"] { opacity: 0; }
+.dialog-backdrop[data-open="true"]  { opacity: 1; }
+
+/* =============================================================================
+   POSITIONER
+   Full-viewport flex container. Centres the dialog. Handles backdrop click.
+   padding creates safe margin on small screens (dialog won't touch edge).
+   ============================================================================= */
+
+.dialog-positioner {
+  position:        fixed;
+  inset:           0;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  z-index:         1001;
+  padding:         var(--spacing-150);   /* 24px — breathing room on small screens */
+  overflow-y:      auto;
+}
+
+/* =============================================================================
+   DIALOG CONTAINER
+   ============================================================================= */
+
+.dialog {
+  background:     var(--bg-surface);
+  border-radius:  var(--border-radius-overlay-default);  /* 12px */
+  box-shadow:     var(--elevation-overlay);              /* box-shadow-800 */
+  display:        flex;
+  flex-direction: column;
+  width:          100%;
+  max-height:     calc(100dvh - var(--spacing-200));     /* viewport − 32px margin */
+  position:       relative;
+  transition:     opacity 200ms ease, transform 200ms ease;
+}
+
+.dialog[data-size="small"]  { max-width: 400px; }
+.dialog[data-size="medium"] { max-width: 640px; }
+
+/* Entry state (before first paint) and exit state */
+.dialog[data-open="false"] {
+  opacity:   0;
+  transform: scale(0.96) translateY(6px);
+}
+
+/* Open state */
+.dialog[data-open="true"] {
+  opacity:   1;
+  transform: scale(1) translateY(0);
+}
+
+/* =============================================================================
+   HEADER
+   Contains: optional icon, title (aria-labelledby target), close button.
+   ============================================================================= */
+
+.dialog__header {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--spacing-100);                    /* 16px */
+  padding:         var(--spacing-125) var(--spacing-150); /* 20px 24px */
+  flex-shrink:     0;
+}
+
+.dialog__header-start {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-75);    /* 12px */
+  min-width:   0;                    /* allows title to truncate */
+}
+
+.dialog__header-icon {
+  display:     flex;
+  align-items: center;
+  flex-shrink: 0;
+  color:       var(--icon-default);
+}
+
+.dialog__title {
+  margin:        0;
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-120);     /* 18px — typography-heading-s */
+  font-weight:   var(--font-weight-semibold);
+  line-height:   var(--font-line-height-heading);
+  color:         var(--text-loud);
+  /* Prevent long titles from squashing the close button */
+  min-width:     0;
+  overflow:      hidden;
+  white-space:   nowrap;
+  text-overflow: ellipsis;
+}
+
+.dialog__close {
+  flex-shrink: 0;
+  /* Optical alignment: counteract the button's own internal padding */
+  margin-top:    calc(-1 * var(--spacing-25));
+  margin-bottom: calc(-1 * var(--spacing-25));
+}
+
+/* =============================================================================
+   BODY
+   Scrollable. flex-grow fills all space between header and footer.
+   ============================================================================= */
+
+.dialog__body {
+  flex:            1 1 auto;
+  overflow-y:      auto;
+  padding:         var(--spacing-150);            /* 24px */
+  font-family:     var(--font-family-base);
+  font-size:       var(--font-size-100);          /* 16px */
+  font-weight:     var(--font-weight-regular);
+  line-height:     var(--font-line-height-body);  /* 1.5 */
+  color:           var(--text);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-neutral) transparent;
+}
+
+/* =============================================================================
+   FOOTER
+   Action buttons. Right-aligned. Stacks (column-reverse) below 413px so the
+   primary action stays on top when vertical.
+   ============================================================================= */
+
+.dialog__footer {
+  display:         flex;
+  flex-direction:  row;
+  align-items:     center;
+  justify-content: flex-end;
+  flex-wrap:       wrap;
+  gap:             var(--spacing-75);                     /* 12px */
+  padding:         var(--spacing-125) var(--spacing-150); /* 20px 24px */
+  flex-shrink:     0;
+}
+
+@media (max-width: 413px) {
+  .dialog__footer {
+    flex-direction: column;   /* DOM order preserved — fill button stays at bottom */
+    align-items:    stretch;  /* buttons full-width */
+  }
+}
+
+/* =============================================================================
+   REDUCED MOTION
+   No transition — state changes are still applied, just instantly.
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .dialog-backdrop,
+  .dialog {
+    transition: none;
+  }
+}

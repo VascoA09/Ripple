@@ -1,0 +1,342 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — DROPDOWN COMPONENT
+   Source: components/dropdown.md
+
+   Single-select dropdown. Trigger is a <button role="combobox">; panel is
+   a <ul role="listbox">. Focus stays on the trigger; aria-activedescendant
+   tracks the keyboard-focused option.
+
+   Architecture: private size tokens (--_*) on .dropdown, overridden by
+   [data-size]. State driven by [data-open], [data-validation], [data-selected],
+   [data-active], [data-disabled].
+
+   Token note: spec referenced --color-cool-gray-30 for group divider (primitive).
+   Replaced with --border-neutral (semantic equivalent).
+   ============================================================================= */
+
+/* =============================================================================
+   SIZE TOKENS — medium defaults
+   ============================================================================= */
+
+.dropdown {
+  --_height:       var(--size-250);      /* 40px */
+  --_px:           var(--spacing-100);   /* 16px */
+  --_font-size:    var(--font-size-100); /* 16px */
+  --_label-size:   var(--font-size-80);  /* 14px */
+  --_icon-size:    16px;
+  --_option-min-h: var(--size-250);      /* 40px */
+}
+
+.dropdown[data-size="small"] {
+  --_height:       var(--size-200);     /* 32px */
+  --_px:           var(--spacing-75);   /* 12px */
+  --_font-size:    var(--font-size-80); /* 14px */
+  --_icon-size:    14px;
+  --_option-min-h: var(--size-200);     /* 32px */
+}
+
+.dropdown[data-size="large"] {
+  --_height:       var(--size-300);      /* 48px */
+  --_px:           var(--spacing-125);   /* 20px */
+  --_font-size:    var(--font-size-120); /* 18px */
+  --_icon-size:    18px;
+  --_option-min-h: var(--size-300);      /* 48px */
+}
+
+/* =============================================================================
+   ROOT WRAPPER
+   ============================================================================= */
+
+.dropdown {
+  position:       relative;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-25); /* 4px */
+  width:          100%;
+}
+
+/* =============================================================================
+   LABEL
+   ============================================================================= */
+
+.dropdown__label {
+  font-family: var(--font-family-base);
+  font-size:   var(--_label-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-loud);
+  cursor:      default;
+}
+
+.dropdown__required {
+  color: var(--text-negative);
+}
+
+/* =============================================================================
+   TRIGGER
+   ============================================================================= */
+
+.dropdown__trigger {
+  /* Private border token so validation can override easily */
+  --_border-color: var(--border-default);
+
+  /* Reset button */
+  all:            unset;
+  box-sizing:     border-box;
+
+  display:        flex;
+  align-items:    center;
+  justify-content: space-between;
+  gap:            var(--spacing-50); /* 8px */
+
+  width:          100%;
+  height:         var(--_height);
+  padding:        0 var(--_px);
+
+  font-family:    var(--font-family-base);
+  font-size:      var(--_font-size);
+  font-weight:    var(--font-weight-regular);
+  line-height:    1;
+  color:          var(--text);
+
+  background:     var(--bg-surface);
+  border:         var(--border-width-100) solid var(--_border-color);
+  border-radius:  var(--border-radius-200);
+  cursor:         pointer;
+
+  transition:     border-color 150ms ease;
+}
+
+/* Hover */
+.dropdown:not([data-disabled]):not([data-open]) .dropdown__trigger:hover {
+  --_border-color: var(--border-primary);
+}
+
+/* Open / focus */
+.dropdown__trigger:focus-visible,
+.dropdown[data-open] .dropdown__trigger {
+  --_border-color: var(--border-primary);
+  outline:         var(--border-width-focus) solid var(--border-focus);
+  outline-offset:  2px;
+}
+
+/* Validation */
+.dropdown[data-validation="negative"] .dropdown__trigger { --_border-color: var(--border-negative); }
+.dropdown[data-validation="notice"]   .dropdown__trigger { --_border-color: var(--border-notice);   }
+.dropdown[data-validation="positive"] .dropdown__trigger { --_border-color: var(--border-positive); }
+
+/* Disabled */
+.dropdown[data-disabled] .dropdown__trigger {
+  cursor:  not-allowed;
+  opacity: var(--opacity-60);
+}
+
+/* =============================================================================
+   TRIGGER — value / placeholder text
+   ============================================================================= */
+
+.dropdown__trigger-value,
+.dropdown__trigger-placeholder {
+  flex:          1;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+  text-align:    left;
+}
+
+.dropdown__trigger-placeholder {
+  color: var(--text-softest);
+}
+
+/* =============================================================================
+   CHEVRON
+   ============================================================================= */
+
+.dropdown__chevron {
+  flex-shrink:  0;
+  color:        var(--text-soft);
+  transition:   transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.dropdown[data-open] .dropdown__chevron {
+  transform: rotate(180deg);
+}
+
+/* =============================================================================
+   LISTBOX PANEL
+   ============================================================================= */
+
+.dropdown__listbox {
+  position:   absolute;
+  top:        calc(100% + var(--spacing-25)); /* 4px gap */
+  left:       0;
+  right:      0;
+  z-index:    200;
+
+  max-height: 300px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  margin:     0;
+  padding:    var(--spacing-50) 0; /* 8px top + bottom */
+  list-style: none;
+
+  background:     var(--bg-surface);
+  border-radius:  var(--border-radius-200);
+  box-shadow:     var(--box-shadow-400);
+
+  animation: dropdown-panel-in 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes dropdown-panel-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* =============================================================================
+   GROUP HEADER + DIVIDER
+   ============================================================================= */
+
+.dropdown__group-header {
+  padding:     var(--spacing-50) var(--spacing-75) var(--spacing-25);
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-semibold);
+  color:       var(--text-soft);
+  cursor:      default;
+  user-select: none;
+}
+
+.dropdown__group-divider {
+  height:     1px;
+  background: var(--border-neutral); /* replaces spec's --color-cool-gray-30 (primitive) */
+  margin:     var(--spacing-50) 0;
+}
+
+/* =============================================================================
+   OPTION
+   ============================================================================= */
+
+.dropdown__option {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-50); /* 8px */
+  min-height:  var(--_option-min-h);
+  padding:     var(--spacing-50) var(--spacing-75); /* 8px 12px */
+  cursor:      pointer;
+  transition:  background 100ms ease;
+  outline:     none;
+  user-select: none;
+}
+
+.dropdown__option:hover,
+.dropdown__option[data-active] {
+  background: var(--bg-primary-softest);
+}
+
+.dropdown__option[data-selected] {
+  background: var(--bg-primary-softest);
+}
+
+.dropdown__option[data-selected][data-active] {
+  background: var(--bg-primary-soft);
+}
+
+/* Keyboard focus ring (data-active set on hover AND keyboard nav) */
+.dropdown__option[data-active] {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: -2px;
+  border-radius:  var(--border-radius-150);
+}
+
+.dropdown__option[data-disabled] {
+  opacity:        var(--opacity-60);
+  cursor:         not-allowed;
+  pointer-events: none;
+}
+
+/* =============================================================================
+   OPTION — checkmark column
+   ============================================================================= */
+
+.dropdown__option-check {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+  width:           16px;
+  height:          16px;
+  color:           var(--color-primary-loud);
+}
+
+/* =============================================================================
+   OPTION — icon, content, label, description
+   ============================================================================= */
+
+.dropdown__option-icon {
+  display:     flex;
+  align-items: center;
+  flex-shrink: 0;
+  color:       var(--icon-default);
+}
+
+.dropdown__option-content {
+  display:        flex;
+  flex-direction: column;
+  gap:            2px;
+  min-width:      0;
+  flex:           1;
+}
+
+.dropdown__option-label {
+  font-family:   var(--font-family-base);
+  font-size:     var(--_font-size);
+  font-weight:   var(--font-weight-regular);
+  color:         var(--text);
+  white-space:   nowrap;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown__option-description {
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-80); /* always 14px regardless of size */
+  font-weight:   var(--font-weight-regular);
+  color:         var(--text-soft);
+  white-space:   nowrap;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+}
+
+/* =============================================================================
+   HELPER TEXT + VALIDATION MESSAGE
+   ============================================================================= */
+
+.dropdown__hint,
+.dropdown__message {
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-size:   var(--_label-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-soft);
+}
+
+.dropdown[data-validation="positive"] .dropdown__message { color: var(--text-positive); }
+.dropdown[data-validation="notice"]   .dropdown__message { color: var(--text-notice);   }
+.dropdown[data-validation="negative"] .dropdown__message { color: var(--text-negative); }
+
+/* =============================================================================
+   REDUCED MOTION
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .dropdown__listbox {
+    animation: none;
+  }
+  .dropdown__trigger,
+  .dropdown__chevron {
+    transition: none;
+  }
+}

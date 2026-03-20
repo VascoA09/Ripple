@@ -1,0 +1,399 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — FILE VIEWER COMPONENT
+   Source: components/file-viewer.md
+
+   Structure:
+     .file-viewer[role="region"]
+       .file-viewer__header
+         .file-viewer__filename
+         .file-viewer__header-actions
+           .file-viewer__zoom-controls
+       .file-viewer__preview
+         .file-viewer__img-wrap / __pdf-wrap / __text-wrap / __table-wrap
+         .file-viewer__empty
+         .file-viewer__spinner
+       .file-viewer__footer
+         .file-viewer__meta
+         .file-viewer__footer-nav
+           .file-viewer__page-nav
+           .file-viewer__file-nav
+   ============================================================================= */
+
+/* =============================================================================
+   ROOT
+   ============================================================================= */
+
+.file-viewer {
+  display:        flex;
+  flex-direction: column;
+  width:          100%;
+  min-width:      300px;
+  border:         var(--border-width-100) solid var(--border-neutral);
+  border-radius:  var(--border-radius-200);
+  background:     var(--bg-surface);
+  overflow:       hidden;
+}
+
+/* =============================================================================
+   HEADER
+   ============================================================================= */
+
+.file-viewer__header {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--spacing-75);
+  padding:         0 var(--spacing-100);
+  height:          var(--size-250); /* 40px */
+  border-bottom:   var(--border-width-100) solid var(--border-neutral);
+  background:      var(--bg-surface);
+  flex-shrink:     0;
+}
+
+.file-viewer__filename {
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-80);
+  font-weight:   var(--font-weight-semibold);
+  color:         var(--text-loud);
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+  flex:          1;
+  min-width:     0;
+}
+
+.file-viewer__header-actions {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-25);
+  flex-shrink: 0;
+}
+
+/* =============================================================================
+   ZOOM CONTROLS
+   ============================================================================= */
+
+.file-viewer__zoom-controls {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-25);
+}
+
+.file-viewer__zoom-level {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  color:       var(--text-soft);
+  min-width:   36px;
+  text-align:  center;
+  user-select: none;
+}
+
+/* =============================================================================
+   PREVIEW AREA
+   ============================================================================= */
+
+.file-viewer__preview {
+  flex:       1;
+  overflow:   auto;
+  background: var(--bg-neutral-softest);
+  position:   relative;
+  display:    flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =============================================================================
+   IMAGE PREVIEW
+   ============================================================================= */
+
+.file-viewer__img-wrap {
+  position:        relative;
+  width:           100%;
+  height:          100%;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  overflow:        hidden; /* clip when zoomed — use expand for full view */
+}
+
+.file-viewer__img {
+  max-width:   100%;
+  max-height:  100%;
+  object-fit:  contain;
+  display:     block;
+  opacity:     0;
+  transition:  transform 200ms ease, opacity 200ms ease;
+}
+
+.file-viewer__img[data-loaded] {
+  opacity: 1;
+}
+
+/* =============================================================================
+   PDF PREVIEW (iframe)
+   ============================================================================= */
+
+.file-viewer__pdf-wrap {
+  position: relative;
+  width:    100%;
+  height:   100%;
+}
+
+.file-viewer__iframe {
+  width:   100%;
+  height:  100%;
+  border:  none;
+  display: block;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.file-viewer__iframe[data-loaded] {
+  opacity: 1;
+}
+
+/* =============================================================================
+   TEXT PREVIEW
+   ============================================================================= */
+
+.file-viewer__text-wrap {
+  width:   100%;
+  height:  100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.file-viewer__text-meta {
+  display:      flex;
+  align-items:  center;
+  gap:          var(--spacing-50);
+  padding:      var(--spacing-50) var(--spacing-100);
+  border-bottom: var(--border-width-100) solid var(--border-neutral);
+  font-family:  var(--font-family-base);
+  font-size:    var(--font-size-80);
+  color:        var(--text-soft);
+  flex-shrink:  0;
+  background:   var(--bg-surface);
+}
+
+.file-viewer__text {
+  flex:        1;
+  overflow:    auto;
+  margin:      0;
+  padding:     var(--spacing-100);
+  font-family: var(--font-family-mono, 'Courier New', monospace);
+  font-size:   var(--font-size-80);
+  line-height: var(--font-line-height-body);
+  color:       var(--text);
+  white-space: pre-wrap;
+  word-break:  break-all;
+  background:  var(--bg-neutral-softest);
+}
+
+/* =============================================================================
+   CSV / SPREADSHEET PREVIEW
+   ============================================================================= */
+
+.file-viewer__table-wrap {
+  width:    100%;
+  height:   100%;
+  overflow: auto;
+}
+
+.file-viewer__table {
+  width:           100%;
+  border-collapse: collapse;
+  font-family:     var(--font-family-base);
+  font-size:       var(--font-size-80);
+}
+
+.file-viewer__th {
+  padding:          var(--spacing-50) var(--spacing-75);
+  background:       var(--bg-neutral-soft);
+  border-bottom:    var(--border-width-100) solid var(--border-neutral);
+  text-align:       left;
+  font-weight:      var(--font-weight-semibold);
+  color:            var(--text-loud);
+  white-space:      nowrap;
+  position:         sticky;
+  top:              0;
+  z-index:          1;
+}
+
+.file-viewer__tr:nth-child(even) {
+  background: var(--bg-neutral-softest);
+}
+
+.file-viewer__tr:hover {
+  background: var(--bg-primary-softest);
+}
+
+.file-viewer__td {
+  padding:        var(--spacing-50) var(--spacing-75);
+  border-bottom:  var(--border-width-100) solid var(--border-neutral);
+  color:          var(--text);
+  white-space:    nowrap;
+  max-width:      200px;
+  overflow:       hidden;
+  text-overflow:  ellipsis;
+}
+
+/* =============================================================================
+   LOADING SPINNER
+   ============================================================================= */
+
+.file-viewer__spinner {
+  position:        absolute;
+  inset:           0;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  background:      var(--bg-neutral-softest);
+}
+
+/* =============================================================================
+   EMPTY STATES
+   ============================================================================= */
+
+.file-viewer__empty {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  justify-content: center;
+  gap:            var(--spacing-50);
+  padding:        var(--spacing-200);
+  text-align:     center;
+}
+
+.file-viewer__empty-icon {
+  color:   var(--text-soft);
+  opacity: 0.5;
+}
+
+.file-viewer__empty-title {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-100);
+  font-weight: var(--font-weight-semibold);
+  color:       var(--text);
+}
+
+.file-viewer__empty-desc {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  color:       var(--text-soft);
+}
+
+.file-viewer__empty-action {
+  /* Reset */
+  all:        unset;
+  box-sizing: border-box;
+
+  display:     inline-flex;
+  align-items: center;
+  gap:         var(--spacing-50);
+  margin-top:  var(--spacing-50);
+  padding:     var(--spacing-50) var(--spacing-100);
+  border:      var(--border-width-100) solid var(--border-default);
+  border-radius: var(--border-radius-200);
+  cursor:      pointer;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-semibold);
+  color:       var(--text);
+  transition:  background 100ms ease;
+}
+
+.file-viewer__empty-action:hover {
+  background: var(--bg-neutral-softest);
+}
+
+.file-viewer__empty-action:focus-visible {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* =============================================================================
+   FOOTER
+   ============================================================================= */
+
+.file-viewer__footer {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  padding:         0 var(--spacing-75);
+  height:          40px;
+  border-top:      var(--border-width-100) solid var(--border-neutral);
+  background:      var(--bg-surface);
+  flex-shrink:     0;
+}
+
+.file-viewer__meta {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-75);
+}
+
+.file-viewer__meta-item {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  color:       var(--text-soft);
+}
+
+/* Bullet separator between meta items */
+.file-viewer__meta-item + .file-viewer__meta-item::before {
+  content: '·';
+  margin-right: var(--spacing-75);
+  color: var(--text-softest);
+}
+
+.file-viewer__footer-nav {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-100);
+}
+
+.file-viewer__page-nav,
+.file-viewer__file-nav {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-25);
+}
+
+.file-viewer__nav-label {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  color:       var(--text-soft);
+  min-width:   56px;
+  text-align:  center;
+  user-select: none;
+}
+
+/* =============================================================================
+   SCREEN READER ONLY
+   ============================================================================= */
+
+.file-viewer__sr-only {
+  position:   absolute;
+  width:      1px;
+  height:     1px;
+  padding:    0;
+  margin:     -1px;
+  overflow:   hidden;
+  clip:       rect(0, 0, 0, 0);
+  border:     0;
+  white-space: nowrap;
+}
+
+/* =============================================================================
+   REDUCED MOTION
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .file-viewer__img,
+  .file-viewer__iframe {
+    transition: none;
+  }
+}

@@ -1,0 +1,109 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — SECTION COMPONENT
+   Source: components/section.md
+
+   Semantic layout container using <section>. Three variants: flat (default),
+   elevated, no-padding.
+   Divider is rendered as a sibling <hr> after the section, not inside it.
+   ============================================================================= */
+
+/* =============================================================================
+   BASE
+   ============================================================================= */
+
+.section {
+  width:      100%;
+  box-sizing: border-box;
+}
+
+/* =============================================================================
+   VARIANTS
+   ============================================================================= */
+
+.section[data-variant="flat"] {
+  padding:       var(--spacing-125);           /* 20px */
+  background:    var(--bg-surface);
+  border:        var(--border-width-100) solid var(--border-neutral);
+  border-radius: var(--border-radius-200);     /* 8px */
+}
+
+.section[data-variant="elevated"] {
+  padding:       var(--spacing-125);           /* 20px */
+  background:    var(--bg-surface);
+  border-radius: var(--border-radius-200);     /* 8px */
+  box-shadow:    var(--box-shadow-200);
+}
+
+/* no-padding: no visual treatment — purely structural */
+.section[data-variant="no-padding"] {
+  /* intentionally empty */
+}
+
+/* =============================================================================
+   HEADER
+   Renders only when heading or description is present.
+   ============================================================================= */
+
+.section__header {
+  margin-bottom: var(--spacing-150);           /* 24px — gap to body content */
+}
+
+/* =============================================================================
+   TITLE
+   Heading element (h2–h6). Font size driven by element tag via element selector.
+   Weight, color, and line-height shared across all levels.
+   ============================================================================= */
+
+.section__title {
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-heading);
+  color:       var(--text-loud);
+}
+
+h2.section__title { font-size: var(--font-size-180);    /* 24px */ }
+h3.section__title { font-size: 22px;                    /* --font-size-160 not yet in token system */ }
+h4.section__title { font-size: 20px;                    /* --font-size-140 not yet in token system */ }
+h5.section__title { font-size: var(--font-size-120);    /* 18px */ }
+h6.section__title { font-size: var(--font-size-100);    /* 16px */ }
+
+/* =============================================================================
+   DESCRIPTION
+   Optional text below the heading. Clamped to 2 lines.
+   ============================================================================= */
+
+.section__description {
+  display:              -webkit-box;
+  -webkit-line-clamp:   2;
+  -webkit-box-orient:   vertical;
+  overflow:             hidden;
+  margin:               var(--spacing-50) 0 0;  /* 8px top */
+  font-family:          var(--font-family-base);
+  font-size:            var(--font-size-100);    /* 16px */
+  font-weight:          var(--font-weight-regular);
+  line-height:          var(--font-line-height-body);
+  color:                var(--text-soft);
+}
+
+/* =============================================================================
+   BODY
+   Passive wrapper — no padding or background of its own.
+   ============================================================================= */
+
+.section__body {
+  /* intentionally unstyled — content drives its own layout */
+}
+
+/* =============================================================================
+   DIVIDER
+   Sibling <hr> rendered after </section>. Not part of section content.
+   ============================================================================= */
+
+.section__divider {
+  height:     var(--border-width-100);         /* 1px */
+  background: var(--border-neutral);
+  border:     none;
+  margin:     var(--spacing-150) 0;            /* 24px top and bottom */
+  width:      100%;
+}

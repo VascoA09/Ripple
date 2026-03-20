@@ -1,0 +1,411 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — TEXT INPUT COMPONENT
+   Source: components/text-input.md
+
+   Architecture:
+   - Root (.text-input): flex column; holds size + validation private tokens
+   - Label (.text-input__label): above the wrapper
+   - Wrapper (.text-input__wrapper): flex row; owns border, background, radius
+     ├── Prefix (.text-input__prefix): attached left block with own background
+     ├── Inner (.text-input__inner): flex row, padding, contains field + icons
+     │   ├── Icon start (.text-input__icon-start)
+     │   ├── Field (.text-input__field): grows to fill inner; no own border
+     │   └── Icon end (.text-input__icon-end): may contain action buttons
+     └── Suffix (.text-input__suffix): attached right block with own background
+   - Footer (.text-input__footer): hint/message left, counter right
+
+   Focus ring: driven by data-focused on wrapper (set via React onFocus/onBlur).
+   All hover/focus guards respect disabled and read-only states.
+   ============================================================================= */
+
+/* ---------------------------------------------------------------------------
+   Root — private tokens (medium defaults)
+   --------------------------------------------------------------------------- */
+
+.text-input {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-25);   /* 4px between label, wrapper, footer */
+  width:          100%;
+
+  /* Size tokens */
+  --_height:    var(--size-component-height-default);  /* 40px */
+  --_font-size: var(--font-size-100);                  /* 16px */
+  --_padding-x: var(--spacing-100);                    /* 16px */
+  --_icon-size: 16px;
+  --_radius:    var(--border-radius-200);              /* 8px  */
+
+  /* Validation tokens */
+  --_border:    var(--border-default);
+  --_text:      var(--text);
+  --_msg-color: var(--text-soft);
+  --_affix-bg:  var(--bg-neutral-softest);
+}
+
+/* ---------------------------------------------------------------------------
+   Size modifiers
+   --------------------------------------------------------------------------- */
+
+.text-input[data-size="small"] {
+  --_height:    var(--size-component-height-small);  /* 32px */
+  --_font-size: var(--font-size-80);                 /* 14px */
+  --_padding-x: var(--spacing-100);                  /* 16px */
+  --_icon-size: 14px;
+  --_radius:    var(--border-radius-150);            /* 6px  */
+}
+
+.text-input[data-size="large"] {
+  --_height:    var(--size-component-height-large);  /* 48px */
+  --_font-size: var(--font-size-120);                /* 18px */
+  --_padding-x: var(--spacing-125, 20px);            /* 20px */
+  --_icon-size: 18px;
+  --_radius:    var(--border-radius-200);            /* 8px  */
+}
+
+/* ---------------------------------------------------------------------------
+   Validation state tokens
+   --------------------------------------------------------------------------- */
+
+.text-input[data-validation="negative"] {
+  --_border:    var(--border-negative);
+  --_text:      var(--text-negative);
+  --_msg-color: var(--text-negative);
+  --_affix-bg:  var(--bg-negative-softest);
+}
+
+.text-input[data-validation="notice"] {
+  --_border:    var(--border-notice);
+  --_text:      var(--text-notice);
+  --_msg-color: var(--text-notice);
+  --_affix-bg:  var(--bg-notice-softest);
+}
+
+.text-input[data-validation="positive"] {
+  --_border:    var(--border-positive);
+  --_text:      var(--text-positive);
+  --_msg-color: var(--text-positive);
+  --_affix-bg:  var(--bg-positive-softest);
+}
+
+/* ---------------------------------------------------------------------------
+   Disabled — dims the entire component
+   --------------------------------------------------------------------------- */
+
+.text-input[data-disabled] {
+  opacity:        0.5;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Label
+   --------------------------------------------------------------------------- */
+
+.text-input__label {
+  display:     block;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-100);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  color:       var(--text);
+  cursor:      default;
+  user-select: none;
+}
+
+.text-input__label--hidden {
+  position:   absolute;
+  width:      1px;
+  height:     1px;
+  padding:    0;
+  margin:     -1px;
+  overflow:   hidden;
+  clip:       rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border:     0;
+}
+
+.text-input__required {
+  color:       var(--color-negative-loud);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ---------------------------------------------------------------------------
+   Wrapper — the visual field boundary
+   --------------------------------------------------------------------------- */
+
+.text-input__wrapper {
+  display:       flex;
+  align-items:   stretch;
+  height:        var(--_height);
+  background:    var(--bg-surface);
+  border:        var(--border-width-default) solid var(--_border);
+  border-radius: var(--_radius);
+  overflow:      hidden;
+  transition:
+    border-color 150ms ease,
+    box-shadow   150ms ease;
+}
+
+/* Hover — only when not focused, not read-only */
+.text-input__wrapper:hover:not([data-focused]):not([data-disabled]):not([data-readonly]) {
+  border-color: var(--border-primary);
+}
+
+/* Focus ring */
+.text-input__wrapper[data-focused] {
+  border-color: var(--border-focus);
+  outline:      var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Read-only background */
+.text-input__wrapper[data-readonly] {
+  background: var(--bg-neutral-softest);
+}
+
+/* Disabled background */
+.text-input__wrapper[data-disabled] {
+  background: var(--bg-neutral-soft);
+}
+
+/* ---------------------------------------------------------------------------
+   Prefix / Suffix — attached blocks
+   --------------------------------------------------------------------------- */
+
+.text-input__prefix,
+.text-input__suffix {
+  display:        flex;
+  align-items:    center;
+  padding:        0 var(--spacing-75);   /* 12px */
+  background:     var(--_affix-bg);
+  color:          var(--_text);
+  font-family:    var(--font-family-base);
+  font-size:      var(--_font-size);
+  font-weight:    var(--font-weight-regular);
+  white-space:    nowrap;
+  flex-shrink:    0;
+  user-select:    none;
+  line-height:    1;
+}
+
+/* Separator borders */
+.text-input__prefix {
+  border-right: var(--border-width-default) solid var(--_border);
+}
+
+.text-input__suffix {
+  border-left:  var(--border-width-default) solid var(--_border);
+}
+
+/* SVG icons inside prefix/suffix */
+.text-input__prefix svg,
+.text-input__suffix svg {
+  width:       var(--_icon-size);
+  height:      var(--_icon-size);
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Inner — contains the input + floating icons
+   --------------------------------------------------------------------------- */
+
+.text-input__inner {
+  display:     flex;
+  align-items: center;
+  flex:        1;
+  min-width:   0;
+  gap:         var(--spacing-50);   /* 8px between icon and text */
+  padding:     0 var(--_padding-x);
+}
+
+/* Reduce padding on sides where icons are present to keep gap consistent */
+.text-input__inner[data-icon-start] {
+  padding-left: var(--spacing-75);   /* 12px */
+}
+
+.text-input__inner[data-icon-end] {
+  padding-right: var(--spacing-75);  /* 12px */
+}
+
+/* ---------------------------------------------------------------------------
+   Input field — transparent; wrapper owns border/background
+   --------------------------------------------------------------------------- */
+
+.text-input__field {
+  flex:        1;
+  min-width:   0;
+  height:      100%;
+  padding:     0;
+  border:      none;
+  background:  transparent;
+  outline:     none;
+  font-family: var(--font-family-base);
+  font-size:   var(--_font-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--_text);
+}
+
+.text-input__field::placeholder {
+  color: var(--text-soft);
+}
+
+.text-input__field:disabled {
+  cursor: not-allowed;
+}
+
+.text-input__field:read-only {
+  cursor: default;
+}
+
+/* Suppress browser-native clear/reveal buttons on search and password inputs */
+.text-input__field[type="search"]::-webkit-search-cancel-button,
+.text-input__field[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.text-input__field[type="password"]::-ms-reveal,
+.text-input__field[type="password"]::-ms-clear {
+  display: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Icon start / end — decorative icons inside the field
+   --------------------------------------------------------------------------- */
+
+.text-input__icon-start,
+.text-input__icon-end {
+  display:        flex;
+  align-items:    center;
+  justify-content: center;
+  flex-shrink:    0;
+  color:          var(--icon-default);
+  line-height:    0;
+}
+
+.text-input__icon-start svg,
+.text-input__icon-end svg {
+  width:          var(--_icon-size);
+  height:         var(--_icon-size);
+  pointer-events: none;
+}
+
+/* Validation state colors on inner icons */
+.text-input[data-validation] .text-input__icon-start,
+.text-input[data-validation] .text-input__icon-end {
+  color: var(--_text);
+}
+
+/* ---------------------------------------------------------------------------
+   Action buttons — password toggle and search clear
+   --------------------------------------------------------------------------- */
+
+.text-input__action-btn {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  padding:         0;
+  border:          none;
+  background:      transparent;
+  color:           var(--icon-default);
+  cursor:          pointer;
+  border-radius:   var(--border-radius-100);
+  flex-shrink:     0;
+  line-height:     0;
+  transition:      color 100ms ease;
+}
+
+.text-input__action-btn:hover {
+  color: var(--text);
+}
+
+.text-input__action-btn:focus-visible {
+  outline:        2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.text-input__action-btn svg {
+  width:          var(--_icon-size);
+  height:         var(--_icon-size);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Footer: hint / message + counter
+   --------------------------------------------------------------------------- */
+
+.text-input__footer {
+  display:     flex;
+  align-items: flex-start;
+  gap:         var(--spacing-100);
+}
+
+.text-input__hint {
+  margin:      0;
+  flex:        1;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-soft);
+}
+
+.text-input__message {
+  margin:      0;
+  flex:        1;
+  display:     flex;
+  align-items: flex-start;
+  gap:         var(--spacing-25);
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--_msg-color);
+}
+
+.text-input__msg-icon {
+  flex-shrink: 0;
+  margin-top:  1px;
+}
+
+.text-input__counter {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-soft);
+  white-space: nowrap;
+}
+
+.text-input__counter--at-limit {
+  color: var(--text-negative);
+}
+
+/* ---------------------------------------------------------------------------
+   Screen reader live region (visually hidden)
+   --------------------------------------------------------------------------- */
+
+.text-input__sr-announce {
+  position:    absolute;
+  width:       1px;
+  height:      1px;
+  padding:     0;
+  margin:      -1px;
+  overflow:    hidden;
+  clip:        rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border:      0;
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .text-input__wrapper,
+  .text-input__action-btn {
+    transition: none;
+  }
+}

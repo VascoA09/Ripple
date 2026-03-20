@@ -1,0 +1,622 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — DRAWER COMPONENT
+   Source: components/drawer.md
+
+   Panel slides in from left or right edge of the viewport. Structured as:
+     overlay (fixed full-screen) + panel (fixed, flex column)
+       ├── DrawerHeader  (fixed, shrinks to content)
+       ├── DrawerTools   (fixed, optional)
+       └── DrawerContent (flex: 1, overflow-y: auto)
+            └── DrawerSection(s)
+
+   Two-phase open state (data-open="false"→"true") drives all transitions.
+   Focus is trapped inside the panel while open.
+   ============================================================================= */
+
+/* =============================================================================
+   SIZE TOKENS — medium defaults
+   ============================================================================= */
+
+.drawer {
+  --_width: 480px; /* medium */
+}
+
+.drawer[data-size="small"]  { --_width: 320px; }
+.drawer[data-size="large"]  { --_width: 640px; }
+.drawer[data-size="full"]   { --_width: 100%;  }
+
+/* =============================================================================
+   OVERLAY
+   ============================================================================= */
+
+.drawer-overlay {
+  position:   fixed;
+  inset:      0;
+  z-index:    400;
+  background: rgba(0, 0, 0, 0.40);
+  opacity:    0;
+  transition: opacity 200ms linear;
+}
+
+.drawer-overlay[data-open="true"] {
+  opacity: 1;
+}
+
+/* =============================================================================
+   PANEL
+   ============================================================================= */
+
+.drawer {
+  position:       fixed;
+  top:            0;
+  bottom:         0;
+  z-index:        401;
+  width:          var(--_width);
+  max-width:      100vw;
+
+  display:        flex;
+  flex-direction: column;
+  overflow:       hidden;
+
+  background:     var(--bg-surface);
+  box-shadow:     var(--box-shadow-400);
+
+  /* Default: right side */
+  right:     0;
+  transform: translateX(100%);
+  transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.drawer[data-open="true"] {
+  transform: translateX(0);
+}
+
+/* Left side */
+.drawer[data-side="left"] {
+  right:     auto;
+  left:      0;
+  transform: translateX(-100%);
+}
+
+.drawer[data-side="left"][data-open="true"] {
+  transform: translateX(0);
+}
+
+/* =============================================================================
+   HEADER
+   ============================================================================= */
+
+.drawer__header {
+  display:         flex;
+  align-items:     flex-start;
+  justify-content: space-between;
+  gap:             var(--spacing-100);
+  min-height:      64px;
+  padding:         var(--spacing-100);
+  border-bottom:   var(--border-width-100) solid var(--border-neutral);
+  flex-shrink:     0;
+}
+
+.drawer__header-main {
+  flex:           1;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-25); /* 4px */
+  justify-content: center;
+}
+
+.drawer__title {
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-120); /* 18px */
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-heading);
+  color:       var(--text-loud);
+}
+
+.drawer__description {
+  margin:        0;
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-80); /* 14px */
+  font-weight:   var(--font-weight-regular);
+  color:         var(--text-soft);
+  line-height:   var(--font-line-height-body);
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+}
+
+.drawer__header-actions {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-25);
+  flex-shrink: 0;
+}
+
+/* =============================================================================
+   TOOLS
+   ============================================================================= */
+
+.drawer__tools {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-75); /* 12px */
+  padding:        var(--spacing-75) var(--spacing-100);
+  border-bottom:  var(--border-width-100) solid var(--border-neutral);
+  flex-shrink:    0;
+}
+
+/* =============================================================================
+   CONTENT (scrollable)
+   ============================================================================= */
+
+.drawer__content {
+  flex:          1;
+  overflow-y:    auto;
+  overscroll-behavior: contain;
+}
+
+/* =============================================================================
+   SECTION
+   ============================================================================= */
+
+.drawer__section {
+  padding-bottom: var(--spacing-50);
+}
+
+.drawer__section[data-divider] {
+  border-top: var(--border-width-100) solid var(--border-neutral);
+}
+
+.drawer__section-header {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--spacing-50);
+  padding:         var(--spacing-75) var(--spacing-100) var(--spacing-50);
+}
+
+.drawer__section-header-start {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-50);
+}
+
+.drawer__section-title {
+  font-family:     var(--font-family-base);
+  font-size:       var(--font-size-80); /* 14px */
+  font-weight:     var(--font-weight-semibold);
+  color:           var(--text-soft);
+  text-transform:  uppercase;
+  letter-spacing:  0.04em;
+  line-height:     1;
+}
+
+.drawer__section-count {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  min-width:       20px;
+  height:          20px;
+  padding:         0 var(--spacing-25);
+  border:          var(--border-width-100) solid var(--border-neutral-loud);
+  border-radius:   999px;
+  font-family:     var(--font-family-base);
+  font-size:       var(--font-size-60); /* 12px */
+  font-weight:     var(--font-weight-semibold);
+  color:           var(--text-soft);
+  line-height:     1;
+}
+
+.drawer__section-link {
+  all:         unset;
+  box-sizing:  border-box;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-medium);
+  color:       var(--color-primary-loud);
+  cursor:      pointer;
+  border-radius: var(--border-radius-100);
+}
+
+.drawer__section-link:hover      { text-decoration: underline; }
+.drawer__section-link:focus-visible {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.drawer__section-body {
+  display:        flex;
+  flex-direction: column;
+}
+
+/* =============================================================================
+   MENU ITEM — shared by DrawerMenuItem and DrawerMultiLevelItem trigger
+   ============================================================================= */
+
+.drawer__menu-item,
+.drawer__multi-item-trigger {
+  /* Reset */
+  all:        unset;
+  box-sizing: border-box;
+
+  /* Layout */
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-50); /* 8px */
+  width:       100%;
+  min-height:  40px;
+  padding:     var(--spacing-50) var(--spacing-100); /* 8px 16px */
+  border-left: 3px solid transparent;
+
+  /* Typography */
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80); /* 14px */
+  font-weight: var(--font-weight-regular);
+  color:       var(--text);
+  line-height: var(--font-line-height-body);
+
+  cursor:      pointer;
+  transition:  background 150ms ease, color 150ms ease;
+  position:    relative;
+}
+
+.drawer__menu-item:hover:not([data-disabled]),
+.drawer__multi-item-trigger:hover:not([data-disabled]) {
+  background: var(--bg-neutral-softest);
+}
+
+.drawer__menu-item:active:not([data-disabled]),
+.drawer__multi-item-trigger:active:not([data-disabled]) {
+  background: var(--bg-neutral-soft);
+}
+
+.drawer__menu-item:focus-visible,
+.drawer__multi-item-trigger:focus-visible {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: -2px;
+}
+
+/* Active / current state */
+.drawer__menu-item[data-active],
+.drawer__multi-item-trigger[data-active] {
+  border-left-color: var(--color-primary-loud);
+  color:             var(--color-primary-loud);
+  font-weight:       var(--font-weight-semibold);
+}
+
+.drawer__menu-item[data-active] .drawer__menu-item-icon,
+.drawer__multi-item-trigger[data-active] .drawer__menu-item-icon {
+  color: var(--color-primary-loud);
+}
+
+/* Disabled */
+.drawer__menu-item[data-disabled],
+.drawer__multi-item-trigger[data-disabled] {
+  opacity:        var(--opacity-60);
+  cursor:         not-allowed;
+  pointer-events: none;
+}
+
+/* =============================================================================
+   MENU ITEM ELEMENTS
+   ============================================================================= */
+
+.drawer__menu-item-icon {
+  display:     flex;
+  align-items: center;
+  flex-shrink: 0;
+  color:       var(--text-soft);
+}
+
+.drawer__menu-item-label {
+  flex:          1;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+}
+
+.drawer__menu-item-code {
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-60); /* 12px */
+  font-weight:   var(--font-weight-regular);
+  color:         var(--text-soft);
+  white-space:   nowrap;
+  margin-left:   auto;
+}
+
+/* Context button — only visible on hover */
+.drawer__menu-item-context {
+  display:     flex;
+  align-items: center;
+  opacity:     0;
+  transition:  opacity 100ms ease;
+}
+
+.drawer__menu-item:hover .drawer__menu-item-context {
+  opacity: 1;
+}
+
+.drawer__context-btn {
+  all:        unset;
+  box-sizing: border-box;
+  display:        flex;
+  align-items:    center;
+  justify-content: center;
+  width:          24px;
+  height:         24px;
+  border-radius:  var(--border-radius-100);
+  color:          var(--text-soft);
+  cursor:         pointer;
+}
+
+.drawer__context-btn:hover { background: var(--bg-neutral-soft); color: var(--text); }
+.drawer__context-btn:focus-visible {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 1px;
+}
+
+/* =============================================================================
+   MULTI-LEVEL ITEM
+   ============================================================================= */
+
+.drawer__multi-item {
+  display:        flex;
+  flex-direction: column;
+}
+
+.drawer__multi-item-trigger {
+  /* ChevronDown sits at the trailing end */
+}
+
+.drawer__multi-item-chevron {
+  margin-left: auto;
+  flex-shrink: 0;
+  color:       var(--text-soft);
+  transform:   rotate(-90deg);
+  transition:  transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.drawer__multi-item[data-expanded] .drawer__multi-item-chevron {
+  transform: rotate(0deg);
+}
+
+/* Nested children with left indent + vertical guide */
+.drawer__multi-item-children {
+  display:        flex;
+  flex-direction: column;
+  padding-left:   var(--spacing-150); /* 24px */
+  border-left:    var(--border-width-100) solid var(--border-neutral);
+  margin-left:    var(--spacing-100); /* 16px — aligns guide under icon */
+}
+
+/* =============================================================================
+   LIST ITEM
+   ============================================================================= */
+
+.drawer__list-item {
+  /* Reset */
+  all:        unset;
+  box-sizing: border-box;
+
+  /* Layout */
+  display:     flex;
+  align-items: flex-start;
+  gap:         var(--spacing-75); /* 12px */
+  width:       100%;
+  min-height:  56px;
+  padding:     var(--spacing-75) var(--spacing-100); /* 12px 16px */
+  position:    relative;
+
+  /* Typography */
+  font-family: var(--font-family-base);
+
+  cursor:      pointer;
+  transition:  background 150ms ease;
+}
+
+.drawer__list-item:hover:not([data-disabled]) {
+  background: var(--bg-neutral-softest);
+}
+
+.drawer__list-item:focus-visible {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: -2px;
+}
+
+.drawer__list-item[data-unread] {
+  background: var(--bg-primary-softest);
+}
+
+.drawer__list-item[data-disabled] {
+  opacity:        var(--opacity-60);
+  cursor:         not-allowed;
+  pointer-events: none;
+}
+
+/* Unread dot — positioned absolutely at top-left */
+.drawer__unread-dot {
+  position:  absolute;
+  top:       var(--spacing-75);
+  left:      var(--spacing-25);
+  width:     8px;
+  height:    8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.drawer__list-item-before {
+  flex-shrink: 0;
+  display:     flex;
+  align-items: center;
+}
+
+.drawer__list-item-main {
+  flex:           1;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  gap:            2px;
+}
+
+.drawer__list-item-top {
+  display:     flex;
+  align-items: baseline;
+  gap:         var(--spacing-50);
+}
+
+.drawer__list-item-header {
+  flex:          1;
+  font-size:     var(--font-size-80); /* 14px */
+  font-weight:   var(--font-weight-regular);
+  color:         var(--text);
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+}
+
+.drawer__list-item[data-unread] .drawer__list-item-header {
+  font-weight: var(--font-weight-semibold);
+}
+
+.drawer__list-item-secondary {
+  font-size:     var(--font-size-80);
+  color:         var(--text-soft);
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+}
+
+.drawer__list-item-message {
+  font-size:          var(--font-size-80);
+  color:              var(--text);
+  overflow:           hidden;
+  display:            -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.drawer__list-item-timestamp {
+  font-size:   var(--font-size-60); /* 12px */
+  color:       var(--text-soft);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.drawer__list-item-after {
+  flex-shrink: 0;
+  display:     flex;
+  align-items: center;
+}
+
+/* =============================================================================
+   NOTIFICATION ITEM
+   ============================================================================= */
+
+.drawer__notification-item {
+  display:         flex;
+  align-items:     flex-start;
+  gap:             var(--spacing-75);
+  padding:         var(--spacing-75) var(--spacing-100);
+  position:        relative;
+  cursor:          default;
+  border-bottom:   var(--border-width-100) solid var(--border-neutral);
+}
+
+.drawer__notification-item[data-last] {
+  border-bottom: none;
+}
+
+.drawer__notification-item[data-unread] {
+  background: var(--bg-primary-softest);
+}
+
+.drawer__notification-item[role="button"] {
+  cursor:     pointer;
+  transition: background 150ms ease;
+}
+
+.drawer__notification-item[role="button"]:hover {
+  background: var(--bg-neutral-softest);
+}
+
+.drawer__notification-item[role="button"]:focus-visible {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: -2px;
+}
+
+.drawer__notification-avatar {
+  flex-shrink: 0;
+  display:     flex;
+  align-items: center;
+}
+
+.drawer__notification-body {
+  flex:           1;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-25);
+}
+
+.drawer__notification-top {
+  display:     flex;
+  align-items: baseline;
+  gap:         var(--spacing-50);
+}
+
+.drawer__notification-title {
+  flex:          1;
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-80);
+  font-weight:   var(--font-weight-semibold);
+  color:         var(--text);
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+}
+
+.drawer__notification-action {
+  display:    flex;
+  margin-top: var(--spacing-25);
+}
+
+/* =============================================================================
+   PERSISTENT DRAWER
+   Rendered inline (no portal). Sits in normal document flow alongside content.
+   No overlay, no fixed positioning — uses relative positioning within its
+   flex/grid parent. The slide animation still applies via transform.
+   ============================================================================= */
+
+.drawer[data-persistent] {
+  position:  relative;   /* stays in flow, not fixed */
+  top:       auto;
+  bottom:    auto;
+  right:     auto;
+  left:      auto;
+  height:    100%;        /* fill its flex parent */
+  box-shadow: var(--box-shadow-400);
+  /* transform still applies — parent controls layout */
+}
+
+/* =============================================================================
+   REDUCED MOTION
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer,
+  .drawer-overlay {
+    transition: none;
+  }
+
+  .drawer__multi-item-chevron,
+  .drawer__menu-item,
+  .drawer__multi-item-trigger,
+  .drawer__list-item,
+  .drawer__notification-item[role="button"],
+  .drawer__menu-item-context {
+    transition: none;
+  }
+}

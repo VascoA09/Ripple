@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Read(//Users/vascoantunes/Documents/VA/_Jarvis/Ripple/**)",
+      "Bash(done)",
+      "Bash(npm run:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx storybook:*)",
+      "Bash(xargs kill:*)",
+      "Bash(perl -i -pe 's/colour/color/g; s/Colour/Color/g; s/COLOUR/COLOR/g' /Users/vascoantunes/Documents/VA/_Jarvis/Ripple/dist/index.js /Users/vascoantunes/Documents/VA/_Jarvis/Ripple/dist/index.cjs)"
+    ]
+  }
+}

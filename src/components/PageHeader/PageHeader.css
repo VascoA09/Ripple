@@ -1,0 +1,364 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — PAGE HEADER COMPONENT
+   Source: components/page-header.md
+
+   Container-query-driven responsive layout:
+     > 767 px  → desktop (flex row: title area + actions)
+     ≤ 767 px  → mobile  (stacked; separate DOM tree)
+
+   Adaptive toolbar variant ('full' | 'compact' | 'minimal') is set by a
+   ResizeObserver in JS. Initial state is always 'minimal' to avoid FOUC.
+
+   IMPORTANT: Do not add overflow:hidden to .rpl-page-header__main-row or
+   .rpl-page-header__main-actions — this breaks scrollWidth measurement and
+   clips portal-rendered FlyoutMenu overlays.
+   ============================================================================= */
+
+/* ---------------------------------------------------------------------------
+   Container query registration
+   --------------------------------------------------------------------------- */
+
+.rpl-page-header {
+  container-type: inline-size;
+  container-name: page-header;
+}
+
+/* ---------------------------------------------------------------------------
+   Root
+   --------------------------------------------------------------------------- */
+
+.rpl-page-header {
+  background:  var(--bg);
+  width:       100%;
+  box-sizing:  border-box;
+}
+
+.rpl-page-header--sticky {
+  position: sticky;
+  top:      0;
+  z-index:  var(--z-index-sticky, 200);
+}
+
+/* ---------------------------------------------------------------------------
+   Dual-render layout trees
+   --------------------------------------------------------------------------- */
+
+.rpl-page-header__desktop-layout {
+  display: flex;
+  flex-direction: column;
+  gap:     var(--spacing-50);  /* 8px between meta row + main row */
+  padding: var(--spacing-150) var(--spacing-200); /* 24px 32px */
+}
+
+.rpl-page-header__mobile-layout {
+  display: none;  /* shown at ≤767px via container query below */
+  flex-direction: column;
+  gap:     var(--spacing-50);
+  padding: var(--spacing-100); /* 16px */
+}
+
+@container page-header (max-width: 767px) {
+  .rpl-page-header__desktop-layout {
+    display: none;
+  }
+
+  .rpl-page-header__mobile-layout {
+    display:    flex;
+    aria-hidden: attr(aria-hidden); /* visibility toggled via JS aria-hidden */
+  }
+}
+
+@container page-header (min-width: 768px) and (max-width: 1023px) {
+  /* Tablet: reduce horizontal padding */
+  .rpl-page-header__desktop-layout {
+    padding-left:  var(--spacing-150); /* 24px */
+    padding-right: var(--spacing-150);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Meta row (last update info, right-aligned)
+   --------------------------------------------------------------------------- */
+
+.rpl-page-header__meta-row {
+  display:         flex;
+  justify-content: flex-end;
+  align-items:     center;
+}
+
+.rpl-page-header__last-update {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-60);   /* 12px */
+  font-weight: var(--font-weight-regular);
+  color:       var(--text-soft);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------------
+   Main row — title area + actions
+   --------------------------------------------------------------------------- */
+
+.rpl-page-header__main-row {
+  display:     flex;
+  align-items: flex-start;
+  gap:         var(--spacing-150);  /* 24px */
+  /* No overflow:hidden — preserves scrollWidth accuracy + portal visibility */
+}
+
+/* Title area fills remaining space; flex-basis auto prevents starvation */
+.rpl-page-header__title-area {
+  flex:     1 1 auto;
+  min-width: 0;
+  display:   flex;
+  flex-direction: column;
+  gap:       var(--spacing-25);  /* 4px between breadcrumb/date/heading/desc */
+}
+
+/* Actions zone never compresses — ResizeObserver switches variant instead */
+.rpl-page-header__actions {
+  flex-shrink: 0;
+  flex-grow:   0;
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-50);  /* 8px: provides clear space around divider */
+}
+
+/* Split layout — hard 50/50 columns */
+.rpl-page-header__main-row--split .rpl-page-header__title-area {
+  flex: 0 0 calc(50% - var(--spacing-75));  /* 50% - half gap */
+}
+
+.rpl-page-header__main-row--split .rpl-page-header__actions {
+  flex:            0 0 calc(50% - var(--spacing-75));
+  justify-content: flex-end;
+}
+
+@container page-header (min-width: 768px) and (max-width: 1023px) {
+  /* Tablet: split layout stacks vertically */
+  .rpl-page-header__main-row--split {
+    flex-direction: column;
+  }
+
+  .rpl-page-header__main-row--split .rpl-page-header__title-area,
+  .rpl-page-header__main-row--split .rpl-page-header__actions {
+    flex: 1 1 auto;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Breadcrumbs (override margin if any)
+   --------------------------------------------------------------------------- */
+
+.rpl-page-header__breadcrumbs {
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Date
+   --------------------------------------------------------------------------- */
+
+.rpl-page-header__date {
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-120);  /* ~20px */
+  font-weight: var(--font-weight-semibold);
+  color:       var(--text-soft);
+  line-height: var(--font-line-height-heading);
+}
+
+/* ---------------------------------------------------------------------------
+   Heading row — h1 + tags inline
+   --------------------------------------------------------------------------- */
+
+.rpl-page-header__heading-row {
+  display:     flex;
+  align-items: center;
+  flex-wrap:   wrap;
+  gap:         var(--spacing-50);  /* 8px between title and tags */
+  min-width:   0;
+}
+
+/* ---------------------------------------------------------------------------
+   Title
+   --------------------------------------------------------------------------- */
+
+.rpl-page-header__title {
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-160);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--font-line-height-heading);
+  color:       var(--text-loud);
+  min-width:   0;
+}
+
+.rpl-page-header__title--compact {
+  font-size: var(--font-size-140);
+}
+
+/* Truncation — only active in split layout */
+.rpl-page-header__title--truncate {
+  white-space:   nowrap;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  /* Full title exposed via native title attribute (Tooltip component pending) */
+}
+
+/* ---------------------------------------------------------------------------
+   Tags
+   --------------------------------------------------------------------------- */
+
+.rpl-page-header__tags {
+  display:     flex;
+  align-items: center;
+  flex-wrap:   wrap;
+  gap:         var(--spacing-50);  /* 8px */
+  flex-shrink: 0;
+}
+
+.rpl-page-header__tag-item {
+  display: contents;
+}
+
+/* ---------------------------------------------------------------------------
+   Description
+   --------------------------------------------------------------------------- */
+
+.rpl-page-header__description {
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);  /* 14px */
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text);
+}
+
+/* ---------------------------------------------------------------------------
+   Secondary toolbar + divider
+   --------------------------------------------------------------------------- */
+
+.rpl-page-header__secondary-toolbar {
+  display:     flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.rpl-page-header__toolbar-divider {
+  width:        1px;
+  height:       var(--size-component-height-default);  /* 40px via --size-250 alias */
+  background:   var(--border-neutral);
+  flex-shrink:  0;
+}
+
+/* ---------------------------------------------------------------------------
+   Main actions — no overflow:hidden (see header comment)
+   --------------------------------------------------------------------------- */
+
+.rpl-page-header__main-actions {
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Mobile — back link
+   --------------------------------------------------------------------------- */
+
+.rpl-page-header__mobile-back {
+  margin-bottom: var(--spacing-25);  /* 4px */
+}
+
+.rpl-page-header__mobile-back-link {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             var(--spacing-25);  /* 4px */
+  font-family:     var(--font-family-base);
+  font-size:       var(--font-size-80);
+  font-weight:     var(--font-weight-medium);
+  color:           var(--text-soft);
+  text-decoration: none;
+}
+
+.rpl-page-header__mobile-back-link:hover {
+  color: var(--text);
+}
+
+/* ---------------------------------------------------------------------------
+   Mobile — tags (flex-wrapped row)
+   --------------------------------------------------------------------------- */
+
+.rpl-page-header__mobile-tags {
+  display:   flex;
+  flex-wrap: wrap;
+  gap:       var(--spacing-50);
+}
+
+/* ---------------------------------------------------------------------------
+   Mobile — secondary toolbar (rendered inline above actions)
+   --------------------------------------------------------------------------- */
+
+.rpl-page-header__mobile-secondary {
+  display:         flex;
+  align-items:     center;
+  gap:             var(--spacing-50);
+  padding-top:     var(--spacing-25);
+  border-top:      1px solid var(--border-neutral);
+  margin-top:      var(--spacing-25);
+}
+
+/* ---------------------------------------------------------------------------
+   Mobile — actions bar
+   --------------------------------------------------------------------------- */
+
+.rpl-page-header__mobile-actions {
+  display:   flex;
+  gap:       var(--spacing-50);  /* 8px */
+  margin-top: var(--spacing-50);
+}
+
+/* Primary action fills remaining width */
+.rpl-page-header__mobile-primary {
+  flex:         1;
+  display:      flex;
+  align-items:  center;
+  justify-content: center;
+  gap:          var(--spacing-25);
+  height:       40px;
+  border:       none;
+  border-radius: var(--border-radius-150);
+  background:   var(--bg-primary);
+  color:        var(--text-on-fill);
+  font-family:  var(--font-family-base);
+  font-size:    var(--font-size-100);
+  font-weight:  var(--font-weight-medium);
+  cursor:       pointer;
+  padding:      0 var(--spacing-100);
+  outline:      none;
+}
+
+.rpl-page-header__mobile-primary:hover {
+  background: var(--bg-primary-loud);
+}
+
+.rpl-page-header__mobile-primary:focus-visible {
+  outline:        2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.rpl-page-header__mobile-primary:disabled {
+  opacity: 0.4;
+  cursor:  not-allowed;
+}
+
+/* Spinner for loading state on mobile primary */
+.rpl-page-header__mobile-spinner {
+  display:       inline-block;
+  width:         16px;
+  height:        16px;
+  border:        2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation:     page-header-spin 0.6s linear infinite;
+}
+
+@keyframes page-header-spin {
+  to { transform: rotate(360deg); }
+}

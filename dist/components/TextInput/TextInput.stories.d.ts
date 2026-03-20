@@ -1,0 +1,22 @@
+import { Meta, StoryObj } from '@storybook/react';
+import { TextInputProps } from './TextInput';
+
+declare const meta: Meta<TextInputProps>;
+export default meta;
+type Story = StoryObj<TextInputProps>;
+export declare const Default: Story;
+export declare const Sizes: Story;
+export declare const WithHint: Story;
+export declare const Required: Story;
+export declare const InputTypes: Story;
+export declare const Password: Story;
+export declare const Search: Story;
+export declare const WithIcons: Story;
+export declare const PrefixSuffix: Story;
+export declare const PrefixValidation: Story;
+export declare const CharacterCounter: Story;
+export declare const Validation: Story;
+export declare const LiveValidation: Story;
+export declare const Disabled: Story;
+export declare const ReadOnly: Story;
+export declare const HiddenLabel: Story;

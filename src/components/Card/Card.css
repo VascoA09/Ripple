@@ -1,0 +1,135 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — CARD COMPONENT
+   Source: components/card.md
+
+   Compound component: Card + CardHeader + CardTitle + CardDescription +
+                       CardContent + CardFooter + CardSection + CardDivider
+
+   Variants: elevated (default), flat
+   Interactive: elevated only — hover, focus, active states
+   ============================================================================= */
+
+/* =============================================================================
+   CARD — ROOT
+   ============================================================================= */
+
+.card {
+  --_bg:     var(--bg-surface);                    /* white / dark: gray.90    */
+  --_shadow: var(--elevation-card);                /* 0 2px 4px                */
+  --_radius: var(--border-radius-container-default); /* 8px                    */
+
+  box-sizing:      border-box;
+  position:        relative;
+  display:         flex;
+  flex-direction:  column;
+  border-radius:   var(--_radius);
+  background:      var(--_bg);
+  box-shadow:      var(--_shadow);
+  overflow:        hidden;  /* clips full-bleed images to border-radius */
+}
+
+/* --- Flat variant ---------------------------------------------------------- */
+
+.card[data-variant="flat"] {
+  --_bg:     var(--bg-app);   /* gray.10 / dark: gray.100 */
+  --_shadow: none;
+}
+
+/* =============================================================================
+   INTERACTIVE STATES — elevated only
+   ============================================================================= */
+
+.card[data-variant="elevated"][data-interactive] {
+  cursor:          pointer;
+  text-decoration: none;   /* reset <a> underline when card renders as a link */
+  transition:      box-shadow 150ms ease, background-color 150ms ease, transform 150ms ease;
+  user-select:     none;
+}
+
+.card[data-variant="elevated"][data-interactive]:hover {
+  --_shadow: var(--elevation-raised);   /* 0 4px 8px */
+}
+
+.card[data-variant="elevated"][data-interactive]:focus-visible {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 0;
+}
+
+.card[data-variant="elevated"][data-interactive]:active {
+  --_bg:     var(--bg-app);  /* subtle background shift */
+  --_shadow: none;
+  transform: translateY(1px);
+}
+
+/* =============================================================================
+   CARD HEADER
+   Vertical stack for title + description. Small gap between them.
+   ============================================================================= */
+
+.card-header {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-25);   /* 4px */
+  padding:        var(--spacing-100);  /* 16px default */
+  box-sizing:     border-box;
+}
+
+/* =============================================================================
+   CARD TITLE
+   Heading S preset: 18px semibold, text-loud.
+   ============================================================================= */
+
+.card-title {
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-120);         /* 18px */
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-heading);
+  color:       var(--text-loud);
+}
+
+/* =============================================================================
+   CARD DESCRIPTION
+   Caption preset: 14px regular, text-soft.
+   ============================================================================= */
+
+.card-description {
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);          /* 14px */
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-soft);
+}
+
+/* =============================================================================
+   CARD CONTENT
+   ============================================================================= */
+
+.card-content {
+  padding:    var(--spacing-100);   /* 16px default */
+  box-sizing: border-box;
+}
+
+/* =============================================================================
+   CARD FOOTER
+   Flex row — actions and metadata. Consumer controls justification.
+   ============================================================================= */
+
+.card-footer {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-50);   /* 8px */
+  padding:     var(--spacing-100);  /* 16px default */
+  box-sizing:  border-box;
+}
+
+/* =============================================================================
+   CARD SECTION
+   Generic padding wrapper for any content.
+   ============================================================================= */
+
+.card-section {
+  padding:    var(--spacing-100);   /* 16px default */
+  box-sizing: border-box;
+}

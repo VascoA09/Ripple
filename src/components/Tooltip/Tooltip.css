@@ -1,0 +1,92 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — TOOLTIP COMPONENT
+   Source: components/tooltip.md
+
+   Built on @radix-ui/react-tooltip. Radix handles portal positioning,
+   viewport collision detection, aria-describedby, role="tooltip",
+   hover/focus triggers, and Escape dismissal. This file styles the
+   visual layer using Ripple tokens only.
+
+   State driven by Radix data attributes:
+   - [data-state="delayed-open|instant-open|closed"]
+   - [data-side="top|right|bottom|left"]
+   - [data-align="start|center|end"]
+   ============================================================================= */
+
+/* =============================================================================
+   TOOLTIP CONTENT
+   ============================================================================= */
+
+.tooltip-content {
+  /* --- Private tokens ------------------------------------------------------- */
+  --_bg:     var(--bg-neutral-loud);
+  --_color:  var(--text-loud-inverse);
+  --_shadow: var(--elevation-dropdown);
+
+  /* --- Layout --------------------------------------------------------------- */
+  padding:       var(--spacing-50) var(--spacing-75); /* 8px 12px */
+  border-radius: var(--border-radius-150);            /* 6px */
+
+  /* --- Visual --------------------------------------------------------------- */
+  background: var(--_bg);
+  color:      var(--_color);
+  box-shadow: var(--_shadow);
+
+  /* --- Typography ----------------------------------------------------------- */
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);           /* 14px */
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);  /* 1.5 */
+
+  /* --- Overflow ------------------------------------------------------------- */
+  word-break:  break-word;
+  white-space: normal;
+
+  /* --- Stacking ------------------------------------------------------------- */
+  z-index: 9999;
+
+  /* --- Animation origin — matches data-side for natural entry --------------- */
+  transform-origin: var(--radix-tooltip-content-transform-origin);
+}
+
+/* =============================================================================
+   ANIMATIONS
+   Radix keeps content mounted during exit so the close animation plays.
+   data-state="delayed-open|instant-open" → entrance
+   data-state="closed"                    → exit
+   ============================================================================= */
+
+@keyframes tooltip-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes tooltip-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.95); }
+}
+
+.tooltip-content[data-state="delayed-open"],
+.tooltip-content[data-state="instant-open"] {
+  animation: tooltip-in 150ms ease;
+}
+
+.tooltip-content[data-state="closed"] {
+  animation: tooltip-out 100ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tooltip-content[data-state="delayed-open"],
+  .tooltip-content[data-state="instant-open"],
+  .tooltip-content[data-state="closed"] {
+    animation: none;
+  }
+}
+
+/* =============================================================================
+   ARROW
+   ============================================================================= */
+
+.tooltip-arrow {
+  fill: var(--bg-neutral-loud);
+}

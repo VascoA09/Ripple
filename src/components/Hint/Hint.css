@@ -1,0 +1,20 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — HINT COMPONENT
+   Source: components/hint.md
+
+   A standalone text element placed below an input to clarify format,
+   examples, or constraints. Always associate with its input via
+   aria-describedby on the input and a matching id on the Hint.
+
+   Spacing between the control and the Hint is set by the parent container
+   (typically gap: var(--spacing-50) / 8px). The Hint itself has no margin.
+   ============================================================================= */
+
+.hint {
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);        /* 14px */
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-soft);
+}

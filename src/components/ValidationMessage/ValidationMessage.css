@@ -1,0 +1,50 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — VALIDATION MESSAGE COMPONENT
+   Source: components/validation-message.md
+
+   Placed directly below a form control. Spacing between the control and
+   this component is set by the parent container (typically gap or margin-top
+   of var(--spacing-50) / 8px). This component owns no outer margin.
+
+   Variant is driven by data-variant:
+   - [data-variant="negative"] — error, red
+   - [data-variant="notice"]   — warning, amber
+   - [data-variant="positive"] — success, green
+   ============================================================================= */
+
+.validation-message {
+  /* --- Private token -------------------------------------------------------- */
+  --_color: var(--text-negative);
+
+  /* --- Layout --------------------------------------------------------------- */
+  display:     flex;
+  align-items: flex-start;
+  gap:         var(--spacing-50);   /* 8px between icon and text */
+  margin:      0;
+
+  /* --- Typography ----------------------------------------------------------- */
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);           /* 14px */
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);  /* 1.5 */
+
+  /* --- Color ---------------------------------------------------------------- */
+  color: var(--_color);
+}
+
+/* Variants */
+.validation-message[data-variant="negative"] { --_color: var(--text-negative); }
+.validation-message[data-variant="notice"]   { --_color: var(--text-notice); }
+.validation-message[data-variant="positive"] { --_color: var(--text-positive); }
+
+/* =============================================================================
+   ICON
+   Aligned to the first line of text via flex-start on the parent.
+   A small top offset nudges the icon into optical alignment with the
+   text cap-height on the first line.
+   ============================================================================= */
+
+.validation-message__icon {
+  flex-shrink: 0;
+  margin-top:  1px;   /* optical alignment with text cap-height */
+}

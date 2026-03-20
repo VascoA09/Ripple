@@ -1,0 +1,420 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — COMBOBOX COMPONENT
+   Source: components/combobox.md
+
+   Native input[role="combobox"] + ul[role="listbox"] ARIA pattern.
+   No Radix dependency — full keyboard navigation and ARIA managed in component.
+
+   Architecture: private size tokens (--_*) on .combobox, overridden by
+   [data-size]. State driven by [data-open], [data-validation], [data-active],
+   [data-selected], [aria-pressed] etc.
+   ============================================================================= */
+
+/* =============================================================================
+   SIZE TOKENS — medium defaults
+   ============================================================================= */
+
+.combobox {
+  --_height:      var(--size-250);      /* 40px */
+  --_px:          var(--spacing-100);   /* 16px */
+  --_font-size:   var(--font-size-100); /* 16px */
+  --_label-size:  var(--font-size-80);  /* 14px */
+}
+
+.combobox[data-size="small"] {
+  --_height:     var(--size-200);      /* 32px */
+  --_px:         var(--spacing-75);    /* 12px */
+  --_font-size:  var(--font-size-80);  /* 14px */
+}
+
+.combobox[data-size="large"] {
+  --_height:     var(--size-300);       /* 48px */
+  --_px:         var(--spacing-100);    /* 16px */
+  --_font-size:  var(--font-size-120);  /* 18px */
+}
+
+/* =============================================================================
+   ROOT WRAPPER
+   ============================================================================= */
+
+.combobox {
+  position:       relative;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-25); /* 4px */
+  width:          100%;
+}
+
+.combobox[data-label-position="inline"] {
+  flex-direction: row;
+  align-items:    flex-start;
+  gap:            var(--spacing-100);
+}
+
+/* =============================================================================
+   LABEL
+   ============================================================================= */
+
+.combobox__label {
+  font-family: var(--font-family-base);
+  font-size:   var(--_label-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-loud);
+  cursor:      default;
+}
+
+/* Inline label: fixed width, vertically centred with the input */
+.combobox[data-label-position="inline"] .combobox__label {
+  flex:        0 0 140px;
+  padding-top: calc((var(--_height) - 1lh) / 2);
+}
+
+.combobox__required {
+  color: var(--text-negative);
+}
+
+/* In inline mode, the field + helpers grow to fill remaining space */
+.combobox[data-label-position="inline"] > :not(.combobox__label) {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* =============================================================================
+   FIELD WRAPPER — contains tags (multi), input, and chevron
+   ============================================================================= */
+
+.combobox__field {
+  /* Private border token so validation can override easily */
+  --_border-color: var(--border-default);
+
+  display:      flex;
+  flex-wrap:    wrap;
+  align-items:  center;
+  gap:          var(--spacing-25); /* 4px between tags and input */
+  min-height:   var(--_height);
+  padding:      var(--spacing-25) var(--_px);
+  border:       var(--border-width-100) solid var(--_border-color);
+  border-radius: var(--border-radius-200);
+  background:   var(--bg-surface);
+  cursor:       text;
+  transition:   border-color 150ms ease;
+  box-sizing:   border-box;
+}
+
+/* Hover */
+.combobox:not([data-disabled]):not([data-open]) .combobox__field:hover {
+  --_border-color: var(--border-primary);
+}
+
+/* Open / focused */
+.combobox[data-open] .combobox__field {
+  --_border-color: var(--border-primary);
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 1px;
+}
+
+/* Validation */
+.combobox[data-validation="positive"] .combobox__field { --_border-color: var(--border-positive); }
+.combobox[data-validation="notice"]   .combobox__field { --_border-color: var(--border-notice);   }
+.combobox[data-validation="negative"] .combobox__field { --_border-color: var(--border-negative); }
+
+/* Disabled */
+.combobox[data-disabled] .combobox__field {
+  background: var(--bg-neutral-soft);
+  cursor:     not-allowed;
+  opacity:    var(--opacity-60);
+}
+
+/* =============================================================================
+   TEXT INPUT
+   ============================================================================= */
+
+.combobox__input {
+  flex:        1 1 80px; /* grows to fill available space */
+  min-width:   0;
+  border:      none;
+  outline:     none;
+  background:  transparent;
+  padding:     0;
+
+  font-family: var(--font-family-base);
+  font-size:   var(--_font-size);
+  font-weight: var(--font-weight-regular);
+  color:       var(--text);
+  line-height: 1;
+}
+
+.combobox__input::placeholder {
+  color: var(--text-softest);
+}
+
+.combobox__input:disabled {
+  cursor: not-allowed;
+}
+
+/* =============================================================================
+   CHEVRON
+   ============================================================================= */
+
+.combobox__chevron {
+  flex-shrink: 0;
+  color:       var(--text-soft);
+  margin-left: var(--spacing-50); /* 8px */
+  transition:  transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.combobox[data-open] .combobox__chevron {
+  transform: rotate(180deg);
+}
+
+/* =============================================================================
+   MULTI-SELECT TAGS
+   ============================================================================= */
+
+.combobox__tag {
+  display:      inline-flex;
+  align-items:  center;
+  gap:          var(--spacing-25); /* 4px */
+  max-width:    150px;
+  height:       24px;
+  padding:      0 var(--spacing-25) 0 var(--spacing-50); /* 0 4px 0 8px */
+  border-radius: 999px;
+  background:   var(--bg-primary-softest);
+  color:        var(--color-primary-loud);
+  flex-shrink:  0;
+}
+
+.combobox__tag-label {
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-80); /* 14px */
+  font-weight:   var(--font-weight-medium);
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+  line-height:   1;
+}
+
+.combobox__tag-remove {
+  /* Reset */
+  all:        unset;
+  box-sizing: border-box;
+
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+  width:           16px;
+  height:          16px;
+  border-radius:   50%;
+  cursor:          pointer;
+  color:           currentColor;
+  transition:      background 100ms ease;
+}
+
+.combobox__tag-remove:hover {
+  background: var(--bg-primary-soft);
+}
+
+/* =============================================================================
+   HINT + VALIDATION MESSAGE
+   ============================================================================= */
+
+.combobox__hint,
+.combobox__message {
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80); /* 14px */
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-soft);
+}
+
+.combobox[data-validation="positive"] .combobox__message { color: var(--text-positive); }
+.combobox[data-validation="notice"]   .combobox__message { color: var(--text-notice);   }
+.combobox[data-validation="negative"] .combobox__message { color: var(--text-negative); }
+
+/* =============================================================================
+   LISTBOX DROPDOWN
+   ============================================================================= */
+
+.combobox__listbox {
+  position:      absolute;
+  top:           calc(100% + var(--spacing-25)); /* 4px gap */
+  left:          0;
+  right:         0;
+  z-index:       100;
+
+  max-height:    240px;
+  overflow-y:    auto;
+  overscroll-behavior: contain;
+
+  margin:        0;
+  padding:       var(--spacing-50) 0; /* 8px */
+  list-style:    none;
+
+  background:    var(--bg-surface);
+  border:        var(--border-width-100) solid var(--border-neutral);
+  border-radius: var(--border-radius-200);
+  box-shadow:    var(--box-shadow-400);
+
+  animation: combobox-dropdown-in 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* When label is inline, listbox must align with the field, not the label */
+.combobox[data-label-position="inline"] .combobox__listbox {
+  /* The field lives inside a flex row; listbox is still relative to .combobox.
+     Offset by the label width + gap so it aligns with the field visually. */
+  left: calc(140px + var(--spacing-100));
+}
+
+@keyframes combobox-dropdown-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =============================================================================
+   OPTIONS
+   ============================================================================= */
+
+.combobox__option {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-50); /* 8px */
+  padding:     var(--spacing-50) var(--spacing-75); /* 8px 12px */
+  cursor:      pointer;
+  transition:  background 100ms ease;
+  outline:     none;
+}
+
+.combobox__option:hover,
+.combobox__option[data-active] {
+  background: var(--bg-primary-softest);
+}
+
+.combobox__option[data-selected] {
+  background: var(--bg-primary-softest);
+}
+
+.combobox__option[data-disabled] {
+  opacity:       var(--opacity-60);
+  cursor:        not-allowed;
+  pointer-events: none;
+}
+
+/* =============================================================================
+   OPTION — multi-select checkbox area
+   ============================================================================= */
+
+.combobox__option-check {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+  width:           16px;
+  height:          16px;
+  border:          var(--border-width-100) solid var(--border-default);
+  border-radius:   var(--border-radius-100);
+  background:      var(--bg-surface);
+  color:           var(--text-loud-inverse);
+}
+
+.combobox__option[data-selected] .combobox__option-check {
+  background:   var(--bg-primary);
+  border-color: var(--border-primary);
+}
+
+/* =============================================================================
+   OPTION — icon, content, label, description
+   ============================================================================= */
+
+.combobox__option-icon {
+  display:     flex;
+  align-items: center;
+  flex-shrink: 0;
+  color:       var(--icon-default);
+}
+
+.combobox__option-content {
+  display:        flex;
+  flex-direction: column;
+  gap:            2px;
+  min-width:      0;
+  flex:           1;
+}
+
+.combobox__option-label {
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-100);
+  font-weight:   var(--font-weight-regular);
+  color:         var(--text);
+  white-space:   nowrap;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+}
+
+.combobox__option-description {
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-80); /* 14px */
+  font-weight:   var(--font-weight-regular);
+  color:         var(--text-soft);
+  white-space:   nowrap;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+}
+
+/* Single-select selected checkmark (trailing) */
+.combobox__option-selected-icon {
+  flex-shrink: 0;
+  color:       var(--color-primary-loud);
+  margin-left: auto;
+}
+
+/* =============================================================================
+   GROUP HEADERS + DIVIDERS
+   ============================================================================= */
+
+.combobox__group-header {
+  padding:     var(--spacing-50) var(--spacing-75) var(--spacing-25);
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-semibold);
+  color:       var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor:      default;
+}
+
+.combobox__group-divider {
+  height:     1px;
+  background: var(--border-default);
+  margin:     var(--spacing-50) 0;
+}
+
+/* =============================================================================
+   NO RESULTS
+   ============================================================================= */
+
+.combobox__no-results {
+  padding:     var(--spacing-100) var(--spacing-75);
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-100);
+  color:       var(--text-soft);
+  text-align:  center;
+  cursor:      default;
+}
+
+/* =============================================================================
+   REDUCED MOTION
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .combobox__listbox {
+    animation: none;
+  }
+  .combobox__field,
+  .combobox__chevron {
+    transition: none;
+  }
+}

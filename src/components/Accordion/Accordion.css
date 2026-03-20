@@ -1,0 +1,231 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — ACCORDION COMPONENT
+   Source: components/accordion.md
+
+   Built on @radix-ui/react-accordion. Radix provides ARIA, keyboard nav,
+   and the --radix-accordion-content-height variable used for height animation.
+
+   Architecture: private size tokens (--_*) initialised on .accordion,
+   overridden per data-size. State is read from Radix data attributes.
+   ============================================================================= */
+
+@keyframes ripple-accordion-open {
+  from { height: 0; opacity: 0; }
+  to   { height: var(--radix-accordion-content-height); opacity: 1; }
+}
+
+@keyframes ripple-accordion-close {
+  from { height: var(--radix-accordion-content-height); opacity: 1; }
+  to   { height: 0; opacity: 0; }
+}
+
+/* =============================================================================
+   ROOT
+   ============================================================================= */
+
+.accordion {
+  /* Private size tokens — medium defaults */
+  --_header-height:    var(--size-component-height-default); /* 40px */
+  --_font-size:        var(--font-size-100);                 /* 16px */
+  --_chevron-size:     20px;
+  --_content-pt:       var(--spacing-100);                   /* 16px */
+  --_content-pb:       var(--spacing-150);                   /* 24px */
+  --_content-px:       var(--spacing-100);                   /* 16px */
+  --_before-gap:       var(--spacing-75);                    /* 12px */
+
+  width: 100%;
+  border-radius: var(--border-radius-200);
+  overflow: hidden;
+}
+
+/* =============================================================================
+   SIZES
+   ============================================================================= */
+
+.accordion[data-size="small"] {
+  --_header-height: var(--size-component-height-small); /* 32px */
+  --_font-size:     var(--font-size-80);                /* 14px */
+  --_chevron-size:  16px;
+  --_content-pt:    var(--spacing-75);                  /* 12px */
+  --_content-pb:    var(--spacing-100);                 /* 16px */
+  --_before-gap:    var(--spacing-50);                  /* 8px  */
+  /*
+   * ACCESSIBILITY — TOUCH TARGET
+   * Header height is 32px, below the Ripple minimum of 44×44px for touch targets.
+   * Do not use data-size="small" on touch or mobile interfaces.
+   * Use data-size="medium" (40px) or data-size="large" (48px) instead.
+   * See: components/accordion.md — Accessibility — Touch Targets
+   */
+}
+
+.accordion[data-size="large"] {
+  --_header-height: var(--size-component-height-large); /* 48px */
+  --_font-size:     var(--font-size-120);               /* 18px */
+  --_chevron-size:  24px;
+  --_content-pt:    var(--spacing-125);                 /* 20px */
+  --_content-pb:    var(--spacing-200);                 /* 32px */
+}
+
+/* =============================================================================
+   ITEM
+   ============================================================================= */
+
+.accordion__item {
+  border: var(--border-width-default) solid var(--border-default);
+  background: var(--bg-surface);
+}
+
+/* Collapse shared borders between items */
+.accordion__item + .accordion__item {
+  border-top: none;
+}
+
+/* Round corners on first and last items */
+.accordion__item:first-child {
+  border-radius: var(--border-radius-200) var(--border-radius-200) 0 0;
+}
+
+.accordion__item:last-child {
+  border-radius: 0 0 var(--border-radius-200) var(--border-radius-200);
+}
+
+.accordion__item:only-child {
+  border-radius: var(--border-radius-200);
+}
+
+/* =============================================================================
+   HEADER & TRIGGER
+   ============================================================================= */
+
+.accordion__header {
+  margin: 0;
+}
+
+.accordion__trigger {
+  /* Reset */
+  all: unset;
+  box-sizing: border-box;
+
+  /* Layout */
+  display:     flex;
+  align-items: center;
+  gap:         var(--_before-gap);
+  width:       100%;
+  min-height:  var(--_header-height);
+  padding:     0 var(--spacing-100);
+
+  /* Typography */
+  font-family: var(--font-family-base);
+  font-size:   var(--_font-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-heading);
+  color:       var(--text-loud);
+
+  /* Interaction */
+  cursor:     pointer;
+  background: var(--bg-surface);
+  transition: background 150ms ease;
+}
+
+.accordion__trigger:hover:not([data-disabled]) {
+  background: var(--bg-neutral-softest);
+}
+
+.accordion__trigger:active:not([data-disabled]) {
+  background: var(--bg-neutral-soft);
+}
+
+.accordion__trigger:focus-visible {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: -2px; /* inset so it doesn't clip against item border */
+}
+
+.accordion__trigger[data-disabled] {
+  color:  var(--text-soft);
+  cursor: not-allowed;
+  opacity: var(--opacity-60);
+}
+
+/* =============================================================================
+   BEFORE ELEMENT
+   ============================================================================= */
+
+.accordion__before {
+  display:     flex;
+  align-items: center;
+  flex-shrink: 0;
+  color:       var(--icon-default);
+}
+
+.accordion__trigger[data-disabled] .accordion__before {
+  color: var(--text-soft);
+}
+
+/* =============================================================================
+   TITLE
+   ============================================================================= */
+
+.accordion__title {
+  flex: 1;
+  text-align: left;
+}
+
+/* =============================================================================
+   CHEVRON
+   ============================================================================= */
+
+.accordion__chevron {
+  width:       var(--_chevron-size);
+  height:      var(--_chevron-size);
+  flex-shrink: 0;
+  color:       var(--text);
+  transition:  transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion__trigger[data-state="open"] .accordion__chevron {
+  transform: rotate(180deg);
+}
+
+.accordion__trigger[data-disabled] .accordion__chevron {
+  color: var(--text-soft);
+}
+
+/* =============================================================================
+   CONTENT
+   ============================================================================= */
+
+.accordion__content {
+  overflow: hidden;
+}
+
+.accordion__content[data-state="open"] {
+  animation: ripple-accordion-open 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion__content[data-state="closed"] {
+  animation: ripple-accordion-close 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion__content-inner {
+  padding: var(--_content-pt) var(--_content-px) var(--_content-pb);
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-100);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text);
+}
+
+/* =============================================================================
+   REDUCED MOTION
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion__content[data-state="open"],
+  .accordion__content[data-state="closed"] {
+    animation: none;
+  }
+
+  .accordion__chevron {
+    transition: none;
+  }
+}

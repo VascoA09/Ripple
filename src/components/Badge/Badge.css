@@ -1,0 +1,177 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — BADGE COMPONENT
+   Source: components/badge.md
+
+   Architecture: private CSS custom properties (--_*) initialised in .badge,
+   overridden by size selectors. Variant × color rules set color tokens.
+
+   Non-interactive: renders as <span>. Not focusable.
+   Text truncates at 200px via .badge__label overflow.
+   ============================================================================= */
+
+/* =============================================================================
+   BASE
+   ============================================================================= */
+
+.badge {
+
+  /* --- Private size tokens (medium defaults) -------------------------------- */
+  --_height:     var(--size-150);         /* 24px */
+  --_padding:    var(--spacing-50);       /* 8px  */
+  --_font-size:  var(--font-size-80);     /* 14px */
+  --_icon-size:  14px;
+  --_gap:        var(--spacing-25);       /* 4px  */
+  --_radius:     var(--border-radius-pill);
+
+  /* --- Private color tokens (overridden by variant × color rules) --------- */
+  --_bg:           transparent;
+  --_color:        var(--text);
+  --_border-color: transparent;
+
+  /* --- Layout --------------------------------------------------------------- */
+  display:         inline-flex;
+  align-items:     center;
+  gap:             var(--_gap);
+  height:          var(--_height);
+  max-width:       200px;
+  padding-inline:  var(--_padding);
+
+  /* --- Typography ----------------------------------------------------------- */
+  font-family:  var(--font-family-base);
+  font-size:    var(--_font-size);
+  font-weight:  var(--font-weight-semibold);
+  line-height:  var(--font-line-height-heading); /* 1.3 — height fixed by --_height, this just needs room for descenders */
+  white-space:  nowrap;
+
+  /* --- Color --------------------------------------------------------------- */
+  background:    var(--_bg);
+  color:         var(--_color);
+  border:        var(--border-width-default) solid var(--_border-color);
+  border-radius: var(--_radius);
+
+  /* --- Interaction ---------------------------------------------------------- */
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =============================================================================
+   LABEL
+   Wraps text content to enable overflow truncation inside the flex container.
+   ============================================================================= */
+
+.badge__label {
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+  min-width:     0;
+}
+
+/* =============================================================================
+   ICON
+   .badge__icon collapses the span to the SVG's dimensions — without it, the
+   inherited line-height (1.3) creates phantom vertical space around the icon,
+   causing it to appear slightly off-centre relative to the label.
+   ============================================================================= */
+
+.badge__icon {
+  display:     inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.badge svg {
+  width:          var(--_icon-size);
+  height:         var(--_icon-size);
+  pointer-events: none;
+}
+
+/* =============================================================================
+   SIZES
+   ============================================================================= */
+
+.badge[data-size="small"] {
+  --_height:    var(--size-125);       /* 20px */
+  --_padding:   var(--spacing-25);     /* 4px  */
+  --_font-size: var(--font-size-60);   /* 12px */
+  --_icon-size: 12px;
+}
+
+/* medium: default in .badge base */
+
+.badge[data-size="large"] {
+  --_height:    var(--size-200);        /* 32px */
+  --_padding:   var(--spacing-100);     /* 16px */
+  --_font-size: var(--font-size-120);   /* 18px */
+  --_icon-size: 18px;
+}
+
+/* =============================================================================
+   FILL VARIANT
+   Solid background, white text. Border transparent but present for equal sizing
+   with outline badges when displayed side-by-side.
+   ============================================================================= */
+
+.badge[data-variant="fill"][data-color="primary"] {
+  --_bg:           var(--bg-primary);
+  --_color:        var(--text-loud-inverse);
+  --_border-color: transparent;
+}
+
+.badge[data-variant="fill"][data-color="notice"] {
+  --_bg:           var(--bg-notice);
+  --_color:        var(--text-loud-inverse);
+  --_border-color: transparent;
+}
+
+.badge[data-variant="fill"][data-color="negative"] {
+  --_bg:           var(--bg-negative);
+  --_color:        var(--text-loud-inverse);
+  --_border-color: transparent;
+}
+
+.badge[data-variant="fill"][data-color="positive"] {
+  --_bg:           var(--bg-positive-loud); /* --bg-positive (#3C8000) gives only 4.9:1 with white — too close at small sizes */
+  --_color:        var(--text-loud-inverse);
+  --_border-color: transparent;
+}
+
+.badge[data-variant="fill"][data-color="neutral"] {
+  --_bg:           var(--bg-neutral);
+  --_color:        var(--text-loud-inverse);
+  --_border-color: transparent;
+}
+
+/* =============================================================================
+   OUTLINE VARIANT
+   Softest background tint, semantic border, semantic text.
+   ============================================================================= */
+
+.badge[data-variant="outline"][data-color="primary"] {
+  --_bg:           var(--bg-primary-softest);
+  --_color:        var(--text-accent);
+  --_border-color: var(--border-primary);
+}
+
+.badge[data-variant="outline"][data-color="notice"] {
+  --_bg:           var(--bg-notice-softest);
+  --_color:        var(--text-notice);
+  --_border-color: var(--border-notice);
+}
+
+.badge[data-variant="outline"][data-color="negative"] {
+  --_bg:           var(--bg-negative-softest);
+  --_color:        var(--text-negative);
+  --_border-color: var(--border-negative);
+}
+
+.badge[data-variant="outline"][data-color="positive"] {
+  --_bg:           var(--bg-positive-softest);
+  --_color:        var(--text-positive);
+  --_border-color: var(--border-positive);
+}
+
+.badge[data-variant="outline"][data-color="neutral"] {
+  --_bg:           var(--bg-neutral-softest);
+  --_color:        var(--text);
+  --_border-color: var(--border-neutral-loud);
+}

@@ -1,0 +1,70 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — MAIN NAVIGATION PATTERN
+   Source: patterns/main-navigation.md
+
+   Application shell that composes Navbar + Drawer into a full navigation
+   structure. Three zones in a flex row:
+
+     [Navbar 64px] [Persistent panel (optional)] [Content area (flex: 1)]
+
+   Modal drawers are portal-rendered by the Drawer component and sit outside
+   this flex row. The .main-navigation__modal-drawer override positions
+   left-side modal drawers flush with the Navbar's right edge.
+   ============================================================================= */
+
+/* =============================================================================
+   SHELL
+   ============================================================================= */
+
+.main-navigation {
+  display:        flex;
+  flex-direction: row;
+  height:         100vh;
+  overflow:       hidden;
+}
+
+/* =============================================================================
+   PERSISTENT PANEL
+   Panel sizes mirror the Drawer component's size tokens exactly.
+   ============================================================================= */
+
+.main-navigation__panel {
+  --_panel-width: 480px; /* medium — matches Drawer default */
+
+  width:           var(--_panel-width);
+  flex-shrink:     0;
+  display:         flex;
+  flex-direction:  column;
+  overflow:        hidden;
+
+  background:   var(--bg-surface);
+  border-right: 1px solid var(--border-neutral);
+}
+
+.main-navigation__panel[data-size="small"]  { --_panel-width: 320px; }
+.main-navigation__panel[data-size="large"]  { --_panel-width: 640px; }
+.main-navigation__panel[data-size="full"]   { --_panel-width: 100vw; }
+
+/* =============================================================================
+   CONTENT AREA
+   ============================================================================= */
+
+.main-navigation__content {
+  flex:       1;
+  min-width:  0;
+  overflow-y: auto;
+}
+
+/* =============================================================================
+   MODAL DRAWER OFFSET
+   Left-side modal drawers open at left: 0 (viewport edge) by default,
+   overlapping the 64px Navbar. This class — applied only when side="left" —
+   shifts the panel right so it appears flush with the Navbar's right edge.
+
+   Higher specificity (.drawer.main-navigation__modal-drawer) ensures this
+   override beats the Drawer component's .drawer[data-side="left"] rule.
+   ============================================================================= */
+
+.drawer.main-navigation__modal-drawer[data-side="left"] {
+  left: 64px;
+}

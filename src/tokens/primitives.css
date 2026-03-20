@@ -1,0 +1,279 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — PRIMITIVE TOKENS
+   Tier 1: Raw named values. Never reference these directly in components.
+   Use semantic tokens from themes.css instead.
+   ============================================================================= */
+
+:root {
+
+  /* ---------------------------------------------------------------------------
+     COLOR: Black & White
+     --------------------------------------------------------------------------- */
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+
+  /* ---------------------------------------------------------------------------
+     COLOR: Gray
+     Neutral scale. Text, borders, disabled states, neutral surfaces.
+     --------------------------------------------------------------------------- */
+  --color-gray-100: #252828;
+  --color-gray-90:  #373939;
+  --color-gray-80:  #424747;
+  --color-gray-70:  #737373;
+  --color-gray-60:  #8D9090;
+  --color-gray-50:  #989A9A;
+  --color-gray-40:  #B7B9B9;
+  --color-gray-30:  #D8D9D9;
+  --color-gray-20:  #EAEAEA;
+  --color-gray-10:  #F9F9F9;
+
+  /* ---------------------------------------------------------------------------
+     COLOR: Cool Gray
+     Blue-tinted neutral. UI chrome, sidebars, backgrounds.
+     --------------------------------------------------------------------------- */
+  --color-cool-gray-100: #2F3B42;
+  --color-cool-gray-90:  #394850;
+  --color-cool-gray-80:  #4A5A64;
+  --color-cool-gray-70:  #7C8D98;
+  --color-cool-gray-60:  #909FA7;
+  --color-cool-gray-50:  #A6B2B9;
+  --color-cool-gray-40:  #BBC6CE;
+  --color-cool-gray-30:  #DFE6EC;
+  --color-cool-gray-20:  #EBF0F4;
+  --color-cool-gray-10:  #F5F8FA;
+
+  /* ---------------------------------------------------------------------------
+     COLOR: Blue
+     Primary brand and action color.
+     --------------------------------------------------------------------------- */
+  --color-blue-100: #004C6F;
+  --color-blue-90:  #005E8A;
+  --color-blue-80:  #0076AD;
+  --color-blue-70:  #0CA2E9;
+  --color-blue-60:  #3DBAF5;
+  --color-blue-50:  #64C8F7;
+  --color-blue-40:  #9DDDFB;
+  --color-blue-30:  #C5EAFC;
+  --color-blue-20:  #E1F3FC;
+  --color-blue-10:  #F1FAFF;
+
+  /* ---------------------------------------------------------------------------
+     COLOR: Green
+     Success and positive outcomes.
+     --------------------------------------------------------------------------- */
+  --color-green-100: #2D6100;
+  --color-green-90:  #3C8000;
+  --color-green-80:  #64A329;
+  --color-green-70:  #7EB843;
+  --color-green-60:  #96C76B;
+  --color-green-50:  #ABD388;
+  --color-green-40:  #C0DEA5;
+  --color-green-30:  #D0E6BC;
+  --color-green-20:  #DFEFD2;
+  --color-green-10:  #EFF7E9;
+
+  /* ---------------------------------------------------------------------------
+     COLOR: Emerald
+     Secondary green. Data visualisation, categories.
+     --------------------------------------------------------------------------- */
+  --color-emerald-100: #195C42;
+  --color-emerald-90:  #217354;
+  --color-emerald-80:  #247F5C;
+  --color-emerald-70:  #39A078;
+  --color-emerald-60:  #55AD8B;
+  --color-emerald-50:  #7FC2A8;
+  --color-emerald-40:  #95CCB7;
+  --color-emerald-30:  #B2DACB;
+  --color-emerald-20:  #D4EBE2;
+  --color-emerald-10:  #EAF5F1;
+
+  /* ---------------------------------------------------------------------------
+     COLOR: Aqua
+     Teal/cyan. Data visualisation, informational accents.
+     --------------------------------------------------------------------------- */
+  --color-aqua-100: #01545B;
+  --color-aqua-90:  #1A6166;
+  --color-aqua-80:  #1F767C;
+  --color-aqua-70:  #13A4B0;
+  --color-aqua-60:  #4DBAC4;
+  --color-aqua-50:  #67C4CC;
+  --color-aqua-40:  #80CED5;
+  --color-aqua-30:  #ADE0E4;
+  --color-aqua-20:  #CCEBEE;
+  --color-aqua-10:  #E5F6F8;
+
+  /* ---------------------------------------------------------------------------
+     COLOR: Purple
+     Data visualisation, categories, AI/smart features.
+     --------------------------------------------------------------------------- */
+  --color-purple-100: #47428D;
+  --color-purple-90:  #5B55B5;
+  --color-purple-80:  #6A64C5;
+  --color-purple-70:  #8983EE;
+  --color-purple-60:  #9891FC;
+  --color-purple-50:  #AEA9FC;
+  --color-purple-40:  #BFBBFD;
+  --color-purple-30:  #D8D6FE;
+  --color-purple-20:  #E5E4FE;
+  --color-purple-10:  #F2F1FF;
+
+  /* ---------------------------------------------------------------------------
+     COLOR: Violet
+     Data visualisation.
+     --------------------------------------------------------------------------- */
+  --color-violet-100: #654578;
+  --color-violet-90:  #82599A;
+  --color-violet-80:  #885DA2;
+  --color-violet-70:  #C18DDE;
+  --color-violet-60:  #C99DE2;
+  --color-violet-50:  #D7B5E9;
+  --color-violet-40:  #DEC2ED;
+  --color-violet-30:  #EBDAF4;
+  --color-violet-20:  #F2E6F8;
+  --color-violet-10:  #F8F3FB;
+
+  /* ---------------------------------------------------------------------------
+     COLOR: Pink
+     Data visualisation.
+     --------------------------------------------------------------------------- */
+  --color-pink-100: #622D40;
+  --color-pink-90:  #7E3A52;
+  --color-pink-80:  #8C405B;
+  --color-pink-70:  #E2769B;
+  --color-pink-60:  #E891AF;
+  --color-pink-50:  #EEADC3;
+  --color-pink-40:  #F1BBCD;
+  --color-pink-30:  #F6D6E1;
+  --color-pink-20:  #F9E4EB;
+  --color-pink-10:  #FCF1F5;
+
+  /* ---------------------------------------------------------------------------
+     COLOR: Red
+     Error and destructive states only.
+     --------------------------------------------------------------------------- */
+  --color-red-100: #990606;
+  --color-red-90:  #B70606;
+  --color-red-80:  #D00B0B;
+  --color-red-70:  #E5524D;
+  --color-red-60:  #F16A65;
+  --color-red-50:  #F48985;
+  --color-red-40:  #F6A09D;
+  --color-red-30:  #F8B7B4;
+  --color-red-20:  #FBD2D0;
+  --color-red-10:  #FDE8E6;
+
+  /* ---------------------------------------------------------------------------
+     COLOR: Orange
+     Warning states only.
+     --------------------------------------------------------------------------- */
+  --color-orange-100: #993D00;
+  --color-orange-90:  #B84C05;
+  --color-orange-80:  #D25B0B;
+  --color-orange-70:  #F08842;
+  --color-orange-60:  #F29D64;
+  --color-orange-50:  #F5B185;
+  --color-orange-40:  #FAC099;
+  --color-orange-30:  #FFCEAD;
+  --color-orange-20:  #FFE0CC;
+  --color-orange-10:  #FFEDE0;
+
+  /* ---------------------------------------------------------------------------
+     COLOR: Ochre
+     Warm neutral accent. Data visualisation.
+     --------------------------------------------------------------------------- */
+  --color-ochre-100: #5A4F22;
+  --color-ochre-90:  #74662C;
+  --color-ochre-80:  #816F28;
+  --color-ochre-70:  #D1BC69;
+  --color-ochre-60:  #D9C782;
+  --color-ochre-50:  #DECF94;
+  --color-ochre-40:  #E4D7A6;
+  --color-ochre-30:  #EFE7C9;
+  --color-ochre-20:  #F4EFDB;
+  --color-ochre-10:  #FAF7ED;
+
+  /* ---------------------------------------------------------------------------
+     SPACING
+     Controls whitespace: padding, margin, gap.
+     Base unit: 4px.
+     --------------------------------------------------------------------------- */
+  --spacing-none: 0;
+  --spacing-25:   4px;
+  --spacing-50:   8px;
+  --spacing-75:   12px;
+  --spacing-100:  16px;
+  --spacing-125:  20px;
+  --spacing-150:  24px;
+  --spacing-200:  32px;
+  --spacing-250:  40px;
+  --spacing-400:  64px;
+  --spacing-600:  96px;
+  --spacing-800:  128px;
+
+  /* ---------------------------------------------------------------------------
+     SIZE
+     Controls dimensions: width, height.
+     --------------------------------------------------------------------------- */
+  --size-100: 16px;
+  --size-125: 20px;
+  --size-150: 24px;
+  --size-200: 32px;
+  --size-250: 40px;
+  --size-300: 48px;
+  --size-350: 56px;
+  --size-400: 64px;
+  --size-450: 72px;
+  --size-500: 80px;
+  --size-525: 84px;
+  --size-550: 88px;
+
+  /* ---------------------------------------------------------------------------
+     BORDER RADIUS
+     --------------------------------------------------------------------------- */
+  --border-radius-none:   0;
+  --border-radius-100:    4px;
+  --border-radius-150:    6px;
+  --border-radius-200:    8px;
+  --border-radius-300:    12px;
+  --border-radius-400:    16px;
+  --border-radius-pill:   999px;
+  --border-radius-circle: 999px;
+
+  /* ---------------------------------------------------------------------------
+     BORDER WIDTH
+     --------------------------------------------------------------------------- */
+  --border-width-none: 0;
+  --border-width-100:  1px;
+  --border-width-200:  2px;
+  --border-width-400:  4px;
+
+  /* ---------------------------------------------------------------------------
+     OPACITY
+     10% increment scale. Use only via component tokens — not directly.
+     For overlay opacity, see bg.overlay in themes.css.
+     --------------------------------------------------------------------------- */
+  --opacity-0:   0;
+  --opacity-10:  0.1;
+  --opacity-20:  0.2;
+  --opacity-30:  0.3;
+  --opacity-40:  0.4;
+  --opacity-50:  0.5;
+  --opacity-60:  0.6;
+  --opacity-70:  0.7;
+  --opacity-80:  0.8;
+  --opacity-90:  0.9;
+  --opacity-100: 1;
+
+  /* ---------------------------------------------------------------------------
+     ELEVATION (Box Shadow)
+     Shadow color: color.gray.80 (#424747) at 16% opacity.
+     Scale matches the intentional gap pattern: 100–400 for components,
+     800 for maximum elevation (modals, drawers). Opacity bumps to 24% at 800.
+     --------------------------------------------------------------------------- */
+  --box-shadow-100: 0 2px 4px 0 rgba(66, 71, 71, 0.16);
+  --box-shadow-200: 0 4px 8px 0 rgba(66, 71, 71, 0.16);
+  --box-shadow-300: 0 8px 16px 0 rgba(66, 71, 71, 0.16);
+  --box-shadow-400: 0 16px 32px 0 rgba(66, 71, 71, 0.16);
+  --box-shadow-800: 0 32px 64px 0 rgba(66, 71, 71, 0.24);
+
+}

@@ -1,0 +1,152 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — BANNER ALERT COMPONENT
+   Source: components/banner-alert.md
+
+   Non-blocking notification. Full-width, auto-height.
+   Variants: informative (default), positive, notice, negative.
+   role="status" (informative/positive) or role="alert" (notice/negative).
+   ============================================================================= */
+
+/* =============================================================================
+   BASE
+   ============================================================================= */
+
+.banner-alert {
+
+  /* --- Private color tokens (informative defaults) ------------------------- */
+  --_bg:         var(--bg-primary-softest);  /* #F1FAFF */
+  --_border:     var(--border-primary);      /* #005E8A */
+  --_icon-color: var(--icon-accent);         /* #005E8A */
+
+  /* --- Layout --------------------------------------------------------------- */
+  display:               grid;
+  grid-template-columns: auto 1fr auto;  /* icon | content | close */
+  grid-template-rows:    auto auto;       /* body row | actions row */
+  column-gap:            var(--spacing-75);   /* 12px — icon↔content and content↔close */
+  align-items:           start;
+  width:                 100%;
+  padding:               var(--spacing-100); /* 16px all round */
+  box-sizing:            border-box;
+
+  /* --- Shape ---------------------------------------------------------------- */
+  border-radius: var(--border-radius-200);   /* 8px */
+  border:        var(--border-width-100) solid var(--_border);
+
+  /* --- Color --------------------------------------------------------------- */
+  background:    var(--_bg);
+}
+
+/* =============================================================================
+   VARIANTS
+   ============================================================================= */
+
+.banner-alert[data-variant="positive"] {
+  --_bg:         var(--bg-positive-softest);  /* #EFF7E9 */
+  --_border:     var(--border-positive);      /* #3C8000 */
+  --_icon-color: var(--icon-positive);        /* #2D6100 */
+}
+
+.banner-alert[data-variant="notice"] {
+  --_bg:         var(--bg-notice-softest);    /* #FFEDE0 */
+  --_border:     var(--border-notice);        /* #B84C05 */
+  --_icon-color: var(--icon-notice);          /* #993D00 */
+}
+
+.banner-alert[data-variant="negative"] {
+  --_bg:         var(--bg-negative-softest);  /* #FDE8E6 */
+  --_border:     var(--border-negative);      /* #B70606 */
+  --_icon-color: var(--icon-negative);        /* #990606 */
+}
+
+/* =============================================================================
+   ICON
+   Fixed 20px. aria-hidden in markup. Optical top-alignment with first text line.
+   ============================================================================= */
+
+.banner-alert__icon {
+  grid-column: 1;
+  grid-row:    1;
+  display:     inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  color:       var(--_icon-color);
+  margin-top:  1px;   /* optical alignment with cap-height of 14px text */
+}
+
+.banner-alert__icon svg {
+  width:          20px;
+  height:         20px;
+  pointer-events: none;
+}
+
+/* =============================================================================
+   CONTENT — wraps body (title + message) and optional actions
+   ============================================================================= */
+
+.banner-alert__content {
+  grid-column: 2;
+  grid-row:    1;
+  min-width:   0;
+}
+
+/* =============================================================================
+   TITLE
+   Optional. 14px semibold. Renders a 4px gap between title and message via
+   adjacent sibling selector so no margin appears when title is absent.
+   ============================================================================= */
+
+.banner-alert__title {
+  display:     block;
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);          /* 14px */
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-heading);
+  color:       var(--text-loud);
+}
+
+.banner-alert__title + .banner-alert__message {
+  margin-top: var(--spacing-25);             /* 4px — only when title is present */
+}
+
+/* =============================================================================
+   MESSAGE
+   ============================================================================= */
+
+.banner-alert__message {
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);          /* 14px */
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text);
+}
+
+/* Links within messages inherit context color — no override needed here */
+
+/* =============================================================================
+   ACTIONS
+   Optional. Up to 2 buttons, right-aligned below the message.
+   ============================================================================= */
+
+.banner-alert__actions {
+  grid-column:     2 / -1;                  /* spans content + close columns */
+  grid-row:        2;
+  display:         flex;
+  flex-wrap:       wrap;
+  gap:             var(--spacing-50);        /* 8px between buttons */
+  margin-top:      var(--spacing-75);        /* 12px above buttons */
+  justify-content: flex-end;
+}
+
+/* =============================================================================
+   CLOSE BUTTON
+   Rendered as a Ripple Button (ghost / small / neutral). Only layout
+   adjustments live here — Button handles all visual and interaction styles.
+   ============================================================================= */
+
+.banner-alert__close {
+  grid-column: 3;
+  grid-row:    1;
+  margin-top:  -4px;   /* optical alignment — offsets Button's own vertical padding */
+}

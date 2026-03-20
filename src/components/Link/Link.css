@@ -1,0 +1,109 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — LINK COMPONENT
+   Source: components/link.md
+
+   Architecture: private CSS custom properties (--_*) initialised in .link,
+   overridden by size selectors. State selectors read the resolved values.
+
+   Two variants:
+   - loud: always underlined (default)
+   - soft: underline on hover/focus only
+
+   External icon auto-rendered when target="_blank". Sized via --_icon-size.
+   ============================================================================= */
+
+/* =============================================================================
+   BASE
+   ============================================================================= */
+
+.link {
+
+  /* --- Private size tokens (size-100 defaults) ------------------------------- */
+  --_font-size:  var(--font-size-100);  /* 16px */
+  --_icon-size:  14px;
+
+  /* --- Layout --------------------------------------------------------------- */
+  display:     inline-flex;
+  align-items: center;
+  gap:         var(--spacing-25);       /* 4px */
+
+  /* --- Typography ----------------------------------------------------------- */
+  font-family:  var(--font-family-base);
+  font-size:    var(--_font-size);
+  line-height:  var(--font-line-height-body);   /* 150% */
+  font-weight:  var(--font-weight-regular);
+
+  /* --- Color --------------------------------------------------------------- */
+  color:                   var(--text-link);
+  text-decoration:         underline;
+  text-underline-offset:   2px;
+  text-decoration-color:   currentColor;
+
+  /* --- Interaction ---------------------------------------------------------- */
+  cursor:                 pointer;
+  -webkit-font-smoothing: antialiased;
+  transition:             color 150ms ease;
+}
+
+/* =============================================================================
+   VARIANTS
+   ============================================================================= */
+
+/* Loud: underline always present (default above) */
+
+/* Soft: underline appears on hover and focus only */
+.link[data-variant="soft"] {
+  text-decoration: none;
+}
+
+.link[data-variant="soft"]:hover,
+.link[data-variant="soft"]:focus-visible {
+  text-decoration:       underline;
+  text-underline-offset: 2px;
+}
+
+/* =============================================================================
+   SIZES
+   ============================================================================= */
+
+.link[data-size="80"] {
+  --_font-size: var(--font-size-80);   /* 14px */
+  --_icon-size: 12px;
+}
+
+/* size-100: default in .link base */
+
+/* =============================================================================
+   STATES
+   ============================================================================= */
+
+.link:hover {
+  color: var(--text-link);
+}
+
+.link:active {
+  color: var(--text-link-active);
+}
+
+.link:visited {
+  color: var(--text-link-visited);
+}
+
+.link:focus-visible {
+  outline:        2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-radius:  2px;
+}
+
+/* =============================================================================
+   EXTERNAL ICON
+   Sizes any svg rendered inside the link (lucide ExternalLink).
+   pointer-events: none prevents the icon from intercepting clicks.
+   ============================================================================= */
+
+.link svg {
+  width:          var(--_icon-size);
+  height:         var(--_icon-size);
+  flex-shrink:    0;
+  pointer-events: none;
+}

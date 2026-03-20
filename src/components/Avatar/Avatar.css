@@ -1,0 +1,275 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — AVATAR COMPONENT
+   Source: components/avatar.md
+
+   Three components in one file:
+     .avatar             — core circle (initials or image)
+     .avatar-group       — overlapping or inline layout with overflow counter
+     .avatar-with-status — wraps a single avatar, adds a status dot
+
+   Element rendering: <a> for href, <button> for onClick, <span> otherwise.
+   data-interactive is set on interactive avatars — drives hover/focus styles.
+   ============================================================================= */
+
+/* =============================================================================
+   AVATAR BASE
+   ============================================================================= */
+
+.avatar {
+
+  /* --- Private size tokens (large defaults) -------------------------------- */
+  --_size:      var(--size-250);         /* 40px */
+  --_font-size: var(--font-size-100);    /* 16px */
+
+  /* --- Private color tokens ----------------------------------------------- */
+  --_bg:           var(--bg-nav);
+  --_color:        var(--color-primary-loud);
+  --_border-color: var(--border-primary-loud);
+
+  /* --- Layout --------------------------------------------------------------- */
+  box-sizing:      border-box;
+  position:        relative;
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  width:           var(--_size);
+  height:          var(--_size);
+  flex-shrink:     0;
+  overflow:        hidden;
+  border-radius:   var(--border-radius-circle);
+  border:          var(--border-width-default) solid var(--_border-color);
+
+  /* --- Typography ----------------------------------------------------------- */
+  font-family:  var(--font-family-base);
+  font-size:    var(--_font-size);
+  font-weight:  var(--font-weight-semibold);
+  line-height:  1;
+  white-space:  nowrap;
+
+  /* --- Color --------------------------------------------------------------- */
+  background:  var(--_bg);
+  color:       var(--_color);
+
+  /* --- Resets --------------------------------------------------------------- */
+  text-decoration: none;
+  cursor:          default;
+  user-select:     none;
+  -webkit-font-smoothing: antialiased;
+
+  /* --- Transition ----------------------------------------------------------- */
+  transition: background 150ms ease;
+}
+
+/* Image fills the circle */
+.avatar__img {
+  width:          100%;
+  height:         100%;
+  object-fit:     cover;
+  display:        block;
+  pointer-events: none;
+}
+
+/* Initials — inherits font props from .avatar */
+.avatar__initials {
+  pointer-events: none;
+}
+
+/* =============================================================================
+   SIZES
+   ============================================================================= */
+
+.avatar[data-size="s"] {
+  --_size:      var(--size-150);         /* 24px */
+  --_font-size: var(--font-size-60);     /* 12px */
+}
+
+.avatar[data-size="m"] {
+  --_size:      var(--size-200);         /* 32px */
+  --_font-size: var(--font-size-80);     /* 14px */
+}
+
+/* l: default in .avatar base */
+
+.avatar[data-size="xl"] {
+  --_size:      var(--size-300);         /* 48px */
+  --_font-size: var(--font-size-120);    /* 18px */
+}
+
+.avatar[data-size="2xl"] {
+  --_size:      var(--size-400);         /* 64px */
+  --_font-size: 20px;                    /* no --font-size-140 token in the scale */
+}
+
+.avatar[data-size="3xl"] {
+  --_size:      var(--size-525);         /* 84px */
+  --_font-size: var(--font-size-180);    /* 24px */
+}
+
+/* =============================================================================
+   INTERACTIVE STATE
+   Avatar renders as <a> (href) or <button> (onClick). Both receive data-interactive.
+   ============================================================================= */
+
+.avatar[data-interactive] {
+  cursor: pointer;
+}
+
+/* Image variant: dark overlay on hover / focus-within */
+.avatar[data-interactive][data-variant="image"]::after {
+  content:        '';
+  position:       absolute;
+  inset:          0;
+  background:     rgba(0, 0, 0, 0.15);
+  opacity:        0;
+  transition:     opacity 150ms ease;
+  pointer-events: none;
+}
+
+.avatar[data-interactive][data-variant="image"]:hover::after,
+.avatar[data-interactive][data-variant="image"]:focus-within::after {
+  opacity: 1;
+}
+
+/* Initials variant: background color shift on hover / press */
+.avatar[data-interactive][data-variant="initials"]:hover {
+  --_bg: var(--bg-primary-softest);
+}
+
+.avatar[data-interactive][data-variant="initials"]:active {
+  --_bg: var(--bg-primary-soft);
+}
+
+/* Focus ring */
+.avatar[data-interactive]:focus-visible {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* =============================================================================
+   AVATAR GROUP
+   Wraps multiple Avatar elements in an overlapping or inline layout.
+   ============================================================================= */
+
+.avatar-group {
+  display:     inline-flex;
+  align-items: center;
+}
+
+/* --- Overlap mode (default) ------------------------------------------------ */
+
+.avatar-group[data-overlap="true"] .avatar,
+.avatar-group[data-overlap="true"] .avatar-group__counter {
+  margin-left: -8px;
+  border:      2px solid var(--bg-nav); /* separates overlapping circles; adapts in dark mode */
+}
+
+.avatar-group[data-overlap="true"] .avatar:first-child {
+  margin-left: 0;
+}
+
+/* Hover lift — avatar rises above its neighbours */
+.avatar-group[data-overlap="true"] .avatar:hover {
+  transform: translateY(-2px);
+  z-index:   1;
+}
+
+/* --- Inline mode ----------------------------------------------------------- */
+
+.avatar-group[data-overlap="false"] {
+  gap: var(--spacing-50); /* 8px */
+}
+
+/* --- Overflow counter ------------------------------------------------------ */
+
+.avatar-group__counter {
+  /* Size tokens — match to the Avatar size in the group */
+  --_size:      var(--size-250);         /* 40px — l default */
+  --_font-size: var(--font-size-60);     /* 12px — compact; "+N" text is always short */
+
+  box-sizing:      border-box;
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  min-width:       var(--_size);         /* circular for short counts, pill for longer */
+  height:          var(--_size);
+  padding-inline:  var(--spacing-25);    /* 4px — breathing room */
+  flex-shrink:     0;
+  border-radius:   var(--border-radius-circle);
+
+  font-family:  var(--font-family-base);
+  font-size:    var(--_font-size);
+  font-weight:  var(--font-weight-semibold);
+  line-height:  1;
+  white-space:  nowrap;
+
+  background:  var(--bg-neutral-soft);
+  color:       var(--text);
+  user-select: none;
+}
+
+/* Counter size variants */
+.avatar-group__counter[data-size="s"] {
+  --_size: var(--size-150);   /* 24px */
+}
+
+.avatar-group__counter[data-size="m"] {
+  --_size: var(--size-200);   /* 32px */
+}
+
+/* l: default */
+
+.avatar-group__counter[data-size="xl"] {
+  --_size:      var(--size-300);         /* 48px */
+  --_font-size: var(--font-size-80);     /* 14px — larger container warrants larger text */
+}
+
+.avatar-group__counter[data-size="2xl"] {
+  --_size:      var(--size-400);         /* 64px */
+  --_font-size: var(--font-size-100);    /* 16px */
+}
+
+.avatar-group__counter[data-size="3xl"] {
+  --_size:      var(--size-525);         /* 84px */
+  --_font-size: var(--font-size-120);    /* 18px */
+}
+
+/* =============================================================================
+   AVATAR WITH STATUS
+   Wrapper that positions a status dot at the bottom-right of a single Avatar.
+   ============================================================================= */
+
+.avatar-with-status {
+  position: relative;
+  display:  inline-flex;
+}
+
+.avatar-with-status__dot {
+  --_dot-size:  10px;                /* l default */
+  --_dot-color: var(--bg-positive);  /* active default */
+
+  position:      absolute;
+  bottom:        0;
+  right:         0;
+  width:         var(--_dot-size);
+  height:        var(--_dot-size);
+  border-radius: var(--border-radius-circle);
+  background:    var(--_dot-color);
+  border:        2px solid var(--bg-nav); /* separation from avatar edge; adapts in dark mode */
+  box-sizing:    border-box;
+}
+
+/* --- Status colors ------------------------------------------------------- */
+
+.avatar-with-status__dot[data-status="active"]  { --_dot-color: var(--bg-positive);  }
+.avatar-with-status__dot[data-status="away"]    { --_dot-color: var(--bg-notice);    }
+.avatar-with-status__dot[data-status="busy"]    { --_dot-color: var(--bg-negative);  }
+.avatar-with-status__dot[data-status="offline"] { --_dot-color: var(--bg-neutral);   }
+
+/* --- Dot sizes per avatar size -------------------------------------------- */
+
+.avatar-with-status[data-avatar-size="s"]   .avatar-with-status__dot { --_dot-size:  6px; }
+.avatar-with-status[data-avatar-size="m"]   .avatar-with-status__dot { --_dot-size:  8px; }
+/* l: default 10px */
+.avatar-with-status[data-avatar-size="xl"]  .avatar-with-status__dot { --_dot-size: 12px; }
+.avatar-with-status[data-avatar-size="2xl"] .avatar-with-status__dot { --_dot-size: 14px; }
+.avatar-with-status[data-avatar-size="3xl"] .avatar-with-status__dot { --_dot-size: 16px; }

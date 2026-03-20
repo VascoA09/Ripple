@@ -1,0 +1,172 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — PROGRESS BAR COMPONENT
+   Source: components/progress-bar.md
+
+   Track height: 8px (fixed; width fills container)
+   States:       active (default) | success | error
+   Types:        determinate (default) | indeterminate
+
+   Token note: spec references var(--color-cool-gray-30) for track background.
+   That is a Tier 1 primitive. Replaced with var(--bg-neutral-soft) (semantic).
+   ============================================================================= */
+
+/* ---------------------------------------------------------------------------
+   Root
+   --------------------------------------------------------------------------- */
+
+.progress-bar {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-50);  /* 8px: header↔track and track↔hint */
+  width:          100%;
+}
+
+/* ---------------------------------------------------------------------------
+   Header — label + value
+   --------------------------------------------------------------------------- */
+
+.progress-bar__header {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     baseline;
+  gap:             var(--spacing-50);
+}
+
+.progress-bar__label {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);   /* 14px */
+  font-weight: var(--font-weight-regular);
+  color:       var(--text);
+  line-height: var(--font-line-height-body);
+}
+
+/* Visually hidden — still in DOM for aria-labelledby */
+.progress-bar__label--hidden {
+  position: absolute;
+  width:    1px;
+  height:   1px;
+  padding:  0;
+  margin:   -1px;
+  overflow: hidden;
+  clip:     rect(0, 0, 0, 0);
+  border:   0;
+  white-space: nowrap;
+}
+
+.progress-bar__value {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-medium);
+  color:       var(--text);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* State icon — color inherits from root data-state */
+.progress-bar__state-icon {
+  display:     flex;
+  flex-shrink: 0;
+  color:       var(--_icon-color);
+}
+
+/* ---------------------------------------------------------------------------
+   Track
+   --------------------------------------------------------------------------- */
+
+.progress-bar__track {
+  position:     relative;
+  width:        100%;
+  height:       8px;
+  background:   var(--bg-neutral-soft); /* spec: --color-cool-gray-30 (primitive) */
+  border-radius: var(--border-radius-300);  /* 12px — pill shape */
+  overflow:     hidden;
+}
+
+/* ---------------------------------------------------------------------------
+   Fill — private tokens driven by data-state
+   --------------------------------------------------------------------------- */
+
+.progress-bar {
+  --_fill-color: var(--bg-primary);
+  --_icon-color: var(--color-positive);
+}
+
+.progress-bar[data-state='success'] {
+  --_fill-color: var(--bg-positive);
+  --_icon-color: var(--color-positive);
+}
+
+.progress-bar[data-state='error'] {
+  --_fill-color: var(--bg-negative);
+  --_icon-color: var(--color-negative);
+}
+
+.progress-bar__fill {
+  height:        100%;
+  background:    var(--_fill-color);
+  border-radius: var(--border-radius-300);
+  transition:    width 200ms ease;
+}
+
+/* Success: fill expands to 100% */
+.progress-bar[data-state='success'] .progress-bar__fill {
+  width: 100%;
+}
+
+/* ---------------------------------------------------------------------------
+   Indeterminate animation
+   --------------------------------------------------------------------------- */
+
+.progress-bar[data-indeterminate] .progress-bar__fill {
+  width:    40%;
+  position: absolute;
+  animation: progress-bar-slide 1.5s ease-in-out infinite;
+}
+
+@keyframes progress-bar-slide {
+  0%   { transform: translateX(-150%); }
+  100% { transform: translateX(350%); }
+}
+
+/* Respect reduced motion — show a static pulsing fill instead */
+@media (prefers-reduced-motion: reduce) {
+  .progress-bar[data-indeterminate] .progress-bar__fill {
+    width:     60%;
+    transform: none;
+    animation: progress-bar-pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes progress-bar-pulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.4; }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Hint
+   --------------------------------------------------------------------------- */
+
+.progress-bar__hint {
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);   /* 14px */
+  font-weight: var(--font-weight-regular);
+  color:       var(--text-soft);
+  line-height: var(--font-line-height-body);
+}
+
+/* ---------------------------------------------------------------------------
+   Live region — visually hidden, always in DOM
+   --------------------------------------------------------------------------- */
+
+.progress-bar__live {
+  position: absolute;
+  width:    1px;
+  height:   1px;
+  padding:  0;
+  margin:   -1px;
+  overflow: hidden;
+  clip:     rect(0, 0, 0, 0);
+  border:   0;
+  white-space: nowrap;
+}

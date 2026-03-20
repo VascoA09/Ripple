@@ -1,0 +1,240 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — TABS COMPONENT
+
+   Compound: Tabs, TabList, Tab, TabPanel
+   Variants: loud (default — full-width divider), soft (no divider)
+   Sizes: medium (40px, default), mobile (48px)
+
+   Architecture:
+   - .tab-item     wrapper div: owns background, border-radius, selected indicator
+   - .tab          button[role="tab"]: owns color, click interaction, focus ring
+   - .tab__actions sibling span: close + menu buttons, hidden until hover/selected
+   - .tab-panel    content area for the active tab
+
+   Selected tab indicator:
+   Uses a ::after pseudo-element (position: absolute; bottom: 0; height: 2px)
+   rather than box-shadow. Box-shadows that extend outside the element are
+   clipped by overflow: hidden on ancestor containers (e.g. Panel). The ::after
+   approach stays within the tab-item's bounds and renders in all contexts.
+
+   Focus ring:
+   Uses box-shadow: inset on .tab rather than outline. Outlines extending
+   outside an element are clipped by overflow: hidden ancestors. Inset shadows
+   stay within the element's border-box.
+   ============================================================================= */
+
+/* =============================================================================
+   TABS ROOT
+   ============================================================================= */
+
+.tabs {
+  width: 100%;
+}
+
+/* =============================================================================
+   TAB LIST
+   Horizontal scrollable flex container. Variant drives the divider.
+   --_tab-inset: controls how far the loud divider is inset from each side.
+   Set via the padding prop: TabList sets paddingLeft/Right + this variable so
+   the divider aligns with the padded content edge.
+   ============================================================================= */
+
+.tab-list {
+  display:         flex;
+  align-items:     flex-end;
+  overflow-x:      auto;
+  scrollbar-width: none;
+  position:        relative;   /* positioning context for ::after divider */
+  --_tab-inset:    0px;        /* override via padding prop */
+}
+
+.tab-list::-webkit-scrollbar { display: none; }
+
+/* Loud variant: inset bottom divider via ::after (stays within element bounds) */
+.tab-list[data-variant="loud"]::after {
+  content:    '';
+  position:   absolute;
+  bottom:     0;
+  left:       var(--_tab-inset);
+  right:      var(--_tab-inset);
+  height:     var(--border-width-100);
+  background: var(--border-neutral);
+}
+
+/* Soft variant: no divider — intentionally empty */
+.tab-list[data-variant="soft"] {}
+
+/* =============================================================================
+   TAB ITEM
+   Wrapper div. Owns visual state: background, border-radius, selected indicator.
+   position: relative is required for the ::after indicator pseudo-element.
+   ============================================================================= */
+
+.tab-item {
+  display:       inline-flex;
+  align-items:   stretch;            /* tab button and actions fill full height */
+  flex-shrink:   0;
+  position:      relative;
+  border-radius: var(--border-radius-150) var(--border-radius-150) 0 0;  /* 6px top */
+  background:    transparent;
+  transition:    background 150ms ease;
+  z-index:       1;                  /* renders selected ::after indicator above tab-list divider */
+}
+
+.tab-item:hover:not([data-disabled]) {
+  background: var(--bg-primary-softest);
+}
+
+.tab-item[data-disabled] {
+  opacity: var(--opacity-30);
+  cursor:  not-allowed;
+}
+
+/* =============================================================================
+   SELECTED INDICATOR
+   2px primary bar at the bottom of the selected tab. Rendered as ::after so it
+   stays within the tab-item's bounds — safe under overflow: hidden ancestors.
+   Fades in/out via opacity.
+   ============================================================================= */
+
+.tab-item::after {
+  content:       '';
+  position:      absolute;
+  bottom:        0;
+  left:          0;
+  right:         0;
+  height:        2px;
+  background:    var(--border-primary);
+  border-radius: 2px 2px 0 0;
+  opacity:       0;
+  transition:    opacity 150ms ease;
+}
+
+.tab-item[data-selected]::after {
+  opacity: 1;
+}
+
+/* =============================================================================
+   TAB BUTTON
+   role="tab". Transparent background — visual state lives on .tab-item.
+   ============================================================================= */
+
+.tab {
+  /* Reset */
+  appearance: none;
+  border:     none;
+  background: transparent;
+  cursor:     pointer;
+
+  /* Layout */
+  display:     inline-flex;
+  align-items: center;
+  gap:         var(--spacing-50);                       /* 8px — icon / label / counter */
+  padding:     0 var(--spacing-75);                     /* 0 12px — medium */
+  min-height:  var(--size-component-height-default);    /* 40px */
+
+  /* Typography */
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-100);                    /* 16px */
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-tight);           /* 1 — single line */
+  color:       var(--text-soft);
+  white-space: nowrap;
+
+  transition: color 150ms ease;
+}
+
+/* Color state driven by parent .tab-item */
+.tab-item:hover:not([data-disabled]) .tab { color: var(--text); }
+.tab-item[data-selected] .tab            { color: var(--text); }
+
+.tab-item[data-disabled] .tab {
+  cursor:         not-allowed;
+  pointer-events: none;
+}
+
+/* Focus ring — inset box-shadow stays within bounds, safe under overflow: hidden */
+.tab:focus-visible {
+  outline:       none;
+  box-shadow:    inset 0 0 0 var(--border-width-focus) var(--border-focus);
+  border-radius: var(--border-radius-150) var(--border-radius-150) 0 0;
+}
+
+/* Mobile size override */
+.tab-item[data-size="mobile"] .tab {
+  min-height: var(--size-component-height-large);       /* 48px */
+  padding:    var(--spacing-75) var(--spacing-100);     /* 12px 16px */
+}
+
+/* =============================================================================
+   TAB ICON
+   Always rendered at 16px. Consumer passes a Lucide icon.
+   ============================================================================= */
+
+.tab__icon {
+  display:     flex;
+  align-items: center;
+  flex-shrink: 0;
+  width:       var(--size-icon-small);    /* 16px */
+  height:      var(--size-icon-small);
+}
+
+.tab__icon svg {
+  width:  100%;
+  height: 100%;
+}
+
+/* =============================================================================
+   TAB ACTIONS
+   Close and menu buttons. Siblings of the tab button — not nested inside it.
+   Hidden until hover or selected. Keyboard-accessible only when tab is selected
+   (tabIndex controlled in React: isSelected ? 0 : -1).
+   ============================================================================= */
+
+.tab__actions {
+  display:       inline-flex;
+  align-items:   center;
+  gap:           var(--spacing-25);      /* 4px between menu and close */
+  padding-right: var(--spacing-50);      /* 8px right inset */
+  opacity:       0;
+  transition:    opacity 150ms ease;
+}
+
+.tab-item:hover:not([data-disabled]) .tab__actions,
+.tab-item[data-selected] .tab__actions {
+  opacity: 1;
+}
+
+/* =============================================================================
+   TAB PANEL
+   Content area for the active tab. 16px padding on all sides.
+   When used inside a Panel with padding="0", this provides the body padding.
+   ============================================================================= */
+
+.tab-panel {
+  padding:     var(--spacing-100);       /* 16px */
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-100);     /* 16px */
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text);
+}
+
+/* Focus ring — inset box-shadow, safe under overflow: hidden */
+.tab-panel:focus-visible {
+  outline:    none;
+  box-shadow: inset 0 0 0 var(--border-width-focus) var(--border-focus);
+}
+
+/* =============================================================================
+   REDUCED MOTION
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .tab-item,
+  .tab-item::after,
+  .tab,
+  .tab__actions {
+    transition: none;
+  }
+}

@@ -1,0 +1,21 @@
+import { Meta, StoryObj } from '@storybook/react';
+import { PageHeaderProps } from './PageHeader';
+
+declare const meta: Meta<PageHeaderProps>;
+export default meta;
+type Story = StoryObj<PageHeaderProps>;
+export declare const Default: Story;
+export declare const WithDescription: Story;
+export declare const WithBreadcrumb: Story;
+export declare const WithMetadata: Story;
+export declare const WithSecondaryToolbar: Story;
+export declare const AdaptiveToolbar: Story;
+export declare const WithOverflow: Story;
+export declare const Compact: Story;
+export declare const Sticky: Story;
+export declare const TruncatedTitle: Story;
+export declare const KitchenSink: Story;
+export declare const ActionStates: Story;
+export declare const MobileLayout: Story;
+export declare const MinimalHeader: Story;
+export declare const WithConversation: Story;

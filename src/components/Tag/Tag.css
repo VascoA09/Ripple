@@ -1,0 +1,149 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — TAG COMPONENT
+   Source: components/tag.md
+
+   Non-interactive visual label for categorisation and keyword display.
+   Not for status (use Badge). Not interactive (use Chip).
+
+   Color note: Tag uses primitive tokens directly — no semantic aliases exist
+   in themes.css for these 11 decorative hues. Dark-mode adaptation is not
+   applied; decorative colors are intentionally stable across themes.
+   ============================================================================= */
+
+/* =============================================================================
+   BASE
+   ============================================================================= */
+
+.tag {
+
+  /* --- Private size tokens (medium defaults) -------------------------------- */
+  --_height:    var(--size-150);         /* 24px */
+  --_padding:   var(--spacing-50);       /* 8px  */
+  --_font-size: var(--font-size-80);     /* 14px */
+  --_icon-size: 14px;
+  --_gap:       var(--spacing-25);       /* 4px  */
+
+  /* --- Private color tokens (gray default) --------------------------------- */
+  --_bg:           var(--color-cool-gray-10);       /* #EAEAEA */
+  --_color:        var(--color-cool-gray-100);      /* #252828 — 12.7:1 contrast */
+  --_border-color: var(--color-cool-gray-50);  /* #A6B2B9 — uniform across all color variants */
+
+  /* --- Layout --------------------------------------------------------------- */
+  box-sizing:      border-box;
+  display:         inline-flex;
+  align-items:     center;
+  gap:             var(--_gap);
+  height:          var(--_height);
+  padding-inline:  var(--_padding);
+  border-radius:   var(--border-radius-100);    /* 4px */
+
+  /* --- Typography ----------------------------------------------------------- */
+  font-family:  var(--font-family-base);
+  font-size:    var(--_font-size);
+  font-weight:  var(--font-weight-semibold); /* --font-weight-medium (500) doesn't exist in the scale */
+  line-height:  var(--font-line-height-heading); /* 1.3 — avoids descender clipping */
+  white-space:  nowrap;
+
+  /* --- Color --------------------------------------------------------------- */
+  background: var(--_bg);
+  color:      var(--_color);
+  border:     var(--border-width-default) solid var(--_border-color);
+
+  /* --- Interaction ---------------------------------------------------------- */
+  user-select:            none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Icon wrapper — prevents phantom vertical space from inherited line-height */
+.tag__icon {
+  display:     inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.tag__icon svg {
+  width:          var(--_icon-size);
+  height:         var(--_icon-size);
+  pointer-events: none;
+}
+
+/* =============================================================================
+   SIZES
+   ============================================================================= */
+
+.tag[data-size="small"] {
+  --_height:    var(--size-125);         /* 20px */
+  --_padding:   var(--spacing-25);       /* 4px  */
+  --_font-size: var(--font-size-60);     /* 12px */
+  --_icon-size: 12px;
+  /* gap stays at 4px */
+}
+
+/* medium: default in .tag base */
+
+.tag[data-size="large"] {
+  --_height:    var(--size-200);         /* 32px */
+  --_padding:   var(--spacing-75);       /* 12px */
+  --_font-size: var(--font-size-100);    /* 16px */
+  --_icon-size: 16px;
+  --_gap:       var(--spacing-50);       /* 8px  */
+}
+
+/* =============================================================================
+   COLORS
+   Background: -20 stop (softest tint). Text: -100 stop (loudest).
+   Border: --color-cool-gray-50 (#A6B2B9) — uniform across all variants (set in base).
+   All text/bg pairs verified against WCAG AA (4.5:1); most exceed AAA (7:1).
+   ============================================================================= */
+
+/* gray: default — set in .tag base */
+
+.tag[data-color="blue"] {
+  --_bg:    var(--color-blue-10);       /* #E1F3FC */
+  --_color: var(--color-blue-100);      /* #004C6F — 8.5:1  */
+}
+
+.tag[data-color="green"] {
+  --_bg:    var(--color-green-10);      /* #DFEFD2 */
+  --_color: var(--color-green-100);     /* #2D6100 — ~7.5:1 */
+}
+
+.tag[data-color="emerald"] {
+  --_bg:    var(--color-emerald-10);    /* #D4EBE2 */
+  --_color: var(--color-emerald-100);   /* #195C42 — ~7.2:1 */
+}
+
+.tag[data-color="aqua"] {
+  --_bg:    var(--color-aqua-10);       /* #CCEBEE */
+  --_color: var(--color-aqua-100);      /* #01545B — ~7.1:1 */
+}
+
+.tag[data-color="purple"] {
+  --_bg:    var(--color-purple-10);     /* #E5E4FE */
+  --_color: var(--color-purple-100);    /* #47428D — ~7.0:1 */
+}
+
+.tag[data-color="violet"] {
+  --_bg:    var(--color-violet-10);     /* #F2E6F8 */
+  --_color: var(--color-violet-100);    /* #654578 — ~6.5:1 */
+}
+
+.tag[data-color="pink"] {
+  --_bg:    var(--color-pink-10);       /* #F9E4EB */
+  --_color: var(--color-pink-100);      /* #622D40 — ~8.6:1 */
+}
+
+.tag[data-color="red"] {
+  --_bg:    var(--color-red-10);        /* #FBD2D0 */
+  --_color: var(--color-red-100);       /* #990606 — ~7.8:1 */
+}
+
+.tag[data-color="orange"] {
+  --_bg:    var(--color-orange-10);     /* #FFE0CC */
+  --_color: var(--color-orange-100);    /* #993D00 — ~7.6:1 */
+}
+
+.tag[data-color="ochre"] {
+  --_bg:    var(--color-ochre-10);      /* #F4EFDB */
+  --_color: var(--color-ochre-100);     /* #5A4F22 — ~7.0:1 */
+}

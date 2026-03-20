@@ -1,0 +1,308 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — NAVBAR COMPONENT
+   Source: components/navbar.md
+
+   Fixed 64 px wide vertical navigation shell, left-anchored.
+   Zones: Logo → Tenant Badge → Global Nav → Contextual Nav → Spacer → User Menu
+
+   NOTE: spec references var(--font-size-20) (10 px) for product name.
+   That token does not exist in Ripple. Using 10px literal as it falls below
+   the smallest available token (--font-size-60 = 12 px).
+   ============================================================================= */
+
+/* ---------------------------------------------------------------------------
+   Root
+   --------------------------------------------------------------------------- */
+
+.navbar {
+  display:          flex;
+  flex-direction:   column;
+  align-items:      center;
+  width:            64px;
+  min-height:       100vh;
+  padding:          var(--spacing-50) 0;   /* 8px top/bottom */
+  background:       var(--bg-surface);
+  border-right:     1px solid var(--border-neutral);
+  box-sizing:       border-box;
+  flex-shrink:      0;
+}
+
+/* ---------------------------------------------------------------------------
+   Logo area
+   --------------------------------------------------------------------------- */
+
+.navbar__logo {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  width:           64px;
+  height:          64px;
+  gap:             4px;
+  flex-shrink:     0;
+
+  /* Reset button styles when interactive */
+  appearance:      none;
+  border:          none;
+  background:      transparent;
+  padding:         0;
+  cursor:          default;
+  text-decoration: none;
+}
+
+.navbar__logo--interactive {
+  cursor:          pointer;
+  border-radius:   var(--border-radius-150);
+  outline:         none;
+}
+
+.navbar__logo--interactive:hover {
+  background: var(--bg-neutral-softest);
+}
+
+.navbar__logo--interactive:focus-visible {
+  outline:        2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.navbar__logo-icon {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  width:           32px;
+  height:          32px;
+  color:           var(--color-primary);
+  flex-shrink:     0;
+}
+
+.navbar__product-name {
+  font-family:  var(--font-family-base);
+  font-size:    10px;             /* --font-size-20 (10px) does not exist; using literal */
+  font-weight:  var(--font-weight-bold);
+  line-height:  1;
+  color:        var(--text-loud);
+  max-width:    56px;
+  overflow:     hidden;
+  text-overflow: ellipsis;
+  white-space:  nowrap;
+  text-align:   center;
+}
+
+/* ---------------------------------------------------------------------------
+   Tenant badge
+   --------------------------------------------------------------------------- */
+
+.navbar__tenant {
+  margin-bottom: var(--spacing-50);  /* 8px */
+  padding:       0 var(--spacing-75); /* 12px horizontal */
+  width:         100%;
+  box-sizing:    border-box;
+}
+
+.navbar__tenant-badge {
+  max-width:    52px;
+  overflow:     hidden;
+  text-overflow: ellipsis;
+  white-space:  nowrap;
+  display:      block;
+}
+
+/* ---------------------------------------------------------------------------
+   Nav list (shared by global + contextual)
+   --------------------------------------------------------------------------- */
+
+.navbar__nav-list {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--spacing-25);  /* 4px */
+  padding:        var(--spacing-50) var(--spacing-75); /* 8px 12px */
+  margin:         0;
+  list-style:     none;
+  width:          100%;
+  box-sizing:     border-box;
+}
+
+/* ---------------------------------------------------------------------------
+   Contextual divider
+   --------------------------------------------------------------------------- */
+
+.navbar__divider {
+  width:        calc(100% - 24px);  /* inset 12px each side */
+  height:       1px;
+  background:   var(--border-neutral);
+  flex-shrink:  0;
+  margin:       var(--spacing-50) 0; /* 8px top/bottom */
+}
+
+/* ---------------------------------------------------------------------------
+   Nav button wrapper — positions the tooltip
+   --------------------------------------------------------------------------- */
+
+.navbar__nav-btn-wrapper {
+  position:    relative;
+  display:     flex;
+  align-items: center;
+}
+
+/* ---------------------------------------------------------------------------
+   Nav button
+   --------------------------------------------------------------------------- */
+
+.navbar__nav-btn {
+  --_bg:           transparent;
+  --_color:        var(--text);
+  --_opacity:      1;
+
+  position:         relative;
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  width:            40px;
+  height:           40px;
+  border-radius:    var(--border-radius-150);  /* 8px */
+  border:           none;
+  background:       var(--_bg);
+  color:            var(--_color);
+  opacity:          var(--_opacity);
+  cursor:           pointer;
+  padding:          0;
+  flex-shrink:      0;
+  outline:          none;
+  transition:       background 120ms ease, color 120ms ease;
+}
+
+.navbar__nav-btn:hover {
+  --_bg: var(--bg-neutral-softest);
+}
+
+.navbar__nav-btn:active {
+  --_bg: var(--bg-neutral-soft);
+}
+
+.navbar__nav-btn:focus-visible {
+  outline:        2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.navbar__nav-btn[data-selected] {
+  --_bg:    var(--bg-primary-soft);
+  --_color: var(--color-primary-loud);
+}
+
+.navbar__nav-btn:disabled {
+  --_opacity: 0.4;
+  --_color:   var(--text-disabled);
+  cursor:     not-allowed;
+  pointer-events: none;
+}
+
+.navbar__nav-btn-icon {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  width:           20px;
+  height:          20px;
+}
+
+/* ---------------------------------------------------------------------------
+   Counter badge — overlaid top-right of nav button
+   --------------------------------------------------------------------------- */
+
+.navbar__counter {
+  position: absolute;
+  top:      2px;
+  right:    2px;
+}
+
+/* ---------------------------------------------------------------------------
+   Tooltip — CSS-only, shown on hover and focus-visible of the wrapper
+   --------------------------------------------------------------------------- */
+
+.navbar__tooltip {
+  position:       absolute;
+  left:           calc(100% + 12px);
+  top:            50%;
+  transform:      translateY(-50%);
+
+  font-family:    var(--font-family-base);
+  font-size:      var(--font-size-80);   /* 14px */
+  font-weight:    var(--font-weight-medium);
+  line-height:    1.2;
+  white-space:    nowrap;
+  color:          var(--text-on-fill);
+  background:     var(--bg-inverse);
+  padding:        var(--spacing-25) var(--spacing-50); /* 4px 8px */
+  border-radius:  var(--border-radius-100);
+
+  /* Hidden by default */
+  visibility:     hidden;
+  opacity:        0;
+  transition:     opacity 120ms ease;
+  pointer-events: none;
+  z-index:        var(--z-index-tooltip, 9000);
+}
+
+/* Arrow pointing left toward the Navbar */
+.navbar__tooltip::before {
+  content:        '';
+  position:       absolute;
+  right:          100%;
+  top:            50%;
+  transform:      translateY(-50%);
+  border:         5px solid transparent;
+  border-right-color: var(--bg-inverse);
+}
+
+.navbar__nav-btn-wrapper:hover .navbar__tooltip,
+.navbar__nav-btn-wrapper:focus-within .navbar__tooltip {
+  visibility: visible;
+  opacity:    1;
+}
+
+/* ---------------------------------------------------------------------------
+   Overflow menu items
+   --------------------------------------------------------------------------- */
+
+.navbar__overflow-icon {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  width:           20px;
+  height:          20px;
+  flex-shrink:     0;
+}
+
+.navbar__overflow-counter {
+  margin-left: auto;
+}
+
+/* ---------------------------------------------------------------------------
+   Spacer
+   --------------------------------------------------------------------------- */
+
+.navbar__spacer {
+  flex: 1;
+}
+
+/* ---------------------------------------------------------------------------
+   User menu
+   --------------------------------------------------------------------------- */
+
+.navbar__user {
+  padding:         var(--spacing-50) 0;  /* 8px */
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+}
+
+.navbar__avatar-trigger {
+  cursor: pointer;
+}
+
+.navbar__avatar-trigger:focus-visible {
+  outline:        2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-radius:  50%;
+}

@@ -1,0 +1,211 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — FLYOUT MENU COMPONENT
+   Source: components/flyout-menu.md
+
+   Built on @radix-ui/react-dropdown-menu. Radix handles portal positioning,
+   collision detection, focus trap, keyboard navigation, and ARIA. This file
+   styles the visual layer using Ripple tokens only.
+
+   State is driven by Radix data attributes:
+   - [data-state="open|closed"]     — content panel visibility
+   - [data-highlighted]             — keyboard/mouse focus on an item
+   - [data-disabled]                — disabled item
+   - [data-checked]                 — checked state for checkbox/radio items
+   - [data-side="top|right|bottom|left"] — used for animation direction
+   ============================================================================= */
+
+/* =============================================================================
+   TRIGGER
+   Radix adds no styles to the trigger — remove default button outline that
+   would double with any host component's own focus ring.
+   ============================================================================= */
+
+.flyout-menu-trigger {
+  /* Host components (Button, IconButton, etc.) provide their own focus styles.
+     No visual overrides needed here. */
+}
+
+/* =============================================================================
+   CONTENT PANEL
+   Shared by FlyoutMenuContent and FlyoutMenuSubContent (both use this class).
+   ============================================================================= */
+
+.flyout-menu-content {
+  min-width:     180px;
+  max-width:     320px;
+  padding:       var(--spacing-50);   /* 8px */
+  background:    var(--bg-surface);
+  border:        var(--border-width-default) solid var(--border-default);
+  border-radius: var(--border-radius-overlay-default);   /* 12px */
+  box-shadow:    var(--elevation-dropdown);
+  z-index:       50;
+
+  /* Typography baseline */
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);   /* 14px */
+  color:       var(--text);
+
+  /* Prevents scrollbar from appearing on animated entry */
+  overflow: hidden;
+}
+
+/* =============================================================================
+   ANIMATIONS
+   Radix keeps content mounted during exit so the close animation can play.
+   data-state="open"   → entrance
+   data-state="closed" → exit
+   ============================================================================= */
+
+@keyframes flyout-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes flyout-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.95); }
+}
+
+.flyout-menu-content[data-state="open"]   { animation: flyout-in  200ms ease; }
+.flyout-menu-content[data-state="closed"] { animation: flyout-out 150ms ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  .flyout-menu-content[data-state="open"],
+  .flyout-menu-content[data-state="closed"] { animation: none; }
+}
+
+/* =============================================================================
+   MENU ITEM — base
+   Used by: FlyoutMenuItem, FlyoutMenuCheckboxItem, FlyoutMenuRadioItem,
+            FlyoutMenuSubTrigger
+   ============================================================================= */
+
+.flyout-menu-item {
+  /* --- Private tokens -------------------------------------------------------- */
+  --_bg:     transparent;
+  --_color:  var(--text);
+  --_cursor: pointer;
+
+  /* --- Layout --------------------------------------------------------------- */
+  display:        flex;
+  align-items:    center;
+  gap:            var(--spacing-50);   /* 8px between icon and label */
+  min-height:     var(--size-component-height-default);   /* 40px — touch target */
+  padding-block:  var(--spacing-50);   /* 8px */
+  padding-inline: var(--spacing-75);   /* 12px */
+  border-radius:  var(--border-radius-component-default); /* 4px */
+
+  /* --- Typography ----------------------------------------------------------- */
+  font-family:  var(--font-family-base);
+  font-size:    var(--font-size-80);   /* 14px */
+  font-weight:  var(--font-weight-regular);
+  line-height:  var(--font-line-height-body);
+  white-space:  nowrap;
+
+  /* --- Color --------------------------------------------------------------- */
+  background: var(--_bg);
+  color:      var(--_color);
+
+  /* --- Interaction ---------------------------------------------------------- */
+  cursor:      var(--_cursor);
+  user-select: none;
+  outline:     none;   /* Radix handles focus; we style via data-highlighted */
+
+  transition: background 120ms ease;
+}
+
+/* Highlighted (keyboard focus or hover) */
+.flyout-menu-item[data-highlighted] {
+  --_bg:    var(--bg-primary-softest);
+  --_color: var(--text);
+}
+
+/* Active / pressed */
+.flyout-menu-item:active:not([data-disabled]) {
+  --_bg: var(--bg-primary-soft);
+}
+
+/* Disabled */
+.flyout-menu-item[data-disabled] {
+  --_color:  var(--text-soft);
+  --_cursor: not-allowed;
+  opacity:   0.5;
+}
+
+/* =============================================================================
+   ITEM INDICATOR SLOT
+   16px reserved space for checkbox/radio checkmarks. The indicator is only
+   visible when the item is checked (Radix mounts ItemIndicator conditionally).
+   ============================================================================= */
+
+.flyout-menu-item--has-indicator {
+  padding-inline-start: var(--spacing-50); /* tighter — indicator takes some space */
+}
+
+.flyout-menu-item-indicator {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  width:           var(--size-100);   /* 16px */
+  min-width:       var(--size-100);
+  color:           var(--text);
+}
+
+/* =============================================================================
+   SUBMENU TRIGGER — chevron
+   ChevronRight is pushed to the far right via margin-left: auto.
+   ============================================================================= */
+
+.flyout-menu-sub-trigger {
+  /* The item children will be: [icon?] [label] [chevron] */
+}
+
+.flyout-menu-sub-trigger__chevron {
+  margin-left: auto;
+  color:       var(--icon-soft);
+  flex-shrink: 0;
+}
+
+/* Highlight chevron when item is highlighted */
+.flyout-menu-sub-trigger[data-highlighted] .flyout-menu-sub-trigger__chevron {
+  color: var(--icon-default);
+}
+
+/* =============================================================================
+   SHORTCUT
+   Pushed to the far right via margin-left: auto.
+   ============================================================================= */
+
+.flyout-menu-shortcut {
+  margin-left:  auto;
+  padding-left: var(--spacing-100);   /* 16px gap between label and shortcut */
+  font-size:    var(--font-size-60);  /* 12px */
+  color:        var(--text-soft);
+  letter-spacing: 0.05em;
+  flex-shrink:  0;
+}
+
+/* =============================================================================
+   LABEL
+   Non-interactive section header. Semibold, smaller text, softer color.
+   ============================================================================= */
+
+.flyout-menu-label {
+  padding-block:  var(--spacing-50);   /* 8px */
+  padding-inline: var(--spacing-75);   /* 12px */
+  font-family:    var(--font-family-base);
+  font-size:      var(--font-size-60); /* 12px */
+  font-weight:    var(--font-weight-semibold);
+  color:          var(--text-soft);
+  user-select:    none;
+}
+
+/* =============================================================================
+   SEPARATOR
+   ============================================================================= */
+
+.flyout-menu-separator {
+  height:  1px;
+  margin:  var(--spacing-25) 0;   /* 4px top and bottom */
+  background: var(--border-default);
+}

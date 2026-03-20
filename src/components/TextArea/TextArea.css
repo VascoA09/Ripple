@@ -1,0 +1,232 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — TEXT AREA COMPONENT
+   Source: components/text-area.md
+
+   Architecture: flex column root container. Label above the field, footer
+   below with hint/message on the left and optional character counter on the
+   right. CSS private tokens (--_*) drive border and text color per validation
+   state. Resize modes controlled via data-resize attribute on the textarea.
+   ============================================================================= */
+
+/* ---------------------------------------------------------------------------
+   Root container
+   --------------------------------------------------------------------------- */
+
+.textarea {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-25);   /* 4px between label, field, footer */
+  width:          100%;
+}
+
+/* Disabled: dim everything and block interaction */
+.textarea[data-disabled] {
+  opacity:        0.5;
+  pointer-events: none;
+}
+
+/* Private tokens — defaults, overridden by validation state */
+.textarea {
+  --_border:      var(--border-default);
+  --_text-color:  var(--text);
+  --_msg-color:   var(--text-soft);
+}
+
+.textarea[data-validation="negative"] {
+  --_border:     var(--border-negative);
+  --_text-color: var(--text-negative);
+  --_msg-color:  var(--text-negative);
+}
+
+.textarea[data-validation="notice"] {
+  --_border:     var(--border-notice);
+  --_text-color: var(--text-notice);
+  --_msg-color:  var(--text-notice);
+}
+
+.textarea[data-validation="positive"] {
+  --_border:     var(--border-positive);
+  --_text-color: var(--text-positive);
+  --_msg-color:  var(--text-positive);
+}
+
+/* ---------------------------------------------------------------------------
+   Label
+   --------------------------------------------------------------------------- */
+
+.textarea__label {
+  display:     block;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-100);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  color:       var(--text);
+  cursor:      default;
+  user-select: none;
+}
+
+.textarea__required {
+  color:       var(--color-negative-loud);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ---------------------------------------------------------------------------
+   Field
+   --------------------------------------------------------------------------- */
+
+.textarea__field {
+  display:       block;
+  width:         100%;
+  padding:       var(--spacing-75);          /* 12px all sides */
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-100);       /* 16px */
+  font-weight:   var(--font-weight-regular);
+  line-height:   var(--font-line-height-body);
+  color:         var(--_text-color);
+  background:    var(--bg-surface);
+  border:        var(--border-width-default) solid var(--_border);
+  border-radius: var(--border-radius-200);   /* 8px */
+  box-sizing:    border-box;
+  outline:       none;
+  min-width:     0;
+  transition:
+    border-color 150ms ease,
+    color        150ms ease;
+}
+
+/* Placeholder */
+.textarea__field::placeholder {
+  color: var(--text-soft);
+}
+
+/* Hover */
+.textarea__field:hover:not(:disabled):not(:read-only) {
+  border-color: var(--border-primary);
+}
+
+/* Focus */
+.textarea__field:focus-visible {
+  border-color: var(--border-focus);
+  outline:      var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Disabled */
+.textarea__field:disabled {
+  cursor: not-allowed;
+}
+
+/* Read-only */
+.textarea__field:read-only {
+  background:  var(--bg-neutral-softest);
+  cursor:      default;
+  resize:      none;
+}
+
+/* ---------------------------------------------------------------------------
+   Resize modes
+   --------------------------------------------------------------------------- */
+
+.textarea__field[data-resize="vertical"] {
+  resize: vertical;
+}
+
+.textarea__field[data-resize="none"] {
+  resize: none;
+}
+
+.textarea__field[data-resize="auto"] {
+  resize:     none;
+  overflow-y: hidden;   /* JS switches to auto when maxHeight is hit */
+}
+
+/* ---------------------------------------------------------------------------
+   Footer: hint/message + character counter
+   --------------------------------------------------------------------------- */
+
+.textarea__footer {
+  display:     flex;
+  align-items: flex-start;
+  gap:         var(--spacing-100);   /* 16px between message and counter */
+}
+
+/* ---------------------------------------------------------------------------
+   Hint
+   --------------------------------------------------------------------------- */
+
+.textarea__hint {
+  margin:      0;
+  flex:        1;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);          /* 14px */
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-soft);
+}
+
+/* ---------------------------------------------------------------------------
+   Validation message
+   --------------------------------------------------------------------------- */
+
+.textarea__message {
+  margin:      0;
+  flex:        1;
+  display:     flex;
+  align-items: flex-start;
+  gap:         var(--spacing-25);
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--_msg-color);
+}
+
+.textarea__msg-icon {
+  flex-shrink: 0;
+  margin-top:  1px;
+}
+
+/* ---------------------------------------------------------------------------
+   Character counter
+   --------------------------------------------------------------------------- */
+
+.textarea__counter {
+  margin-left: auto;          /* push right when no hint/message */
+  flex-shrink: 0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-soft);
+  white-space: nowrap;
+}
+
+.textarea__counter--at-limit {
+  color: var(--text-negative);
+}
+
+/* ---------------------------------------------------------------------------
+   Screen reader live region (visually hidden)
+   --------------------------------------------------------------------------- */
+
+.textarea__sr-announce {
+  position:   absolute;
+  width:      1px;
+  height:     1px;
+  padding:    0;
+  margin:     -1px;
+  overflow:   hidden;
+  clip:       rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border:     0;
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .textarea__field {
+    transition: none;
+  }
+}

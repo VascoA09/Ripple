@@ -1,0 +1,286 @@
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { Dialog, DialogHeader, DialogBody, DialogFooter } from './Dialog'
+import type { DialogProps, DialogSize } from './Dialog'
+import { Button } from '../Button'
+import { BannerAlert } from '../BannerAlert'
+import { AlertTriangle, Trash2, Info } from 'lucide-react'
+
+// ---------------------------------------------------------------------------
+
+const meta: Meta<DialogProps> = {
+  title:      'Components/Dialog',
+  component:  Dialog,
+  parameters: { layout: 'centered' },
+  argTypes: {
+    size: { control: 'select', options: ['small', 'medium'] },
+    open: { control: 'boolean' },
+  },
+}
+
+export default meta
+type Story = StoryObj<DialogProps>
+
+// ---------------------------------------------------------------------------
+// Trigger wrapper — lets Storybook controls drive open state
+// ---------------------------------------------------------------------------
+
+function DialogDemo({
+  size = 'medium',
+  label = 'Open dialog',
+  children,
+}: {
+  size?: DialogSize
+  label?: string
+  children: (onClose: () => void) => React.ReactNode
+}) {
+  const [open, setOpen] = React.useState(false)
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>{label}</Button>
+      <Dialog open={open} onClose={() => setOpen(false)} size={size}>
+        {children(() => setOpen(false))}
+      </Dialog>
+    </>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Default — interactive via Storybook controls
+// ---------------------------------------------------------------------------
+
+export const Default: Story = {
+  render: () => (
+    <DialogDemo label="Open medium dialog">
+      {(onClose) => (
+        <>
+          <DialogHeader>Account settings</DialogHeader>
+          <DialogBody>
+            <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-soft)' }}>
+              Dialog body content goes here. This area scrolls when content exceeds the available height.
+            </p>
+          </DialogBody>
+          <DialogFooter>
+            <Button variant="outline" color="neutral" onClick={onClose}>Cancel</Button>
+            <Button onClick={onClose}>Save changes</Button>
+          </DialogFooter>
+        </>
+      )}
+    </DialogDemo>
+  ),
+}
+
+// ---------------------------------------------------------------------------
+// Sizes
+// ---------------------------------------------------------------------------
+
+export const Sizes: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '12px' }}>
+      <DialogDemo size="small" label="Small (400px)">
+        {(onClose) => (
+          <>
+            <DialogHeader>Delete item</DialogHeader>
+            <DialogBody>
+              <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-soft)' }}>
+                This action cannot be undone. The item will be permanently removed.
+              </p>
+            </DialogBody>
+            <DialogFooter>
+              <Button variant="outline" color="neutral" onClick={onClose}>Cancel</Button>
+              <Button color="negative" onClick={onClose}>Delete</Button>
+            </DialogFooter>
+          </>
+        )}
+      </DialogDemo>
+
+      <DialogDemo size="medium" label="Medium (640px)">
+        {(onClose) => (
+          <>
+            <DialogHeader>Edit team member</DialogHeader>
+            <DialogBody>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {['Full name', 'Email address', 'Role', 'Department'].map(field => (
+                  <div key={field}>
+                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--text)', marginBottom: '4px' }}>{field}</label>
+                    <div style={{ height: '36px', background: 'var(--bg-app)', border: '1px solid var(--border-neutral)', borderRadius: '6px' }} />
+                  </div>
+                ))}
+              </div>
+            </DialogBody>
+            <DialogFooter>
+              <Button variant="outline" color="neutral" onClick={onClose}>Cancel</Button>
+              <Button onClick={onClose}>Save changes</Button>
+            </DialogFooter>
+          </>
+        )}
+      </DialogDemo>
+    </div>
+  ),
+}
+
+// ---------------------------------------------------------------------------
+// With icon in header
+// ---------------------------------------------------------------------------
+
+export const WithIcon: Story = {
+  name: 'With icon',
+  render: () => (
+    <div style={{ display: 'flex', gap: '12px' }}>
+      <DialogDemo size="small" label="Warning dialog">
+        {(onClose) => (
+          <>
+            <DialogHeader icon={<AlertTriangle size={20} />}>
+              Unsaved changes
+            </DialogHeader>
+            <DialogBody>
+              <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-soft)' }}>
+                You have unsaved changes. If you leave now, your changes will be lost.
+              </p>
+            </DialogBody>
+            <DialogFooter>
+              <Button variant="outline" color="neutral" onClick={onClose}>Discard changes</Button>
+              <Button onClick={onClose}>Keep editing</Button>
+            </DialogFooter>
+          </>
+        )}
+      </DialogDemo>
+
+      <DialogDemo size="small" label="Destructive dialog">
+        {(onClose) => (
+          <>
+            <DialogHeader icon={<Trash2 size={20} />}>
+              Delete project
+            </DialogHeader>
+            <DialogBody>
+              <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-soft)' }}>
+                This will permanently delete <strong>Q4 Planning</strong> and all its data. This action cannot be undone.
+              </p>
+            </DialogBody>
+            <DialogFooter>
+              <Button variant="outline" color="neutral" onClick={onClose}>Cancel</Button>
+              <Button color="negative" onClick={onClose}>Delete project</Button>
+            </DialogFooter>
+          </>
+        )}
+      </DialogDemo>
+    </div>
+  ),
+}
+
+// ---------------------------------------------------------------------------
+// Scrolling body — long content
+// ---------------------------------------------------------------------------
+
+export const ScrollingBody: Story = {
+  name: 'Scrolling body',
+  render: () => (
+    <DialogDemo label="Open scrolling dialog">
+      {(onClose) => (
+        <>
+          <DialogHeader>Terms and conditions</DialogHeader>
+          <DialogBody>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '14px', color: 'var(--text-soft)' }}>
+              {Array.from({ length: 12 }, (_, i) => (
+                <p key={i} style={{ margin: 0 }}>
+                  Section {i + 1}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+              ))}
+            </div>
+          </DialogBody>
+          <DialogFooter>
+            <Button variant="outline" color="neutral" onClick={onClose}>Decline</Button>
+            <Button onClick={onClose}>Accept and continue</Button>
+          </DialogFooter>
+        </>
+      )}
+    </DialogDemo>
+  ),
+}
+
+// ---------------------------------------------------------------------------
+// Three footer actions
+// ---------------------------------------------------------------------------
+
+export const ThreeActions: Story = {
+  name: 'Three footer actions',
+  render: () => (
+    <DialogDemo label="Open dialog">
+      {(onClose) => (
+        <>
+          <DialogHeader>Save changes</DialogHeader>
+          <DialogBody>
+            <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-soft)' }}>
+              You can save as a draft to continue editing later, or publish immediately to make it visible to your team.
+            </p>
+          </DialogBody>
+          <DialogFooter>
+            <Button variant="ghost" color="neutral" onClick={onClose}>Discard</Button>
+            <Button variant="outline" color="neutral" onClick={onClose}>Save draft</Button>
+            <Button onClick={onClose}>Publish</Button>
+          </DialogFooter>
+        </>
+      )}
+    </DialogDemo>
+  ),
+}
+
+// ---------------------------------------------------------------------------
+// With BannerAlert inside body
+// ---------------------------------------------------------------------------
+
+export const WithBannerAlert: Story = {
+  name: 'With BannerAlert',
+  render: () => (
+    <DialogDemo label="Open dialog">
+      {(onClose) => (
+        <>
+          <DialogHeader icon={<Info size={20} />}>Transfer ownership</DialogHeader>
+          <DialogBody>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <BannerAlert variant="notice">
+                Transferring ownership will remove your admin access to this workspace.
+              </BannerAlert>
+              <div>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--text)', marginBottom: '4px' }}>New owner</label>
+                <div style={{ height: '36px', background: 'var(--bg-app)', border: '1px solid var(--border-neutral)', borderRadius: '6px' }} />
+              </div>
+            </div>
+          </DialogBody>
+          <DialogFooter>
+            <Button variant="outline" color="neutral" onClick={onClose}>Cancel</Button>
+            <Button onClick={onClose}>Transfer ownership</Button>
+          </DialogFooter>
+        </>
+      )}
+    </DialogDemo>
+  ),
+}
+
+// ---------------------------------------------------------------------------
+// No header — body-only dialog
+// ---------------------------------------------------------------------------
+
+export const NoHeader: Story = {
+  name: 'No header',
+  render: () => (
+    <DialogDemo size="small" label="Open dialog">
+      {(onClose) => (
+        <>
+          <DialogBody>
+            <p style={{ margin: '0 0 16px', fontSize: '16px', fontWeight: 600, color: 'var(--text-loud)' }}>
+              Session about to expire
+            </p>
+            <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-soft)' }}>
+              You will be signed out in 5 minutes due to inactivity. Do you want to stay signed in?
+            </p>
+          </DialogBody>
+          <DialogFooter>
+            <Button variant="outline" color="neutral" onClick={onClose}>Sign out</Button>
+            <Button onClick={onClose}>Stay signed in</Button>
+          </DialogFooter>
+        </>
+      )}
+    </DialogDemo>
+  ),
+}

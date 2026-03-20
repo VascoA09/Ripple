@@ -1,0 +1,121 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — DIVIDER COMPONENT
+   Source: components/divider.md
+
+   Non-interactive 1px separator. Horizontal (default) or vertical orientation.
+   Variants: full (default), inset, inset-text.
+
+   Element strategy:
+     <hr>  — horizontal without label (semantic, implicit role=separator)
+     <div> — vertical or any variant with a label (role=separator explicit)
+   ============================================================================= */
+
+/* =============================================================================
+   BASE
+   ============================================================================= */
+
+.divider {
+  --_color: var(--color-gray-30);   /* #D8D9D9 */
+
+  box-sizing:  border-box;
+  flex-shrink: 0;
+}
+
+/* Reset browser defaults on <hr> (margins, inset border) */
+hr.divider {
+  margin:  0;
+  padding: 0;
+  border:  none;
+}
+
+/* =============================================================================
+   HORIZONTAL
+   Uses border-top so the approach is identical for <hr> and <div>.
+   No explicit height — block-level auto height renders as a 1px rule.
+   ============================================================================= */
+
+.divider[data-orientation="horizontal"] {
+  display:    block;
+  border-top: 1px solid var(--_color);
+}
+
+.divider[data-orientation="horizontal"][data-variant="inset"] {
+  margin-inline: var(--spacing-100);   /* 16px each side */
+}
+
+/* =============================================================================
+   VERTICAL
+   1px wide column. Relies on align-self: stretch in a flex-row context.
+   Outside flex, the parent must supply an explicit height.
+   ============================================================================= */
+
+.divider[data-orientation="vertical"] {
+  display:     block;
+  width:       1px;
+  background:  var(--_color);
+  align-self:  stretch;
+}
+
+.divider[data-orientation="vertical"][data-variant="inset"] {
+  margin-block: var(--spacing-100);   /* 16px each end */
+}
+
+/* =============================================================================
+   INSET WITH TEXT
+   Lines drawn by ::before and ::after; the label sits between them.
+   Inset margin applied to the wrapper so lines reach element edges.
+   ============================================================================= */
+
+/* --- Horizontal inset-text ------------------------------------------------- */
+
+.divider[data-orientation="horizontal"][data-variant="inset-text"] {
+  display:       flex;
+  align-items:   center;
+  gap:           var(--spacing-50);    /* 8px between line and label */
+  border:        none;
+  margin-inline: var(--spacing-100);   /* same as inset */
+}
+
+.divider[data-orientation="horizontal"][data-variant="inset-text"]::before,
+.divider[data-orientation="horizontal"][data-variant="inset-text"]::after {
+  content:    '';
+  flex:       1 1 0;
+  border-top: 1px solid var(--_color);
+}
+
+/* --- Vertical inset-text --------------------------------------------------- */
+
+.divider[data-orientation="vertical"][data-variant="inset-text"] {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  justify-content: center;
+  gap:            var(--spacing-50);
+  width:          auto;
+  background:     none;
+  align-self:     stretch;
+  margin-block:   var(--spacing-100);
+}
+
+.divider[data-orientation="vertical"][data-variant="inset-text"]::before,
+.divider[data-orientation="vertical"][data-variant="inset-text"]::after {
+  content:     '';
+  flex:        1 1 0;
+  border-left: 1px solid var(--_color);
+}
+
+/* =============================================================================
+   LABEL
+   ============================================================================= */
+
+.divider__label {
+  font-family:    var(--font-family-base);
+  font-size:      var(--font-size-60);         /* 12px */
+  font-weight:    var(--font-weight-regular);  /* 400 */
+  line-height:    1;
+  color:          var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space:    nowrap;
+  flex-shrink:    0;
+}

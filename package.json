@@ -1,0 +1,66 @@
+{
+  "name": "@ripple/ui",
+  "version": "0.1.0",
+  "description": "Ripple — Unit4's design system. Foundations, tokens, components, and patterns for building consistent product UI.",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./tokens": "./src/tokens/index.css",
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist",
+    "src/tokens",
+    "foundations",
+    "components",
+    "patterns",
+    "layouts",
+    "templates",
+    "governance",
+    "RIPPLE.md",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VascoA09/Ripple.git"
+  },
+  "homepage": "https://github.com/VascoA09/Ripple",
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "vite build",
+    "build-storybook": "storybook build",
+    "type-check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "lucide-react": ">=0.300.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^8.0.0",
+    "@storybook/react": "^8.0.0",
+    "@storybook/react-vite": "^8.0.0",
+    "@types/node": "^25.3.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "storybook": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0",
+    "vite-plugin-dts": "^3.0.0"
+  },
+  "dependencies": {
+    "@fontsource-variable/open-sans": "^5.2.7",
+    "@radix-ui/react-accordion": "^1.2.12",
+    "@radix-ui/react-dropdown-menu": "^2.1.16",
+    "@radix-ui/react-tooltip": "^1.2.8"
+  }
+}

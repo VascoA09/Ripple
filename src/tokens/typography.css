@@ -1,0 +1,131 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — TYPOGRAPHY TOKENS
+   Source: foundations/typography.md
+
+   Tier 1 (primitives): font-family, font-size, line-height, font-weight
+   Tier 2 (semantic):   named style presets consumed by components
+
+   Never reference primitive tokens directly in components.
+   Use the semantic CSS classes or custom properties instead.
+   ============================================================================= */
+
+:root {
+
+  /* ---------------------------------------------------------------------------
+     FONT FAMILY
+     --------------------------------------------------------------------------- */
+  --font-family-base: 'Open Sans Variable', 'Open Sans', sans-serif;
+
+  /* ---------------------------------------------------------------------------
+     FONT SIZE
+     Major second scale (×1.125), base 16px.
+     --------------------------------------------------------------------------- */
+  --font-size-220: 32px;  /* Heading XL      */
+  --font-size-200: 28px;  /* Heading L       */
+  --font-size-180: 24px;  /* Heading M       */
+  --font-size-120: 18px;  /* Heading S       */
+  --font-size-100: 16px;  /* Body (baseline) */
+  --font-size-80:  14px;  /* Caption, Label  */
+  --font-size-60:  12px;  /* Detail          */
+
+  /* ---------------------------------------------------------------------------
+     LINE HEIGHT
+     --------------------------------------------------------------------------- */
+  --font-line-height-heading: 1.3;   /* 130% — headings        */
+  --font-line-height-body:    1.5;   /* 150% — body and captions */
+  --font-line-height-tight:   1;     /* 100% — single-line elements only */
+
+  /* ---------------------------------------------------------------------------
+     FONT WEIGHT
+     --------------------------------------------------------------------------- */
+  --font-weight-regular:  400;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+
+}
+
+/* =============================================================================
+   SEMANTIC TYPOGRAPHY STYLES
+   Apply these classes directly to elements. Each class is a complete,
+   self-contained typographic preset.
+   ============================================================================= */
+
+.typography-heading-xl {
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-220);
+  line-height:   var(--font-line-height-heading);
+  font-weight:   var(--font-weight-bold);
+  color:         var(--text-loud);
+}
+
+.typography-heading-l {
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-200);
+  line-height:   var(--font-line-height-heading);
+  font-weight:   var(--font-weight-bold);
+  color:         var(--text-loud);
+}
+
+.typography-heading-m {
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-180);
+  line-height:   var(--font-line-height-heading);
+  font-weight:   var(--font-weight-bold);
+  color:         var(--text-loud);
+}
+
+.typography-heading-s {
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-120);
+  line-height:   var(--font-line-height-heading);
+  font-weight:   var(--font-weight-semibold);
+  color:         var(--text-loud);
+}
+
+.typography-body {
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-100);
+  line-height:   var(--font-line-height-body);
+  font-weight:   var(--font-weight-regular);
+  color:         var(--text);
+}
+
+.typography-body-semibold {
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-100);
+  line-height:   var(--font-line-height-body);
+  font-weight:   var(--font-weight-semibold);
+  color:         var(--text);
+}
+
+.typography-caption {
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-80);
+  line-height:   var(--font-line-height-body);
+  font-weight:   var(--font-weight-regular);
+  color:         var(--text-soft);
+}
+
+.typography-caption-semibold {
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-80);
+  line-height:   var(--font-line-height-body);
+  font-weight:   var(--font-weight-semibold);
+  color:         var(--text-soft);
+}
+
+.typography-label {
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-80);
+  line-height:   var(--font-line-height-heading);
+  font-weight:   var(--font-weight-semibold);
+  color:         var(--text);
+}
+
+.typography-detail {
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-60);
+  line-height:   var(--font-line-height-body);
+  font-weight:   var(--font-weight-regular);
+  color:         var(--text-soft);
+}

@@ -1,0 +1,257 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — BREADCRUMBS COMPONENT
+   Source: components/breadcrumbs.md
+
+   Semantic structure: <nav> > <ol> > <li> items with separators as sibling <li>
+   elements. Separators are aria-hidden. Current page has aria-current="page".
+   ============================================================================= */
+
+/* =============================================================================
+   ROOT
+   ============================================================================= */
+
+.breadcrumbs {
+  display: block;
+}
+
+.breadcrumbs__list {
+  display:     flex;
+  flex-wrap:   wrap;
+  align-items: center;
+  gap:         0;
+  margin:      0;
+  padding:     0;
+  list-style:  none;
+
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);     /* 14px */
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+}
+
+/* =============================================================================
+   ITEMS & SEPARATORS
+   ============================================================================= */
+
+.breadcrumbs__item,
+.breadcrumbs__separator {
+  display:     flex;
+  align-items: center;
+}
+
+.breadcrumbs__separator {
+  padding:     0 var(--spacing-25); /* 4px each side */
+  color:       var(--text-soft);
+  user-select: none;
+}
+
+/* =============================================================================
+   LABEL — shared truncation
+   ============================================================================= */
+
+.breadcrumbs__label {
+  display:       block;
+  max-width:     200px;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+}
+
+@media (max-width: 768px) {
+  .breadcrumbs__label {
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .breadcrumbs__label {
+    max-width: 80px;
+  }
+}
+
+/* =============================================================================
+   LINK — standard ancestor items
+   ============================================================================= */
+
+.breadcrumbs__link {
+  display:         flex;
+  align-items:     center;
+  color:           var(--color-primary-loud);
+  text-decoration: none;
+  border-radius:   var(--border-radius-100);
+  transition:      color 150ms ease;
+}
+
+.breadcrumbs__link:hover {
+  color:           var(--color-primary);
+  text-decoration: underline;
+}
+
+.breadcrumbs__link:focus-visible {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.breadcrumbs__link:active {
+  color: var(--color-primary-loud);
+}
+
+/* =============================================================================
+   CURRENT PAGE
+   ============================================================================= */
+
+.breadcrumbs__current {
+  display:     flex;
+  align-items: center;
+  color:       var(--text);
+  font-weight: var(--font-weight-semibold);
+  cursor:      default;
+}
+
+/* =============================================================================
+   MENU TRIGGER — items with sibling dropdown
+   ============================================================================= */
+
+.breadcrumbs__menu-trigger {
+  /* Reset */
+  all:    unset;
+  box-sizing: border-box;
+
+  /* Layout */
+  display:       flex;
+  align-items:   center;
+  gap:           var(--spacing-25); /* 4px */
+  padding:       var(--spacing-25) var(--spacing-50); /* 4px 8px */
+  border-radius: var(--border-radius-100);
+
+  /* Typography */
+  color:       var(--color-primary-loud);
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+
+  cursor:     pointer;
+  transition: color 150ms ease, background 150ms ease;
+}
+
+.breadcrumbs__menu-trigger:hover {
+  color:      var(--color-primary);
+  background: var(--bg-primary-softest);
+}
+
+.breadcrumbs__menu-trigger:focus-visible {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.breadcrumbs__menu-trigger:active {
+  color:      var(--color-primary-loud);
+  background: var(--bg-primary-soft);
+}
+
+.breadcrumbs__menu-chevron {
+  flex-shrink: 0;
+  color:       currentColor;
+  opacity:     0.6;
+}
+
+/* =============================================================================
+   OVERFLOW BUTTON
+   ============================================================================= */
+
+.breadcrumbs__overflow {
+  /* Reset */
+  all:        unset;
+  box-sizing: border-box;
+
+  /* Layout */
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  width:           32px;
+  height:          32px;
+  border-radius:   var(--border-radius-100);
+
+  color:      var(--text-soft);
+  cursor:     pointer;
+  transition: color 150ms ease, background 150ms ease;
+}
+
+.breadcrumbs__overflow:hover {
+  color:      var(--text);
+  background: var(--bg-neutral-softest);
+}
+
+.breadcrumbs__overflow:focus-visible {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.breadcrumbs__overflow:active {
+  color:      var(--text);
+  background: var(--bg-neutral-soft);
+}
+
+/* =============================================================================
+   DROPDOWN — overflow and menu dropdowns share this style
+   ============================================================================= */
+
+.breadcrumbs__dropdown {
+  min-width:     160px;
+  padding:       var(--spacing-50) 0; /* 8px */
+  background:    var(--bg-surface);
+  border:        var(--border-width-default) solid var(--border-neutral);
+  border-radius: var(--border-radius-200);
+  box-shadow:    var(--box-shadow-400);
+  z-index:       50;
+
+  /* Entrance animation */
+  animation: breadcrumbs-dropdown-in 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: top left;
+}
+
+@keyframes breadcrumbs-dropdown-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.breadcrumbs__dropdown-item {
+  display:     flex;
+  align-items: center;
+  padding:     8px 12px;
+
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  color:       var(--text);
+
+  cursor:      pointer;
+  outline:     none;
+  transition:  background 100ms ease;
+}
+
+.breadcrumbs__dropdown-item:hover,
+.breadcrumbs__dropdown-item[data-highlighted] {
+  background: var(--bg-primary-softest);
+}
+
+.breadcrumbs__dropdown-item:active,
+.breadcrumbs__dropdown-item[data-highlighted]:active {
+  background: var(--bg-primary-soft);
+}
+
+/* =============================================================================
+   REDUCED MOTION
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .breadcrumbs__dropdown {
+    animation: none;
+  }
+
+  .breadcrumbs__link,
+  .breadcrumbs__menu-trigger,
+  .breadcrumbs__overflow {
+    transition: none;
+  }
+}

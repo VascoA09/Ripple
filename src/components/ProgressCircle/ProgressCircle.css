@@ -1,0 +1,99 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — PROGRESS CIRCLE COMPONENT
+   Source: components/progress-circle.md
+
+   SVG arc technique: stroke-dashoffset on a circle rotated -90° so the arc
+   starts at 12 o'clock and fills clockwise.
+
+   Stroke width: max(3px, floor(diameter × 6%))
+   Radius:       (diameter − strokeWidth) / 2   ← inset to avoid clip
+   Arc transition: 0.6s ease on stroke-dashoffset
+
+   Token notes:
+   - Primary track: spec uses --color-cool-gray-30 (Tier 1 primitive).
+     Replaced with var(--bg-neutral-soft) (semantic).
+   - Positive/Notice/Negative tracks: spec uses --color-{name}-soft.
+     Using CSS custom property defined in each variant block; falls back to
+     --bg-{name}-soft if --color-{name}-soft is undefined.
+   ============================================================================= */
+
+/* ---------------------------------------------------------------------------
+   Root — position: relative so the label can be absolutely centered
+   --------------------------------------------------------------------------- */
+
+.progress-circle {
+  position:   relative;
+  display:    inline-flex;
+  flex-shrink: 0;
+  box-sizing: border-box;
+
+  /* Default (primary) variant tokens */
+  --_progress-color: var(--color-primary);
+  --_track-color:    var(--bg-neutral-soft); /* spec: --color-cool-gray-30 */
+}
+
+/* ---------------------------------------------------------------------------
+   Variant color tokens
+   --------------------------------------------------------------------------- */
+
+.progress-circle[data-variant='positive'] {
+  --_progress-color: var(--color-positive);
+  --_track-color:    var(--color-positive-soft, var(--bg-positive-soft));
+}
+
+.progress-circle[data-variant='notice'] {
+  --_progress-color: var(--color-notice);
+  --_track-color:    var(--color-notice-soft, var(--bg-notice-soft));
+}
+
+.progress-circle[data-variant='negative'] {
+  --_progress-color: var(--color-negative);
+  --_track-color:    var(--color-negative-soft, var(--bg-negative-soft));
+}
+
+/* ---------------------------------------------------------------------------
+   SVG
+   --------------------------------------------------------------------------- */
+
+.progress-circle__svg {
+  display: block;
+}
+
+/* Track — neutral full circle */
+.progress-circle__track {
+  stroke: var(--_track-color);
+}
+
+/* Progress arc */
+.progress-circle__arc {
+  stroke:     var(--_progress-color);
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-circle__arc {
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Centre label
+   --------------------------------------------------------------------------- */
+
+.progress-circle__label {
+  position:   absolute;
+  inset:      0;
+  display:    flex;
+  align-items:     center;
+  justify-content: center;
+
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-regular);
+  line-height: 1;
+  color:       var(--text-loud);
+
+  /* Font size is set via inline style (proportional to diameter) */
+  /* Pointer events off so the SVG tooltip/title can still be read */
+  pointer-events: none;
+  user-select:    none;
+}

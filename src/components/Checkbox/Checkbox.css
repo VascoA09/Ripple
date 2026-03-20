@@ -1,0 +1,260 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — CHECKBOX COMPONENT
+   Source: components/checkbox.md
+
+   Native <input type="checkbox"> with appearance: none. Styled via sibling
+   selectors (.checkbox__input + .checkbox__box). The indeterminate state is
+   set via the DOM property (input.indeterminate = true) and targeted with the
+   CSS :indeterminate pseudo-class.
+
+   Architecture: private tokens (--_*) initialised on .checkbox, overridden by
+   state and validation selectors. Keeps state logic in CSS, not JS.
+   ============================================================================= */
+
+/* =============================================================================
+   ROOT
+   ============================================================================= */
+
+.checkbox {
+  /* Private tokens — defaults for unselected state */
+  --_border-color:    var(--border-default);
+  --_bg-color:        var(--bg-surface);
+  --_icon-color:      var(--text-loud-inverse);
+
+  display:     inline-flex;
+  align-items: flex-start;
+  gap:         var(--spacing-50); /* 8px */
+  cursor:      pointer;
+  user-select: none;
+}
+
+.checkbox[data-disabled] {
+  opacity: 0.3;
+  cursor:  not-allowed;
+}
+
+/* =============================================================================
+   CONTROL — positions input and visual box as a stack
+   ============================================================================= */
+
+.checkbox__control {
+  position:    relative;
+  display:     flex;
+  align-items: center;
+  flex-shrink: 0;
+  width:       16px;
+  height:      16px;
+
+  /* Vertically align with first line of label text */
+  margin-top: 1px;
+}
+
+/* =============================================================================
+   INPUT — hidden but fully accessible
+   ============================================================================= */
+
+.checkbox__input {
+  position: absolute;
+  inset:    0;
+  opacity:  0;
+  margin:   0;
+  width:    100%;
+  height:   100%;
+  cursor:   pointer;
+  z-index:  1;
+}
+
+.checkbox__input:disabled {
+  cursor: not-allowed;
+}
+
+/* =============================================================================
+   BOX — custom visual checkbox
+   ============================================================================= */
+
+.checkbox__box {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  box-sizing:      border-box;
+  width:           16px;
+  height:          16px;
+  border:          var(--border-width-200) solid var(--_border-color);
+  border-radius:   var(--border-radius-100); /* 4px */
+  background:      var(--_bg-color);
+  color:           var(--_icon-color);
+  transition:      background 150ms ease, border-color 150ms ease;
+  pointer-events:  none; /* input overlay handles all clicks */
+}
+
+/* =============================================================================
+   HOVER — triggered on the label wrapper (not the input)
+   ============================================================================= */
+
+.checkbox:hover:not([data-disabled]) {
+  --_border-color: var(--border-primary);
+}
+
+/* Hover + checked/indeterminate */
+.checkbox:hover:not([data-disabled]) .checkbox__input:checked ~ .checkbox__box,
+.checkbox:hover:not([data-disabled]) .checkbox__input:indeterminate ~ .checkbox__box {
+  --_bg-color:     var(--bg-primary-loud);
+  --_border-color: var(--border-primary-loud);
+}
+
+/* =============================================================================
+   CHECKED & INDETERMINATE
+   ============================================================================= */
+
+.checkbox__input:checked ~ .checkbox__box,
+.checkbox__input:indeterminate ~ .checkbox__box {
+  --_border-color: var(--border-primary);
+  --_bg-color:     var(--bg-primary);
+}
+
+/* =============================================================================
+   FOCUS
+   ============================================================================= */
+
+.checkbox__input:focus-visible ~ .checkbox__box {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* =============================================================================
+   ICONS — toggled via CSS based on input state
+   ============================================================================= */
+
+.checkbox__icon {
+  width:  12px;
+  height: 12px;
+  display: none;
+}
+
+/* Show checkmark when checked */
+.checkbox__input:checked ~ .checkbox__box .checkbox__icon--check {
+  display: block;
+}
+
+/* Show dash when indeterminate */
+.checkbox__input:indeterminate ~ .checkbox__box .checkbox__icon--dash {
+  display: block;
+}
+
+/* =============================================================================
+   LABEL TEXT
+   ============================================================================= */
+
+.checkbox__label {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80); /* 14px */
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text);
+}
+
+/* =============================================================================
+   VALIDATION — border and fill change per validation type
+   ============================================================================= */
+
+/* Unselected + validation: border only */
+.checkbox[data-validation="positive"] .checkbox__input:not(:checked):not(:indeterminate) ~ .checkbox__box {
+  --_border-color: var(--border-positive);
+}
+.checkbox[data-validation="notice"] .checkbox__input:not(:checked):not(:indeterminate) ~ .checkbox__box {
+  --_border-color: var(--border-notice);
+}
+.checkbox[data-validation="negative"] .checkbox__input:not(:checked):not(:indeterminate) ~ .checkbox__box {
+  --_border-color: var(--border-negative);
+}
+
+/* Selected + validation: border AND background */
+.checkbox[data-validation="positive"] .checkbox__input:checked ~ .checkbox__box,
+.checkbox[data-validation="positive"] .checkbox__input:indeterminate ~ .checkbox__box {
+  --_border-color: var(--border-positive);
+  --_bg-color:     var(--bg-positive);
+}
+.checkbox[data-validation="notice"] .checkbox__input:checked ~ .checkbox__box,
+.checkbox[data-validation="notice"] .checkbox__input:indeterminate ~ .checkbox__box {
+  --_border-color: var(--border-notice);
+  --_bg-color:     var(--bg-notice);
+}
+.checkbox[data-validation="negative"] .checkbox__input:checked ~ .checkbox__box,
+.checkbox[data-validation="negative"] .checkbox__input:indeterminate ~ .checkbox__box {
+  --_border-color: var(--border-negative);
+  --_bg-color:     var(--bg-negative);
+}
+
+/* =============================================================================
+   CHECKBOX GROUP
+   ============================================================================= */
+
+.checkbox-group {
+  border:  none;
+  padding: 0;
+  margin:  0;
+
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-25); /* 4px between legend/hint and items */
+}
+
+.checkbox-group__legend {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80); /* 14px */
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  color:       var(--text);
+  padding:     0;
+  margin-bottom: var(--spacing-25); /* 4px */
+}
+
+.checkbox-group__required {
+  color: var(--text-negative);
+}
+
+.checkbox-group__hint {
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  color:       var(--text-soft);
+  line-height: var(--font-line-height-body);
+}
+
+.checkbox-group__items {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-75); /* 12px between checkboxes */
+  margin-top:     var(--spacing-50); /* 8px below legend/hint */
+}
+
+.checkbox-group__message {
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-soft);
+}
+
+/* Validation message colors */
+.checkbox-group[data-validation="positive"] .checkbox-group__message {
+  color: var(--text-positive);
+}
+.checkbox-group[data-validation="notice"] .checkbox-group__message {
+  color: var(--text-notice);
+}
+.checkbox-group[data-validation="negative"] .checkbox-group__message {
+  color: var(--text-negative);
+}
+
+/* =============================================================================
+   REDUCED MOTION
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .checkbox__box {
+    transition: none;
+  }
+}

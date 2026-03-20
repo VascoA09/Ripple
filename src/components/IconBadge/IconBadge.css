@@ -1,0 +1,26 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — ICON BADGE COMPONENT
+
+   Positions a Counter overlay on the top-right corner of any icon child.
+   The wrapper is purely structural — interactive semantics (button, link)
+   belong to the consumer.
+
+   Offset: top: -6px / right: -8px centres a 16px (small) Counter on the
+   icon's top-right corner. pointer-events: none prevents the counter from
+   swallowing click events on the icon.
+   ============================================================================= */
+
+.icon-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-badge__counter {
+  position:       absolute;
+  top:            -6px;
+  right:          -8px;
+  pointer-events: none;
+  line-height:    1;  /* collapse any inherited leading around the inline Counter */
+}

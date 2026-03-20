@@ -1,0 +1,242 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — CHIP COMPONENT
+   Source: components/chip.md
+
+   Two variants:
+   - selectable: <button aria-pressed> that toggles selected state
+   - removable:  <span> with a nested close <button>
+
+   Architecture: private size tokens (--_*) on .chip, overridden by
+   [data-size="small"]. State styling driven by [data-variant] and aria-pressed.
+
+   TOKEN NOTE: The spec references --color-cool-gray-80 (a Tier 1 primitive)
+   for the unselected border. This violates the token architecture rule
+   (components must not reference primitives directly). --border-default is
+   used instead as the closest semantic equivalent.
+   ============================================================================= */
+
+/* =============================================================================
+   SIZE TOKENS — initialised to medium defaults
+   ============================================================================= */
+
+.chip {
+  --_height:     var(--size-250);    /* 40px */
+  --_px:         var(--spacing-100); /* 16px */
+  --_gap:        var(--spacing-50);  /* 8px  */
+  --_font-size:  var(--font-size-100);
+  --_remove-size: 24px;
+}
+
+.chip[data-size="small"] {
+  --_height:     var(--size-200);   /* 32px */
+  --_px:         var(--spacing-75); /* 12px */
+  --_gap:        var(--spacing-25); /* 4px  */
+  --_font-size:  var(--font-size-80);
+  --_remove-size: 20px;
+
+  /*
+   * ACCESSIBILITY — TOUCH TARGET
+   * Small chip height is 32px, below Ripple's 44px minimum touch target.
+   * Use small chips on desktop (mouse/trackpad) only.
+   * Use medium chips on touch devices.
+   */
+}
+
+/* =============================================================================
+   BASE — shared across both variants
+   ============================================================================= */
+
+.chip {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             var(--_gap);
+  height:          var(--_height);
+  padding:         0 var(--_px);
+  border-radius:   999px; /* pill */
+
+  font-family:     var(--font-family-base);
+  font-size:       var(--_font-size);
+  font-weight:     var(--font-weight-regular);
+  line-height:     1;
+  white-space:     nowrap;
+
+  box-sizing:      border-box;
+  user-select:     none;
+}
+
+/* =============================================================================
+   SELECTABLE VARIANT
+   ============================================================================= */
+
+.chip[data-variant="selectable"] {
+  /* Reset button */
+  border:      var(--border-width-100) solid var(--border-default);
+  background:  var(--bg-neutral-softest);
+  color:       var(--text);
+  cursor:      pointer;
+  transition:  background 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+/* Hover — unselected */
+.chip[data-variant="selectable"]:hover:not(:disabled) {
+  background:   var(--bg-neutral-soft);
+  border-color: var(--border-neutral-loud);
+}
+
+/* Focus */
+.chip[data-variant="selectable"]:focus-visible {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Selected */
+.chip[data-variant="selectable"][aria-pressed="true"] {
+  background:   var(--bg-primary-softest);
+  border-color: var(--border-primary-loud);
+  color:        var(--color-primary-loud);
+  font-weight:  var(--font-weight-semibold);
+}
+
+/* Hover — selected */
+.chip[data-variant="selectable"][aria-pressed="true"]:hover:not(:disabled) {
+  background:   var(--bg-primary-soft);
+  border-color: var(--border-primary-loud);
+}
+
+/* Disabled */
+.chip[data-variant="selectable"]:disabled {
+  opacity: var(--opacity-60);
+  cursor:  not-allowed;
+}
+
+/* =============================================================================
+   REMOVABLE VARIANT
+   ============================================================================= */
+
+.chip[data-variant="removable"] {
+  border:     var(--border-width-100) solid var(--border-default);
+  background: var(--bg-neutral-softest);
+  color:      var(--text);
+  /* span — no cursor change on container itself */
+}
+
+.chip[data-variant="removable"][data-disabled] {
+  opacity: var(--opacity-60);
+}
+
+/* =============================================================================
+   ICON SLOT
+   ============================================================================= */
+
+.chip__icon {
+  display:     flex;
+  align-items: center;
+  flex-shrink: 0;
+  color:       currentColor;
+}
+
+/* =============================================================================
+   CHECK ICON (selectable, selected state)
+   ============================================================================= */
+
+.chip__check {
+  flex-shrink: 0;
+  color:       currentColor;
+}
+
+/* =============================================================================
+   LABEL
+   ============================================================================= */
+
+.chip__label {
+  /* Label is already styled by .chip typography */
+}
+
+/* =============================================================================
+   COUNTER
+   ============================================================================= */
+
+.chip__count {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  min-width:       18px;
+  padding:         0 var(--spacing-25);
+  height:          18px;
+  border:          var(--border-width-100) solid var(--border-neutral-loud);
+  border-radius:   999px;
+  font-size:       var(--font-size-60); /* 12px */
+  font-weight:     var(--font-weight-semibold);
+  line-height:     1;
+  color:           var(--text-soft);
+  background:      transparent;
+}
+
+/* =============================================================================
+   REMOVE BUTTON
+   ============================================================================= */
+
+.chip__remove {
+  /* Reset */
+  all:        unset;
+  box-sizing: border-box;
+
+  /* Layout */
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+  width:           var(--_remove-size);
+  height:          var(--_remove-size);
+  border-radius:   50%;
+
+  color:       var(--text-soft);
+  cursor:      pointer;
+  transition:  background 150ms ease, color 150ms ease;
+
+  /* Offset to balance padding: pull slightly into the chip's right padding */
+  margin-right: calc(var(--_px) * -0.25);
+}
+
+.chip__remove:hover:not(:disabled) {
+  background: var(--bg-neutral-soft);
+  color:      var(--text);
+}
+
+.chip__remove:focus-visible {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 1px;
+}
+
+.chip__remove:active:not(:disabled) {
+  background: var(--bg-neutral-softest);
+}
+
+.chip__remove:disabled {
+  cursor: not-allowed;
+}
+
+/* =============================================================================
+   CHIP GROUP
+   ============================================================================= */
+
+.chip-group {
+  display:   flex;
+  flex-wrap: wrap;
+  gap:       var(--spacing-50); /* 8px default */
+}
+
+.chip-group[data-gap="loose"] {
+  gap: var(--spacing-75); /* 12px */
+}
+
+/* =============================================================================
+   REDUCED MOTION
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .chip[data-variant="selectable"],
+  .chip__remove {
+    transition: none;
+  }
+}

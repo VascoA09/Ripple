@@ -1,0 +1,181 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — SWITCH COMPONENT
+   Source: components/switch.md
+
+   Architecture: private CSS custom properties (--_*) initialised on
+   .switch__track, overridden by state selectors on the hidden input.
+
+   Interactive: wraps a native <input type="checkbox" role="switch">.
+   Keyboard: Space / Enter toggle. Tab moves focus to/from the Switch.
+   Accessibility: role="switch" on the input; track is aria-hidden.
+   ============================================================================= */
+
+/* =============================================================================
+   WRAPPER — <label>
+   Clicking anywhere in the label (track + text) toggles the input.
+   ============================================================================= */
+
+.switch {
+  display:     inline-flex;
+  align-items: center;
+  gap:         var(--spacing-75);   /* 12px between track and label */
+  cursor:      pointer;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.switch[data-disabled] {
+  cursor:  not-allowed;
+  opacity: var(--opacity-40);
+}
+
+/* =============================================================================
+   LABEL TEXT
+   ============================================================================= */
+
+.switch__label {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);   /* 14px */
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text);
+}
+
+/* =============================================================================
+   CONTROL — positions the hidden input and track as siblings
+   ============================================================================= */
+
+.switch__control {
+  position:    relative;
+  display:     inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* =============================================================================
+   HIDDEN INPUT
+   Visually hidden but remains in the accessibility tree.
+   Screen readers announce role="switch" and the current checked state.
+   ============================================================================= */
+
+.switch__input {
+  position:   absolute;
+  width:      1px;
+  height:     1px;
+  padding:    0;
+  margin:     -1px;
+  overflow:   hidden;
+  clip:       rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border:     0;
+}
+
+/* =============================================================================
+   TRACK
+   The pill-shaped background. Private tokens initialised here, overridden by
+   state selectors below.
+   ============================================================================= */
+
+.switch__track {
+  /* --- Geometry (medium — only size defined in spec) ----------------------- */
+  --_track-width:   42px;
+  --_track-height:  24px;
+  --_handle-size:   20px;
+  --_handle-offset: 2px;
+  /* translateX = track-width − handle-size − 2 × offset = 42 − 20 − 4 = 18px */
+  --_translate:     calc(var(--_track-width) - var(--_handle-size) - var(--_handle-offset) * 2);
+
+  /* --- Color (overridden by :checked / :hover / :active below) ----------- */
+  --_track-bg: var(--color-cool-gray-20);   /* #EBF0F4 — off state */
+
+  /* --- Layout --------------------------------------------------------------- */
+  position:      relative;
+  display:       inline-flex;
+  align-items:   center;
+  width:         var(--_track-width);
+  height:        var(--_track-height);
+  border-radius: var(--border-radius-pill);
+  background:    var(--_track-bg);
+  transition:    background 150ms ease, outline-color 150ms ease;
+}
+
+/* =============================================================================
+   HANDLE (thumb)
+   White circle that slides along the track.
+   ============================================================================= */
+
+.switch__handle {
+  --_handle-border-color: var(--color-cool-gray-70);   /* #7C8D98 */
+
+  position:      absolute;
+  left:          var(--_handle-offset);
+  width:         var(--_handle-size);
+  height:        var(--_handle-size);
+  border-radius: 50%;
+  background:    var(--bg-surface);
+  border:        var(--border-width-default) solid var(--_handle-border-color);
+  box-shadow:    var(--elevation-card);
+  transition:    transform 150ms ease, border-color 150ms ease;
+  will-change:   transform;
+}
+
+/* =============================================================================
+   CHECKED STATE
+   ============================================================================= */
+
+.switch__input:checked + .switch__track {
+  --_track-bg: var(--bg-primary);
+}
+
+.switch__input:checked + .switch__track .switch__handle {
+  --_handle-border-color: var(--border-primary);
+}
+
+.switch__input:checked + .switch__track .switch__handle {
+  transform: translateX(var(--_translate));
+}
+
+/* =============================================================================
+   HOVER STATE
+   Applied via :hover on the parent <label>. `:not(:disabled)` guards prevent
+   hover styling when the Switch is disabled.
+   ============================================================================= */
+
+.switch:hover .switch__input:not(:checked):not(:disabled) + .switch__track {
+  --_track-bg: var(--color-cool-gray-40);   /* #BBC6CE */
+}
+
+.switch:hover .switch__input:not(:checked):not(:disabled) + .switch__track .switch__handle {
+  --_handle-border-color: var(--color-cool-gray-80);   /* #4A5A64 */
+}
+
+.switch:hover .switch__input:checked:not(:disabled) + .switch__track .switch__handle {
+  --_handle-border-color: var(--border-primary-loud);
+}
+
+.switch:hover .switch__input:checked:not(:disabled) + .switch__track {
+  --_track-bg: var(--bg-primary-loud);
+}
+
+/* =============================================================================
+   ACTIVE STATE
+   ============================================================================= */
+
+.switch:active .switch__input:not(:checked):not(:disabled) + .switch__track {
+  --_track-bg: var(--color-cool-gray-40);
+}
+
+.switch:active .switch__input:checked:not(:disabled) + .switch__track {
+  --_track-bg: var(--bg-primary-loud);
+}
+
+/* =============================================================================
+   FOCUS STATE
+   Visible focus ring on the track (input is visually hidden).
+   2px outline matches Ripple's focus convention; offset keeps it outside the pill.
+   ============================================================================= */
+
+.switch__input:focus-visible + .switch__track {
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 2px;
+}

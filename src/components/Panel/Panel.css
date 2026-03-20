@@ -1,0 +1,153 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — PANEL COMPONENT
+   Source: components/panel.md
+
+   Compound component: Panel + PanelHeader + PanelBody + PanelFooter
+   Supports static and collapsible variants.
+
+   Tab navigation: use the Ripple Tabs component (Tabs + TabList + Tab + TabPanel)
+   with TabList style={{ padding: '0 var(--spacing-150)' }} for 24px horizontal
+   alignment with the panel's header and footer.
+   ============================================================================= */
+
+/* =============================================================================
+   BASE
+   ============================================================================= */
+
+.panel {
+  width:         100%;
+  background:    var(--bg-surface);
+  border:        var(--border-width-100) solid var(--border-neutral);
+  border-radius: var(--border-radius-200);  /* 8px */
+  box-sizing:    border-box;
+  overflow:      hidden;  /* clips border-radius on all children */
+}
+
+/* =============================================================================
+   HEADER
+   ============================================================================= */
+
+.panel__header {
+  display:     flex;
+  align-items: flex-start;
+  gap:         var(--spacing-100);    /* 16px between title area and end slot */
+  padding:     var(--spacing-150);    /* 24px all round */
+}
+
+.panel__header-title {
+  flex:      1;
+  min-width: 0;
+}
+
+/* Inline row: optional icon + title text */
+.panel__header-title-row {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-75);   /* 12px — icon ↔ title */
+}
+
+/* Icon slot — decorative, aria-hidden in markup */
+.panel__header-icon {
+  display:     inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  color:       var(--text-loud);
+}
+
+/* typography-heading-m (from tokens/typography.css) handles:
+   font-family, font-size (24px), font-weight (bold), line-height, color.
+   Only layout overrides live here. */
+.panel__title {
+  display: block;
+  margin:  0;
+}
+
+.panel__subtitle {
+  display:     block;
+  margin:      var(--spacing-25) 0 0;          /* 4px top */
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-100);           /* 16px */
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text);
+}
+
+.panel__header-end {
+  display:     flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap:         var(--spacing-50);              /* 8px between action buttons */
+}
+
+/* =============================================================================
+   COLLAPSE BUTTON
+   Rendered as a Ripple Button (ghost / small / neutral). Only layout
+   adjustments live here — Button handles all visual and interaction styles.
+   ============================================================================= */
+
+.panel__collapse-btn {
+  flex-shrink: 0;
+  margin-top:  -4px;   /* optical alignment — offsets Button's own vertical padding */
+}
+
+/* Chevron — rotates 180° when expanded */
+.panel__collapse-icon {
+  display:        block;
+  pointer-events: none;
+  transition:     transform 200ms ease;
+}
+
+.panel__collapse-icon[data-expanded="true"] {
+  transform: rotate(180deg);
+}
+
+/* =============================================================================
+   COLLAPSIBLE WRAPPER
+   Single container wrapping all non-header children. Using the CSS grid-rows
+   trick so height transitions smoothly without a known max-height.
+   ============================================================================= */
+
+.panel__collapsible {
+  display:    grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 250ms ease;
+}
+
+.panel__collapsible[data-collapsed] {
+  grid-template-rows: 0fr;
+}
+
+.panel__collapsible-inner {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel__collapsible,
+  .panel__collapse-icon {
+    transition: none;
+  }
+}
+
+/* =============================================================================
+   BODY
+   ============================================================================= */
+
+.panel__body {
+  padding:     var(--spacing-150);             /* 24px — overridable via padding prop */
+  color:       var(--text);
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-100);           /* 16px */
+  line-height: var(--font-line-height-body);
+}
+
+/* =============================================================================
+   FOOTER
+   ============================================================================= */
+
+.panel__footer {
+  display:         flex;
+  align-items:     center;
+  justify-content: flex-end;
+  gap:             var(--spacing-100);         /* 16px between footer items */
+  padding:         var(--spacing-150);         /* 24px — overridable via padding prop */
+}

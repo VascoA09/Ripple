@@ -1,0 +1,326 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — SEMANTIC THEME TOKENS
+   Tier 2: Purpose-driven aliases over primitives.
+   Components consume ONLY these tokens — never primitives directly.
+
+   Architecture: two-level aliasing
+     Primitives → Intermediate groups (primary, status)
+               → Scoped theme tokens (bg, border, text, icon)
+
+   Light theme: :root
+   Dark theme:  [data-theme="dark"]
+   ============================================================================= */
+
+/* =============================================================================
+   LIGHT THEME (default)
+   ============================================================================= */
+
+:root {
+
+  /* ---------------------------------------------------------------------------
+     INTERMEDIATE: Primary colors
+     Not used directly by components. Referenced by bg, border, text, icon.
+     --------------------------------------------------------------------------- */
+  --color-primary-loud:    var(--color-blue-100);
+  --color-primary:         var(--color-blue-90);
+  --color-primary-soft:    var(--color-blue-20);
+  --color-primary-softest: var(--color-blue-10);
+
+  /* ---------------------------------------------------------------------------
+     INTERMEDIATE: Status
+     --------------------------------------------------------------------------- */
+
+  /* Negative (Error) */
+  --color-negative-loud:    var(--color-red-100);
+  --color-negative:         var(--color-red-90);
+  --color-negative-soft:    var(--color-red-30);
+  --color-negative-softest: var(--color-red-10);
+
+  /* Notice (Warning) */
+  --color-notice-loud:    var(--color-orange-100);
+  --color-notice:         var(--color-orange-90);
+  --color-notice-soft:    var(--color-orange-30);
+  --color-notice-softest: var(--color-orange-10);
+
+  /* Positive (Success) */
+  --color-positive-loud:    var(--color-green-100);
+  --color-positive:         var(--color-green-90);
+  --color-positive-soft:    var(--color-green-30);
+  --color-positive-softest: var(--color-green-10);
+
+  /* Neutral (Informational) */
+  --color-neutral-loud:    var(--color-cool-gray-100);
+  --color-neutral:         var(--color-cool-gray-90);
+  --color-neutral-soft:    var(--color-cool-gray-30);
+  --color-neutral-softest: var(--color-cool-gray-10);
+
+  /* ---------------------------------------------------------------------------
+     BACKGROUND
+     --------------------------------------------------------------------------- */
+
+  /* Layout surfaces */
+  --bg-app:        var(--color-gray-10);
+  --bg-app-accent: var(--color-cool-gray-20);
+  --bg-surface:    var(--color-white);
+  --bg-nav:        var(--color-white);
+  --bg-disabled:   var(--color-gray-10);
+  --bg-overlay:    rgba(0, 0, 0, 0.5); /* intentional exception: alpha-modified value */
+  --bg-hover:      var(--color-gray-20);
+  --bg-pressed:    var(--color-gray-30);
+
+  /* Primary */
+  --bg-primary-loud:    var(--color-primary-loud);
+  --bg-primary:         var(--color-primary);
+  --bg-primary-soft:    var(--color-primary-soft);
+  --bg-primary-softest: var(--color-primary-softest);
+
+  /* Negative */
+  --bg-negative-loud:    var(--color-negative-loud);
+  --bg-negative:         var(--color-negative);
+  --bg-negative-soft:    var(--color-negative-soft);
+  --bg-negative-softest: var(--color-negative-softest);
+
+  /* Notice */
+  --bg-notice-loud:    var(--color-notice-loud);
+  --bg-notice:         var(--color-notice);
+  --bg-notice-soft:    var(--color-notice-soft);
+  --bg-notice-softest: var(--color-notice-softest);
+
+  /* Positive */
+  --bg-positive-loud:    var(--color-positive-loud);
+  --bg-positive:         var(--color-positive);
+  --bg-positive-soft:    var(--color-positive-soft);
+  --bg-positive-softest: var(--color-positive-softest);
+
+  /* Neutral */
+  --bg-neutral-loud:    var(--color-neutral-loud);
+  --bg-neutral:         var(--color-neutral);
+  --bg-neutral-soft:    var(--color-neutral-soft);
+  --bg-neutral-softest: var(--color-neutral-softest);
+
+  /* ---------------------------------------------------------------------------
+     BORDER
+     --------------------------------------------------------------------------- */
+  --border-primary-loud: var(--color-primary-loud);
+  --border-primary:      var(--color-primary);
+  --border-default:      var(--color-gray-70);
+  --border-focus:        var(--color-primary);
+  --border-light:        var(--color-white);
+  --border-disabled:     var(--color-gray-30);
+
+  --border-negative-loud: var(--color-negative-loud);
+  --border-negative:      var(--color-negative);
+  --border-notice-loud:   var(--color-notice-loud);
+  --border-notice:        var(--color-notice);
+  --border-positive-loud: var(--color-positive-loud);
+  --border-positive:      var(--color-positive);
+  --border-neutral-loud:  var(--color-cool-gray-100);
+  --border-neutral:       var(--color-cool-gray-30);
+
+  /* ---------------------------------------------------------------------------
+     TEXT
+     --------------------------------------------------------------------------- */
+  --text-loud:     var(--color-black);
+  --text:          var(--color-gray-80);
+  --text-soft:     var(--color-gray-70);
+  --text-disabled: var(--color-gray-60);
+
+  --text-accent:    var(--color-primary);
+  --text-negative:  var(--color-negative-loud);
+  --text-notice:    var(--color-notice-loud);
+  --text-positive:  var(--color-positive-loud);
+
+  --text-loud-inverse: var(--color-white);
+  --text-inverse:      var(--color-gray-20);
+  --text-soft-inverse: var(--color-gray-30);
+
+  --text-link:         var(--color-primary);
+  --text-link-active:  var(--color-primary-loud);
+  --text-link-visited: var(--color-purple-90);
+
+  /* ---------------------------------------------------------------------------
+     ELEVATION
+     Semantic names map to component use cases.
+     Components reference these — not the box-shadow primitives directly.
+     --------------------------------------------------------------------------- */
+  --elevation-card:     var(--box-shadow-100); /* Cards, panels                  */
+  --elevation-raised:   var(--box-shadow-200); /* Raised cards, inline popovers  */
+  --elevation-dropdown: var(--box-shadow-300); /* Dropdowns, tooltips, menus     */
+  --elevation-modal:    var(--box-shadow-400); /* Dialogs, drawers               */
+  --elevation-overlay:  var(--box-shadow-800); /* Maximum elevation, app-level overlays */
+
+  /* ---------------------------------------------------------------------------
+     ICON
+     --------------------------------------------------------------------------- */
+  --icon-default:      var(--color-gray-80);
+  --icon-soft:         var(--color-gray-60);
+  --icon-disabled:     var(--color-gray-40);
+  --icon-inverse:      var(--color-white);
+  --icon-loud-inverse: var(--color-black);
+  --icon-soft-inverse: var(--color-gray-30);
+
+  --icon-accent:    var(--color-primary);
+  --icon-negative:  var(--color-negative-loud);
+  --icon-notice:    var(--color-notice-loud);
+  --icon-positive:  var(--color-positive-loud);
+  --icon-neutral:   var(--color-neutral-loud);
+
+  /* ---------------------------------------------------------------------------
+     SPACING: Semantic aliases
+     Moved from primitives.css — Tier 2, not Tier 1.
+     --------------------------------------------------------------------------- */
+
+  /* Component padding */
+  --spacing-component-padding-tight:   var(--spacing-50);
+  --spacing-component-padding-default: var(--spacing-100);
+  --spacing-component-padding-relaxed: var(--spacing-150);
+
+  /* Component gaps */
+  --spacing-component-gap-inline:  var(--spacing-25);
+  --spacing-component-gap-tight:   var(--spacing-50);
+  --spacing-component-gap-default: var(--spacing-100);
+  --spacing-component-gap-relaxed: var(--spacing-150);
+
+  /* Layout spacing */
+  --spacing-layout-section-small:   var(--spacing-200);
+  --spacing-layout-section-default: var(--spacing-250);
+  --spacing-layout-section-large:   var(--spacing-400);
+  --spacing-layout-page-padding:    var(--spacing-150);
+  --spacing-layout-page-margin:     var(--spacing-600);
+
+  /* ---------------------------------------------------------------------------
+     SIZE: Semantic aliases
+     Moved from primitives.css — Tier 2, not Tier 1.
+     --------------------------------------------------------------------------- */
+
+  /* Component heights */
+  --size-component-height-compact: var(--size-100);
+  --size-component-height-small:   var(--size-200);
+  --size-component-height-default: var(--size-250);
+  --size-component-height-large:   var(--size-300);
+
+  /* Icons */
+  --size-icon-small:   var(--size-100);
+  --size-icon-default: var(--size-150);
+  --size-icon-large:   var(--size-200);
+
+  /* ---------------------------------------------------------------------------
+     BORDER RADIUS: Semantic aliases
+     Moved from primitives.css — Tier 2, not Tier 1.
+     --------------------------------------------------------------------------- */
+  --border-radius-component-default: var(--border-radius-100);
+  --border-radius-container-default: var(--border-radius-200);
+  --border-radius-overlay-default:   var(--border-radius-300);
+
+  /* ---------------------------------------------------------------------------
+     BORDER WIDTH: Semantic aliases
+     Moved from primitives.css — Tier 2, not Tier 1.
+     --------------------------------------------------------------------------- */
+  --border-width-default: var(--border-width-100);
+  --border-width-focus:   var(--border-width-200);
+
+}
+
+/* =============================================================================
+   DARK THEME
+   Only tokens that change from light are redeclared here.
+   Tokens that reference intermediates via var() update automatically.
+   ============================================================================= */
+
+[data-theme="dark"] {
+
+  /* ---------------------------------------------------------------------------
+     INTERMEDIATE: Primary colors (inverted)
+     --------------------------------------------------------------------------- */
+  --color-primary-loud:    var(--color-blue-10);
+  --color-primary:         var(--color-blue-20);
+  --color-primary-soft:    var(--color-blue-90);
+  --color-primary-softest: var(--color-blue-100);
+
+  /* ---------------------------------------------------------------------------
+     INTERMEDIATE: Status (inverted)
+     --------------------------------------------------------------------------- */
+
+  /* Negative */
+  --color-negative-loud:    var(--color-red-10);
+  --color-negative:         var(--color-red-30);
+  --color-negative-soft:    var(--color-red-90);
+  --color-negative-softest: var(--color-red-100);
+
+  /* Notice */
+  --color-notice-loud:    var(--color-orange-10);
+  --color-notice:         var(--color-orange-30);
+  --color-notice-soft:    var(--color-orange-90);
+  --color-notice-softest: var(--color-orange-100);
+
+  /* Positive */
+  --color-positive-loud:    var(--color-green-10);
+  --color-positive:         var(--color-green-30);
+  --color-positive-soft:    var(--color-green-90);
+  --color-positive-softest: var(--color-green-100);
+
+  /* Neutral */
+  --color-neutral-loud:    var(--color-cool-gray-10);
+  --color-neutral:         var(--color-cool-gray-30);
+  --color-neutral-soft:    var(--color-cool-gray-90);
+  --color-neutral-softest: var(--color-cool-gray-100);
+
+  /* ---------------------------------------------------------------------------
+     BACKGROUND: Layout surfaces (dark)
+     --------------------------------------------------------------------------- */
+  --bg-app:        var(--color-gray-100);
+  --bg-app-accent: var(--color-cool-gray-100);
+  --bg-surface:    var(--color-gray-90);
+  --bg-nav:        var(--color-gray-90);
+  --bg-disabled:   var(--color-gray-90);
+  --bg-overlay:    rgba(0, 0, 0, 0.6); /* intentional exception: alpha-modified value */
+  --bg-hover:      var(--color-gray-80);
+  --bg-pressed:    var(--color-gray-70);
+
+  /* Primary, status bg tokens inherit from updated intermediates — no changes needed */
+
+  /* ---------------------------------------------------------------------------
+     BORDER (dark)
+     --------------------------------------------------------------------------- */
+  --border-default:      var(--color-gray-30);
+  --border-light:        var(--color-gray-100);
+  --border-disabled:     var(--color-gray-70);
+  --border-neutral-loud: var(--color-cool-gray-10);
+  --border-neutral:      var(--color-cool-gray-70);
+
+  /* ---------------------------------------------------------------------------
+     TEXT (dark)
+     --------------------------------------------------------------------------- */
+  --text-loud:         var(--color-white);
+  --text:              var(--color-gray-10);
+  --text-soft:         var(--color-gray-30);
+  --text-loud-inverse: var(--color-black);
+  --text-inverse:      var(--color-gray-80);
+  --text-soft-inverse: var(--color-gray-70);
+  --text-link-visited: var(--color-purple-30);
+
+  /* ---------------------------------------------------------------------------
+     ICON (dark)
+     --------------------------------------------------------------------------- */
+  --icon-default:      var(--color-gray-10);
+  --icon-soft:         var(--color-gray-30);
+  --icon-disabled:     var(--color-gray-70);
+  --icon-inverse:      var(--color-black);
+  --icon-loud-inverse: var(--color-white);
+  --icon-soft-inverse: var(--color-gray-70);
+
+  /* ---------------------------------------------------------------------------
+     ELEVATION (dark)
+     Dark surfaces use pure black shadows at progressively higher opacity.
+     Grey-tinted shadows from light mode are nearly invisible on dark surfaces —
+     the shadow color blends into the background. Pure black at higher opacity
+     creates perceivable depth without relying on surface lightness alone.
+     Geometry (offset, blur) is identical to light mode.
+     --------------------------------------------------------------------------- */
+  --elevation-card:     0 2px 4px 0 rgba(0, 0, 0, 0.32);
+  --elevation-raised:   0 4px 8px 0 rgba(0, 0, 0, 0.40);
+  --elevation-dropdown: 0 8px 16px 0 rgba(0, 0, 0, 0.48);
+  --elevation-modal:    0 16px 32px 0 rgba(0, 0, 0, 0.56);
+  --elevation-overlay:  0 32px 64px 0 rgba(0, 0, 0, 0.72);
+
+}
