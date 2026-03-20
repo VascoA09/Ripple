@@ -12,7 +12,10 @@
       "Bash(perl -i -pe 's/colour/color/g; s/Colour/Color/g; s/COLOUR/COLOR/g' /Users/vascoantunes/Documents/VA/_Jarvis/Ripple/dist/index.js /Users/vascoantunes/Documents/VA/_Jarvis/Ripple/dist/index.cjs)",
       "Bash(grep -o \"\\\\.button[^{,\\\\s]*\" /Users/vascoantunes/Documents/VA/_Jarvis/Projects/_Lab/RippleTest/ripple-test/node_modules/@ripple/ui/dist/style.css)",
       "Bash(find /Users/vascoantunes/Documents/VA/_Jarvis/Ripple -maxdepth 3 -not -path */node_modules/* -not -path */dist/* -not -path */.git/* -not -path */storybook-static/* -type f -o -type d)",
-      "Bash(ls -1 *.md)"
+      "Bash(ls -1 *.md)",
+      "Bash(python3 -m scripts.package_skill \"../setup-ripple\")",
+      "Bash(python3 scripts/package_skill.py \"../setup-ripple\")",
+      "Bash(pip3 install:*)"
     ]
   }
 }
