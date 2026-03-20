@@ -1,0 +1,156 @@
+# Using Ripple in a React project
+
+Step-by-step setup for a new React prototype using Ripple as the design system.
+
+---
+
+## 1. Scaffold a new React app
+
+```bash
+npm create vite@latest my-app -- --template react-ts
+cd my-app
+npm install
+```
+
+---
+
+## 2. Install Ripple
+
+```bash
+npm install github:VascoA09/Ripple --legacy-peer-deps
+```
+
+This installs `@ripple/ui` including all dependencies (icons, fonts, Radix primitives).
+
+> **Why `--legacy-peer-deps`?** Ripple targets React 18/19. If your project uses React 19 (Vite's default), this flag bypasses a peer dependency version conflict. Nothing breaks — React 19 is backward compatible.
+
+---
+
+## 3. Clear the Vite template CSS
+
+Vite scaffolds `src/index.css` and `src/App.css` with default styles that conflict with Ripple tokens. Replace them:
+
+**`src/index.css`** — replace entire contents with:
+```css
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-family: var(--font-family-base); color: var(--text); background: var(--bg-canvas); -webkit-font-smoothing: antialiased; }
+#root { min-height: 100svh; }
+```
+
+**`src/App.css`** — clear the file or delete it.
+
+---
+
+## 4. Import the Ripple stylesheet
+
+In `src/main.tsx`, import the Ripple CSS before your app:
+
+```tsx
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import '@ripple/ui/style.css'
+import './index.css'
+import App from './App'
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <div data-theme="light">
+      <App />
+    </div>
+  </StrictMode>
+)
+```
+
+The `data-theme="light"` attribute on the wrapper activates Ripple's light theme. All tokens and component styles are now available.
+
+---
+
+## 5. Use components
+
+```tsx
+import { Button, TextInput, Tag, Badge, Card, BannerAlert } from '@ripple/ui'
+
+export default function App() {
+  return (
+    <div style={{ padding: 'var(--spacing-200)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-150)' }}>
+      <Button variant="fill">Save</Button>
+      <Button variant="outline">Cancel</Button>
+      <TextInput label="Full name" placeholder="Enter your name" />
+      <Tag color="blue">Draft</Tag>
+      <Badge color="negative">3</Badge>
+    </div>
+  )
+}
+```
+
+All components are available as named exports from `@ripple/ui`. See `components/_index.md` for the full list.
+
+---
+
+## 6. Use tokens in custom styles
+
+Always use Ripple tokens — never hardcoded values.
+
+```css
+.my-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-neutral);
+  border-radius: var(--border-radius-200);
+  padding: var(--spacing-150);
+  color: var(--text);
+}
+```
+
+Common tokens:
+
+| Token | Value | Use for |
+|-------|-------|---------|
+| `--text` | — | Default body text |
+| `--text-loud` | — | Headings, emphasis |
+| `--text-soft` | — | Secondary / muted text |
+| `--bg-canvas` | — | Page background |
+| `--bg-surface` | — | Cards, panels |
+| `--border-neutral` | — | Default borders |
+| `--spacing-50` | 8px | Tight gaps |
+| `--spacing-100` | 16px | Default padding |
+| `--spacing-150` | 24px | Section padding |
+| `--spacing-200` | 32px | Large spacing |
+| `--font-size-100` | 16px | Body text |
+| `--font-size-500` | — | Display heading |
+| `--border-radius-200` | 8px | Cards, inputs |
+| `--border-radius-full` | — | Pills, avatars |
+
+Full token reference: `src/tokens/themes.css`
+
+---
+
+## 7. Apply Ripple typography to headings
+
+HTML headings (`h1`–`h6`) are not automatically styled by Ripple. Apply tokens explicitly:
+
+```tsx
+<h1 style={{
+  fontFamily: 'var(--font-family-base)',
+  fontSize: 'var(--font-size-500)',
+  fontWeight: 'var(--font-weight-semibold)',
+  color: 'var(--text-loud)',
+  margin: 0
+}}>
+  Page title
+</h1>
+```
+
+---
+
+## Reference
+
+| Need | Where to look |
+|------|---------------|
+| All components + status | `components/_index.md` |
+| Component props and usage | `components/{name}.md` |
+| Navigation and page shell | `patterns/main-navigation.md`, `layouts/micro-navigation.md` |
+| Token system explained | `foundations/tokens-overview.md` |
+| Color tokens | `foundations/color.md` |
+| Typography tokens | `foundations/typography.md` |
+| Spacing tokens | `foundations/spacing.md` |
+| AI tool instructions | `RIPPLE.md` |
