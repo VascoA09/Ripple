@@ -25,7 +25,8 @@
     "governance",
     "RIPPLE.md",
     "README.md",
-    "SETUP.md"
+    "SETUP.md",
+    "scripts"
   ],
   "repository": {
     "type": "git",
