@@ -116,7 +116,7 @@ Common tokens:
 | `--spacing-150` | 24px | Section padding |
 | `--spacing-200` | 32px | Large spacing |
 | `--font-size-100` | 16px | Body text |
-| `--font-size-500` | — | Display heading |
+| `--font-size-200` | — | Display heading |
 | `--border-radius-200` | 8px | Cards, inputs |
 | `--border-radius-full` | — | Pills, avatars |
 
