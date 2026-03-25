@@ -26,10 +26,6 @@ Ripple serves two audiences:
 
 ## Design System Principles
 
-These extend the UX principles defined in
-`/Users/vascoantunes/Documents/VA/_Jarvis/ux-principles.md`.
-When in conflict, the UX principles take precedence.
-
 1. **Tokens, not magic numbers.** Every visual value (color, spacing,
    typography, elevation, motion) must reference a token. No hardcoded values.
 2. **Accessibility is the baseline.** WCAG 2.2 AA minimum. Keyboard
@@ -63,8 +59,6 @@ When in conflict, the UX principles take precedence.
 | Deprecation process | `governance/deprecation.md` | Planned |
 | Adoption tracking | `governance/adoption.md` | Planned |
 | Templates | `templates/` | Exists |
-| UX principles (inherited) | `/Users/vascoantunes/Documents/VA/_Jarvis/ux-principles.md` | Exists |
-| Technical standards (inherited) | `/Users/vascoantunes/Documents/VA/_Jarvis/technical.md` | Exists |
 | Unit4 brand guidelines | `/Users/vascoantunes/Documents/VA/_Jarvis/Unit4/Unit4 About/Unit4-Brand-Guidelines-2025.md` | Exists |
 
 ---

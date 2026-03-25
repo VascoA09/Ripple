@@ -20,8 +20,6 @@ Ripple exists to solve three problems:
 5. Tokens, not magic numbers
 6. Document the why
 
-See `/Users/vascoantunes/Documents/VA/_Jarvis/ux-principles.md` for the
-full UX decision-making framework that Ripple inherits.
 
 ## What Ripple Includes
 
