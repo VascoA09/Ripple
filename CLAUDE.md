@@ -1,12 +1,5 @@
 # Ripple Design System - AI Context
 
-This file provides AI instructions scoped to Ripple, Unit4's design system.
-It inherits personal style and interaction rules from the parent CLAUDE.md
-at `/Users/vascoantunes/Documents/VA/_Jarvis/CLAUDE.md`. Do not duplicate
-those rules here. This file covers DS-specific context only.
-
----
-
 ## What Is Ripple
 
 Ripple is Unit4's design system for product UI. It provides the shared
