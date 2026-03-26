@@ -139,6 +139,20 @@
 }
 
 /* =============================================================================
+   ITEM ICON
+   Wrapper for icons rendered before the label. Inline-flex removes the
+   baseline gap that appears when an SVG sits inside a plain <span>.
+   ============================================================================= */
+
+.flyout-menu-item-icon {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+  color:           currentColor;   /* inherits pressed/disabled colour */
+}
+
+/* =============================================================================
    ITEM INDICATOR SLOT
    16px reserved space for checkbox/radio checkmarks. The indicator is only
    visible when the item is checked (Radix mounts ItemIndicator conditionally).

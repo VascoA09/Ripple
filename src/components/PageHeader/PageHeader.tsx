@@ -384,7 +384,7 @@ export function PageHeader({
                         disabled={action.disabled}
                         onSelect={action.onClick}
                       >
-                        {action.icon && <span aria-hidden="true">{action.icon}</span>}
+                        {action.icon && <span className="flyout-menu-item-icon" aria-hidden="true">{action.icon}</span>}
                         {action.label}
                       </FlyoutMenuItem>
                     ))}
@@ -401,7 +401,7 @@ export function PageHeader({
                       onSelect={action.onClick}
                     >
                       {action.icon && (
-                        <span aria-hidden="true">{action.icon}</span>
+                        <span className="flyout-menu-item-icon" aria-hidden="true">{action.icon}</span>
                       )}
                       {action.label}
                     </FlyoutMenuItem>

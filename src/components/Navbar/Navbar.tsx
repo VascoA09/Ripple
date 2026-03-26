@@ -304,7 +304,7 @@ export function Navbar({
                 {item.separator && <FlyoutMenuSeparator />}
                 <FlyoutMenuItem onSelect={item.onClick}>
                   {item.icon && (
-                    <span aria-hidden="true">{item.icon}</span>
+                    <span className="flyout-menu-item-icon" aria-hidden="true">{item.icon}</span>
                   )}
                   {item.label}
                 </FlyoutMenuItem>

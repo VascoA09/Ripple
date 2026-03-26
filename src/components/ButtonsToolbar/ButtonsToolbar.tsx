@@ -161,7 +161,7 @@ function OverflowMenu({
             onSelect={action.disabled ? undefined : action.onClick}
           >
             {action.icon && (
-              <span aria-hidden="true">{action.icon}</span>
+              <span className="flyout-menu-item-icon" aria-hidden="true">{action.icon}</span>
             )}
             {action.label}
           </FlyoutMenuItem>
