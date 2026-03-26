@@ -108,9 +108,9 @@
   /* --- Interaction ---------------------------------------------------------- */
   cursor:      var(--_cursor);
   user-select: none;
-  outline:     none;   /* Radix handles focus; we style via data-highlighted */
+  outline:     none;   /* default browser ring suppressed; :focus-visible below restores it */
 
-  transition: background 120ms ease;
+  transition: background 120ms ease, outline-color 120ms ease;
 }
 
 /* Highlighted (keyboard focus or hover) */
@@ -119,9 +119,16 @@
   --_color: var(--text);
 }
 
-/* Active / pressed */
+/* Keyboard focus ring — only fires on keyboard navigation, not mouse hover */
+.flyout-menu-item:focus-visible {
+  outline:        2px solid var(--border-focus);
+  outline-offset: -2px;   /* inset — no layout shift */
+}
+
+/* Active / pressed — primary fill + inverse text and icon (currentColor) */
 .flyout-menu-item:active:not([data-disabled]) {
-  --_bg: var(--bg-primary-soft);
+  --_bg:    var(--bg-primary);
+  --_color: var(--text-loud-inverse);   /* icons inherit via currentColor = --icon-inverse */
 }
 
 /* Disabled */
