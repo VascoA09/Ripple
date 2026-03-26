@@ -36,7 +36,7 @@ export interface FlyoutMenuRadioItemProps extends React.ComponentPropsWithoutRef
 export declare const FlyoutMenuRadioItem: React.ForwardRefExoticComponent<FlyoutMenuRadioItemProps & React.RefAttributes<HTMLDivElement>>;
 export interface FlyoutMenuSeparatorProps extends React.ComponentPropsWithoutRef<typeof DropdownMenu.Separator> {
 }
-export declare const FlyoutMenuSeparator: React.ForwardRefExoticComponent<FlyoutMenuSeparatorProps & React.RefAttributes<HTMLDivElement>>;
+export declare const FlyoutMenuSeparator: React.ForwardRefExoticComponent<FlyoutMenuSeparatorProps & React.RefAttributes<HTMLElement>>;
 export interface FlyoutMenuSubProps {
     children: React.ReactNode;
     open?: boolean;

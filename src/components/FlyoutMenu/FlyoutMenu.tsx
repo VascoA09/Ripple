@@ -1,6 +1,7 @@
 import React from 'react'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { Check, ChevronRight } from 'lucide-react'
+import { Divider } from '../Divider'
 import './FlyoutMenu.css'
 
 // =============================================================================
@@ -191,15 +192,16 @@ export interface FlyoutMenuSeparatorProps
   extends React.ComponentPropsWithoutRef<typeof DropdownMenu.Separator> {}
 
 export const FlyoutMenuSeparator = React.forwardRef<
-  React.ElementRef<typeof DropdownMenu.Separator>,
+  HTMLElement,
   FlyoutMenuSeparatorProps
 >(function FlyoutMenuSeparator({ className, ...rest }, ref) {
   return (
-    <DropdownMenu.Separator
-      ref={ref}
-      className={['flyout-menu-separator', className].filter(Boolean).join(' ')}
-      {...rest}
-    />
+    <DropdownMenu.Separator asChild {...rest}>
+      <Divider
+        ref={ref as React.Ref<HTMLHRElement>}
+        className={['flyout-menu-separator', className].filter(Boolean).join(' ')}
+      />
+    </DropdownMenu.Separator>
   )
 })
 

@@ -222,10 +222,12 @@
 
 /* =============================================================================
    SEPARATOR
+   Rendered via Ripple Divider (asChild on DropdownMenu.Separator).
+   Override Divider's --_color to the semantic border token and add
+   vertical breathing room — Divider has no margin by default.
    ============================================================================= */
 
 .flyout-menu-separator {
-  height:  1px;
-  margin:  var(--spacing-25) 0;   /* 4px top and bottom */
-  background: var(--border-default);
+  --_color:     var(--border-neutral);   /* matches panel border */
+  margin-block: var(--spacing-25);       /* 4px top and bottom */
 }
