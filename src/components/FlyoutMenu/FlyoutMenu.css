@@ -35,7 +35,7 @@
   max-width:     400px;
   padding:       var(--spacing-50);   /* 8px */
   background:    var(--bg-surface);
-  border:        var(--border-width-default) solid var(--border-default);
+  border:        var(--border-width-default) solid var(--border-neutral);
   border-radius: var(--border-radius-200);   /* 8px — matches Figma; Dialog keeps 12px */
   box-shadow:    var(--elevation-dropdown);
   z-index:       50;
@@ -91,7 +91,6 @@
   align-items:    center;
   gap:            var(--spacing-50);   /* 8px between icon and label */
   min-height:     var(--size-component-height-default);   /* 40px — touch target */
-  padding-block:  var(--spacing-50);   /* 8px */
   padding-inline: var(--spacing-75);   /* 12px */
   border-radius:  var(--border-radius-component-default); /* 4px */
 
