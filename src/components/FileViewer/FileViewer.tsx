@@ -464,18 +464,18 @@ export function FileViewer({
               <FlyoutMenuContent align="end">
                 {allowDownload && (
                   <FlyoutMenuItem onSelect={handleDownload}>
-                    <Download size={14} aria-hidden="true" />
+                    <span aria-hidden="true"><Download size={14} /></span>
                     Download
                   </FlyoutMenuItem>
                 )}
                 {isImage && (
                   <FlyoutMenuItem onSelect={fitReset}>
-                    <ScanSearch size={14} aria-hidden="true" />
+                    <span aria-hidden="true"><ScanSearch size={14} /></span>
                     Fit (reset zoom &amp; rotation)
                   </FlyoutMenuItem>
                 )}
                 <FlyoutMenuItem onSelect={() => { window.open(file.url, '_blank', 'noopener,noreferrer') }}>
-                  <ExternalLink size={14} aria-hidden="true" />
+                  <span aria-hidden="true"><ExternalLink size={14} /></span>
                   Open in new tab
                 </FlyoutMenuItem>
               </FlyoutMenuContent>

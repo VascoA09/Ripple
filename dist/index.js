@@ -5675,17 +5675,17 @@ function Up({
               ) }),
               /* @__PURE__ */ w(Ye, { align: "end", children: [
                 i && /* @__PURE__ */ w(oe, { onSelect: ae, children: [
-                  /* @__PURE__ */ a(vr, { size: 14, "aria-hidden": "true" }),
+                  /* @__PURE__ */ a("span", { "aria-hidden": "true", children: /* @__PURE__ */ a(vr, { size: 14 }) }),
                   "Download"
                 ] }),
                 L && /* @__PURE__ */ w(oe, { onSelect: X, children: [
-                  /* @__PURE__ */ a(Fi, { size: 14, "aria-hidden": "true" }),
+                  /* @__PURE__ */ a("span", { "aria-hidden": "true", children: /* @__PURE__ */ a(Fi, { size: 14 }) }),
                   "Fit (reset zoom & rotation)"
                 ] }),
                 /* @__PURE__ */ w(oe, { onSelect: () => {
                   window.open(e.url, "_blank", "noopener,noreferrer");
                 }, children: [
-                  /* @__PURE__ */ a(Jr, { size: 14, "aria-hidden": "true" }),
+                  /* @__PURE__ */ a("span", { "aria-hidden": "true", children: /* @__PURE__ */ a(Jr, { size: 14 }) }),
                   "Open in new tab"
                 ] })
               ] })
