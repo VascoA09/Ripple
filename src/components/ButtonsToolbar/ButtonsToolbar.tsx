@@ -1,8 +1,13 @@
 import React from 'react'
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { MoreVertical } from 'lucide-react'
 import { Button } from '../Button'
 import { IconButton } from '../IconButton'
+import {
+  FlyoutMenu,
+  FlyoutMenuTrigger,
+  FlyoutMenuContent,
+  FlyoutMenuItem,
+} from '../FlyoutMenu'
 import './ButtonsToolbar.css'
 
 // ---------------------------------------------------------------------------
@@ -134,8 +139,8 @@ function OverflowMenu({
   alignment: 'left' | 'right'
 }) {
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
+    <FlyoutMenu>
+      <FlyoutMenuTrigger asChild>
         <IconButton
           icon={<MoreVertical size={16} />}
           aria-label="More actions"
@@ -143,33 +148,26 @@ function OverflowMenu({
           color="neutral"
           size="medium"
         />
-      </DropdownMenu.Trigger>
+      </FlyoutMenuTrigger>
 
-      <DropdownMenu.Portal>
-        <DropdownMenu.Content
-          className="buttons-toolbar__dropdown"
-          sideOffset={4}
-          align={alignment === 'left' ? 'start' : 'end'}
-        >
-          {actions.map(action => (
-            <DropdownMenu.Item
-              key={action.id}
-              className="buttons-toolbar__dropdown-item"
-              disabled={action.disabled}
-              onSelect={action.disabled ? undefined : action.onClick}
-              data-disabled={action.disabled ? '' : undefined}
-            >
-              {action.icon && (
-                <span className="buttons-toolbar__dropdown-icon" aria-hidden="true">
-                  {action.icon}
-                </span>
-              )}
-              {action.label}
-            </DropdownMenu.Item>
-          ))}
-        </DropdownMenu.Content>
-      </DropdownMenu.Portal>
-    </DropdownMenu.Root>
+      <FlyoutMenuContent
+        sideOffset={4}
+        align={alignment === 'left' ? 'start' : 'end'}
+      >
+        {actions.map(action => (
+          <FlyoutMenuItem
+            key={action.id}
+            disabled={action.disabled}
+            onSelect={action.disabled ? undefined : action.onClick}
+          >
+            {action.icon && (
+              <span aria-hidden="true">{action.icon}</span>
+            )}
+            {action.label}
+          </FlyoutMenuItem>
+        ))}
+      </FlyoutMenuContent>
+    </FlyoutMenu>
   )
 }
 

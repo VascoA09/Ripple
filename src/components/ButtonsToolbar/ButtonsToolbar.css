@@ -3,8 +3,8 @@
    Source: components/buttons-toolbar.md
 
    Composes Button and IconButton primitives.
-   The toolbar itself only handles layout and the overflow dropdown.
    Button states (hover, focus, active, disabled, loading) are owned by Button.
+   Overflow menu is rendered by FlyoutMenu — all dropdown styles live there.
    ============================================================================= */
 
 /* =============================================================================
@@ -16,96 +16,4 @@
   align-items: center;
   gap:         var(--spacing-50); /* 8px */
   flex-wrap:   nowrap;
-}
-
-/* =============================================================================
-   OVERFLOW DROPDOWN
-   ============================================================================= */
-
-.buttons-toolbar__dropdown {
-  min-width:     200px;
-  padding:       var(--spacing-50) 0; /* 8px top/bottom */
-  background:    var(--bg-surface);
-  border:        var(--border-width-default) solid var(--border-neutral);
-  border-radius: var(--border-radius-150);
-  box-shadow:    var(--box-shadow-400);
-  z-index:       1000;
-  outline:       none;
-
-  animation: buttons-toolbar-dropdown-in 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  transform-origin: top left;
-}
-
-.buttons-toolbar__dropdown[data-side="bottom"][data-align="end"] {
-  transform-origin: top right;
-}
-
-@keyframes buttons-toolbar-dropdown-in {
-  from { opacity: 0; transform: scale(0.95); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-/* =============================================================================
-   DROPDOWN ITEMS
-   ============================================================================= */
-
-.buttons-toolbar__dropdown-item {
-  display:     flex;
-  align-items: center;
-  gap:         var(--spacing-75); /* 12px */
-  padding:     var(--spacing-75) var(--spacing-100); /* 12px 16px */
-
-  font-family: var(--font-family-base);
-  font-size:   var(--font-size-100); /* 16px */
-  font-weight: var(--font-weight-regular);
-  color:       var(--text);
-
-  cursor:      pointer;
-  outline:     none;
-  border-radius: var(--border-radius-100);
-  transition:  background 100ms ease;
-}
-
-.buttons-toolbar__dropdown-item:hover,
-.buttons-toolbar__dropdown-item[data-highlighted] {
-  background: var(--bg-primary-softest);
-}
-
-.buttons-toolbar__dropdown-item[data-disabled] {
-  color:  var(--text-disabled);
-  cursor: not-allowed;
-}
-
-.buttons-toolbar__dropdown-item[data-disabled]:hover,
-.buttons-toolbar__dropdown-item[data-disabled][data-highlighted] {
-  background: transparent;
-}
-
-/* =============================================================================
-   DROPDOWN ITEM ICON
-   ============================================================================= */
-
-.buttons-toolbar__dropdown-icon {
-  display:     flex;
-  align-items: center;
-  flex-shrink: 0;
-  color:       var(--icon-default);
-}
-
-.buttons-toolbar__dropdown-item[data-disabled] .buttons-toolbar__dropdown-icon {
-  color: var(--text-disabled);
-}
-
-/* =============================================================================
-   REDUCED MOTION
-   ============================================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-  .buttons-toolbar__dropdown {
-    animation: none;
-  }
-
-  .buttons-toolbar__dropdown-item {
-    transition: none;
-  }
 }
