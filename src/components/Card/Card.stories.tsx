@@ -209,7 +209,7 @@ export const InContext: Story = {
       {/* Metric cards */}
       <p style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-soft)', marginBottom: '12px' }}>metric cards</p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginBottom: '32px' }}>
-        {metrics.map(({ label, value, delta, trend, icon, color }) => (
+        {metrics.map(({ label, value, delta, trend, icon }) => (
           <Card key={label}>
             <CardSection padding="var(--spacing-100) var(--spacing-100) var(--spacing-75)">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>

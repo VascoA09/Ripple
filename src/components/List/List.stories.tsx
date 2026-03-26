@@ -258,7 +258,7 @@ export const BulkSelection: Story = {
               bulkSelectChecked={selected.has(item.id)}
               onBulkSelectChange={checked => toggle(item.id, checked)}
               contentAfter={
-                <Badge label="PDF" variant="outline" color="neutral" />
+                <Badge variant="outline" color="neutral">PDF</Badge>
               }
             />
           ))}
@@ -375,10 +375,9 @@ export const InContext: Story = {
                   contentBefore={<Avatar name={m.name} size="s" />}
                   contentAfter={
                     <Badge
-                      label={m.role}
                       variant="outline"
                       color={m.role === 'Admin' ? 'primary' : 'neutral'}
-                    />
+                    >{m.role}</Badge>
                   }
                   onClick={() => setSelected(m.name)}
                 />
