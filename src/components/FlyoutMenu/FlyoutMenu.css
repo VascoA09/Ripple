@@ -227,7 +227,8 @@
    vertical breathing room — Divider has no margin by default.
    ============================================================================= */
 
-.flyout-menu-separator {
+/* .divider added to beat hr.divider { margin: 0 } specificity (0,1,1 vs 0,1,0) */
+.flyout-menu-separator.divider {
   --_color:     var(--border-neutral);   /* matches panel border */
   margin-block: var(--spacing-25);       /* 4px top and bottom */
 }
