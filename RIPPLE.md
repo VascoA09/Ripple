@@ -2,7 +2,7 @@
 
 Ripple is Unit4's design system for product UI. This file is the entry point for AI tools (Claude Code, Figma Make, etc.) consuming Ripple as a source of truth.
 
-**Stack**: React 18+, TypeScript, CSS custom properties
+**Stack**: React 19, TypeScript, CSS custom properties
 **Package**: `@ripple/ui`
 **Install**: `npm install github:VascoA09/Ripple --legacy-peer-deps`
 **Peer deps**: `npm install lucide-react --legacy-peer-deps` (required, not bundled)
@@ -121,6 +121,13 @@ Structural scaffolds with no behavioural logic of their own.
 |--------|------|
 | Index + status | `layouts/_index.md` |
 | Micro Navigation | `layouts/micro-navigation.md` |
+
+### Tailwind Integration
+Using Tailwind CSS alongside Ripple in a React app.
+
+| Topic | File |
+|-------|------|
+| Setup, token mapping, usage rules | `TAILWIND.md` |
 
 ### Templates
 Use these when creating new Ripple content.

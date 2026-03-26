@@ -22,7 +22,7 @@ npm install github:VascoA09/Ripple --legacy-peer-deps
 
 This installs `@ripple/ui` including all dependencies (icons, fonts, Radix primitives).
 
-> **Why `--legacy-peer-deps`?** Ripple targets React 18/19. If your project uses React 19 (Vite's default), this flag bypasses a peer dependency version conflict. Nothing breaks — React 19 is backward compatible.
+> **Why `--legacy-peer-deps`?** Some Radix UI packages declare peer dependencies against older React versions. This flag bypasses that conflict at install time. Nothing breaks — the components work correctly with React 19.
 
 ---
 
@@ -153,4 +153,5 @@ HTML headings (`h1`–`h6`) are not automatically styled by Ripple. Apply tokens
 | Color tokens | `foundations/color.md` |
 | Typography tokens | `foundations/typography.md` |
 | Spacing tokens | `foundations/spacing.md` |
+| Tailwind integration | `TAILWIND.md` |
 | AI tool instructions | `RIPPLE.md` |
