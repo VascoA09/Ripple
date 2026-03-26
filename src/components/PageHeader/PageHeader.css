@@ -92,7 +92,7 @@
 
 .rpl-page-header__main-row {
   display:     flex;
-  align-items: flex-start;
+  align-items: center;
   gap:         var(--spacing-150);  /* 24px */
   /* No overflow:hidden — preserves scrollWidth accuracy + portal visibility */
 }
