@@ -24,15 +24,21 @@ export interface PageHeaderProps {
      */
     mainActions?: ToolbarAction[];
     /**
-     * Discuss + AVA toolbar. Always visible on desktop; rendered above the
-     * primary action bar on mobile. Separated from main actions by a 1 px divider.
+     * Discuss + AVA toolbar. Always visible on desktop, separated from main
+     * actions by a 1 px divider. Not rendered on mobile — use mobileMenuActions
+     * to surface these items in the mobile overflow menu instead.
      */
     secondaryToolbar?: ReactNode;
+    /**
+     * Actions folded into the mobile ⋯ overflow menu at the top of the list
+     * (e.g. Discuss, AVA). Desktop ignores this prop — use secondaryToolbar there.
+     */
+    mobileMenuActions?: ToolbarAction[];
     /** Right-aligned last-update text above the main row */
     lastUpdateInfo?: string;
     /** Fixes the header at the top of the viewport on scroll */
     sticky?: boolean;
-    /** Reduces title font size from `--font-size-160` to `--font-size-140` */
+    /** Reduces title from heading.l (28px) to heading.m (24px) */
     compact?: boolean;
     /**
      * 50/50 split layout. Title truncates with ellipsis; full title shown via
@@ -42,4 +48,4 @@ export interface PageHeaderProps {
     className?: string;
     style?: CSSProperties;
 }
-export declare function PageHeader({ title, description, date, showBreadcrumb, breadcrumbItems, onBreadcrumbNavigate, tags, mainActions, secondaryToolbar, lastUpdateInfo, sticky, compact, truncateTitle, className, style, }: PageHeaderProps): import("react/jsx-runtime").JSX.Element;
+export declare function PageHeader({ title, description, date, showBreadcrumb, breadcrumbItems, onBreadcrumbNavigate, tags, mainActions, secondaryToolbar, mobileMenuActions, lastUpdateInfo, sticky, compact, truncateTitle, className, style, }: PageHeaderProps): import("react/jsx-runtime").JSX.Element;
