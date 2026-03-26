@@ -23,6 +23,19 @@ These rules are non-negotiable. Apply them to every file you generate.
 6. **New components must align with foundations.** If a prototype introduces a component not in Ripple, it must still use Ripple tokens for all visual values, follow Ripple's spacing scale, and meet the accessibility requirements above.
 7. **Open Sans is the only UI typeface.** Do not introduce other fonts. Font tokens are defined in `src/tokens/typography.css`.
 8. **Light theme is the default.** The `data-theme="light"` attribute on the root element activates the default theme. See `foundations/themes.md` for dark mode and theme switching.
+9. **Use Ripple semantic typography classes for all headings and text.** Do not compose font-size, weight, and line-height manually. Apply the class to the correct semantic HTML element.
+
+| HTML element | Ripple class | Size | Use when |
+|-------------|-------------|------|----------|
+| `<h1>` | `.typography-heading-xl` | 32px bold | Page title. One per page. |
+| `<h2>` | `.typography-heading-l` | 28px bold | Section heading, dialog title. |
+| `<h3>` | `.typography-heading-m` | 24px bold | Sub-section heading, card title. |
+| `<h4>` | `.typography-heading-s` | 18px semibold | Group label, panel heading. |
+| `<p>` | `.typography-body` | 16px regular | Default body copy. |
+| `<p>` | `.typography-body-semibold` | 16px semibold | Emphasised body, table header, field label. |
+| `<span>`, `<p>` | `.typography-caption` | 14px regular | Help text, hints, secondary descriptions. |
+| `<label>` | `.typography-label` | 14px semibold | Form labels, button text, nav items. |
+| `<span>` | `.typography-detail` | 12px regular | Timestamps, version numbers, fine print. |
 
 ---
 
@@ -158,7 +171,7 @@ Clear any template CSS (e.g. Vite's default `src/index.css` and `src/App.css`) �
 ```css
 /* src/index.css */
 *, *::before, *::after { box-sizing: border-box; }
-body { margin: 0; font-family: var(--font-family-base); color: var(--text); background: var(--bg-canvas); }
+body { margin: 0; font-family: var(--font-family-base); color: var(--text); background: var(--bg-app); }
 #root { min-height: 100svh; }
 ```
 
@@ -205,7 +218,7 @@ Common semantic tokens:
 | `--text-loud` | High-emphasis text, headings |
 | `--text-soft` | Secondary / muted text |
 | `--text-accent` | Primary brand color text |
-| `--bg-canvas` | Page background |
+| `--bg-app` | Page / app shell background |
 | `--bg-surface` | Card / panel surface |
 | `--bg-primary` | Primary action background |
 | `--border-neutral` | Default border |
@@ -214,14 +227,16 @@ Common semantic tokens:
 | `--spacing-100` | 16px |
 | `--spacing-150` | 24px |
 | `--spacing-200` | 32px |
-| `--font-size-80` | Small text |
-| `--font-size-100` | Body (16px) |
-| `--font-size-200` | Large body |
-| `--font-size-400` | Heading |
-| `--font-size-500` | Display heading |
+| `--font-size-60` | 12px — Detail / fine print |
+| `--font-size-80` | 14px — Caption, label |
+| `--font-size-100` | 16px — Body (baseline) |
+| `--font-size-120` | 18px — Small heading |
+| `--font-size-180` | 24px — Medium heading |
+| `--font-size-200` | 28px — Large heading |
+| `--font-size-220` | 32px — Display / page title |
 | `--border-radius-100` | 4px |
 | `--border-radius-200` | 8px |
-| `--border-radius-full` | Pill / circle |
+| `--border-radius-pill` | Pill / circle |
 
 Full token reference: `src/tokens/themes.css` (semantic), `src/tokens/primitives.css` (raw values).
 
