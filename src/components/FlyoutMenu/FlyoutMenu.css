@@ -32,11 +32,11 @@
 
 .flyout-menu-content {
   min-width:     180px;
-  max-width:     320px;
+  max-width:     400px;
   padding:       var(--spacing-50);   /* 8px */
   background:    var(--bg-surface);
   border:        var(--border-width-default) solid var(--border-default);
-  border-radius: var(--border-radius-overlay-default);   /* 12px */
+  border-radius: var(--border-radius-200);   /* 8px — matches Figma; Dialog keeps 12px */
   box-shadow:    var(--elevation-dropdown);
   z-index:       50;
 
