@@ -28,9 +28,10 @@
    --------------------------------------------------------------------------- */
 
 .rpl-page-header {
-  background:  var(--bg);
-  width:       100%;
-  box-sizing:  border-box;
+  background:    var(--bg-app);
+  width:         100%;
+  box-sizing:    border-box;
+  border-bottom: var(--border-width-default) solid var(--border-neutral);
 }
 
 .rpl-page-header--sticky {
@@ -46,8 +47,8 @@
 .rpl-page-header__desktop-layout {
   display: flex;
   flex-direction: column;
-  gap:     var(--spacing-50);  /* 8px between meta row + main row */
-  padding: var(--spacing-150) var(--spacing-200); /* 24px 32px */
+  gap:     var(--spacing-50);  /* 8px between breadcrumbs + main row */
+  padding: var(--spacing-150); /* 24px all sides */
 }
 
 .rpl-page-header__mobile-layout {
@@ -66,29 +67,20 @@
     display:    flex;
     aria-hidden: attr(aria-hidden); /* visibility toggled via JS aria-hidden */
   }
-}
 
-@container page-header (min-width: 768px) and (max-width: 1023px) {
-  /* Tablet: reduce horizontal padding */
-  .rpl-page-header__desktop-layout {
-    padding-left:  var(--spacing-150); /* 24px */
-    padding-right: var(--spacing-150);
+  /* Reduce title size on mobile */
+  .rpl-page-header__title {
+    font-size: var(--font-size-180);  /* 24px — typography.heading.m */
   }
 }
 
 /* ---------------------------------------------------------------------------
-   Meta row (last update info, right-aligned)
+   Last update label (sits at top of right column, right-aligned)
    --------------------------------------------------------------------------- */
-
-.rpl-page-header__meta-row {
-  display:         flex;
-  justify-content: flex-end;
-  align-items:     center;
-}
 
 .rpl-page-header__last-update {
   font-family: var(--font-family-base);
-  font-size:   var(--font-size-60);   /* 12px */
+  font-size:   var(--font-size-60);   /* 12px — typography.detail */
   font-weight: var(--font-weight-regular);
   color:       var(--text-soft);
   white-space: nowrap;
@@ -114,13 +106,21 @@
   gap:       var(--spacing-25);  /* 4px between breadcrumb/date/heading/desc */
 }
 
-/* Actions zone never compresses — ResizeObserver switches variant instead */
+/* Right column — stacks last-update above the buttons row, right-aligned */
 .rpl-page-header__actions {
-  flex-shrink: 0;
-  flex-grow:   0;
+  flex-shrink:    0;
+  flex-grow:      0;
+  display:        flex;
+  flex-direction: column;
+  align-items:    flex-end;
+  gap:            var(--spacing-25);  /* 4px between last-update and buttons row */
+}
+
+/* Horizontal row of toolbar elements (secondary toolbar + divider + main actions) */
+.rpl-page-header__actions-row {
   display:     flex;
   align-items: center;
-  gap:         var(--spacing-50);  /* 8px: provides clear space around divider */
+  gap:         var(--spacing-50);  /* 8px between toolbar elements */
 }
 
 /* Split layout — hard 50/50 columns */
@@ -129,8 +129,8 @@
 }
 
 .rpl-page-header__main-row--split .rpl-page-header__actions {
-  flex:            0 0 calc(50% - var(--spacing-75));
-  justify-content: flex-end;
+  flex: 0 0 calc(50% - var(--spacing-75));
+  /* align-items: flex-end already set on base rule — right-aligns in column */
 }
 
 @container page-header (min-width: 768px) and (max-width: 1023px) {
@@ -160,7 +160,7 @@
 .rpl-page-header__date {
   margin:      0;
   font-family: var(--font-family-base);
-  font-size:   var(--font-size-120);  /* ~20px */
+  font-size:   var(--font-size-120);  /* 18px */
   font-weight: var(--font-weight-semibold);
   color:       var(--text-soft);
   line-height: var(--font-line-height-heading);
@@ -185,7 +185,7 @@
 .rpl-page-header__title {
   margin:      0;
   font-family: var(--font-family-base);
-  font-size:   var(--font-size-160);
+  font-size:   var(--font-size-200);  /* 28px — typography.heading.l */
   font-weight: var(--font-weight-bold);
   line-height: var(--font-line-height-heading);
   color:       var(--text-loud);
@@ -193,7 +193,7 @@
 }
 
 .rpl-page-header__title--compact {
-  font-size: var(--font-size-140);
+  font-size: var(--font-size-180);  /* 24px — typography.heading.m */
 }
 
 /* Truncation — only active in split layout */
@@ -292,73 +292,16 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Mobile — secondary toolbar (rendered inline above actions)
-   --------------------------------------------------------------------------- */
-
-.rpl-page-header__mobile-secondary {
-  display:         flex;
-  align-items:     center;
-  gap:             var(--spacing-50);
-  padding-top:     var(--spacing-25);
-  border-top:      1px solid var(--border-neutral);
-  margin-top:      var(--spacing-25);
-}
-
-/* ---------------------------------------------------------------------------
    Mobile — actions bar
    --------------------------------------------------------------------------- */
 
 .rpl-page-header__mobile-actions {
-  display:   flex;
-  gap:       var(--spacing-50);  /* 8px */
+  display:    flex;
+  gap:        var(--spacing-50);  /* 8px */
   margin-top: var(--spacing-50);
 }
 
-/* Primary action fills remaining width */
+/* Ripple Button fills remaining width in mobile actions bar */
 .rpl-page-header__mobile-primary {
-  flex:         1;
-  display:      flex;
-  align-items:  center;
-  justify-content: center;
-  gap:          var(--spacing-25);
-  height:       40px;
-  border:       none;
-  border-radius: var(--border-radius-150);
-  background:   var(--bg-primary);
-  color:        var(--text-on-fill);
-  font-family:  var(--font-family-base);
-  font-size:    var(--font-size-100);
-  font-weight:  var(--font-weight-medium);
-  cursor:       pointer;
-  padding:      0 var(--spacing-100);
-  outline:      none;
-}
-
-.rpl-page-header__mobile-primary:hover {
-  background: var(--bg-primary-loud);
-}
-
-.rpl-page-header__mobile-primary:focus-visible {
-  outline:        2px solid var(--border-focus);
-  outline-offset: 2px;
-}
-
-.rpl-page-header__mobile-primary:disabled {
-  opacity: 0.4;
-  cursor:  not-allowed;
-}
-
-/* Spinner for loading state on mobile primary */
-.rpl-page-header__mobile-spinner {
-  display:       inline-block;
-  width:         16px;
-  height:        16px;
-  border:        2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: currentColor;
-  border-radius: 50%;
-  animation:     page-header-spin 0.6s linear infinite;
-}
-
-@keyframes page-header-spin {
-  to { transform: rotate(360deg); }
+  flex: 1;
 }

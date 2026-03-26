@@ -18,6 +18,7 @@ import {
   FlyoutMenuItem,
   FlyoutMenuSeparator,
 } from '../FlyoutMenu'
+import { Button } from '../Button'
 import { IconButton } from '../IconButton'
 import './PageHeader.css'
 
@@ -52,15 +53,21 @@ export interface PageHeaderProps {
    */
   mainActions?: ToolbarAction[]
   /**
-   * Discuss + AVA toolbar. Always visible on desktop; rendered above the
-   * primary action bar on mobile. Separated from main actions by a 1 px divider.
+   * Discuss + AVA toolbar. Always visible on desktop, separated from main
+   * actions by a 1 px divider. Not rendered on mobile — use mobileMenuActions
+   * to surface these items in the mobile overflow menu instead.
    */
   secondaryToolbar?: ReactNode
+  /**
+   * Actions folded into the mobile ⋯ overflow menu at the top of the list
+   * (e.g. Discuss, AVA). Desktop ignores this prop — use secondaryToolbar there.
+   */
+  mobileMenuActions?: ToolbarAction[]
   /** Right-aligned last-update text above the main row */
   lastUpdateInfo?: string
   /** Fixes the header at the top of the viewport on scroll */
   sticky?: boolean
-  /** Reduces title font size from `--font-size-160` to `--font-size-140` */
+  /** Reduces title from heading.l (28px) to heading.m (24px) */
   compact?: boolean
   /**
    * 50/50 split layout. Title truncates with ellipsis; full title shown via
@@ -117,6 +124,7 @@ export function PageHeader({
   tags = [],
   mainActions,
   secondaryToolbar,
+  mobileMenuActions,
   lastUpdateInfo,
   sticky = false,
   compact = false,
@@ -166,9 +174,9 @@ export function PageHeader({
     return () => observer.disconnect()
   }, [computeVariant, truncateTitle])
 
-  const hasActions     = !!mainActions?.length
-  const hasToolbarArea = hasActions || !!secondaryToolbar
-  const showDivider    = !!secondaryToolbar && hasActions
+  const hasActions      = !!mainActions?.length
+  const hasRightColumn  = hasActions || !!secondaryToolbar || !!lastUpdateInfo
+  const showDivider     = !!secondaryToolbar && hasActions
 
   // Mobile back link — parent of the current breadcrumb page
   const mobileParent = showBreadcrumb && breadcrumbItems.length >= 2
@@ -176,9 +184,10 @@ export function PageHeader({
     : null
 
   // Non-primary actions for mobile ⋯ overflow
-  const mobileOverflow  = mainActions ? getNonPrimaryActions(mainActions) : []
-  const mobilePrimary   = mainActions ? getPrimaryAction(mainActions) : undefined
-  const hasMobileOverflow = mobileOverflow.length > 0
+  const mobileOverflow    = mainActions ? getNonPrimaryActions(mainActions) : []
+  const mobilePrimary     = mainActions ? getPrimaryAction(mainActions) : undefined
+  const hasMobileOverflow = mobileOverflow.length > 0 || (mobileMenuActions?.length ?? 0) > 0
+  const hasMobileActionsBar = hasActions || (mobileMenuActions?.length ?? 0) > 0
 
   // ---------------------------------------------------------------------------
   // Shared content blocks
@@ -196,18 +205,23 @@ export function PageHeader({
     <p className="rpl-page-header__date">{date}</p>
   ) : null
 
+  const titleEl = (
+    <h1
+      className={[
+        'rpl-page-header__title',
+        compact       ? 'rpl-page-header__title--compact'  : '',
+        truncateTitle ? 'rpl-page-header__title--truncate' : '',
+      ].filter(Boolean).join(' ')}
+      title={truncateTitle ? title : undefined}
+    >
+      {title}
+    </h1>
+  )
+
+  // Desktop heading row — title + inline tags
   const headingBlock = (
     <div className="rpl-page-header__heading-row">
-      <h1
-        className={[
-          'rpl-page-header__title',
-          compact     ? 'rpl-page-header__title--compact'  : '',
-          truncateTitle ? 'rpl-page-header__title--truncate' : '',
-        ].filter(Boolean).join(' ')}
-        title={truncateTitle ? title : undefined}
-      >
-        {title}
-      </h1>
+      {titleEl}
       {tags.length > 0 && (
         <div className="rpl-page-header__tags" aria-label="Tags">
           {tags.map((tag, i) => (
@@ -221,6 +235,13 @@ export function PageHeader({
     </div>
   )
 
+  // Mobile heading row — title only (tags rendered separately below description)
+  const mobileHeadingBlock = (
+    <div className="rpl-page-header__heading-row">
+      {titleEl}
+    </div>
+  )
+
   const descriptionBlock = description ? (
     <p className="rpl-page-header__description">{description}</p>
   ) : null
@@ -231,11 +252,8 @@ export function PageHeader({
 
   const desktopLayout = (
     <div className="rpl-page-header__desktop-layout" aria-hidden="false">
-      {lastUpdateInfo && (
-        <div className="rpl-page-header__meta-row">
-          <span className="rpl-page-header__last-update">{lastUpdateInfo}</span>
-        </div>
-      )}
+      {/* Breadcrumbs — full-width row above the title/actions split */}
+      {breadcrumbBlock}
 
       <div
         ref={mainRowRef}
@@ -244,43 +262,50 @@ export function PageHeader({
           truncateTitle ? 'rpl-page-header__main-row--split' : '',
         ].filter(Boolean).join(' ')}
       >
-        {/* Title area */}
+        {/* Title area — date, heading, description */}
         <div ref={titleAreaRef} className="rpl-page-header__title-area">
-          {breadcrumbBlock}
           {dateBlock}
           {headingBlock}
           {descriptionBlock}
         </div>
 
-        {/* Actions area */}
-        {hasToolbarArea && (
+        {/* Right column — last update stacked above action buttons */}
+        {hasRightColumn && (
           <div
             ref={actionsContainerRef}
             className="rpl-page-header__actions"
           >
-            {secondaryToolbar && (
-              <div
-                ref={secondaryToolbarRef}
-                className="rpl-page-header__secondary-toolbar"
-              >
-                {secondaryToolbar}
+            {lastUpdateInfo && (
+              <span className="rpl-page-header__last-update">{lastUpdateInfo}</span>
+            )}
+
+            {(hasActions || !!secondaryToolbar) && (
+              <div className="rpl-page-header__actions-row">
+                {secondaryToolbar && (
+                  <div
+                    ref={secondaryToolbarRef}
+                    className="rpl-page-header__secondary-toolbar"
+                  >
+                    {secondaryToolbar}
+                  </div>
+                )}
+
+                {showDivider && (
+                  <div
+                    className="rpl-page-header__toolbar-divider"
+                    role="separator"
+                    aria-hidden="true"
+                  />
+                )}
+
+                {hasActions && (
+                  <ButtonsToolbar
+                    actions={mainActions!}
+                    variant={toolbarVariant}
+                    className="rpl-page-header__main-actions"
+                  />
+                )}
               </div>
-            )}
-
-            {showDivider && (
-              <div
-                className="rpl-page-header__toolbar-divider"
-                role="separator"
-                aria-hidden="true"
-              />
-            )}
-
-            {hasActions && (
-              <ButtonsToolbar
-                actions={mainActions!}
-                variant={toolbarVariant}
-                className="rpl-page-header__main-actions"
-              />
             )}
           </div>
         )}
@@ -319,7 +344,7 @@ export function PageHeader({
       )}
 
       {dateBlock}
-      {headingBlock}
+      {mobileHeadingBlock}
       {descriptionBlock}
 
       {tags.length > 0 && (
@@ -335,15 +360,8 @@ export function PageHeader({
         <p className="rpl-page-header__last-update">{lastUpdateInfo}</p>
       )}
 
-      {/* Secondary toolbar rendered inline on mobile */}
-      {secondaryToolbar && (
-        <div className="rpl-page-header__mobile-secondary">
-          {secondaryToolbar}
-        </div>
-      )}
-
-      {/* Mobile actions bar */}
-      {hasActions && (
+      {/* Mobile actions bar — ⋯ overflow menu + primary action */}
+      {hasMobileActionsBar && (
         <div className="rpl-page-header__mobile-actions">
           {hasMobileOverflow && (
             <FlyoutMenu>
@@ -357,6 +375,22 @@ export function PageHeader({
                 />
               </FlyoutMenuTrigger>
               <FlyoutMenuContent align="start" sideOffset={4}>
+                {/* Secondary actions (Discuss, AVA) at top of menu */}
+                {mobileMenuActions && mobileMenuActions.length > 0 && (
+                  <>
+                    {mobileMenuActions.map((action) => (
+                      <FlyoutMenuItem
+                        key={action.id}
+                        disabled={action.disabled}
+                        onSelect={action.onClick}
+                      >
+                        {action.icon && <span aria-hidden="true">{action.icon}</span>}
+                        {action.label}
+                      </FlyoutMenuItem>
+                    ))}
+                    {mobileOverflow.length > 0 && <FlyoutMenuSeparator />}
+                  </>
+                )}
                 {mobileOverflow.map((action, i) => (
                   <span key={action.id}>
                     {i > 0 && action.type !== mobileOverflow[i - 1]?.type && (
@@ -378,19 +412,18 @@ export function PageHeader({
           )}
 
           {mobilePrimary && (
-            <button
-              type="button"
-              className="rpl-page-header__mobile-primary"
+            <Button
+              variant="fill"
+              color="primary"
+              size="medium"
               disabled={mobilePrimary.disabled}
+              loading={mobilePrimary.loading}
+              iconStart={mobilePrimary.icon}
               onClick={mobilePrimary.onClick}
+              className="rpl-page-header__mobile-primary"
             >
-              {mobilePrimary.loading ? (
-                <span className="rpl-page-header__mobile-spinner" aria-hidden="true" />
-              ) : mobilePrimary.icon ? (
-                <span aria-hidden="true">{mobilePrimary.icon}</span>
-              ) : null}
               {mobilePrimary.label}
-            </button>
+            </Button>
           )}
         </div>
       )}

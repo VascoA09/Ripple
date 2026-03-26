@@ -2,7 +2,7 @@
 name: Page Header
 status: draft
 version: 0.1.0
-last_updated: 2026-03-19
+last_updated: 2026-03-26
 owner: Vasco Antunes
 figma: TBD
 storybook: TBD
@@ -65,8 +65,8 @@ The primary heading that identifies the current page or view. Always rendered as
 * Should be concise and descriptive
 * Use noun-based titles for entity pages ("Invoices", "Project settings")
 * Use task-based titles where appropriate ("Create invoice")
-* Default: `var(--font-size-160)`, `var(--font-weight-bold)`, `var(--text-loud)`
-* Compact variant: `var(--font-size-140)`, same weight
+* Default: `typography.heading.l` — `var(--font-size-200)` (28px), `var(--font-weight-bold)`, `var(--text-loud)`
+* Compact variant: `typography.heading.m` — `var(--font-size-180)` (24px), same weight
 
 ### 4. Description (optional)
 Short supporting text displayed below the title.
@@ -78,11 +78,18 @@ Short supporting text displayed below the title.
 * Omit if the title is already self-explanatory
 
 ### 5. Tags / Badges (optional)
-Status indicators displayed inline alongside the title using the Ripple Badge component.
+Status and category indicators displayed inline with the title on desktop. On mobile, they render below the description in a flex-wrapped row.
 
-* Rendered in a flex row directly next to the title heading
-* Use for status (Active, Draft, Archived), priority (High, Medium, Low), or categorisation
-* Tags flow horizontally with `var(--spacing-50)` (8 px) gap between them
+Use the correct Ripple component based on purpose:
+
+| Component | Use for | Example |
+|-----------|---------|---------|
+| `Badge` | Status — Active, Draft, Published, In Progress | `<Badge variant="fill" color="positive">Active</Badge>` |
+| `Tag` | Category, label, version, phase | `<Tag color="blue">Phase 2</Tag>` |
+
+* Both flow horizontally with `var(--spacing-50)` (8 px) gap between them
+* Use `size="small"` for tags on mobile
+* On desktop, tags render inline next to the `<h1>`; on mobile they render in their own row below the description (never inline with the title)
 
 ### 6. Main Actions Toolbar (optional)
 The adaptive toolbar containing primary, secondary, and tertiary page-level actions. Managed via the `mainActions` prop as an array of `ToolbarAction` objects. See **Adaptive Main Actions Toolbar** below for the full specification.
@@ -102,7 +109,7 @@ Informational text showing when content was last modified.
 * Font size: `var(--font-size-60)` — typography-detail
 * Font weight: `var(--font-weight-regular)`
 * Color: `var(--text-soft)`
-* Positioned right-aligned on the same row as the date (or on its own row if no date)
+* Positioned right-aligned in the actions column, above the action buttons row
 * Common formats: "Last updated X hours ago" / "Last update: X minutes ago"
 
 ---
@@ -225,7 +232,8 @@ On containers ≤ 767 px, content stacks vertically in this fixed order:
 ```
 
 * The ⋯ overflow button is omitted when only one (primary) action exists — the primary button fills the full width
-* The ⋯ menu contains all non-primary actions followed by a divider and the secondary toolbar controls
+* The ⋯ menu order: `mobileMenuActions` items first (e.g. Discuss, AVA), then a separator, then all non-primary `mainActions`
+* Use `mobileMenuActions` to surface desktop secondary toolbar controls (Discuss, AVA) in the mobile overflow menu — `secondaryToolbar` is desktop-only
 * FlyoutMenu is portal-rendered so it is never clipped by the `overflow: hidden` on the mobile frame wrapper
 
 ---
@@ -234,13 +242,10 @@ On containers ≤ 767 px, content stacks vertically in this fixed order:
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| `var(--spacing-200)` | 32 px | Horizontal padding (desktop) |
-| `var(--spacing-150)` | 24 px | Vertical padding (all variants) · Row gap between title-area and actions |
-| `var(--spacing-100)` | 16 px | Gap between elements in the title column |
-| `var(--spacing-50)` | 8 px | Gap between actions · Gap between chips/badges |
-| `var(--spacing-25)` | 4 px | Internal element gaps |
-
-Tablet padding: `var(--spacing-150)` horizontal. Mobile padding: `var(--spacing-100)` horizontal.
+| `var(--spacing-150)` | 24 px | Padding on all sides (desktop) · Row gap between title-area and actions |
+| `var(--spacing-100)` | 16 px | Padding on all sides (mobile) · Gap between elements in the title column |
+| `var(--spacing-50)` | 8 px | Gap between actions · Gap between tags/badges |
+| `var(--spacing-25)` | 4 px | Internal element gaps (between last-update and actions row; between title and description) |
 
 ---
 
@@ -264,14 +269,14 @@ The 1 px vertical divider between the secondary toolbar and the main actions:
 | `date` | `string` | — | Date above the title (format: Day, Month DD) |
 | `showBreadcrumb` | `boolean` | `false` | Enables the breadcrumb trail |
 | `breadcrumbItems` | `BreadcrumbItem[]` | `[]` | Breadcrumb links (`label`, `href`, `current`) |
-| `tags` | `ReactNode[]` | `[]` | Badge/chip nodes rendered inline with the title |
+| `tags` | `ReactNode[]` | `[]` | Tag/Badge nodes rendered inline with the title on desktop; below description on mobile |
 | `mainActions` | `ToolbarAction[]` | — | Structured toolbar actions — enables adaptive variant switching |
-| `secondaryToolbar` | `ReactNode` | — | Discuss + AVA toolbar; never shrinks; separated by divider |
-| `lastUpdateInfo` | `string` | — | Last-update text shown right-aligned above the main row |
+| `secondaryToolbar` | `ReactNode` | — | Discuss + AVA toolbar (desktop only); never shrinks; separated from main actions by a divider |
+| `mobileMenuActions` | `ToolbarAction[]` | — | Actions folded into the top of the mobile ⋯ overflow menu (e.g. Discuss, AVA). Desktop ignores this prop — use `secondaryToolbar` there. |
+| `lastUpdateInfo` | `string` | — | Last-update text shown right-aligned in the actions column, above the action buttons |
 | `sticky` | `boolean` | `false` | Fixes the header at the top of the viewport on scroll |
-| `compact` | `boolean` | `false` | Reduces title font size from `var(--font-size-160)` to `var(--font-size-140)` |
+| `compact` | `boolean` | `false` | Reduces title from `typography.heading.l` (28px) to `typography.heading.m` (24px) |
 | `truncateTitle` | `boolean` | `false` | Activates 50/50 split layout; title truncates with ellipsis + tooltip |
-| `mobileOverflowAction` | `ReactNode` | — | Custom element to replace the auto-generated ⋯ overflow button on mobile |
 | `className` | `string` | — | Additional CSS class on the `<header>` element |
 | `style` | `CSSProperties` | — | Additional inline styles on the `<header>` element |
 | `onBreadcrumbNavigate` | `(href: string) => void` | — | Callback for programmatic breadcrumb navigation |
@@ -322,7 +327,7 @@ interface ToolbarAction {
   description="Design and development project for the new company website"
   tags={[
     <Badge variant="fill" color="positive" size="medium">Active</Badge>,
-    <Badge variant="outline" color="notice" size="medium">High Priority</Badge>,
+    <Tag color="orange" size="medium">High Priority</Tag>,
   ]}
   lastUpdateInfo="Last update: 2 hours ago"
   mainActions={[
@@ -339,17 +344,28 @@ interface ToolbarAction {
 <PageHeader
   title="Product Design Specification"
   tags={[
-    <Badge variant="outline" color="primary" size="medium">v3.2.1</Badge>,
+    <Tag color="blue" size="medium">v3.2.1</Tag>,
     <Badge variant="fill" color="positive" size="medium">Published</Badge>,
   ]}
   secondaryToolbar={
     <div style={{ display: 'flex', gap: 'var(--spacing-50)', alignItems: 'center' }}>
-      <Button variant="outline" color="primary" size="medium" onClick={handleDiscuss}>
+      <Button variant="outline" color="neutral" size="medium" onClick={handleDiscuss}>
         Discuss
       </Button>
-      <AvaButton size="medium" aria-label="Open AVA" onClick={handleAva} />
+      <IconButton
+        icon={<Sparkles size={16} />}
+        aria-label="Open AVA"
+        variant="outline"
+        color="neutral"
+        size="medium"
+        onClick={handleAva}
+      />
     </div>
   }
+  mobileMenuActions={[
+    { id: 'discuss', label: 'Discuss', type: 'secondary', onClick: handleDiscuss },
+    { id: 'ava',     label: 'Ask AVA', type: 'secondary', icon: <Sparkles size={16} />, onClick: handleAva },
+  ]}
   mainActions={[
     { id: 'action',   label: 'Action',        type: 'tertiary',  onClick: handleAction },
     { id: 'download', label: 'Download',       type: 'secondary', icon: <Download size={16} />, onClick: handleDownload },
@@ -368,7 +384,7 @@ interface ToolbarAction {
   lastUpdateInfo="Last update: 2 minutes ago"
   tags={[
     <Badge variant="fill" color="notice" size="medium">In Progress</Badge>,
-    <Badge variant="outline" color="primary" size="medium">Phase 2</Badge>,
+    <Tag color="blue" size="medium">Phase 2</Tag>,
   ]}
   secondaryToolbar={<DiscussAvaToolbar />}
   mainActions={[
@@ -433,8 +449,9 @@ interface ToolbarAction {
 ### Typography
 | Element | Size token | Weight token |
 |---------|-----------|--------------|
-| Title (default) | `var(--font-size-160)` | `var(--font-weight-bold)` |
-| Title (compact) | `var(--font-size-140)` | `var(--font-weight-bold)` |
+| Title (default) | `var(--font-size-200)` — `typography.heading.l` (28px) | `var(--font-weight-bold)` |
+| Title (compact) | `var(--font-size-180)` — `typography.heading.m` (24px) | `var(--font-weight-bold)` |
+| Title (mobile) | `var(--font-size-180)` — 24px (applied via container query at ≤767px) | `var(--font-weight-bold)` |
 | Date | `var(--font-size-120)` | `var(--font-weight-semibold)` |
 | Description | `var(--font-size-80)` | `var(--font-weight-regular)` |
 | Last update | `var(--font-size-60)` | `var(--font-weight-regular)` |
@@ -446,7 +463,8 @@ interface ToolbarAction {
 | Date | `var(--text-soft)` |
 | Description | `var(--text)` |
 | Last update | `var(--text-soft)` |
-| Background | `var(--bg)` |
+| Background | `var(--bg-app)` |
+| Bottom border | `var(--border-neutral)` |
 | Divider | `var(--border-neutral)` |
 
 ---
@@ -455,7 +473,9 @@ interface ToolbarAction {
 
 * **ButtonsToolbar** — Underlying component that renders the adaptive action toolbar
 * **Breadcrumbs** — Hierarchical navigation trails
-* **Badge** — Status indicators and metadata tags
+* **Badge** — Status indicators (Active, Draft, In Progress)
+* **Tag** — Categorical labels (version, phase, department)
 * **FlyoutMenu** — Portal-rendered dropdown used for action overflow
+* **Button** — Used for the Discuss control (`variant="outline" color="neutral"`)
+* **IconButton** — Used for the AVA control (`variant="outline" color="neutral"`)
 * **Tooltip** — Used for truncated title on hover in the split layout
-* **AvaButton** — AVA icon button in the secondary toolbar

@@ -7,12 +7,12 @@ import {
   Trash2,
   Eye,
   Settings,
-  MessageSquare,
   Sparkles,
 } from 'lucide-react'
 import { Badge } from '../Badge'
 import { Button } from '../Button'
 import { IconButton } from '../IconButton'
+import { Tag } from '../Tag'
 import { PageHeader } from './PageHeader'
 import type { PageHeaderProps, ToolbarAction } from './PageHeader'
 
@@ -69,8 +69,8 @@ function DiscussAva() {
       <IconButton
         icon={<Sparkles size={16} />}
         aria-label="Open AVA"
-        variant="fill"
-        color="primary"
+        variant="outline"
+        color="neutral"
         size="medium"
       />
     </div>
@@ -133,7 +133,7 @@ export const WithMetadata: Story = {
     lastUpdateInfo: 'Last update: 2 hours ago',
     tags: [
       <Badge key="1" variant="fill" color="positive" size="medium">Active</Badge>,
-      <Badge key="2" variant="outline" color="notice" size="medium">High Priority</Badge>,
+      <Tag   key="2" color="orange" size="medium">High Priority</Tag>,
     ],
     mainActions: twoActions,
   },
@@ -148,7 +148,7 @@ export const WithSecondaryToolbar: Story = {
   args: {
     title:            'Product Design Specification',
     tags: [
-      <Badge key="1" variant="outline" color="primary" size="medium">v3.2.1</Badge>,
+      <Tag   key="1" color="blue" size="medium">v3.2.1</Tag>,
       <Badge key="2" variant="fill" color="positive" size="medium">Published</Badge>,
     ],
     secondaryToolbar: <DiscussAva />,
@@ -233,7 +233,7 @@ export const TruncatedTitle: Story = {
     lastUpdateInfo: 'Last update: 2 minutes ago',
     tags: [
       <Badge key="1" variant="fill" color="notice" size="medium">In Progress</Badge>,
-      <Badge key="2" variant="outline" color="primary" size="medium">Phase 2</Badge>,
+      <Tag   key="2" color="blue" size="medium">Phase 2</Tag>,
     ],
     secondaryToolbar: <DiscussAva />,
     mainActions:      threeActions,
@@ -259,9 +259,9 @@ export const KitchenSink: Story = {
         description="Design and development project for the new company website. This project spans three quarters."
         lastUpdateInfo="Last update: 2 hours ago"
         tags={[
-          <Badge key="1" variant="fill"    color="positive" size="medium">Active</Badge>,
-          <Badge key="2" variant="outline" color="notice"   size="medium">High Priority</Badge>,
-          <Badge key="3" variant="outline" color="primary"  size="medium">Q1 2026</Badge>,
+          <Badge key="1" variant="fill" color="positive" size="medium">Active</Badge>,
+          <Tag   key="2" color="orange"                  size="medium">High Priority</Tag>,
+          <Tag   key="3" color="blue"                    size="medium">Q1 2026</Tag>,
         ]}
         secondaryToolbar={<DiscussAva />}
         mainActions={[
@@ -304,7 +304,7 @@ export const MobileLayout: Story = {
   args: {
     showBreadcrumb: true,
     breadcrumbItems: [
-      { label: 'Projects',        href: '/projects' },
+      { label: 'Projects',         href: '/projects' },
       { label: 'Website Redesign', current: true },
     ],
     date:           'Monday, March 02',
@@ -312,9 +312,13 @@ export const MobileLayout: Story = {
     description:    'Design and development project.',
     lastUpdateInfo: 'Last update: 2 hours ago',
     tags: [
-      <Badge key="1" variant="fill" color="positive" size="medium">Active</Badge>,
+      <Badge key="1" variant="fill" color="positive" size="small">Active</Badge>,
+      <Tag   key="2" color="orange"                  size="small">Design</Tag>,
     ],
-    secondaryToolbar: <DiscussAva />,
+    mobileMenuActions: [
+      { id: 'discuss', label: 'Discuss', type: 'secondary' },
+      { id: 'ava',     label: 'Ask AVA', type: 'secondary', icon: <Sparkles size={16} /> },
+    ],
     mainActions: [
       { id: 'share',  label: 'Share',        type: 'secondary', icon: <Share2 size={16} /> },
       { id: 'delete', label: 'Delete',       type: 'tertiary',  icon: <Trash2 size={16} /> },
@@ -342,14 +346,13 @@ export const WithConversation: Story = {
     secondaryToolbar: (
       <div style={{ display: 'flex', gap: 'var(--spacing-50)', alignItems: 'center' }}>
         <Button variant="outline" color="neutral" size="medium">
-          <MessageSquare size={14} style={{ marginRight: '6px' }} aria-hidden="true" />
           Discuss
         </Button>
         <IconButton
           icon={<Sparkles size={16} />}
           aria-label="Open AVA"
-          variant="fill"
-          color="primary"
+          variant="outline"
+          color="neutral"
           size="medium"
         />
       </div>

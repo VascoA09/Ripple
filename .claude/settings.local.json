@@ -15,7 +15,10 @@
       "Bash(ls -1 *.md)",
       "Bash(python3 -m scripts.package_skill \"../setup-ripple\")",
       "Bash(python3 scripts/package_skill.py \"../setup-ripple\")",
-      "Bash(pip3 install:*)"
+      "Bash(pip3 install:*)",
+      "mcp__Figma__get_code_connect_suggestions",
+      "mcp__Figma__send_code_connect_mappings",
+      "mcp__Figma__get_screenshot"
     ]
   }
 }
