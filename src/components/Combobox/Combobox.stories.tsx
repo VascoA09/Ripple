@@ -251,6 +251,7 @@ export const MultiSelect: Story = {
 
 export const MultiSelectInline: Story = {
   name: 'Multi-Select (Chips Inline)',
+  decorators: [Story => <div style={{ maxWidth: '800px', paddingBottom: '300px' }}><Story /></div>],
   render: () => {
     const [values, setValues] = useState<string[]>(['bug', 'design'])
     return (
