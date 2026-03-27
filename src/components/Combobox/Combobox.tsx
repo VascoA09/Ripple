@@ -3,6 +3,7 @@ import React, {
   useRef,
   useState,
   useEffect,
+  useLayoutEffect,
   useCallback,
   useMemo,
 } from 'react'
@@ -122,8 +123,13 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
     const messageId   = `${inputId}-message`
 
     // Refs
-    const containerRef = useRef<HTMLDivElement>(null)
-    const inputRef     = useRef<HTMLInputElement>(null)
+    const containerRef   = useRef<HTMLDivElement>(null)
+    const inputRef       = useRef<HTMLInputElement>(null)
+    const chipsInlineRef = useRef<HTMLDivElement>(null)
+    const cachedWidths   = useRef<number[]>([])
+
+    // Inline chips overflow — how many chips are hidden (collapsed into +N)
+    const [hiddenCount, setHiddenCount] = useState(0)
 
     // Merge forwarded ref
     useEffect(() => {
@@ -231,6 +237,58 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
       },
       [selectedValues, commit],
     )
+
+    // --- Inline chips overflow calculation --------------------------------
+    // Stable recalculate — uses cached widths so ResizeObserver doesn't
+    // cause re-measurement (which would trigger another layout cycle).
+    const calculateOverflow = useCallback(() => {
+      const container = chipsInlineRef.current
+      if (!container) return
+      const widths = cachedWidths.current
+      if (widths.length === 0) { setHiddenCount(0); return }
+
+      const containerWidth = container.clientWidth
+      const gap = 8 // --spacing-50
+
+      // All chips fit? No overflow needed.
+      const totalWidth = widths.reduce((sum, w, i) => sum + w + (i > 0 ? gap : 0), 0)
+      if (totalWidth <= containerWidth) { setHiddenCount(0); return }
+
+      // Need overflow indicator. Estimate its width conservatively.
+      // Iterate from the END so we measure the actual widths of the chips
+      // we'll be showing (newest selections stay visible; oldest collapse into +N).
+      const overflowIndicatorWidth = 72 // "+99 ×" at small chip size
+      let available = containerWidth - overflowIndicatorWidth - gap
+      let visibleFromEnd = 0
+      for (let i = widths.length - 1; i >= 0; i--) {
+        const needed = widths[i] + (visibleFromEnd > 0 ? gap : 0)
+        if (available >= needed) { available -= needed; visibleFromEnd++ }
+        else break
+      }
+      setHiddenCount(widths.length - visibleFromEnd)
+    }, [])
+
+    // Measure chip widths after selection changes. Ghost chips are absolutely
+    // positioned so they're always measurable regardless of hiddenCount.
+    useLayoutEffect(() => {
+      if (chipPlacement !== 'inline' || !chipsInlineRef.current) {
+        setHiddenCount(0)
+        return
+      }
+      const ghostEls = Array.from(
+        chipsInlineRef.current.querySelectorAll<HTMLElement>('[data-chip-ghost]'),
+      )
+      cachedWidths.current = ghostEls.map(el => el.getBoundingClientRect().width)
+      calculateOverflow()
+    }, [selectedOptions, chipPlacement, calculateOverflow])
+
+    // Recalculate on container resize (window resize, panel open/close, etc.)
+    useEffect(() => {
+      if (chipPlacement !== 'inline' || !chipsInlineRef.current) return
+      const ro = new ResizeObserver(calculateOverflow)
+      ro.observe(chipsInlineRef.current)
+      return () => ro.disconnect()
+    }, [chipPlacement, calculateOverflow])
 
     // --- Open/close helpers ----------------------------------------------
     const open = () => {
@@ -524,8 +582,31 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
 
         {/* Inline chips — to the right of the field, inside the flex row */}
         {isMulti && chipPlacement === 'inline' && selectedOptions.length > 0 && (
-          <div className="combobox__chips combobox__chips--inline">
+          <div ref={chipsInlineRef} className="combobox__chips combobox__chips--inline">
+
+            {/* Ghost chips — absolutely positioned off-screen for width measurement.
+                Always rendered so cachedWidths stays current regardless of hiddenCount. */}
             {selectedOptions.map(opt => (
+              <span key={`ghost-${opt.value}`} data-chip-ghost aria-hidden="true" className="combobox__chip-ghost">
+                <Chip variant="removable" label={opt.label} size="small" />
+              </span>
+            ))}
+
+            {/* Overflow indicator — leftmost, visible when chips are hidden */}
+            {hiddenCount > 0 && (
+              <Chip
+                variant="removable"
+                label={`+${hiddenCount}`}
+                size="small"
+                onRemove={disabled ? undefined : () => {
+                  const hiddenValues = selectedOptions.slice(0, hiddenCount).map(o => o.value)
+                  commit(selectedValues.filter(v => !hiddenValues.includes(v)))
+                }}
+              />
+            )}
+
+            {/* Visible chips — those not collapsed into the overflow indicator */}
+            {selectedOptions.slice(hiddenCount).map(opt => (
               <Chip
                 key={opt.value}
                 variant="removable"

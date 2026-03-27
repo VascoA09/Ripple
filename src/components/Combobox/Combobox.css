@@ -288,7 +288,7 @@
 
 /* Field-wrap stays at its natural width — no flex or growth constraints */
 .combobox__field-row .combobox__field-wrap {
-  min-width: 180px; /* minimum usable input width */
+  min-width: 320px; /* fixed input column, chips fill the rest */
 }
 
 /* =============================================================================
