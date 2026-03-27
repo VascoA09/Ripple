@@ -273,17 +273,22 @@
    FIELD ROW — flex container for field-wrap + inline chips
    ============================================================================= */
 
+/* =============================================================================
+   FIELD ROW — input fixed width left, chips fill remaining space right
+   ============================================================================= */
+
 .combobox__field-row {
-  display:     flex;
-  align-items: center;  /* vertically centre chips with the input */
-  gap:         var(--spacing-50); /* 8px */
-  flex-wrap:   wrap;
+  display:               grid;
+  /* Field column: fixed at its natural size, never shrinks.
+     Chips column: takes all remaining space. */
+  grid-template-columns: auto 1fr;
+  align-items:           center;
+  gap:                   var(--spacing-50); /* 8px */
 }
 
-/* Field-wrap shrinks to allow chip space; min-width keeps input usable */
+/* Field-wrap stays at its natural width — no flex or growth constraints */
 .combobox__field-row .combobox__field-wrap {
-  flex:      1 1 180px;
-  min-width: 0;
+  min-width: 180px; /* minimum usable input width */
 }
 
 /* =============================================================================
@@ -298,14 +303,14 @@
   padding-top: var(--spacing-50); /* 8px gap from hint */
 }
 
-/* Inline chips: to the right of the field inside .combobox__field-row */
+/* Inline chips: single row, fills the 1fr grid column, overflow hidden */
 .combobox__chips--inline {
   display:     flex;
-  flex-wrap:   wrap;
+  flex-wrap:   nowrap;   /* single row — no stacking */
   gap:         var(--spacing-50);
-  flex:        2 1 0;
-  min-width:   0;
   align-items: center;
+  min-width:   0;        /* allows the 1fr column to shrink correctly */
+  overflow:    hidden;   /* clips chips that exceed available space */
 }
 
 
