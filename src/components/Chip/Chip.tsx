@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { X, Check } from 'lucide-react'
+import { Counter } from '../Counter'
 import './Chip.css'
 
 // ---------------------------------------------------------------------------
@@ -124,9 +125,13 @@ export const Chip = React.forwardRef<HTMLButtonElement | HTMLSpanElement, ChipPr
           <span className="chip__label">{label}</span>
 
           {count !== undefined && (
-            <span className="chip__count" aria-label={`${count} items`}>
-              {count}
-            </span>
+            <Counter
+              count={count}
+              variant="outline"
+              color="neutral"
+              size="small"
+              aria-label={`${count} items`}
+            />
           )}
         </button>
       )
@@ -153,9 +158,13 @@ export const Chip = React.forwardRef<HTMLButtonElement | HTMLSpanElement, ChipPr
         <span className="chip__label">{label}</span>
 
         {count !== undefined && (
-          <span className="chip__count" aria-label={`${count} items`}>
-            {count}
-          </span>
+          <Counter
+            count={count}
+            variant="outline"
+            color="neutral"
+            size="small"
+            aria-label={`${count} items`}
+          />
         )}
 
         <button
