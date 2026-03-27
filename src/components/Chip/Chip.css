@@ -9,10 +9,9 @@
    Architecture: private size tokens (--_*) on .chip, overridden by
    [data-size="small"]. State styling driven by [data-variant] and aria-pressed.
 
-   TOKEN NOTE: The spec references --color-cool-gray-80 (a Tier 1 primitive)
-   for the unselected border. This violates the token architecture rule
-   (components must not reference primitives directly). --border-default is
-   used instead as the closest semantic equivalent.
+   Border tokens: --border-interactive (selectable) and --border-interactive-soft
+   (removable) — both added to themes.css to fill the gap in the neutral border
+   scale between border-neutral (cool-gray-30) and border-neutral-loud (cool-gray-100).
    ============================================================================= */
 
 /* =============================================================================
@@ -70,7 +69,7 @@
 
 .chip[data-variant="selectable"] {
   /* Reset button */
-  border:      var(--border-width-100) solid var(--border-default);
+  border:      var(--border-width-100) solid var(--border-interactive);
   background:  var(--bg-neutral-softest);
   color:       var(--text);
   cursor:      pointer;
@@ -114,7 +113,7 @@
    ============================================================================= */
 
 .chip[data-variant="removable"] {
-  border:     var(--border-width-100) solid var(--border-default);
+  border:     var(--border-width-100) solid var(--border-interactive-soft);
   background: var(--bg-neutral-softest);
   color:      var(--text);
   /* span — no cursor change on container itself */
