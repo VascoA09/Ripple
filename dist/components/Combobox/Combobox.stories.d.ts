@@ -12,6 +12,7 @@ export declare const WithFlags: Story;
 export declare const WithDescriptions: Story;
 export declare const WithGroups: Story;
 export declare const MultiSelect: Story;
+export declare const MultiSelectInline: Story;
 export declare const MultiSelectGrouped: Story;
 export declare const ValidationStates: Story;
 export declare const Disabled: Story;

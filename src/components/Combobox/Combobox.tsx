@@ -6,8 +6,10 @@ import React, {
   useCallback,
   useMemo,
 } from 'react'
-import { ChevronDown, Check, X } from 'lucide-react'
+import { ChevronDown, Check } from 'lucide-react'
 import './Combobox.css'
+import { Button } from '../Button'
+import { Chip } from '../Chip'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -56,6 +58,12 @@ export interface ComboboxMultiProps extends ComboboxBaseProps {
   selection: 'multi'
   value?: string[]
   onChange?: (values: string[]) => void
+  /**
+   * Where selected chips are rendered.
+   * - `below` (default): chips appear in a row below the input field.
+   * - `inline`: chips appear inside the input field, before the text cursor.
+   */
+  chipPlacement?: 'below' | 'inline'
 }
 
 export type ComboboxProps = ComboboxSingleProps | ComboboxMultiProps
@@ -82,39 +90,6 @@ function flattenOptions(groups: Array<{ name: string | null; items: ComboboxOpti
 }
 
 // ---------------------------------------------------------------------------
-// Multi-select tag
-// ---------------------------------------------------------------------------
-
-function ComboboxTag({
-  label,
-  onRemove,
-  disabled,
-}: {
-  label: string
-  onRemove: () => void
-  disabled?: boolean
-}) {
-  return (
-    <span className="combobox__tag">
-      <span className="combobox__tag-label">{label}</span>
-      <button
-        type="button"
-        className="combobox__tag-remove"
-        aria-label={`Remove ${label}`}
-        tabIndex={-1}
-        disabled={disabled}
-        onMouseDown={e => {
-          e.preventDefault() // keep focus on input
-          onRemove()
-        }}
-      >
-        <X size={12} aria-hidden="true" />
-      </button>
-    </span>
-  )
-}
-
-// ---------------------------------------------------------------------------
 // Combobox
 // ---------------------------------------------------------------------------
 
@@ -136,7 +111,8 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
       className,
     } = props
 
-    const isMulti = props.selection === 'multi'
+    const isMulti       = props.selection === 'multi'
+    const chipPlacement = isMulti ? ((props as ComboboxMultiProps).chipPlacement ?? 'below') : 'inline'
 
     // IDs
     const generatedId = useId()
@@ -196,6 +172,17 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
     }, [options, query])
 
     const flatFiltered = useMemo(() => flattenOptions(filteredGroups), [filteredGroups])
+
+    // --- Select all / clear helpers (multi only) --------------------------
+    const allSelectableValues = useMemo(
+      () => options.filter(o => !o.disabled).map(o => o.value),
+      [options],
+    )
+
+    const allSelected = useMemo(
+      () => allSelectableValues.length > 0 && allSelectableValues.every(v => selectedValues.includes(v)),
+      [allSelectableValues, selectedValues],
+    )
 
     // --- Selection helpers ------------------------------------------------
     const isSelected = useCallback(
@@ -363,13 +350,14 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
           className="combobox__field"
           onClick={() => { if (!isOpen) open(); inputRef.current?.focus() }}
         >
-          {/* Multi-select tags */}
-          {isMulti && selectedOptions.map(opt => (
-            <ComboboxTag
+          {/* Inline chips — only when chipPlacement="inline" */}
+          {isMulti && chipPlacement === 'inline' && selectedOptions.map(opt => (
+            <Chip
               key={opt.value}
+              variant="removable"
               label={opt.label}
-              disabled={disabled}
-              onRemove={() => removeTag(opt.value)}
+              size="small"
+              onRemove={disabled ? undefined : () => removeTag(opt.value)}
             />
           ))}
 
@@ -418,8 +406,9 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
           />
         </div>
 
-        {/* Dropdown listbox — anchored to field-wrap, appears 4px below field */}
+        {/* Dropdown panel — anchored to field-wrap, appears 4px below field */}
         {isOpen && (
+          <div className="combobox__panel">
           <ul
             ref={listboxRef}
             id={listboxId}
@@ -506,6 +495,52 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
               ))
             )}
           </ul>
+
+          {/* Footer — Select all / Clear (multi-select only) */}
+          {isMulti && (
+            <div className="combobox__footer">
+              <Button
+                variant="outline"
+                color="neutral"
+                size="small"
+                disabled={selectedValues.length === 0}
+                onMouseDown={e => {
+                  e.preventDefault()
+                  commit([])
+                }}
+              >
+                Clear
+              </Button>
+              <Button
+                variant="fill"
+                color="primary"
+                size="small"
+                disabled={allSelected}
+                onMouseDown={e => {
+                  e.preventDefault()
+                  commit(allSelectableValues)
+                }}
+              >
+                Select all
+              </Button>
+            </div>
+          )}
+          </div>
+        )}
+
+        {/* Below chips — rendered outside the field when chipPlacement="below" */}
+        {isMulti && chipPlacement === 'below' && selectedOptions.length > 0 && (
+          <div className="combobox__chips">
+            {selectedOptions.map(opt => (
+              <Chip
+                key={opt.value}
+                variant="removable"
+                label={opt.label}
+                size="small"
+                onRemove={disabled ? undefined : () => removeTag(opt.value)}
+              />
+            ))}
+          </div>
         )}
         </div>{/* /combobox__field-wrap */}
 

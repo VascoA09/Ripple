@@ -199,53 +199,6 @@
   transform: rotate(180deg);
 }
 
-/* =============================================================================
-   MULTI-SELECT TAGS
-   ============================================================================= */
-
-.combobox__tag {
-  display:      inline-flex;
-  align-items:  center;
-  gap:          var(--spacing-25); /* 4px */
-  max-width:    150px;
-  height:       24px;
-  padding:      0 var(--spacing-25) 0 var(--spacing-50); /* 0 4px 0 8px */
-  border-radius: 999px;
-  background:   var(--bg-primary-softest);
-  color:        var(--color-primary-loud);
-  flex-shrink:  0;
-}
-
-.combobox__tag-label {
-  font-family:   var(--font-family-base);
-  font-size:     var(--font-size-80); /* 14px */
-  font-weight:   var(--font-weight-medium);
-  overflow:      hidden;
-  text-overflow: ellipsis;
-  white-space:   nowrap;
-  line-height:   1;
-}
-
-.combobox__tag-remove {
-  /* Reset */
-  all:        unset;
-  box-sizing: border-box;
-
-  display:         flex;
-  align-items:     center;
-  justify-content: center;
-  flex-shrink:     0;
-  width:           16px;
-  height:          16px;
-  border-radius:   50%;
-  cursor:          pointer;
-  color:           currentColor;
-  transition:      background 100ms ease;
-}
-
-.combobox__tag-remove:hover {
-  background: var(--bg-primary-soft);
-}
 
 /* =============================================================================
    HINT + VALIDATION MESSAGE
@@ -266,34 +219,65 @@
 .combobox[data-validation="negative"] .combobox__message { color: var(--text-negative); }
 
 /* =============================================================================
-   LISTBOX DROPDOWN
+   DROPDOWN PANEL — positions and styles the floating container
    ============================================================================= */
 
-.combobox__listbox {
+.combobox__panel {
   position:      absolute;
-  top:           calc(100% + var(--spacing-25)); /* 4px gap */
+  top:           calc(100% + var(--spacing-25)); /* 4px gap below field */
   left:          0;
   right:         0;
   z-index:       100;
-
-  max-height:    240px;
-  overflow-y:    auto;
-  overscroll-behavior: contain;
-
-  display:       flex;
-  flex-direction: column;
-  gap:           var(--spacing-50); /* 8px between items */
-
-  margin:        0;
-  padding:       var(--spacing-50); /* 8px all sides */
-  list-style:    none;
 
   background:    var(--bg-surface);
   border:        var(--border-width-100) solid var(--border-neutral);
   border-radius: var(--border-radius-200);
   box-shadow:    var(--box-shadow-400);
+  overflow:      hidden; /* clip border-radius on children */
 
   animation: combobox-dropdown-in 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =============================================================================
+   LISTBOX — scrollable options list inside the panel
+   ============================================================================= */
+
+.combobox__listbox {
+  max-height:    240px;
+  overflow-y:    auto;
+  overscroll-behavior: contain;
+
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-50); /* 8px between items */
+
+  margin:        0;
+  padding:       var(--spacing-50); /* 8px all sides */
+  list-style:    none;
+}
+
+/* =============================================================================
+   FOOTER — Select all / Clear actions
+   ============================================================================= */
+
+.combobox__footer {
+  display:         flex;
+  align-items:     center;
+  justify-content: flex-end;
+  gap:             var(--spacing-50); /* 8px */
+  padding:         var(--spacing-50) var(--spacing-75); /* 8px 12px */
+  border-top:      var(--border-width-100) solid var(--border-neutral);
+}
+
+/* =============================================================================
+   CHIPS — selected items rendered below the field
+   ============================================================================= */
+
+.combobox__chips {
+  display:   flex;
+  flex-wrap: wrap;
+  gap:       var(--spacing-50); /* 8px */
+  padding-top: var(--spacing-50); /* 8px gap from field */
 }
 
 
@@ -453,7 +437,7 @@
    ============================================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .combobox__listbox {
+  .combobox__panel {
     animation: none;
   }
   .combobox__field,

@@ -39,6 +39,12 @@ export interface ComboboxMultiProps extends ComboboxBaseProps {
     selection: 'multi';
     value?: string[];
     onChange?: (values: string[]) => void;
+    /**
+     * Where selected chips are rendered.
+     * - `below` (default): chips appear in a row below the input field.
+     * - `inline`: chips appear inside the input field, before the text cursor.
+     */
+    chipPlacement?: 'below' | 'inline';
 }
 export type ComboboxProps = ComboboxSingleProps | ComboboxMultiProps;
 export declare const Combobox: React.ForwardRefExoticComponent<ComboboxProps & React.RefAttributes<HTMLInputElement>>;

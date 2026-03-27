@@ -224,7 +224,7 @@ export const WithGroups: Story = {
 }
 
 // ---------------------------------------------------------------------------
-// Multi-select
+// Multi-select — chips below (default)
 // ---------------------------------------------------------------------------
 
 export const MultiSelect: Story = {
@@ -239,7 +239,30 @@ export const MultiSelect: Story = {
         options={labels}
         value={values}
         onChange={setValues}
-        hint="Select all labels that apply."
+        hint="Chips appear below the field. Use the footer to select all or clear."
+      />
+    )
+  },
+}
+
+// ---------------------------------------------------------------------------
+// Multi-select — chips inline
+// ---------------------------------------------------------------------------
+
+export const MultiSelectInline: Story = {
+  name: 'Multi-Select (Chips Inline)',
+  render: () => {
+    const [values, setValues] = useState<string[]>(['bug', 'design'])
+    return (
+      <Combobox
+        label="Labels"
+        placeholder="Add labels…"
+        selection="multi"
+        chipPlacement="inline"
+        options={labels}
+        value={values}
+        onChange={setValues}
+        hint="Chips appear inside the field alongside the input."
       />
     )
   },
