@@ -193,62 +193,10 @@
 }
 
 /* =============================================================================
-   DROPDOWN — overflow and menu dropdowns share this style
-   ============================================================================= */
-
-.breadcrumbs__dropdown {
-  min-width:     160px;
-  padding:       var(--spacing-50) 0; /* 8px */
-  background:    var(--bg-surface);
-  border:        var(--border-width-default) solid var(--border-neutral);
-  border-radius: var(--border-radius-200);
-  box-shadow:    var(--box-shadow-400);
-  z-index:       50;
-
-  /* Entrance animation */
-  animation: breadcrumbs-dropdown-in 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  transform-origin: top left;
-}
-
-@keyframes breadcrumbs-dropdown-in {
-  from { opacity: 0; transform: scale(0.95); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-.breadcrumbs__dropdown-item {
-  display:     flex;
-  align-items: center;
-  padding:     8px 12px;
-
-  font-family: var(--font-family-base);
-  font-size:   var(--font-size-80);
-  font-weight: var(--font-weight-regular);
-  color:       var(--text);
-
-  cursor:      pointer;
-  outline:     none;
-  transition:  background 100ms ease;
-}
-
-.breadcrumbs__dropdown-item:hover,
-.breadcrumbs__dropdown-item[data-highlighted] {
-  background: var(--bg-primary-softest);
-}
-
-.breadcrumbs__dropdown-item:active,
-.breadcrumbs__dropdown-item[data-highlighted]:active {
-  background: var(--bg-primary-soft);
-}
-
-/* =============================================================================
    REDUCED MOTION
    ============================================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .breadcrumbs__dropdown {
-    animation: none;
-  }
-
   .breadcrumbs__link,
   .breadcrumbs__menu-trigger,
   .breadcrumbs__overflow {

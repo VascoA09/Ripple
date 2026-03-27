@@ -1,6 +1,11 @@
 import React from 'react'
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { MoreHorizontal, ChevronRight } from 'lucide-react'
+import {
+  FlyoutMenu,
+  FlyoutMenuTrigger,
+  FlyoutMenuContent,
+  FlyoutMenuItem,
+} from '../FlyoutMenu'
 import './Breadcrumbs.css'
 
 // ---------------------------------------------------------------------------
@@ -54,7 +59,7 @@ function Separator({ type }: { type: 'chevron' | 'slash' }) {
 }
 
 // ---------------------------------------------------------------------------
-// Overflow button — opens dropdown of collapsed items
+// Overflow button — opens FlyoutMenu of collapsed items
 // ---------------------------------------------------------------------------
 
 function OverflowButton({
@@ -65,47 +70,35 @@ function OverflowButton({
   onNavigate?: (href: string) => void
 }) {
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
+    <FlyoutMenu>
+      <FlyoutMenuTrigger asChild>
         <button
           className="breadcrumbs__overflow"
           aria-label="Show more breadcrumbs"
-          aria-haspopup="menu"
         >
           <MoreHorizontal size={16} />
         </button>
-      </DropdownMenu.Trigger>
-
-      <DropdownMenu.Portal>
-        <DropdownMenu.Content
-          className="breadcrumbs__dropdown"
-          sideOffset={4}
-          align="start"
-        >
-          {items.map((item, i) => (
-            <DropdownMenu.Item
-              key={i}
-              className="breadcrumbs__dropdown-item"
-              onSelect={() => {
-                if (!item.href) return
-                if (onNavigate) {
-                  onNavigate(item.href)
-                } else {
-                  window.location.href = item.href
-                }
-              }}
-            >
-              {item.label}
-            </DropdownMenu.Item>
-          ))}
-        </DropdownMenu.Content>
-      </DropdownMenu.Portal>
-    </DropdownMenu.Root>
+      </FlyoutMenuTrigger>
+      <FlyoutMenuContent sideOffset={4} align="start">
+        {items.map((item, i) => (
+          <FlyoutMenuItem
+            key={i}
+            onSelect={() => {
+              if (!item.href) return
+              if (onNavigate) onNavigate(item.href)
+              else window.location.href = item.href
+            }}
+          >
+            {item.label}
+          </FlyoutMenuItem>
+        ))}
+      </FlyoutMenuContent>
+    </FlyoutMenu>
   )
 }
 
 // ---------------------------------------------------------------------------
-// Per-item menu trigger — sibling pages dropdown
+// Per-item sibling menu trigger — FlyoutMenu of sibling pages
 // ---------------------------------------------------------------------------
 
 function MenuTrigger({
@@ -116,8 +109,8 @@ function MenuTrigger({
   onNavigate?: (href: string) => void
 }) {
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
+    <FlyoutMenu>
+      <FlyoutMenuTrigger asChild>
         <button
           className="breadcrumbs__menu-trigger"
           aria-haspopup="menu"
@@ -126,32 +119,21 @@ function MenuTrigger({
           <span className="breadcrumbs__label">{item.label}</span>
           <ChevronRight size={12} className="breadcrumbs__menu-chevron" />
         </button>
-      </DropdownMenu.Trigger>
-
-      <DropdownMenu.Portal>
-        <DropdownMenu.Content
-          className="breadcrumbs__dropdown"
-          sideOffset={4}
-          align="start"
-        >
-          {item.menu!.map((menuItem, i) => (
-            <DropdownMenu.Item
-              key={i}
-              className="breadcrumbs__dropdown-item"
-              onSelect={() => {
-                if (onNavigate) {
-                  onNavigate(menuItem.href)
-                } else {
-                  window.location.href = menuItem.href
-                }
-              }}
-            >
-              {menuItem.label}
-            </DropdownMenu.Item>
-          ))}
-        </DropdownMenu.Content>
-      </DropdownMenu.Portal>
-    </DropdownMenu.Root>
+      </FlyoutMenuTrigger>
+      <FlyoutMenuContent sideOffset={4} align="start">
+        {item.menu!.map((menuItem, i) => (
+          <FlyoutMenuItem
+            key={i}
+            onSelect={() => {
+              if (onNavigate) onNavigate(menuItem.href)
+              else window.location.href = menuItem.href
+            }}
+          >
+            {menuItem.label}
+          </FlyoutMenuItem>
+        ))}
+      </FlyoutMenuContent>
+    </FlyoutMenu>
   )
 }
 
@@ -179,7 +161,7 @@ function BreadcrumbItemNode({
     )
   }
 
-  // Item with sibling menu — renders as dropdown trigger
+  // Item with sibling menu — renders as FlyoutMenu trigger
   if (item.menu && item.menu.length > 0) {
     return <MenuTrigger item={item} onNavigate={onNavigate} />
   }
