@@ -690,6 +690,7 @@ function Pp({
             /* @__PURE__ */ a(Rs, { className: "accordion__header", children: /* @__PURE__ */ w(Es, { className: "accordion__trigger", children: [
               l.beforeElement && /* @__PURE__ */ a("span", { className: "accordion__before", "aria-hidden": "true", children: l.beforeElement }),
               /* @__PURE__ */ a("span", { className: "accordion__title", children: l.header }),
+              l.afterElement && /* @__PURE__ */ a("span", { className: "accordion__after", children: l.afterElement }),
               /* @__PURE__ */ a(Ps, {})
             ] }) }),
             /* @__PURE__ */ a(Ms, { className: "accordion__content", children: /* @__PURE__ */ a("div", { className: "accordion__content-inner", children: l.content }) })

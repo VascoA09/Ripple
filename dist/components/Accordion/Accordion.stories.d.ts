@@ -9,4 +9,7 @@ export declare const Sizes: Story;
 export declare const WithIcons: Story;
 export declare const DefaultOpen: Story;
 export declare const WithDisabled: Story;
+export declare const WithAvatar: Story;
+export declare const WithBadge: Story;
+export declare const WithCounter: Story;
 export declare const SettingsPanel: Story;

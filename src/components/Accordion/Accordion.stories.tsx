@@ -2,6 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Settings, Lock, User, CreditCard, Bell, HelpCircle } from 'lucide-react'
 import { Accordion } from './Accordion'
 import type { AccordionProps } from './Accordion'
+import { Avatar } from '../Avatar'
+import { Badge } from '../Badge'
+import { Counter } from '../Counter'
 
 // ---------------------------------------------------------------------------
 
@@ -160,6 +163,100 @@ export const WithDisabled: Story = {
       { value: '1', header: 'Available section', content: <p style={{ margin: 0 }}>This section can be expanded and collapsed.</p> },
       { value: '2', header: 'Disabled section', content: <p style={{ margin: 0 }}>This content is not accessible.</p>, disabled: true },
       { value: '3', header: 'Another available section', content: <p style={{ margin: 0 }}>This section is also available.</p> },
+    ],
+  },
+}
+
+// ---------------------------------------------------------------------------
+// Settings panel pattern
+// ---------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------
+// With Avatar
+// ---------------------------------------------------------------------------
+
+export const WithAvatar: Story = {
+  name: 'With Avatar',
+  args: {
+    items: [
+      {
+        value: 'alice',
+        header: 'Alice Martin',
+        beforeElement: <Avatar name="Alice Martin" size="m" />,
+        content: <p style={{ margin: 0 }}>Senior Product Designer. Joined January 2023.</p>,
+      },
+      {
+        value: 'ben',
+        header: 'Ben Okafor',
+        beforeElement: <Avatar name="Ben Okafor" size="m" />,
+        content: <p style={{ margin: 0 }}>Frontend Engineer. Joined March 2022.</p>,
+      },
+      {
+        value: 'cara',
+        header: 'Cara Nunes',
+        beforeElement: <Avatar name="Cara Nunes" size="m" />,
+        content: <p style={{ margin: 0 }}>UX Researcher. Joined September 2024.</p>,
+      },
+    ],
+  },
+}
+
+// ---------------------------------------------------------------------------
+// With Badge
+// ---------------------------------------------------------------------------
+
+export const WithBadge: Story = {
+  name: 'With Badge',
+  args: {
+    items: [
+      {
+        value: 'annual-leave',
+        header: 'Annual Leave Policy',
+        afterElement: <Badge color="positive" size="small">Active</Badge>,
+        content: <p style={{ margin: 0 }}>Employees are entitled to 25 days of annual leave per calendar year.</p>,
+      },
+      {
+        value: 'expenses',
+        header: 'Expense Reimbursement',
+        afterElement: <Badge color="notice" size="small">Draft</Badge>,
+        content: <p style={{ margin: 0 }}>Submit expenses within 30 days of the transaction date.</p>,
+      },
+      {
+        value: 'remote',
+        header: 'Remote Working',
+        afterElement: <Badge color="neutral" size="small">Archived</Badge>,
+        content: <p style={{ margin: 0 }}>Employees may work remotely up to 3 days per week subject to manager approval.</p>,
+      },
+    ],
+  },
+}
+
+// ---------------------------------------------------------------------------
+// With Counter
+// ---------------------------------------------------------------------------
+
+export const WithCounter: Story = {
+  name: 'With Counter',
+  args: {
+    items: [
+      {
+        value: 'tasks',
+        header: 'Open Tasks',
+        afterElement: <Counter count={12} size="small" color="primary" />,
+        content: <p style={{ margin: 0 }}>Review and assign pending tasks from your team queue.</p>,
+      },
+      {
+        value: 'notifications',
+        header: 'Unread Notifications',
+        afterElement: <Counter count={4} size="small" color="notice" />,
+        content: <p style={{ margin: 0 }}>Messages and alerts that require your attention.</p>,
+      },
+      {
+        value: 'messages',
+        header: 'Draft Messages',
+        afterElement: <Counter count={0} size="small" color="neutral" />,
+        content: <p style={{ margin: 0 }}>Unsent messages saved to drafts.</p>,
+      },
     ],
   },
 }

@@ -13,8 +13,10 @@ export interface AccordionItem {
   header: string
   /** Content revealed when the item is expanded */
   content: React.ReactNode
-  /** Optional element rendered before the header text (e.g. an icon) */
+  /** Optional element rendered before the header text (e.g. an icon, avatar) */
   beforeElement?: React.ReactNode
+  /** Optional element rendered after the header text, before the chevron (e.g. a badge or counter) */
+  afterElement?: React.ReactNode
   /** Prevents the item from being toggled */
   disabled?: boolean
 }
@@ -93,6 +95,9 @@ export function Accordion({
                 </span>
               )}
               <span className="accordion__title">{item.header}</span>
+              {item.afterElement && (
+                <span className="accordion__after">{item.afterElement}</span>
+              )}
               <ChevronDown />
             </RadixAccordion.Trigger>
           </RadixAccordion.Header>
