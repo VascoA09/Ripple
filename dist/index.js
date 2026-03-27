@@ -4941,20 +4941,21 @@ const jp = E.forwardRef(
                         },
                         onMouseEnter: () => z(ue),
                         children: [
+                          !g && /* @__PURE__ */ a(
+                            Te,
+                            {
+                              className: "combobox__option-selected-icon",
+                              size: 16,
+                              "aria-hidden": "true",
+                              style: { visibility: ee ? "visible" : "hidden" }
+                            }
+                          ),
                           g && /* @__PURE__ */ a("span", { className: "combobox__option-check", "aria-hidden": "true", children: ee && /* @__PURE__ */ a(Te, { size: 12 }) }),
                           F.icon && /* @__PURE__ */ a("span", { className: "combobox__option-icon", "aria-hidden": "true", children: F.icon }),
                           /* @__PURE__ */ _("span", { className: "combobox__option-content", children: [
                             /* @__PURE__ */ a("span", { className: "combobox__option-label", children: F.label }),
                             F.description && /* @__PURE__ */ a("span", { className: "combobox__option-description", children: F.description })
-                          ] }),
-                          !g && ee && /* @__PURE__ */ a(
-                            Te,
-                            {
-                              className: "combobox__option-selected-icon",
-                              size: 16,
-                              "aria-hidden": "true"
-                            }
-                          )
+                          ] })
                         ]
                       },
                       F.value

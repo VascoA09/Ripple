@@ -265,6 +265,10 @@
   overflow-y:    auto;
   overscroll-behavior: contain;
 
+  display:       flex;
+  flex-direction: column;
+  gap:           var(--spacing-50); /* 8px between items */
+
   margin:        0;
   padding:       var(--spacing-50); /* 8px all sides */
   list-style:    none;
@@ -305,6 +309,21 @@
 
 .combobox__option[data-selected] {
   background: var(--bg-primary-softest);
+}
+
+/* Pressed state */
+.combobox__option:active:not([data-disabled]) {
+  background: var(--bg-primary);
+}
+
+.combobox__option:active:not([data-disabled]) .combobox__option-label,
+.combobox__option:active:not([data-disabled]) .combobox__option-description {
+  color: var(--text-loud-inverse);
+}
+
+.combobox__option:active:not([data-disabled]) .combobox__option-icon,
+.combobox__option:active:not([data-disabled]) .combobox__option-selected-icon {
+  color: var(--icon-inverse);
 }
 
 .combobox__option[data-disabled] {
@@ -374,11 +393,10 @@
   text-overflow: ellipsis;
 }
 
-/* Single-select selected checkmark (trailing) */
+/* Single-select checkmark — always rendered, hidden when not selected to preserve alignment */
 .combobox__option-selected-icon {
   flex-shrink: 0;
   color:       var(--color-primary-loud);
-  margin-left: auto;
 }
 
 /* =============================================================================

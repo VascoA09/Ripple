@@ -459,6 +459,16 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
                         }}
                         onMouseEnter={() => setActiveIndex(idx)}
                       >
+                        {/* Single-select checkmark — leading, left-aligned */}
+                        {!isMulti && (
+                          <Check
+                            className="combobox__option-selected-icon"
+                            size={16}
+                            aria-hidden="true"
+                            style={{ visibility: sel ? 'visible' : 'hidden' }}
+                          />
+                        )}
+
                         {/* Multi-select checkbox indicator */}
                         {isMulti && (
                           <span className="combobox__option-check" aria-hidden="true">
@@ -482,15 +492,6 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
                             </span>
                           )}
                         </span>
-
-                        {/* Single-select checkmark */}
-                        {!isMulti && sel && (
-                          <Check
-                            className="combobox__option-selected-icon"
-                            size={16}
-                            aria-hidden="true"
-                          />
-                        )}
                       </li>
                     )
                   })}
