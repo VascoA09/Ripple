@@ -11,7 +11,7 @@ const meta: Meta<ComboboxProps> = {
   title: 'Components/Combobox',
   component: Combobox,
   parameters: { layout: 'padded' },
-  decorators: [Story => <div style={{ maxWidth: '400px', paddingBottom: '300px' }}><Story /></div>],
+  decorators: [Story => <div style={{ maxWidth: '560px', paddingBottom: '300px' }}><Story /></div>],
   argTypes: {
     size:          { control: 'radio',  options: ['small', 'medium', 'large'] },
     labelPosition: { control: 'radio',  options: ['stacked', 'inline'] },
