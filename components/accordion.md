@@ -1,8 +1,8 @@
 ---
 name: Accordion
 status: draft
-version: 0.1.0
-last_updated: 2026-03-19
+version: 0.2.0
+last_updated: 2026-03-27
 owner: Vasco Antunes
 figma: TBD
 storybook: TBD
@@ -42,14 +42,15 @@ Do not use Accordions when:
 
 The Accordion consists of the following elements:
 
-* **Accordion Container** — Wrapper for all accordion items
+* **Accordion Container** — Wrapper for all accordion items. No border-radius; items are separated by top borders only.
 * **Accordion Item** — Individual collapsible section
   * **Header** — Clickable area that toggles expansion
-    * Before element (optional) — Icon or visual element before header text
+    * Before element (optional) — Icon, avatar, or visual element before header text
     * Header text — Title of the section
+    * After element (optional) — Badge, Counter, or inline adornment after the title, before the chevron
     * Chevron icon — Indicates expand/collapse state (rotates 180° when open)
   * **Content** — Collapsible area containing the section's content
-  * **Divider** — Separator between accordion items
+  * **Divider** — `border-top` on each item acts as the separator between items
 
 ---
 
@@ -90,8 +91,8 @@ Accordions come in three sizes that affect the header height and spacing:
 * **Collapsed (Closed)**
   * Content is hidden
   * Chevron points down (0°)
-  * Header background: var(--bg-surface)
-  * Border: 1px solid var(--border-default)
+  * Header background: `var(--bg-surface)`
+  * Border: `border-top: 1px solid var(--border-neutral)`
 
 * **Expanded (Open)**
   * Content is visible
@@ -100,23 +101,25 @@ Accordions come in three sizes that affect the header height and spacing:
   * Content slides down/up
 
 * **Hover**
-  * Header background: var(--bg-neutral-softest)
-  * Smooth transition
-  * Only applies when cursor is over header
+  * Header background: `var(--bg-primary-softest)`
+  * Smooth 150ms transition
+  * Only applies when cursor is over the header
 
 * **Focus**
-  * Outline: 2px solid var(--border-focus)
-  * Outline offset: 2px
+  * Outline: `2px solid var(--border-focus)`
+  * Outline offset: `-2px` (inset — avoids clipping against item border)
   * Clear keyboard focus indicator
 
 * **Active (Pressed)**
-  * Header background: var(--bg-neutral-soft)
-  * Visual feedback during click
+  * Header background: `var(--bg-primary)`
+  * Title text: `var(--text-loud-inverse)`
+  * Before element / chevron: `var(--icon-inverse)`
+  * Strong visual feedback during click
 
 * **Disabled**
-  * Header background: var(--bg-surface)
-  * Text: var(--text-soft)
-  * Chevron: var(--text-soft)
+  * Header background: `var(--bg-surface)`
+  * Text: `var(--text-soft)`
+  * Chevron: `var(--text-soft)`
   * Opacity: 0.6
   * Cursor: not-allowed
   * Not keyboard navigable
@@ -175,7 +178,8 @@ Accordions come in three sizes that affect the header height and spacing:
 | `value` | string | yes | Unique identifier for the item |
 | `header` | string | yes | Header text displayed in the header |
 | `content` | React.ReactNode | yes | Content displayed when expanded |
-| `beforeElement` | React.ReactNode | no | Element before header text (e.g., icon) |
+| `beforeElement` | React.ReactNode | no | Element before header text (e.g., icon, avatar) |
+| `afterElement` | React.ReactNode | no | Element after header text, before the chevron (e.g., Badge, Counter) |
 | `disabled` | boolean | no | Whether the item is disabled |
 
 ---
@@ -200,8 +204,8 @@ Use Ripple spacing tokens for all spacing:
 * Gap between before element and header: var(--spacing-75) (12px)
 
 **General:**
-* Gap between items: 0 (items are separated by borders)
-* Border radius: var(--border-radius-200) (8px)
+* Gap between items: 0 (items are separated by `border-top`)
+* Border radius: none — the wrapper has no border-radius
 
 ---
 
@@ -236,9 +240,9 @@ Use Ripple spacing tokens for all spacing:
   * Disabled state announced
 
 * **Touch Targets**:
-  * Small: 32px height (below 48px minimum, avoid on touch devices)
-  * Medium: 40px height (acceptable for desktop, marginal for touch)
-  * Large: 48px height (meets accessibility minimum for touch)
+  * Small: 32px height — below Ripple's 44px minimum. Desktop only.
+  * Medium: 40px height — acceptable for desktop, marginal for touch.
+  * Large: 48px height — exceeds the 44px minimum. Safe for touch interfaces.
 
 * **Color Contrast**:
   * Text meets 4.5:1 contrast ratio
@@ -249,37 +253,31 @@ Use Ripple spacing tokens for all spacing:
 
 ## Colors
 
-**Collapsed State:**
-* Header background: var(--bg-surface)
-* Header text: var(--text-loud)
-* Chevron: var(--text)
-* Border: 1px solid var(--border-default)
-
-**Expanded State:**
-* Header background: var(--bg-surface)
-* Header text: var(--text-loud)
-* Chevron: var(--text) (rotated 180°)
-* Content background: var(--bg-surface)
-* Content text: var(--text)
-* Border: 1px solid var(--border-default)
+**Collapsed / Expanded State:**
+* Header background: `var(--bg-surface)`
+* Header text: `var(--text-loud)`
+* Chevron: `var(--text)`
+* Border: `border-top: 1px solid var(--border-neutral)`
 
 **Hover State:**
-* Header background: var(--bg-neutral-softest)
-* Header text: var(--text-loud)
-* Chevron: var(--text)
+* Header background: `var(--bg-primary-softest)`
+* Header text: `var(--text-loud)`
+* Chevron: `var(--text)`
 
 **Focus State:**
-* Outline: 2px solid var(--border-focus)
-* Outline offset: 2px
+* Outline: `2px solid var(--border-focus)`
+* Outline offset: `-2px` (inset)
 
-**Active State:**
-* Header background: var(--bg-neutral-soft)
-* Header text: var(--text-loud)
+**Active (Pressed) State:**
+* Header background: `var(--bg-primary)`
+* Header text: `var(--text-loud-inverse)`
+* Before element: `var(--icon-inverse)`
+* Chevron: `var(--icon-inverse)`
 
 **Disabled State:**
-* Header background: var(--bg-surface)
-* Header text: var(--text-soft)
-* Chevron: var(--text-soft)
+* Header background: `var(--bg-surface)`
+* Header text: `var(--text-soft)`
+* Chevron: `var(--text-soft)`
 * Opacity: 0.6
 
 ---
@@ -309,6 +307,15 @@ Use Ripple spacing tokens for all spacing:
 * Maintain consistent icon style across all items
 * Ensure icons are decorative, not essential for understanding
 * Use appropriate icon size for accordion size
+* Avatars are a valid `beforeElement` — use size `m` (32px) for medium/large accordions, `s` (24px) for small
+
+### After Elements
+
+* Use `afterElement` only for metadata that helps users decide whether to expand — status, counts, or category labels
+* Badge: use for item status (Active, Draft, Archived, etc.). Always pair with a meaningful `color` prop
+* Counter: use for numeric counts (unread messages, open tasks). Use `size="small"` to keep the trigger uncluttered
+* Do not use `afterElement` for primary actions — those belong inside the expanded content
+* Avoid combining both `beforeElement` and `afterElement` unless the layout is genuinely clearer with both
 
 ---
 
@@ -417,6 +424,66 @@ const [expanded, setExpanded] = useState(['1']);
     { value: '1', header: 'Available Section', content: <p>Content</p> },
     { value: '2', header: 'Disabled Section', content: <p>Hidden</p>, disabled: true },
     { value: '3', header: 'Another Section', content: <p>Content</p> },
+  ]}
+/>
+```
+
+### With Avatar
+```typescript
+<Accordion
+  items={[
+    {
+      value: 'alice',
+      header: 'Alice Martin',
+      beforeElement: <Avatar name="Alice Martin" size="m" />,
+      content: <p>Senior Product Designer. Joined January 2023.</p>,
+    },
+    {
+      value: 'ben',
+      header: 'Ben Okafor',
+      beforeElement: <Avatar name="Ben Okafor" size="m" />,
+      content: <p>Frontend Engineer. Joined March 2022.</p>,
+    },
+  ]}
+/>
+```
+
+### With Badge
+```typescript
+<Accordion
+  items={[
+    {
+      value: 'annual-leave',
+      header: 'Annual Leave Policy',
+      afterElement: <Badge color="positive" size="small">Active</Badge>,
+      content: <p>Employees are entitled to 25 days of annual leave per year.</p>,
+    },
+    {
+      value: 'expenses',
+      header: 'Expense Reimbursement',
+      afterElement: <Badge color="notice" size="small">Draft</Badge>,
+      content: <p>Submit expenses within 30 days of the transaction date.</p>,
+    },
+  ]}
+/>
+```
+
+### With Counter
+```typescript
+<Accordion
+  items={[
+    {
+      value: 'tasks',
+      header: 'Open Tasks',
+      afterElement: <Counter count={12} size="small" color="primary" />,
+      content: <p>Review and assign pending tasks from your team queue.</p>,
+    },
+    {
+      value: 'notifications',
+      header: 'Unread Notifications',
+      afterElement: <Counter count={4} size="small" color="notice" />,
+      content: <p>Messages and alerts that require your attention.</p>,
+    },
   ]}
 />
 ```
