@@ -129,7 +129,7 @@ export const Chip = React.forwardRef<HTMLButtonElement | HTMLSpanElement, ChipPr
               count={count}
               variant="outline"
               color="neutral"
-              size="small"
+              size="medium"
               aria-label={`${count} items`}
             />
           )}

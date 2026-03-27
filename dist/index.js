@@ -4628,7 +4628,7 @@ const Bp = E.forwardRef(
                 count: o,
                 variant: "outline",
                 color: "neutral",
-                size: "small",
+                size: "medium",
                 "aria-label": `${o} items`
               }
             )
