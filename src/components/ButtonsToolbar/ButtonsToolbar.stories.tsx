@@ -108,11 +108,11 @@ export const IconOnly: Story = {
 // Right alignment
 // ---------------------------------------------------------------------------
 
-export const RightAlignment: Story = {
-  name: 'Right Alignment',
+export const LeftAlignment: Story = {
+  name: 'Left Alignment',
   args: {
     actions: pageActions,
-    alignment: 'right',
+    alignment: 'left',
   },
 }
 
@@ -169,18 +169,17 @@ export const CombinedToolbars: Story = {
   name: 'Combined Toolbars',
   render: () => (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      {/* Left toolbar uses alignment="right" so emphasis reads fill → outline → ghost
-          left to right, with the primary action at the leading edge */}
+      {/* Left toolbar: alignment="left" — primary at the leading (left) edge */}
       <ButtonsToolbar
-        alignment="right"
+        alignment="left"
         actions={[
           { id: 'filter',  label: 'Filter',    icon: <Filter size={16} />,   type: 'tertiary'  },
           { id: 'export',  label: 'Export',    icon: <Download size={16} />, type: 'secondary' },
           { id: 'create',  label: 'New record',icon: <Plus size={16} />,     type: 'primary'   },
         ]}
       />
+      {/* Right toolbar: alignment="right" (default) — utility icons only */}
       <ButtonsToolbar
-        alignment="right"
         iconOnly
         actions={[
           { id: 'refresh',  label: 'Refresh',  icon: <RefreshCw size={16} />, type: 'tertiary' },

@@ -52,12 +52,13 @@ export interface ButtonsToolbarProps {
    */
   iconOnly?: boolean
   /**
-   * Controls button order and overflow position.
-   * - left (default): fill rightmost — [overflow] [ghost…] [outline] [fill]
-   * - right: fill leftmost — [fill] [outline] [ghost…] [overflow]
+   * Controls where the primary button (fill) is anchored.
+   * - right (default): fill rightmost — [overflow] [ghost…] [outline] [fill]
+   * - left: fill leftmost  — [fill] [outline] [ghost…] [overflow]
    *
-   * In a combined toolbar layout, use alignment="right" on the left toolbar
-   * so both toolbars read highest-to-lowest emphasis from their outer edges inward.
+   * In a combined toolbar layout, the left toolbar uses alignment="left"
+   * so its primary action sits at the leading edge; the right toolbar uses
+   * alignment="right" (default) so its primary action sits at the trailing edge.
    */
   alignment?: 'left' | 'right'
   className?: string
@@ -155,7 +156,7 @@ function OverflowMenu({
 
       <FlyoutMenuContent
         sideOffset={4}
-        align={alignment === 'left' ? 'start' : 'end'}
+        align={alignment === 'right' ? 'start' : 'end'}
       >
         {actions.map(action => (
           <FlyoutMenuItem
@@ -182,7 +183,7 @@ export function ButtonsToolbar({
   actions,
   variant = 'full',
   iconOnly = false,
-  alignment = 'left',
+  alignment = 'right',
   className,
   style,
 }: ButtonsToolbarProps) {
@@ -223,9 +224,9 @@ export function ButtonsToolbar({
     />
   ) : null
 
-  // For right alignment, reverse non-primary order so emphasis reads
+  // For left alignment, reverse non-primary order so emphasis reads
   // fill → outline → ghost (left to right) instead of ghost → outline → fill
-  const orderedNonPrimary = alignment === 'right'
+  const orderedNonPrimary = alignment === 'left'
     ? [...visibleNonPrimary].reverse()
     : visibleNonPrimary
 
@@ -238,9 +239,9 @@ export function ButtonsToolbar({
   )
 
   // Render order based on alignment
-  // left:  [overflow] [ghost...] [outline] [fill]
-  // right: [fill] [outline] [ghost...] [overflow]
-  const content = alignment === 'left'
+  // right (default): [overflow] [ghost…] [outline] [fill]
+  // left:            [fill] [outline] [ghost…] [overflow]
+  const content = alignment === 'right'
     ? [overflowTrigger, ...visibleButtons, primaryButton]
     : [primaryButton, ...visibleButtons, overflowTrigger]
 

@@ -4405,7 +4405,7 @@ function Eu({
       Ie,
       {
         sideOffset: 4,
-        align: t === "left" ? "start" : "end",
+        align: t === "right" ? "start" : "end",
         children: e.map((n) => /* @__PURE__ */ b(
           re,
           {
@@ -4426,7 +4426,7 @@ function Mu({
   actions: e,
   variant: t = "full",
   iconOnly: n = !1,
-  alignment: r = "left",
+  alignment: r = "right",
   className: o,
   style: i
 }) {
@@ -4443,7 +4443,7 @@ function Mu({
       alignment: r
     },
     "__overflow"
-  ) : null, v = (r === "right" ? [...u].reverse() : u).map((N) => /* @__PURE__ */ a($r, { action: N, iconOnly: n }, N.id)), g = /* @__PURE__ */ a($r, { action: l, iconOnly: n }, l.id), w = r === "left" ? [h, ...v, g] : [g, ...v, h];
+  ) : null, v = (r === "left" ? [...u].reverse() : u).map((N) => /* @__PURE__ */ a($r, { action: N, iconOnly: n }, N.id)), g = /* @__PURE__ */ a($r, { action: l, iconOnly: n }, l.id), w = r === "right" ? [h, ...v, g] : [g, ...v, h];
   return /* @__PURE__ */ a(
     "div",
     {

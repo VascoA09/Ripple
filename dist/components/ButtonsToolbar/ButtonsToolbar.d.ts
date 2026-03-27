@@ -37,12 +37,13 @@ export interface ButtonsToolbarProps {
      */
     iconOnly?: boolean;
     /**
-     * Controls button order and overflow position.
-     * - left (default): fill rightmost — [overflow] [ghost…] [outline] [fill]
-     * - right: fill leftmost — [fill] [outline] [ghost…] [overflow]
+     * Controls where the primary button (fill) is anchored.
+     * - right (default): fill rightmost — [overflow] [ghost…] [outline] [fill]
+     * - left: fill leftmost  — [fill] [outline] [ghost…] [overflow]
      *
-     * In a combined toolbar layout, use alignment="right" on the left toolbar
-     * so both toolbars read highest-to-lowest emphasis from their outer edges inward.
+     * In a combined toolbar layout, the left toolbar uses alignment="left"
+     * so its primary action sits at the leading edge; the right toolbar uses
+     * alignment="right" (default) so its primary action sits at the trailing edge.
      */
     alignment?: 'left' | 'right';
     className?: string;
