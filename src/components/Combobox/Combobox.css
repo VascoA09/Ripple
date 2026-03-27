@@ -288,13 +288,14 @@
    ============================================================================= */
 
 .combobox__option {
-  display:     flex;
-  align-items: center;
-  gap:         var(--spacing-50); /* 8px */
-  padding:     var(--spacing-50) var(--spacing-75); /* 8px 12px */
-  cursor:      pointer;
-  transition:  background 100ms ease;
-  outline:     none;
+  display:       flex;
+  align-items:   center;
+  gap:           var(--spacing-50); /* 8px */
+  padding:       var(--spacing-50) var(--spacing-75); /* 8px 12px */
+  border-radius: var(--border-radius-100); /* 4px */
+  cursor:        pointer;
+  transition:    background 100ms ease;
+  outline:       none;
 }
 
 .combobox__option:hover,
