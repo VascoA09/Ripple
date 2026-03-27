@@ -373,6 +373,13 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
             />
           ))}
 
+          {/* Leading element — icon, avatar, or flag from the selected option (single-select only) */}
+          {!isMulti && selectedOptions.length > 0 && selectedOptions[0].icon && (
+            <span className="combobox__field-leading" aria-hidden="true">
+              {selectedOptions[0].icon}
+            </span>
+          )}
+
           {/* Text input */}
           <input
             ref={inputRef}

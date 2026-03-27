@@ -142,6 +142,21 @@
 }
 
 /* =============================================================================
+   FIELD LEADING — icon, avatar, or flag shown in the field when selected
+   ============================================================================= */
+
+.combobox__field-leading {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+  color:           var(--icon-default);
+  /* Avatar and flag content may be larger — constrain without cropping */
+  max-height:      24px;
+  overflow:        visible;
+}
+
+/* =============================================================================
    TEXT INPUT
    ============================================================================= */
 
