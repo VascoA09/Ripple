@@ -357,7 +357,8 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
           </label>
         )}
 
-        {/* Field wrapper */}
+        {/* Field wrapper — position:relative anchor for the listbox */}
+        <div className="combobox__field-wrap">
         <div
           className="combobox__field"
           onClick={() => { if (!isOpen) open(); inputRef.current?.focus() }}
@@ -410,25 +411,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
           />
         </div>
 
-        {/* Hint */}
-        {hint && (
-          <p id={hintId} className="combobox__hint">
-            {hint}
-          </p>
-        )}
-
-        {/* Validation message */}
-        {validationMessage && (
-          <p
-            id={messageId}
-            className="combobox__message"
-            role={validation === 'negative' ? 'alert' : undefined}
-          >
-            {validationMessage}
-          </p>
-        )}
-
-        {/* Dropdown listbox */}
+        {/* Dropdown listbox — anchored to field-wrap, appears 4px below field */}
         {isOpen && (
           <ul
             ref={listboxRef}
@@ -515,6 +498,25 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
               ))
             )}
           </ul>
+        )}
+        </div>{/* /combobox__field-wrap */}
+
+        {/* Hint */}
+        {hint && (
+          <p id={hintId} className="combobox__hint">
+            {hint}
+          </p>
+        )}
+
+        {/* Validation message */}
+        {validationMessage && (
+          <p
+            id={messageId}
+            className="combobox__message"
+            role={validation === 'negative' ? 'alert' : undefined}
+          >
+            {validationMessage}
+          </p>
         )}
       </div>
     )

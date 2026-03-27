@@ -4854,61 +4854,116 @@ const jp = E.forwardRef(
             o,
             p && /* @__PURE__ */ a("span", { className: "combobox__required", "aria-hidden": "true", children: " *" })
           ] }),
-          /* @__PURE__ */ _(
-            "div",
-            {
-              className: "combobox__field",
-              onClick: () => {
-                var x;
-                A || T(), (x = S.current) == null || x.focus();
-              },
-              children: [
-                g && B.map((x) => /* @__PURE__ */ a(
-                  ku,
-                  {
-                    label: x.label,
-                    disabled: d,
-                    onRemove: () => q(x.value)
-                  },
-                  x.value
-                )),
-                /* @__PURE__ */ a(
-                  "input",
-                  {
-                    ref: S,
-                    id: N,
-                    type: "text",
-                    role: "combobox",
-                    className: "combobox__input",
-                    value: G,
-                    placeholder: g && B.length > 0 ? "" : i,
-                    disabled: d,
-                    required: p,
-                    "aria-expanded": A,
-                    "aria-controls": A ? y : void 0,
-                    "aria-activedescendant": ae,
-                    "aria-autocomplete": "list",
-                    "aria-describedby": fe,
-                    "aria-required": p,
-                    autoComplete: "off",
-                    onChange: (x) => {
-                      R(x.target.value), A || T(), !g && x.target.value === "" && $.length > 0 && Z([]);
+          /* @__PURE__ */ _("div", { className: "combobox__field-wrap", children: [
+            /* @__PURE__ */ _(
+              "div",
+              {
+                className: "combobox__field",
+                onClick: () => {
+                  var x;
+                  A || T(), (x = S.current) == null || x.focus();
+                },
+                children: [
+                  g && B.map((x) => /* @__PURE__ */ a(
+                    ku,
+                    {
+                      label: x.label,
+                      disabled: d,
+                      onRemove: () => q(x.value)
                     },
-                    onFocus: T,
-                    onKeyDown: te
-                  }
-                ),
-                /* @__PURE__ */ a(
-                  bt,
-                  {
-                    className: "combobox__chevron",
-                    size: 16,
-                    "aria-hidden": "true"
-                  }
-                )
-              ]
-            }
-          ),
+                    x.value
+                  )),
+                  /* @__PURE__ */ a(
+                    "input",
+                    {
+                      ref: S,
+                      id: N,
+                      type: "text",
+                      role: "combobox",
+                      className: "combobox__input",
+                      value: G,
+                      placeholder: g && B.length > 0 ? "" : i,
+                      disabled: d,
+                      required: p,
+                      "aria-expanded": A,
+                      "aria-controls": A ? y : void 0,
+                      "aria-activedescendant": ae,
+                      "aria-autocomplete": "list",
+                      "aria-describedby": fe,
+                      "aria-required": p,
+                      autoComplete: "off",
+                      onChange: (x) => {
+                        R(x.target.value), A || T(), !g && x.target.value === "" && $.length > 0 && Z([]);
+                      },
+                      onFocus: T,
+                      onKeyDown: te
+                    }
+                  ),
+                  /* @__PURE__ */ a(
+                    bt,
+                    {
+                      className: "combobox__chevron",
+                      size: 16,
+                      "aria-hidden": "true"
+                    }
+                  )
+                ]
+              }
+            ),
+            A && /* @__PURE__ */ a(
+              "ul",
+              {
+                ref: Q,
+                id: y,
+                role: "listbox",
+                className: "combobox__listbox",
+                "aria-label": o,
+                "aria-multiselectable": g || void 0,
+                children: U.length === 0 ? /* @__PURE__ */ a("li", { className: "combobox__no-results", role: "presentation", children: m }) : k.map((x, L) => /* @__PURE__ */ _(E.Fragment, { children: [
+                  x.name && /* @__PURE__ */ a("li", { role: "presentation", className: "combobox__group-header", children: x.name }),
+                  L > 0 && !x.name && /* @__PURE__ */ a("li", { role: "separator", className: "combobox__group-divider" }),
+                  x.items.map((F) => {
+                    const ue = U.indexOf(F), ee = X(F.value), pe = ue === I;
+                    return /* @__PURE__ */ _(
+                      "li",
+                      {
+                        id: `${y}-${F.value}`,
+                        role: "option",
+                        "aria-selected": ee,
+                        "aria-disabled": F.disabled || void 0,
+                        className: "combobox__option",
+                        "data-index": ue,
+                        "data-active": pe || void 0,
+                        "data-selected": ee || void 0,
+                        "data-disabled": F.disabled || void 0,
+                        onMouseDown: (Oe) => {
+                          Oe.preventDefault(), V(F);
+                        },
+                        onMouseEnter: () => z(ue),
+                        children: [
+                          g && /* @__PURE__ */ a("span", { className: "combobox__option-check", "aria-hidden": "true", children: ee && /* @__PURE__ */ a(Te, { size: 12 }) }),
+                          F.icon && /* @__PURE__ */ a("span", { className: "combobox__option-icon", "aria-hidden": "true", children: F.icon }),
+                          /* @__PURE__ */ _("span", { className: "combobox__option-content", children: [
+                            /* @__PURE__ */ a("span", { className: "combobox__option-label", children: F.label }),
+                            F.description && /* @__PURE__ */ a("span", { className: "combobox__option-description", children: F.description })
+                          ] }),
+                          !g && ee && /* @__PURE__ */ a(
+                            Te,
+                            {
+                              className: "combobox__option-selected-icon",
+                              size: 16,
+                              "aria-hidden": "true"
+                            }
+                          )
+                        ]
+                      },
+                      F.value
+                    );
+                  })
+                ] }, x.name ?? `__group-${L}`))
+              }
+            )
+          ] }),
           s && /* @__PURE__ */ a("p", { id: C, className: "combobox__hint", children: s }),
           c && /* @__PURE__ */ a(
             "p",
@@ -4917,59 +4972,6 @@ const jp = E.forwardRef(
               className: "combobox__message",
               role: l === "negative" ? "alert" : void 0,
               children: c
-            }
-          ),
-          A && /* @__PURE__ */ a(
-            "ul",
-            {
-              ref: Q,
-              id: y,
-              role: "listbox",
-              className: "combobox__listbox",
-              "aria-label": o,
-              "aria-multiselectable": g || void 0,
-              children: U.length === 0 ? /* @__PURE__ */ a("li", { className: "combobox__no-results", role: "presentation", children: m }) : k.map((x, L) => /* @__PURE__ */ _(E.Fragment, { children: [
-                x.name && /* @__PURE__ */ a("li", { role: "presentation", className: "combobox__group-header", children: x.name }),
-                L > 0 && !x.name && /* @__PURE__ */ a("li", { role: "separator", className: "combobox__group-divider" }),
-                x.items.map((F) => {
-                  const ue = U.indexOf(F), ee = X(F.value), pe = ue === I;
-                  return /* @__PURE__ */ _(
-                    "li",
-                    {
-                      id: `${y}-${F.value}`,
-                      role: "option",
-                      "aria-selected": ee,
-                      "aria-disabled": F.disabled || void 0,
-                      className: "combobox__option",
-                      "data-index": ue,
-                      "data-active": pe || void 0,
-                      "data-selected": ee || void 0,
-                      "data-disabled": F.disabled || void 0,
-                      onMouseDown: (Oe) => {
-                        Oe.preventDefault(), V(F);
-                      },
-                      onMouseEnter: () => z(ue),
-                      children: [
-                        g && /* @__PURE__ */ a("span", { className: "combobox__option-check", "aria-hidden": "true", children: ee && /* @__PURE__ */ a(Te, { size: 12 }) }),
-                        F.icon && /* @__PURE__ */ a("span", { className: "combobox__option-icon", "aria-hidden": "true", children: F.icon }),
-                        /* @__PURE__ */ _("span", { className: "combobox__option-content", children: [
-                          /* @__PURE__ */ a("span", { className: "combobox__option-label", children: F.label }),
-                          F.description && /* @__PURE__ */ a("span", { className: "combobox__option-description", children: F.description })
-                        ] }),
-                        !g && ee && /* @__PURE__ */ a(
-                          Te,
-                          {
-                            className: "combobox__option-selected-icon",
-                            size: 16,
-                            "aria-hidden": "true"
-                          }
-                        )
-                      ]
-                    },
-                    F.value
-                  );
-                })
-              ] }, x.name ?? `__group-${L}`))
             }
           )
         ]

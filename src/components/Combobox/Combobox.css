@@ -74,8 +74,23 @@
   color: var(--text-negative);
 }
 
-/* In inline mode, the field + helpers grow to fill remaining space */
-.combobox[data-label-position="inline"] > :not(.combobox__label) {
+/* In inline mode, hint and message also fill remaining space */
+.combobox[data-label-position="inline"] .combobox__hint,
+.combobox[data-label-position="inline"] .combobox__message {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* =============================================================================
+   FIELD WRAP — position anchor for the listbox
+   ============================================================================= */
+
+.combobox__field-wrap {
+  position: relative;
+}
+
+/* In inline mode, field-wrap grows to fill the remaining row space */
+.combobox[data-label-position="inline"] .combobox__field-wrap {
   flex: 1 1 0;
   min-width: 0;
 }
@@ -251,7 +266,7 @@
   overscroll-behavior: contain;
 
   margin:        0;
-  padding:       var(--spacing-50) 0; /* 8px */
+  padding:       var(--spacing-50); /* 8px all sides */
   list-style:    none;
 
   background:    var(--bg-surface);
@@ -262,12 +277,6 @@
   animation: combobox-dropdown-in 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* When label is inline, listbox must align with the field, not the label */
-.combobox[data-label-position="inline"] .combobox__listbox {
-  /* The field lives inside a flex row; listbox is still relative to .combobox.
-     Offset by the label width + gap so it aligns with the field visually. */
-  left: calc(140px + var(--spacing-100));
-}
 
 @keyframes combobox-dropdown-in {
   from { opacity: 0; transform: translateY(-4px); }
