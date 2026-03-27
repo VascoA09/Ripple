@@ -38,8 +38,11 @@ export interface ButtonsToolbarProps {
     iconOnly?: boolean;
     /**
      * Controls button order and overflow position.
-     * - left (default): primary rightmost, overflow trigger leftmost
-     * - right: primary leftmost, overflow trigger rightmost
+     * - left (default): fill rightmost — [overflow] [ghost…] [outline] [fill]
+     * - right: fill leftmost — [fill] [outline] [ghost…] [overflow]
+     *
+     * In a combined toolbar layout, use alignment="right" on the left toolbar
+     * so both toolbars read highest-to-lowest emphasis from their outer edges inward.
      */
     alignment?: 'left' | 'right';
     className?: string;

@@ -169,10 +169,13 @@ export const CombinedToolbars: Story = {
   name: 'Combined Toolbars',
   render: () => (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      {/* Left toolbar uses alignment="right" so emphasis reads fill → outline → ghost
+          left to right, with the primary action at the leading edge */}
       <ButtonsToolbar
+        alignment="right"
         actions={[
-          { id: 'filter',  label: 'Filter',   icon: <Filter size={16} />,    type: 'tertiary'  },
-          { id: 'export',  label: 'Export',   icon: <Download size={16} />,  type: 'secondary' },
+          { id: 'filter',  label: 'Filter',    icon: <Filter size={16} />,   type: 'tertiary'  },
+          { id: 'export',  label: 'Export',    icon: <Download size={16} />, type: 'secondary' },
           { id: 'create',  label: 'New record',icon: <Plus size={16} />,     type: 'primary'   },
         ]}
       />
