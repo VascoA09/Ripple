@@ -344,23 +344,15 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
           </label>
         )}
 
-        {/* Field wrapper — position:relative anchor for the listbox */}
+        {/* Field row — flex row wrapping field-wrap + inline chips */}
+        <div className={isMulti && chipPlacement === 'inline' ? 'combobox__field-row' : undefined}>
+
+        {/* Field wrap — position:relative anchor for the panel */}
         <div className="combobox__field-wrap">
         <div
           className="combobox__field"
           onClick={() => { if (!isOpen) open(); inputRef.current?.focus() }}
         >
-          {/* Inline chips — only when chipPlacement="inline" */}
-          {isMulti && chipPlacement === 'inline' && selectedOptions.map(opt => (
-            <Chip
-              key={opt.value}
-              variant="removable"
-              label={opt.label}
-              size="small"
-              onRemove={disabled ? undefined : () => removeTag(opt.value)}
-            />
-          ))}
-
           {/* Leading element — icon, avatar, or flag from the selected option (single-select only) */}
           {!isMulti && selectedOptions.length > 0 && selectedOptions[0].icon && (
             <span className="combobox__field-leading" aria-hidden="true">
@@ -528,9 +520,11 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
           </div>
         )}
 
-        {/* Below chips — rendered outside the field when chipPlacement="below" */}
-        {isMulti && chipPlacement === 'below' && selectedOptions.length > 0 && (
-          <div className="combobox__chips">
+        </div>{/* /combobox__field-wrap */}
+
+        {/* Inline chips — to the right of the field, inside the flex row */}
+        {isMulti && chipPlacement === 'inline' && selectedOptions.length > 0 && (
+          <div className="combobox__chips combobox__chips--inline">
             {selectedOptions.map(opt => (
               <Chip
                 key={opt.value}
@@ -542,7 +536,8 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
             ))}
           </div>
         )}
-        </div>{/* /combobox__field-wrap */}
+
+        </div>{/* /combobox__field-row */}
 
         {/* Hint */}
         {hint && (
@@ -560,6 +555,21 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
           >
             {validationMessage}
           </p>
+        )}
+
+        {/* Below chips — after hint/message, covered by panel when open */}
+        {isMulti && chipPlacement === 'below' && selectedOptions.length > 0 && (
+          <div className="combobox__chips">
+            {selectedOptions.map(opt => (
+              <Chip
+                key={opt.value}
+                variant="removable"
+                label={opt.label}
+                size="small"
+                onRemove={disabled ? undefined : () => removeTag(opt.value)}
+              />
+            ))}
+          </div>
         )}
       </div>
     )

@@ -270,14 +270,42 @@
 }
 
 /* =============================================================================
-   CHIPS — selected items rendered below the field
+   FIELD ROW — flex container for field-wrap + inline chips
    ============================================================================= */
 
+.combobox__field-row {
+  display:     flex;
+  align-items: center;  /* vertically centre chips with the input */
+  gap:         var(--spacing-50); /* 8px */
+  flex-wrap:   wrap;
+}
+
+/* Field-wrap shrinks to allow chip space; min-width keeps input usable */
+.combobox__field-row .combobox__field-wrap {
+  flex:      1 1 180px;
+  min-width: 0;
+}
+
+/* =============================================================================
+   CHIPS — selected items as Ripple Chip components
+   ============================================================================= */
+
+/* Below chips: after hint/message, covered by panel when open */
 .combobox__chips {
-  display:   flex;
-  flex-wrap: wrap;
-  gap:       var(--spacing-50); /* 8px */
-  padding-top: var(--spacing-50); /* 8px gap from field */
+  display:     flex;
+  flex-wrap:   wrap;
+  gap:         var(--spacing-50); /* 8px */
+  padding-top: var(--spacing-50); /* 8px gap from hint */
+}
+
+/* Inline chips: to the right of the field inside .combobox__field-row */
+.combobox__chips--inline {
+  display:     flex;
+  flex-wrap:   wrap;
+  gap:         var(--spacing-50);
+  flex:        2 1 0;
+  min-width:   0;
+  align-items: center;
 }
 
 
