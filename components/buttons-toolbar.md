@@ -1,8 +1,8 @@
 ---
 name: Buttons Toolbar
 status: draft
-version: 0.1.0
-last_updated: 2026-03-19
+version: 0.2.0
+last_updated: 2026-03-27
 owner: Vasco Antunes
 figma: TBD
 storybook: TBD
@@ -353,95 +353,63 @@ For extremely compact layouts, the toolbar can display all actions as icon-only 
 
 ## Alignment
 
-The toolbar supports both left and right alignment, which determines the button order and overflow menu position. Alignment affects the visual flow and should match the toolbar's position within the page layout.
+`alignment` describes where the primary (fill) button is anchored. The value names the position of the most prominent action, not the overflow trigger.
 
-### Left Alignment (Default)
+### Right Alignment (Default)
 
-The default alignment for page-level toolbars. Primary action is positioned on the right (trailing position), with supporting actions to its left.
+The default for page-level toolbars. Primary action is rightmost; emphasis reads ghost → outline → fill left to right.
 
 **Visual order (left to right):**
-* [Overflow menu] → [Tertiary] → [Tertiary] → [Secondary] → [Primary]
+* [Overflow menu] → [Ghost…] → [Outline] → [Fill]
 
 **Primary action position:**
 * Rightmost (trailing)
-* Anchors the toolbar
-* Most natural reading flow
+* Natural reading flow — most important action at the end
+* Consistent with standard form patterns (Cancel / Save)
 
 **Overflow menu position:**
 * Leftmost (leading) when present
-* Dropdown aligns left
+* Dropdown aligns to the start
 
-**When to use left alignment:**
+**When to use:**
 * Page headers
 * Standalone toolbars
-* Right-aligned toolbar containers
+* The right toolbar in a combined layout
 * Default for most use cases
-* When primary action should be at the end
 
-**Best for:**
-* Standard page layouts
-* Form actions (Cancel, Save pattern)
-* Document toolbars (Edit, Export, Save)
-* List view headers
+### Left Alignment
 
-### Right Alignment
-
-Alternative alignment where primary action is positioned on the left (leading position), with supporting actions to its right. The button order is reversed.
+Alternative where primary action is leftmost; emphasis reads fill → outline → ghost left to right.
 
 **Visual order (left to right):**
-* [Primary] → [Secondary] → [Tertiary] → [Tertiary] → [Overflow menu]
+* [Fill] → [Outline] → [Ghost…] → [Overflow menu]
 
 **Primary action position:**
 * Leftmost (leading)
-* Emphasized by leading position
-* Immediate visual attention
+* Leads the reading flow — most important action first
 
 **Overflow menu position:**
 * Rightmost (trailing) when present
-* Dropdown aligns right
+* Dropdown aligns to the end
 
-**When to use right alignment:**
-* Right-side utility actions
-* Data table right-aligned toolbars
-* Secondary action groups
-* When toolbar is positioned on the right
-* Complementary to left-aligned toolbars
-
-**Best for:**
-* Table row actions on the right
-* Contextual utility toolbars
-* Right sidebar actions
-* Paired with left-aligned primary toolbar
+**When to use:**
+* The left toolbar in a combined layout
+* When the toolbar anchors to the left edge of a container
+* Complementary to a right-aligned toolbar on the opposite side
 
 ### Combined Toolbars
 
-When using multiple toolbars together, you can mix alignments to create clear visual hierarchy and organization.
+In a combined layout, use `alignment="left"` on the left toolbar and the default `alignment="right"` on the right toolbar. This ensures both toolbars read highest-to-lowest emphasis from their respective outer edges inward.
 
-**Common patterns:**
+**Example — page header:**
+* Left toolbar (`alignment="left"`): `[+ New record] [Export] [Filter]`
+* Right toolbar (default): `[↺] [⚙]` (icon-only utility actions)
 
-**Left toolbar + Right toolbar:**
-* Left: Primary actions (left-aligned)
-* Right: Utility actions (right-aligned, often icon-only)
-* Separated by visual divider or spacing
-* Clear functional grouping
-
-**Example - Data table toolbar:**
-* Left toolbar: Create, Filter, Sort (left-aligned)
-* Right toolbar: Refresh, Settings, Export (right-aligned, icon-only)
-
-**Multiple grouped toolbars:**
-* Group related actions together
-* Use visual dividers (1px vertical line)
-* Each group can have different hierarchy
-* Maintain consistent spacing (var(--spacing-150) or 24px)
-
-**Guidelines for combined toolbars:**
-* Use dividers to separate distinct groups
-* Limit to 2-3 groups maximum
-* Each group should have clear purpose
-* Maintain 8px gaps within groups
-* Use 24px gaps between groups
-* Ensure visual balance
+**Guidelines:**
+* Limit to 2–3 groups maximum
+* Use 24px gaps between groups, 8px within
+* Each group should have a clear, distinct purpose
+* Avoid mixing primary actions across both toolbars
 
 ---
 
@@ -509,11 +477,9 @@ Button labels should be concise, action-oriented, and use active verb phrases.
 Maintain consistent button positioning across pages to build user muscle memory.
 
 **Positioning rules:**
-* Primary action: Always rightmost (trailing)
-* Secondary action: Second from right
-* Tertiary actions: Before secondary
-* Overflow menu: Always leftmost (leading)
-* Never rearrange based on context
+* `alignment="right"` (default): primary rightmost, overflow leftmost
+* `alignment="left"`: primary leftmost, overflow rightmost
+* Never rearrange individual actions within an alignment — order is always ghost → outline → fill (or reversed for left alignment)
 
 **Why consistent positioning matters:**
 * Users develop muscle memory
@@ -656,11 +622,9 @@ Action in progress, button cannot be clicked.
 * **Arrow keys**: Navigate through overflow menu items when open
 * **Home / End**: Jump to first/last menu item (in overflow menu)
 
-**Focus order:**
-* Overflow menu trigger (if present)
-* Tertiary actions (left to right)
-* Secondary action
-* Primary action
+**Focus order follows visual DOM order (left to right):**
+* `alignment="right"` (default): overflow trigger → ghost… → outline → fill
+* `alignment="left"`: fill → outline → ghost… → overflow trigger
 
 ### Screen Reader Support
 
@@ -703,7 +667,7 @@ Action in progress, button cannot be clicked.
 
 * **Establish clear hierarchy**: One primary, one secondary, rest tertiary
 * **Limit action count**: Keep to 2-7 actions with clear priority
-* **Primary action placement**: Always rightmost (trailing) position
+* **Primary action placement**: Rightmost by default (`alignment="right"`); leftmost when `alignment="left"`
 * **Consistent positioning**: Same placement across similar pages
 * **Clear labels**: Action-oriented verbs (Create, Save, Export)
 * **Adequate spacing**: 8px gap maintains visual clarity
@@ -726,31 +690,24 @@ Action in progress, button cannot be clicked.
 
 ```tsx
 interface ToolbarAction {
-  id: string;                      // Unique identifier
-  label: string;                   // Button label text
-  icon?: React.ReactNode;          // Optional icon element
-  type?: 'primary' | 'secondary' | 'tertiary';  // Action type
-  size?: 'small' | 'medium' | 'large';  // Button size
-  onClick?: () => void;            // Click handler
-  disabled?: boolean;              // Disabled state
-  loading?: boolean;               // Loading state
-  menuItems?: Array<{              // Split button menu
-    label: string;
-    value: string;
-    icon?: React.ReactNode;
-    variant?: 'default' | 'destructive';
-  }>;
-  onMenuItemClick?: (value: string) => void;  // Menu handler
-  tooltip?: string;                // Tooltip for icon-only
+  id: string                                    // Unique identifier
+  label: string                                 // Button label / aria-label in icon-only mode
+  icon?: React.ReactNode                        // Optional icon rendered before the label
+  type?: 'primary' | 'secondary' | 'tertiary'  // Visual emphasis level
+  size?: 'small' | 'medium' | 'large'          // Button height scale — defaults to medium
+  onClick?: () => void                          // Click handler
+  disabled?: boolean                            // Prevents interaction
+  loading?: boolean                             // Shows spinner and disables button
+  tooltip?: string                              // Tooltip text for icon-only mode
 }
 
 interface ButtonsToolbarProps {
-  actions: ToolbarAction[];        // Array of toolbar actions
-  variant?: 'full' | 'compact' | 'minimal';  // Display variant
-  iconOnly?: boolean;              // Show icons only (no labels)
-  alignment?: 'left' | 'right';    // Button order and overflow position
-  className?: string;              // Additional CSS class
-  style?: React.CSSProperties;     // Additional inline styles
+  actions: ToolbarAction[]                      // Ordered array of toolbar actions
+  variant?: 'full' | 'compact' | 'minimal'     // Display variant — defaults to 'full'
+  iconOnly?: boolean                            // Render icon-only buttons — all actions must have icons
+  alignment?: 'left' | 'right'                 // Primary button anchor position — defaults to 'right'
+  className?: string
+  style?: React.CSSProperties
 }
 ```
 
