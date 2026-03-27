@@ -305,12 +305,23 @@
 
 /* Inline chips: single row, fills the 1fr grid column, overflow hidden */
 .combobox__chips--inline {
+  position:    relative; /* anchor for ghost chips */
   display:     flex;
   flex-wrap:   nowrap;   /* single row — no stacking */
   gap:         var(--spacing-50);
   align-items: center;
   min-width:   0;        /* allows the 1fr column to shrink correctly */
   overflow:    hidden;   /* clips chips that exceed available space */
+}
+
+/* Ghost chips — rendered off-screen for width measurement only */
+.combobox__chip-ghost {
+  position:       absolute;
+  top:            -9999px;
+  left:           -9999px;
+  visibility:     hidden;
+  pointer-events: none;
+  white-space:    nowrap;
 }
 
 
