@@ -119,8 +119,13 @@
   --_color: var(--text);
 }
 
-/* Keyboard focus ring — only fires on keyboard navigation, not mouse hover */
-.flyout-menu-item:focus-visible {
+/*
+ * Keyboard focus ring.
+ * Radix calls element.focus() on hover, which can trigger :focus-visible in
+ * some browsers even for mouse interactions. :not(:hover) guards against that —
+ * keyboard navigation never has a :hover state on the focused item.
+ */
+.flyout-menu-item:focus-visible:not(:hover) {
   outline:        2px solid var(--border-focus);
   outline-offset: -2px;   /* inset — no layout shift */
 }
