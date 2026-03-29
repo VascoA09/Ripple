@@ -19,28 +19,25 @@
    ============================================================================= */
 
 .dropdown {
-  --_height:       var(--size-250);      /* 40px */
-  --_px:           var(--spacing-100);   /* 16px */
-  --_font-size:    var(--font-size-100); /* 16px */
-  --_label-size:   var(--font-size-80);  /* 14px */
-  --_icon-size:    16px;
-  --_option-min-h: var(--size-250);      /* 40px */
+  --_height:     var(--size-250);      /* 40px */
+  --_px:         var(--spacing-100);   /* 16px */
+  --_font-size:  var(--font-size-100); /* 16px */
+  --_label-size: var(--font-size-80);  /* 14px */
+  --_icon-size:  16px;
 }
 
 .dropdown[data-size="small"] {
-  --_height:       var(--size-200);     /* 32px */
-  --_px:           var(--spacing-75);   /* 12px */
-  --_font-size:    var(--font-size-80); /* 14px */
-  --_icon-size:    14px;
-  --_option-min-h: var(--size-200);     /* 32px */
+  --_height:     var(--size-200);     /* 32px */
+  --_px:         var(--spacing-75);   /* 12px */
+  --_font-size:  var(--font-size-80); /* 14px */
+  --_icon-size:  14px;
 }
 
 .dropdown[data-size="large"] {
-  --_height:       var(--size-300);      /* 48px */
-  --_px:           var(--spacing-125);   /* 20px */
-  --_font-size:    var(--font-size-120); /* 18px */
-  --_icon-size:    18px;
-  --_option-min-h: var(--size-300);      /* 48px */
+  --_height:     var(--size-300);      /* 48px */
+  --_px:         var(--spacing-125);   /* 20px */
+  --_font-size:  var(--font-size-120); /* 18px */
+  --_icon-size:  18px;
 }
 
 /* =============================================================================
@@ -237,8 +234,7 @@
   display:       flex;
   align-items:   center;
   gap:           var(--spacing-50); /* 8px */
-  min-height:    var(--_option-min-h);
-  padding:       var(--spacing-50) var(--spacing-75); /* 8px 12px */
+  padding:       var(--spacing-50) var(--spacing-75); /* 8px 12px — height driven by padding + line-height */
   border-radius: var(--border-radius-100); /* 4px */
   cursor:        pointer;
   transition:    background 100ms ease;
