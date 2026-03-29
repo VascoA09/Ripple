@@ -3,6 +3,9 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Dialog, DialogHeader, DialogBody, DialogFooter } from './Dialog'
 import type { DialogProps, DialogSize } from './Dialog'
 import { Button } from '../Button'
+import { TextInput } from '../TextInput'
+import { TextArea } from '../TextArea'
+import { Combobox } from '../Combobox'
 import { BannerAlert } from '../BannerAlert'
 import { AlertTriangle, Trash2, Info } from 'lucide-react'
 
@@ -22,7 +25,7 @@ export default meta
 type Story = StoryObj<DialogProps>
 
 // ---------------------------------------------------------------------------
-// Trigger wrapper — lets Storybook controls drive open state
+// Trigger wrapper
 // ---------------------------------------------------------------------------
 
 function DialogDemo({
@@ -46,66 +49,77 @@ function DialogDemo({
 }
 
 // ---------------------------------------------------------------------------
-// Default — interactive via Storybook controls
+// Data
+// ---------------------------------------------------------------------------
+
+const roleOptions = [
+  { value: 'admin',    label: 'Administrator' },
+  { value: 'manager',  label: 'Manager' },
+  { value: 'member',   label: 'Team member' },
+  { value: 'viewer',   label: 'Viewer' },
+]
+
+const departmentOptions = [
+  { value: 'engineering', label: 'Engineering' },
+  { value: 'design',      label: 'Design' },
+  { value: 'product',     label: 'Product' },
+  { value: 'finance',     label: 'Finance' },
+  { value: 'hr',          label: 'Human Resources' },
+  { value: 'legal',       label: 'Legal' },
+]
+
+const languageOptions = [
+  { value: 'en', label: 'English' },
+  { value: 'nl', label: 'Dutch' },
+  { value: 'de', label: 'German' },
+  { value: 'fr', label: 'French' },
+  { value: 'es', label: 'Spanish' },
+]
+
+const teamMemberOptions = [
+  { value: 'alice',   label: 'Alice Johnson' },
+  { value: 'bob',     label: 'Bob Martens' },
+  { value: 'claire',  label: 'Claire Dupont' },
+  { value: 'daniel',  label: 'Daniel Osei' },
+  { value: 'eva',     label: 'Eva Lindqvist' },
+]
+
+// ---------------------------------------------------------------------------
+// Default
 // ---------------------------------------------------------------------------
 
 export const Default: Story = {
-  render: () => (
-    <DialogDemo label="Open medium dialog">
-      {(onClose) => (
-        <>
-          <DialogHeader>Account settings</DialogHeader>
-          <DialogBody>
-            <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-soft)' }}>
-              Dialog body content goes here. This area scrolls when content exceeds the available height.
-            </p>
-          </DialogBody>
-          <DialogFooter>
-            <Button variant="outline" color="neutral" onClick={onClose}>Cancel</Button>
-            <Button onClick={onClose}>Save changes</Button>
-          </DialogFooter>
-        </>
-      )}
-    </DialogDemo>
-  ),
-}
+  render: () => {
+    const [name, setName]     = React.useState('')
+    const [email, setEmail]   = React.useState('')
+    const [lang, setLang]     = React.useState<string | null>(null)
 
-// ---------------------------------------------------------------------------
-// Sizes
-// ---------------------------------------------------------------------------
-
-export const Sizes: Story = {
-  render: () => (
-    <div style={{ display: 'flex', gap: '12px' }}>
-      <DialogDemo size="small" label="Small (400px)">
+    return (
+      <DialogDemo label="Open medium dialog">
         {(onClose) => (
           <>
-            <DialogHeader>Delete item</DialogHeader>
+            <DialogHeader>Account settings</DialogHeader>
             <DialogBody>
-              <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-soft)' }}>
-                This action cannot be undone. The item will be permanently removed.
-              </p>
-            </DialogBody>
-            <DialogFooter>
-              <Button variant="outline" color="neutral" onClick={onClose}>Cancel</Button>
-              <Button color="negative" onClick={onClose}>Delete</Button>
-            </DialogFooter>
-          </>
-        )}
-      </DialogDemo>
-
-      <DialogDemo size="medium" label="Medium (640px)">
-        {(onClose) => (
-          <>
-            <DialogHeader>Edit team member</DialogHeader>
-            <DialogBody>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {['Full name', 'Email address', 'Role', 'Department'].map(field => (
-                  <div key={field}>
-                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--text)', marginBottom: '4px' }}>{field}</label>
-                    <div style={{ height: '36px', background: 'var(--bg-app)', border: '1px solid var(--border-neutral)', borderRadius: '6px' }} />
-                  </div>
-                ))}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <TextInput
+                  label="Display name"
+                  placeholder="Enter your name"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                />
+                <TextInput
+                  label="Email address"
+                  type="email"
+                  placeholder="name@organisation.com"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                />
+                <Combobox
+                  label="Language"
+                  options={languageOptions}
+                  value={lang}
+                  onChange={setLang}
+                />
               </div>
             </DialogBody>
             <DialogFooter>
@@ -115,8 +129,83 @@ export const Sizes: Story = {
           </>
         )}
       </DialogDemo>
-    </div>
-  ),
+    )
+  },
+}
+
+// ---------------------------------------------------------------------------
+// Sizes
+// ---------------------------------------------------------------------------
+
+export const Sizes: Story = {
+  render: () => {
+    const [name, setName]         = React.useState('')
+    const [email, setEmail]       = React.useState('')
+    const [role, setRole]         = React.useState<string | null>(null)
+    const [department, setDept]   = React.useState<string | null>(null)
+
+    return (
+      <div style={{ display: 'flex', gap: '12px' }}>
+        <DialogDemo size="small" label="Small (400px)">
+          {(onClose) => (
+            <>
+              <DialogHeader>Delete item</DialogHeader>
+              <DialogBody>
+                <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-soft)' }}>
+                  This action cannot be undone. The item will be permanently removed.
+                </p>
+              </DialogBody>
+              <DialogFooter>
+                <Button variant="outline" color="neutral" onClick={onClose}>Cancel</Button>
+                <Button color="negative" onClick={onClose}>Delete</Button>
+              </DialogFooter>
+            </>
+          )}
+        </DialogDemo>
+
+        <DialogDemo size="medium" label="Medium (640px)">
+          {(onClose) => (
+            <>
+              <DialogHeader>Edit team member</DialogHeader>
+              <DialogBody>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <TextInput
+                    label="Full name"
+                    placeholder="Enter full name"
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                  />
+                  <TextInput
+                    label="Email address"
+                    type="email"
+                    placeholder="name@organisation.com"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                  />
+                  <Combobox
+                    label="Role"
+                    options={roleOptions}
+                    value={role}
+                    onChange={setRole}
+                  />
+                  <Combobox
+                    label="Department"
+                    options={departmentOptions}
+                    value={department}
+                    onChange={setDept}
+                  />
+                </div>
+              </DialogBody>
+              <DialogFooter>
+                <Button variant="outline" color="neutral" onClick={onClose}>Cancel</Button>
+                <Button onClick={onClose}>Save changes</Button>
+              </DialogFooter>
+            </>
+          )}
+        </DialogDemo>
+      </div>
+    )
+  },
 }
 
 // ---------------------------------------------------------------------------
@@ -169,7 +258,7 @@ export const WithIcon: Story = {
 }
 
 // ---------------------------------------------------------------------------
-// Scrolling body — long content
+// Scrolling body
 // ---------------------------------------------------------------------------
 
 export const ScrollingBody: Story = {
@@ -226,39 +315,54 @@ export const ThreeActions: Story = {
 }
 
 // ---------------------------------------------------------------------------
-// With BannerAlert inside body
+// With BannerAlert
 // ---------------------------------------------------------------------------
 
 export const WithBannerAlert: Story = {
   name: 'With BannerAlert',
-  render: () => (
-    <DialogDemo label="Open dialog">
-      {(onClose) => (
-        <>
-          <DialogHeader icon={<Info size={20} />}>Transfer ownership</DialogHeader>
-          <DialogBody>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <BannerAlert variant="notice">
-                Transferring ownership will remove your admin access to this workspace.
-              </BannerAlert>
-              <div>
-                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--text)', marginBottom: '4px' }}>New owner</label>
-                <div style={{ height: '36px', background: 'var(--bg-app)', border: '1px solid var(--border-neutral)', borderRadius: '6px' }} />
+  render: () => {
+    const [owner, setOwner] = React.useState<string | null>(null)
+    const [note, setNote]   = React.useState('')
+
+    return (
+      <DialogDemo label="Open dialog">
+        {(onClose) => (
+          <>
+            <DialogHeader icon={<Info size={20} />}>Transfer ownership</DialogHeader>
+            <DialogBody>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <BannerAlert variant="notice">
+                  Transferring ownership will remove your admin access to this workspace.
+                </BannerAlert>
+                <Combobox
+                  label="New owner"
+                  options={teamMemberOptions}
+                  value={owner}
+                  onChange={setOwner}
+                  placeholder="Select a team member…"
+                />
+                <TextArea
+                  label="Reason (optional)"
+                  placeholder="Why are you transferring ownership?"
+                  resize="none"
+                  value={note}
+                  onChange={e => setNote(e.target.value)}
+                />
               </div>
-            </div>
-          </DialogBody>
-          <DialogFooter>
-            <Button variant="outline" color="neutral" onClick={onClose}>Cancel</Button>
-            <Button onClick={onClose}>Transfer ownership</Button>
-          </DialogFooter>
-        </>
-      )}
-    </DialogDemo>
-  ),
+            </DialogBody>
+            <DialogFooter>
+              <Button variant="outline" color="neutral" onClick={onClose}>Cancel</Button>
+              <Button onClick={onClose}>Transfer ownership</Button>
+            </DialogFooter>
+          </>
+        )}
+      </DialogDemo>
+    )
+  },
 }
 
 // ---------------------------------------------------------------------------
-// No header — body-only dialog
+// No header
 // ---------------------------------------------------------------------------
 
 export const NoHeader: Story = {
