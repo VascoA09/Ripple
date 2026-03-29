@@ -45,11 +45,16 @@
    ============================================================================= */
 
 .dropdown {
-  position:       relative;
   display:        flex;
   flex-direction: column;
   gap:            var(--spacing-25); /* 4px */
   width:          100%;
+}
+
+/* Position anchor for the listbox — keeps it anchored to the trigger,
+   so the panel overlaps hint/validation text rather than sitting below them. */
+.dropdown__field-wrap {
+  position: relative;
 }
 
 /* =============================================================================

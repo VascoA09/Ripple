@@ -254,111 +254,114 @@ export function Dropdown({
         </label>
       )}
 
-      {/* Trigger */}
-      <button
-        ref={triggerRef}
-        id={id}
-        type="button"
-        className="dropdown__trigger"
-        role="combobox"
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        aria-controls={listboxId}
-        aria-labelledby={!ariaLabel ? labelId : undefined}
-        aria-label={ariaLabel}
-        aria-activedescendant={activedescendant}
-        aria-describedby={describedBy}
-        aria-errormessage={isNegative ? msgId : undefined}
-        aria-required={required || undefined}
-        aria-invalid={isNegative || undefined}
-        disabled={disabled}
-        onClick={() => {
-          if (open) {
-            setOpen(false)
-            setFocusedIndex(-1)
-          } else {
-            openPanel()
-          }
-        }}
-        onKeyDown={handleKeyDown}
-      >
-        {selectedOption?.icon && (
-          <span className="dropdown__trigger-leading" aria-hidden="true">
-            {selectedOption.icon}
-          </span>
-        )}
-        <span className={selectedOption ? 'dropdown__trigger-value' : 'dropdown__trigger-placeholder'}>
-          {selectedOption ? selectedOption.label : placeholder}
-        </span>
-        <ChevronDown size={chevronSize} className="dropdown__chevron" aria-hidden="true" />
-      </button>
-
-      {/* Listbox panel */}
-      {open && (
-        <ul
-          ref={listboxRef}
-          id={listboxId}
-          role="listbox"
-          className="dropdown__listbox"
-          aria-label={ariaLabel ?? label}
+      {/* Field wrap — position anchor for the listbox */}
+      <div className="dropdown__field-wrap">
+        {/* Trigger */}
+        <button
+          ref={triggerRef}
+          id={id}
+          type="button"
+          className="dropdown__trigger"
+          role="combobox"
+          aria-haspopup="listbox"
+          aria-expanded={open}
+          aria-controls={listboxId}
+          aria-labelledby={!ariaLabel ? labelId : undefined}
+          aria-label={ariaLabel}
+          aria-activedescendant={activedescendant}
+          aria-describedby={describedBy}
+          aria-errormessage={isNegative ? msgId : undefined}
+          aria-required={required || undefined}
+          aria-invalid={isNegative || undefined}
+          disabled={disabled}
+          onClick={() => {
+            if (open) {
+              setOpen(false)
+              setFocusedIndex(-1)
+            } else {
+              openPanel()
+            }
+          }}
+          onKeyDown={handleKeyDown}
         >
-          {renderGroups.map((group, groupIdx) => (
-            <React.Fragment key={group.groupName || '__ungrouped'}>
-              {/* Divider above each group (except first) when groups exist */}
-              {hasGroups && groupIdx > 0 && (
-                <li role="presentation" className="dropdown__group-divider" aria-hidden="true" />
-              )}
+          {selectedOption?.icon && (
+            <span className="dropdown__trigger-leading" aria-hidden="true">
+              {selectedOption.icon}
+            </span>
+          )}
+          <span className={selectedOption ? 'dropdown__trigger-value' : 'dropdown__trigger-placeholder'}>
+            {selectedOption ? selectedOption.label : placeholder}
+          </span>
+          <ChevronDown size={chevronSize} className="dropdown__chevron" aria-hidden="true" />
+        </button>
 
-              {/* Group header */}
-              {group.groupName && (
-                <li role="presentation" className="dropdown__group-header">
-                  {group.groupName}
-                </li>
-              )}
+        {/* Listbox panel */}
+        {open && (
+          <ul
+            ref={listboxRef}
+            id={listboxId}
+            role="listbox"
+            className="dropdown__listbox"
+            aria-label={ariaLabel ?? label}
+          >
+            {renderGroups.map((group, groupIdx) => (
+              <React.Fragment key={group.groupName || '__ungrouped'}>
+                {/* Divider above each group (except first) when groups exist */}
+                {hasGroups && groupIdx > 0 && (
+                  <li role="presentation" className="dropdown__group-divider" aria-hidden="true" />
+                )}
 
-              {/* Options */}
-              {group.items.map(({ option, idx }) => {
-                const isSelected = option.value === selectedValue
-                const isFocused  = focusedIndex === idx
-
-                return (
-                  <li
-                    key={option.value}
-                    id={optionId(idx)}
-                    role="option"
-                    className="dropdown__option"
-                    aria-selected={isSelected}
-                    aria-disabled={option.disabled || undefined}
-                    data-selected={isSelected || undefined}
-                    data-active={isFocused || undefined}
-                    data-disabled={option.disabled || undefined}
-                    data-keyboard-active={isFocused && isKeyboardNav ? true : undefined}
-                    onMouseDown={e => e.preventDefault()}
-                    onMouseEnter={() => { if (!option.disabled) { setFocusedIndex(idx); setIsKeyboardNav(false) } }}
-                    onClick={() => handleSelect(option)}
-                  >
-                    {/* Checkmark column — always reserves space */}
-                    <span className="dropdown__option-check" aria-hidden="true">
-                      {isSelected && <Check size={12} strokeWidth={2.5} />}
-                    </span>
-
-                    {option.icon && (
-                      <span className="dropdown__option-icon" aria-hidden="true">{option.icon}</span>
-                    )}
-
-                    <span className="dropdown__option-content">
-                      <span className="dropdown__option-label">{option.label}</span>
-                      {option.description && (
-                        <span className="dropdown__option-description">{option.description}</span>
-                      )}
-                    </span>
+                {/* Group header */}
+                {group.groupName && (
+                  <li role="presentation" className="dropdown__group-header">
+                    {group.groupName}
                   </li>
-                )
-              })}
-            </React.Fragment>
-          ))}
-        </ul>
-      )}
+                )}
+
+                {/* Options */}
+                {group.items.map(({ option, idx }) => {
+                  const isSelected = option.value === selectedValue
+                  const isFocused  = focusedIndex === idx
+
+                  return (
+                    <li
+                      key={option.value}
+                      id={optionId(idx)}
+                      role="option"
+                      className="dropdown__option"
+                      aria-selected={isSelected}
+                      aria-disabled={option.disabled || undefined}
+                      data-selected={isSelected || undefined}
+                      data-active={isFocused || undefined}
+                      data-disabled={option.disabled || undefined}
+                      data-keyboard-active={isFocused && isKeyboardNav ? true : undefined}
+                      onMouseDown={e => e.preventDefault()}
+                      onMouseEnter={() => { if (!option.disabled) { setFocusedIndex(idx); setIsKeyboardNav(false) } }}
+                      onClick={() => handleSelect(option)}
+                    >
+                      {/* Checkmark column — always reserves space */}
+                      <span className="dropdown__option-check" aria-hidden="true">
+                        {isSelected && <Check size={12} strokeWidth={2.5} />}
+                      </span>
+
+                      {option.icon && (
+                        <span className="dropdown__option-icon" aria-hidden="true">{option.icon}</span>
+                      )}
+
+                      <span className="dropdown__option-content">
+                        <span className="dropdown__option-label">{option.label}</span>
+                        {option.description && (
+                          <span className="dropdown__option-description">{option.description}</span>
+                        )}
+                      </span>
+                    </li>
+                  )
+                })}
+              </React.Fragment>
+            ))}
+          </ul>
+        )}
+      </div>
 
       {/* Helper text (hidden when validation message is shown) */}
       {helperText && !validationMessage && (

@@ -5250,81 +5250,83 @@ function ih({
           e,
           l && /* @__PURE__ */ o("span", { className: "dropdown__required", "aria-hidden": "true", children: " *" })
         ] }),
-        /* @__PURE__ */ w(
-          "button",
-          {
-            ref: Z,
-            id: g,
-            type: "button",
-            className: "dropdown__trigger",
-            role: "combobox",
-            "aria-haspopup": "listbox",
-            "aria-expanded": k,
-            "aria-controls": N,
-            "aria-labelledby": b ? void 0 : _,
-            "aria-label": b,
-            "aria-activedescendant": ce,
-            "aria-describedby": oe,
-            "aria-errormessage": de ? C : void 0,
-            "aria-required": l || void 0,
-            "aria-invalid": de || void 0,
-            disabled: s,
-            onClick: () => {
-              k ? (T(!1), P(-1)) : U();
-            },
-            onKeyDown: Y,
-            children: [
-              (z == null ? void 0 : z.icon) && /* @__PURE__ */ o("span", { className: "dropdown__trigger-leading", "aria-hidden": "true", children: z.icon }),
-              /* @__PURE__ */ o("span", { className: z ? "dropdown__trigger-value" : "dropdown__trigger-placeholder", children: z ? z.label : t }),
-              /* @__PURE__ */ o(Ot, { size: H, className: "dropdown__chevron", "aria-hidden": "true" })
-            ]
-          }
-        ),
-        k && /* @__PURE__ */ o(
-          "ul",
-          {
-            ref: F,
-            id: N,
-            role: "listbox",
-            className: "dropdown__listbox",
-            "aria-label": b ?? e,
-            children: fe.map((L, X) => /* @__PURE__ */ w(R.Fragment, { children: [
-              he && X > 0 && /* @__PURE__ */ o("li", { role: "presentation", className: "dropdown__group-divider", "aria-hidden": "true" }),
-              L.groupName && /* @__PURE__ */ o("li", { role: "presentation", className: "dropdown__group-header", children: L.groupName }),
-              L.items.map(({ option: ne, idx: ge }) => {
-                const Re = ne.value === A, et = x === ge;
-                return /* @__PURE__ */ w(
-                  "li",
-                  {
-                    id: K(ge),
-                    role: "option",
-                    className: "dropdown__option",
-                    "aria-selected": Re,
-                    "aria-disabled": ne.disabled || void 0,
-                    "data-selected": Re || void 0,
-                    "data-active": et || void 0,
-                    "data-disabled": ne.disabled || void 0,
-                    "data-keyboard-active": et && $ ? !0 : void 0,
-                    onMouseDown: (wn) => wn.preventDefault(),
-                    onMouseEnter: () => {
-                      ne.disabled || (P(ge), j(!1));
+        /* @__PURE__ */ w("div", { className: "dropdown__field-wrap", children: [
+          /* @__PURE__ */ w(
+            "button",
+            {
+              ref: Z,
+              id: g,
+              type: "button",
+              className: "dropdown__trigger",
+              role: "combobox",
+              "aria-haspopup": "listbox",
+              "aria-expanded": k,
+              "aria-controls": N,
+              "aria-labelledby": b ? void 0 : _,
+              "aria-label": b,
+              "aria-activedescendant": ce,
+              "aria-describedby": oe,
+              "aria-errormessage": de ? C : void 0,
+              "aria-required": l || void 0,
+              "aria-invalid": de || void 0,
+              disabled: s,
+              onClick: () => {
+                k ? (T(!1), P(-1)) : U();
+              },
+              onKeyDown: Y,
+              children: [
+                (z == null ? void 0 : z.icon) && /* @__PURE__ */ o("span", { className: "dropdown__trigger-leading", "aria-hidden": "true", children: z.icon }),
+                /* @__PURE__ */ o("span", { className: z ? "dropdown__trigger-value" : "dropdown__trigger-placeholder", children: z ? z.label : t }),
+                /* @__PURE__ */ o(Ot, { size: H, className: "dropdown__chevron", "aria-hidden": "true" })
+              ]
+            }
+          ),
+          k && /* @__PURE__ */ o(
+            "ul",
+            {
+              ref: F,
+              id: N,
+              role: "listbox",
+              className: "dropdown__listbox",
+              "aria-label": b ?? e,
+              children: fe.map((L, X) => /* @__PURE__ */ w(R.Fragment, { children: [
+                he && X > 0 && /* @__PURE__ */ o("li", { role: "presentation", className: "dropdown__group-divider", "aria-hidden": "true" }),
+                L.groupName && /* @__PURE__ */ o("li", { role: "presentation", className: "dropdown__group-header", children: L.groupName }),
+                L.items.map(({ option: ne, idx: ge }) => {
+                  const Re = ne.value === A, et = x === ge;
+                  return /* @__PURE__ */ w(
+                    "li",
+                    {
+                      id: K(ge),
+                      role: "option",
+                      className: "dropdown__option",
+                      "aria-selected": Re,
+                      "aria-disabled": ne.disabled || void 0,
+                      "data-selected": Re || void 0,
+                      "data-active": et || void 0,
+                      "data-disabled": ne.disabled || void 0,
+                      "data-keyboard-active": et && $ ? !0 : void 0,
+                      onMouseDown: (wn) => wn.preventDefault(),
+                      onMouseEnter: () => {
+                        ne.disabled || (P(ge), j(!1));
+                      },
+                      onClick: () => D(ne),
+                      children: [
+                        /* @__PURE__ */ o("span", { className: "dropdown__option-check", "aria-hidden": "true", children: Re && /* @__PURE__ */ o(je, { size: 12, strokeWidth: 2.5 }) }),
+                        ne.icon && /* @__PURE__ */ o("span", { className: "dropdown__option-icon", "aria-hidden": "true", children: ne.icon }),
+                        /* @__PURE__ */ w("span", { className: "dropdown__option-content", children: [
+                          /* @__PURE__ */ o("span", { className: "dropdown__option-label", children: ne.label }),
+                          ne.description && /* @__PURE__ */ o("span", { className: "dropdown__option-description", children: ne.description })
+                        ] })
+                      ]
                     },
-                    onClick: () => D(ne),
-                    children: [
-                      /* @__PURE__ */ o("span", { className: "dropdown__option-check", "aria-hidden": "true", children: Re && /* @__PURE__ */ o(je, { size: 12, strokeWidth: 2.5 }) }),
-                      ne.icon && /* @__PURE__ */ o("span", { className: "dropdown__option-icon", "aria-hidden": "true", children: ne.icon }),
-                      /* @__PURE__ */ w("span", { className: "dropdown__option-content", children: [
-                        /* @__PURE__ */ o("span", { className: "dropdown__option-label", children: ne.label }),
-                        ne.description && /* @__PURE__ */ o("span", { className: "dropdown__option-description", children: ne.description })
-                      ] })
-                    ]
-                  },
-                  ne.value
-                );
-              })
-            ] }, L.groupName || "__ungrouped"))
-          }
-        ),
+                    ne.value
+                  );
+                })
+              ] }, L.groupName || "__ungrouped"))
+            }
+          )
+        ] }),
         d && !u && /* @__PURE__ */ o(wi, { id: y, text: d }),
         u && f && /* @__PURE__ */ o(yi, { id: C, message: u, variant: f })
       ]
