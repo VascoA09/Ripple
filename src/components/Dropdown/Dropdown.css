@@ -96,7 +96,7 @@
   font-family:    var(--font-family-base);
   font-size:      var(--_font-size);
   font-weight:    var(--font-weight-regular);
-  line-height:    1;
+  line-height:    normal;
   color:          var(--text);
 
   background:     var(--bg-surface);
@@ -134,6 +134,14 @@
 /* =============================================================================
    TRIGGER — value / placeholder text
    ============================================================================= */
+
+/* Leading icon shown next to the selected option's label */
+.dropdown__trigger-leading {
+  display:     flex;
+  align-items: center;
+  flex-shrink: 0;
+  color:       var(--icon-default);
+}
 
 .dropdown__trigger-value,
 .dropdown__trigger-placeholder {
@@ -178,11 +186,16 @@
   overflow-y: auto;
   overscroll-behavior: contain;
 
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-50); /* 8px between items */
+
   margin:     0;
-  padding:    var(--spacing-50) 0; /* 8px top + bottom */
+  padding:    var(--spacing-50); /* 8px all sides */
   list-style: none;
 
   background:     var(--bg-surface);
+  border:         var(--border-width-100) solid var(--border-neutral);
   border-radius:  var(--border-radius-200);
   box-shadow:     var(--box-shadow-400);
 
@@ -199,13 +212,15 @@
    ============================================================================= */
 
 .dropdown__group-header {
-  padding:     var(--spacing-50) var(--spacing-75) var(--spacing-25);
-  font-family: var(--font-family-base);
-  font-size:   var(--font-size-80);
-  font-weight: var(--font-weight-semibold);
-  color:       var(--text-soft);
-  cursor:      default;
-  user-select: none;
+  padding:        var(--spacing-50) var(--spacing-75) var(--spacing-25);
+  font-family:    var(--font-family-base);
+  font-size:      var(--font-size-80);
+  font-weight:    var(--font-weight-semibold);
+  color:          var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor:         default;
+  user-select:    none;
 }
 
 .dropdown__group-divider {
@@ -219,15 +234,16 @@
    ============================================================================= */
 
 .dropdown__option {
-  display:     flex;
-  align-items: center;
-  gap:         var(--spacing-50); /* 8px */
-  min-height:  var(--_option-min-h);
-  padding:     var(--spacing-50) var(--spacing-75); /* 8px 12px */
-  cursor:      pointer;
-  transition:  background 100ms ease;
-  outline:     none;
-  user-select: none;
+  display:       flex;
+  align-items:   center;
+  gap:           var(--spacing-50); /* 8px */
+  min-height:    var(--_option-min-h);
+  padding:       var(--spacing-50) var(--spacing-75); /* 8px 12px */
+  border-radius: var(--border-radius-100); /* 4px */
+  cursor:        pointer;
+  transition:    background 100ms ease;
+  outline:       none;
+  user-select:   none;
 }
 
 .dropdown__option:hover,
@@ -243,11 +259,10 @@
   background: var(--bg-primary-soft);
 }
 
-/* Keyboard focus ring (data-active set on hover AND keyboard nav) */
-.dropdown__option[data-active] {
+/* Keyboard-only focus ring — suppressed on mouse hover */
+.dropdown__option[data-keyboard-active] {
   outline:        var(--border-width-focus) solid var(--border-focus);
   outline-offset: -2px;
-  border-radius:  var(--border-radius-150);
 }
 
 .dropdown__option[data-disabled] {
@@ -309,23 +324,6 @@
   text-overflow: ellipsis;
 }
 
-/* =============================================================================
-   HELPER TEXT + VALIDATION MESSAGE
-   ============================================================================= */
-
-.dropdown__hint,
-.dropdown__message {
-  margin:      0;
-  font-family: var(--font-family-base);
-  font-size:   var(--_label-size);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--font-line-height-body);
-  color:       var(--text-soft);
-}
-
-.dropdown[data-validation="positive"] .dropdown__message { color: var(--text-positive); }
-.dropdown[data-validation="notice"]   .dropdown__message { color: var(--text-notice);   }
-.dropdown[data-validation="negative"] .dropdown__message { color: var(--text-negative); }
 
 /* =============================================================================
    REDUCED MOTION

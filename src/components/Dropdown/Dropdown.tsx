@@ -1,5 +1,7 @@
 import React, { useId, useRef, useState, useEffect } from 'react'
 import { ChevronDown, Check } from 'lucide-react'
+import { Hint } from '../Hint'
+import { ValidationMessage } from '../ValidationMessage'
 import './Dropdown.css'
 
 // ---------------------------------------------------------------------------
@@ -94,6 +96,7 @@ export function Dropdown({
 
   const [open, setOpen]               = useState(false)
   const [focusedIndex, setFocusedIndex] = useState(-1)
+  const [isKeyboardNav, setIsKeyboardNav] = useState(false)
 
   const triggerRef = useRef<HTMLButtonElement>(null)
   const listboxRef = useRef<HTMLUListElement>(null)
@@ -178,6 +181,7 @@ export function Dropdown({
         break
       case 'ArrowDown':
         e.preventDefault()
+        setIsKeyboardNav(true)
         if (!open) {
           openPanel(getFirst())
         } else {
@@ -186,6 +190,7 @@ export function Dropdown({
         break
       case 'ArrowUp':
         e.preventDefault()
+        setIsKeyboardNav(true)
         if (!open) {
           openPanel(getLast())
         } else {
@@ -215,6 +220,8 @@ export function Dropdown({
   const selectedOption = flatOptions.find(o => o.value === selectedValue)
   const chevronSize    = size === 'small' ? 14 : size === 'large' ? 18 : 16
   const activedescendant = focusedIndex >= 0 && open ? optionId(focusedIndex) : undefined
+  const isNegative   = validation === 'negative'
+  const describedBy  = [helperId, !isNegative ? msgId : undefined].filter(Boolean).join(' ') || undefined
 
   // Build render data: groups with stable flat indices
   const renderGroups: Array<{
@@ -260,9 +267,10 @@ export function Dropdown({
         aria-labelledby={!ariaLabel ? labelId : undefined}
         aria-label={ariaLabel}
         aria-activedescendant={activedescendant}
-        aria-describedby={[helperId, msgId].filter(Boolean).join(' ') || undefined}
+        aria-describedby={describedBy}
+        aria-errormessage={isNegative ? msgId : undefined}
         aria-required={required || undefined}
-        aria-invalid={validation === 'negative' || undefined}
+        aria-invalid={isNegative || undefined}
         disabled={disabled}
         onClick={() => {
           if (open) {
@@ -274,6 +282,11 @@ export function Dropdown({
         }}
         onKeyDown={handleKeyDown}
       >
+        {selectedOption?.icon && (
+          <span className="dropdown__trigger-leading" aria-hidden="true">
+            {selectedOption.icon}
+          </span>
+        )}
         <span className={selectedOption ? 'dropdown__trigger-value' : 'dropdown__trigger-placeholder'}>
           {selectedOption ? selectedOption.label : placeholder}
         </span>
@@ -319,8 +332,9 @@ export function Dropdown({
                     data-selected={isSelected || undefined}
                     data-active={isFocused || undefined}
                     data-disabled={option.disabled || undefined}
+                    data-keyboard-active={isFocused && isKeyboardNav ? true : undefined}
                     onMouseDown={e => e.preventDefault()}
-                    onMouseEnter={() => !option.disabled && setFocusedIndex(idx)}
+                    onMouseEnter={() => { if (!option.disabled) { setFocusedIndex(idx); setIsKeyboardNav(false) } }}
                     onClick={() => handleSelect(option)}
                   >
                     {/* Checkmark column — always reserves space */}
@@ -348,18 +362,12 @@ export function Dropdown({
 
       {/* Helper text (hidden when validation message is shown) */}
       {helperText && !validationMessage && (
-        <p id={helperId} className="dropdown__hint">{helperText}</p>
+        <Hint id={helperId} text={helperText} />
       )}
 
       {/* Validation message */}
-      {validationMessage && (
-        <p
-          id={msgId}
-          className="dropdown__message"
-          role={validation === 'negative' ? 'alert' : undefined}
-        >
-          {validationMessage}
-        </p>
+      {validationMessage && validation && (
+        <ValidationMessage id={msgId!} message={validationMessage} variant={validation} />
       )}
     </div>
   )
