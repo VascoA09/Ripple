@@ -6,8 +6,9 @@
      overlay (fixed full-screen) + panel (fixed, flex column)
        ├── DrawerHeader  (fixed, shrinks to content)
        ├── DrawerTools   (fixed, optional)
-       └── DrawerContent (flex: 1, overflow-y: auto)
-            └── DrawerSection(s)
+       ├── DrawerContent (flex: 1, overflow-y: auto)
+       │    └── DrawerSection(s)
+       └── DrawerFooter  (fixed, optional)
 
    Two-phase open state (data-open="false"→"true") drives all transitions.
    Focus is trapped inside the panel while open.
@@ -162,10 +163,13 @@
    ============================================================================= */
 
 .drawer__section {
-  padding-bottom: var(--spacing-50);
+  /* Section owns horizontal spacing — items inside use 0 horizontal padding */
+  padding-inline:  var(--spacing-100); /* 16px left/right */
+  padding-bottom:  var(--spacing-50);  /* 8px bottom gap */
 }
 
 .drawer__section[data-divider] {
+  /* border spans the element width (before padding), so it still reaches panel edges */
   border-top: var(--border-width-100) solid var(--border-neutral);
 }
 
@@ -174,7 +178,8 @@
   align-items:     center;
   justify-content: space-between;
   gap:             var(--spacing-50);
-  padding:         var(--spacing-75) var(--spacing-100) var(--spacing-50);
+  /* No horizontal padding — section provides it */
+  padding:         var(--spacing-75) 0 var(--spacing-50);
 }
 
 .drawer__section-header-start {
@@ -241,14 +246,13 @@
   all:        unset;
   box-sizing: border-box;
 
-  /* Layout */
+  /* Layout — horizontal padding comes from DrawerSection */
   display:     flex;
   align-items: center;
   gap:         var(--spacing-50); /* 8px */
   width:       100%;
   min-height:  40px;
-  padding:     var(--spacing-50) var(--spacing-100); /* 8px 16px */
-  border-left: 3px solid transparent;
+  padding:     var(--spacing-50) 0; /* vertical only */
 
   /* Typography */
   font-family: var(--font-family-base);
@@ -260,6 +264,7 @@
   cursor:      pointer;
   transition:  background 150ms ease, color 150ms ease;
   position:    relative;
+  border-radius: var(--border-radius-100);
 }
 
 .drawer__menu-item:hover:not([data-disabled]),
@@ -278,12 +283,13 @@
   outline-offset: -2px;
 }
 
-/* Active / current state */
+/* Active / current state — inset box-shadow replaces border-left */
 .drawer__menu-item[data-active],
 .drawer__multi-item-trigger[data-active] {
-  border-left-color: var(--color-primary-loud);
-  color:             var(--color-primary-loud);
-  font-weight:       var(--font-weight-semibold);
+  box-shadow:  inset 3px 0 0 var(--color-primary-loud);
+  color:       var(--color-primary-loud);
+  font-weight: var(--font-weight-semibold);
+  background:  var(--bg-primary-softest);
 }
 
 .drawer__menu-item[data-active] .drawer__menu-item-icon,
@@ -386,9 +392,10 @@
 .drawer__multi-item-children {
   display:        flex;
   flex-direction: column;
-  padding-left:   var(--spacing-150); /* 24px */
+  padding-left:   var(--spacing-150); /* 24px indent for child items */
   border-left:    var(--border-width-100) solid var(--border-neutral);
-  margin-left:    var(--spacing-100); /* 16px — aligns guide under icon */
+  /* guide aligns with icon left edge — section provides the base 16px offset */
+  margin-left:    calc(var(--spacing-50) + 1px); /* ~9px: halfway across the 14px icon */
 }
 
 /* =============================================================================
@@ -400,13 +407,13 @@
   all:        unset;
   box-sizing: border-box;
 
-  /* Layout */
+  /* Layout — horizontal padding comes from DrawerSection */
   display:     flex;
   align-items: flex-start;
   gap:         var(--spacing-75); /* 12px */
   width:       100%;
   min-height:  56px;
-  padding:     var(--spacing-75) var(--spacing-100); /* 12px 16px */
+  padding:     var(--spacing-75) 0; /* vertical only */
   position:    relative;
 
   /* Typography */
@@ -519,7 +526,8 @@
   display:         flex;
   align-items:     flex-start;
   gap:             var(--spacing-75);
-  padding:         var(--spacing-75) var(--spacing-100);
+  /* Horizontal padding comes from DrawerSection */
+  padding:         var(--spacing-75) 0;
   position:        relative;
   cursor:          default;
   border-bottom:   var(--border-width-100) solid var(--border-neutral);
@@ -581,6 +589,19 @@
 .drawer__notification-action {
   display:    flex;
   margin-top: var(--spacing-25);
+}
+
+/* =============================================================================
+   FOOTER (optional)
+   Sticks to the bottom of the panel. Use for primary actions (Save/Cancel),
+   navigation links, or user account controls.
+   ============================================================================= */
+
+.drawer__footer {
+  flex-shrink:  0;
+  padding:      var(--spacing-100); /* 16px — matches section horizontal rhythm */
+  border-top:   var(--border-width-100) solid var(--border-neutral);
+  background:   var(--bg-surface);
 }
 
 /* =============================================================================

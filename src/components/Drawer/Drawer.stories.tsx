@@ -6,7 +6,7 @@ import {
   Filter, User,
 } from 'lucide-react'
 import {
-  Drawer, DrawerHeader, DrawerTools, DrawerContent,
+  Drawer, DrawerHeader, DrawerTools, DrawerContent, DrawerFooter,
   DrawerSection, DrawerMenuItem, DrawerMultiLevelItem,
   DrawerListItem, DrawerNotificationItem, DrawerContextButton,
 } from './Drawer'
@@ -87,6 +87,13 @@ export const Navigation: Story = {
               <DrawerMenuItem label="Help" icon={<HelpCircle size={14} />} disabled />
             </DrawerSection>
           </DrawerContent>
+          <DrawerFooter>
+            <DrawerMenuItem
+              label="Vasco Antunes"
+              icon={<Avatar name="Vasco Antunes" size="s" />}
+              onClick={() => {}}
+            />
+          </DrawerFooter>
         </Drawer>
       </>
     )
@@ -265,6 +272,12 @@ export const FilterPanel: Story = {
               ))}
             </DrawerSection>
           </DrawerContent>
+          <DrawerFooter>
+            <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+              <Button variant="outline" color="neutral" onClick={() => setOpen(false)}>Reset</Button>
+              <Button onClick={() => setOpen(false)}>Apply filters</Button>
+            </div>
+          </DrawerFooter>
         </Drawer>
       </>
     )

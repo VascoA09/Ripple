@@ -114,6 +114,11 @@ export interface DrawerNotificationItemProps {
     className?: string;
 }
 export declare function DrawerNotificationItem({ title, message, timestamp, unread, avatar, action, last, onClick, className, }: DrawerNotificationItemProps): import("react/jsx-runtime").JSX.Element;
+export interface DrawerFooterProps {
+    children: React.ReactNode;
+    className?: string;
+}
+export declare function DrawerFooter({ children, className }: DrawerFooterProps): import("react/jsx-runtime").JSX.Element;
 export interface DrawerContextButtonProps {
     onClick: (e: React.MouseEvent) => void;
     'aria-label'?: string;

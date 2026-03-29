@@ -579,6 +579,23 @@ export function DrawerNotificationItem({
 }
 
 // ---------------------------------------------------------------------------
+// DrawerFooter
+// ---------------------------------------------------------------------------
+
+export interface DrawerFooterProps {
+  children: React.ReactNode
+  className?: string
+}
+
+export function DrawerFooter({ children, className }: DrawerFooterProps) {
+  return (
+    <div className={['drawer__footer', className].filter(Boolean).join(' ')}>
+      {children}
+    </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
 // DrawerContextButton — convenience wrapper for the MoreHorizontal context button
 // ---------------------------------------------------------------------------
 
