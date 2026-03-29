@@ -295,23 +295,27 @@
    CHIPS — selected items as Ripple Chip components
    ============================================================================= */
 
-/* Below chips: after hint/message, covered by panel when open */
+/* Below chips: after hint/message, single row with overflow collapse */
 .combobox__chips {
+  position:    relative; /* anchor for ghost chips */
   display:     flex;
-  flex-wrap:   wrap;
+  flex-wrap:   nowrap;   /* single row — same rule as inline */
   gap:         var(--spacing-50); /* 8px */
   padding-top: var(--spacing-50); /* 8px gap from hint */
+  overflow:    hidden;   /* clips chips beyond available width */
+  align-items: center;
 }
 
-/* Inline chips: single row, fills the 1fr grid column, overflow hidden */
+/* Inline chips: single row, fills the 1fr grid column */
 .combobox__chips--inline {
   position:    relative; /* anchor for ghost chips */
   display:     flex;
-  flex-wrap:   nowrap;   /* single row — no stacking */
+  flex-wrap:   nowrap;
   gap:         var(--spacing-50);
   align-items: center;
-  min-width:   0;        /* allows the 1fr column to shrink correctly */
-  overflow:    hidden;   /* clips chips that exceed available space */
+  min-width:   0;
+  overflow:    hidden;
+  padding-top: 0; /* no top gap — vertically centred in the field row */
 }
 
 /* Ghost chips — rendered off-screen for width measurement only */
