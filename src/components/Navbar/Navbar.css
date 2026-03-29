@@ -136,16 +136,6 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Nav button wrapper — positions the tooltip
-   --------------------------------------------------------------------------- */
-
-.navbar__nav-btn-wrapper {
-  position:    relative;
-  display:     flex;
-  align-items: center;
-}
-
-/* ---------------------------------------------------------------------------
    Nav button
    --------------------------------------------------------------------------- */
 
@@ -213,51 +203,6 @@
   position: absolute;
   top:      2px;
   right:    2px;
-}
-
-/* ---------------------------------------------------------------------------
-   Tooltip — CSS-only, shown on hover and focus-visible of the wrapper
-   --------------------------------------------------------------------------- */
-
-.navbar__tooltip {
-  position:       absolute;
-  left:           calc(100% + 12px);
-  top:            50%;
-  transform:      translateY(-50%);
-
-  font-family:    var(--font-family-base);
-  font-size:      var(--font-size-80);   /* 14px */
-  font-weight:    var(--font-weight-medium);
-  line-height:    1.2;
-  white-space:    nowrap;
-  color:          var(--text-on-fill);
-  background:     var(--bg-inverse);
-  padding:        var(--spacing-25) var(--spacing-50); /* 4px 8px */
-  border-radius:  var(--border-radius-100);
-
-  /* Hidden by default */
-  visibility:     hidden;
-  opacity:        0;
-  transition:     opacity 120ms ease;
-  pointer-events: none;
-  z-index:        var(--z-index-tooltip, 9000);
-}
-
-/* Arrow pointing left toward the Navbar */
-.navbar__tooltip::before {
-  content:        '';
-  position:       absolute;
-  right:          100%;
-  top:            50%;
-  transform:      translateY(-50%);
-  border:         5px solid transparent;
-  border-right-color: var(--bg-inverse);
-}
-
-.navbar__nav-btn-wrapper:hover .navbar__tooltip,
-.navbar__nav-btn-wrapper:focus-within .navbar__tooltip {
-  visibility: visible;
-  opacity:    1;
 }
 
 /* ---------------------------------------------------------------------------

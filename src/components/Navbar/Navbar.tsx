@@ -3,6 +3,7 @@ import { MoreHorizontal } from 'lucide-react'
 import { Avatar } from '../Avatar'
 import { Badge } from '../Badge'
 import { Counter } from '../Counter'
+import { Tooltip } from '../Tooltip'
 import {
   FlyoutMenu,
   FlyoutMenuTrigger,
@@ -90,7 +91,7 @@ function NavButton({ item }: NavButtonProps) {
     : item.label
 
   return (
-    <div className="navbar__nav-btn-wrapper">
+    <Tooltip content={ariaLabel} placement="right">
       <button
         type="button"
         className="navbar__nav-btn"
@@ -116,12 +117,7 @@ function NavButton({ item }: NavButtonProps) {
           />
         )}
       </button>
-
-      {/* CSS-only tooltip — always in DOM for screen reader association */}
-      <span className="navbar__tooltip" role="tooltip">
-        {ariaLabel}
-      </span>
-    </div>
+    </Tooltip>
   )
 }
 
@@ -229,7 +225,7 @@ export function Navbar({
             {hasOverflow && (
               <li>
                 <FlyoutMenu>
-                  <div className="navbar__nav-btn-wrapper">
+                  <Tooltip content="More" placement="right">
                     <FlyoutMenuTrigger asChild>
                       <button
                         type="button"
@@ -241,8 +237,7 @@ export function Navbar({
                         </span>
                       </button>
                     </FlyoutMenuTrigger>
-                    <span className="navbar__tooltip" role="tooltip">More</span>
-                  </div>
+                  </Tooltip>
 
                   <FlyoutMenuContent side="right" align="start" sideOffset={12}>
                     {overflowContextual.map(item => (
@@ -283,7 +278,7 @@ export function Navbar({
       {/* ── User menu ───────────────────────────────────────────────────── */}
       <div className="navbar__user">
         <FlyoutMenu>
-          <div className="navbar__nav-btn-wrapper">
+          <Tooltip content={userName} placement="right">
             <FlyoutMenuTrigger asChild>
               <Avatar
                 name={userName}
@@ -293,8 +288,7 @@ export function Navbar({
                 className="navbar__avatar-trigger"
               />
             </FlyoutMenuTrigger>
-            <span className="navbar__tooltip" role="tooltip">{userName}</span>
-          </div>
+          </Tooltip>
 
           <FlyoutMenuContent side="right" align="end" sideOffset={12}>
             <FlyoutMenuLabel>{userName}</FlyoutMenuLabel>
