@@ -293,9 +293,10 @@
   outline-offset: -2px;
 }
 
-/* Active / current page — colour + weight only, no box-shadow */
+/* Active / current page — primary-soft background, primary colour, semibold */
 .drawer__menu-item[data-active],
 .drawer__multi-item-trigger[data-active] {
+  --_bg:       var(--bg-primary-softest);
   --_color:    var(--color-primary-loud);
   font-weight: var(--font-weight-semibold);
 }
@@ -425,7 +426,6 @@
   width:       100%;
   min-height:  56px;
   padding:     var(--spacing-75) 0; /* vertical only */
-  position:    relative;
 
   /* Typography */
   font-family: var(--font-family-base);
@@ -453,16 +453,14 @@
   pointer-events: none;
 }
 
-/* Unread dot — positioned absolutely at top-left */
+/* Unread dot — in-flow flex item, centres vertically with the row */
 .drawer__unread-dot {
-  position:  absolute;
-  top:       var(--spacing-75);
-  left:      var(--spacing-25);
-  width:     8px;
-  height:    8px;
+  width:        8px;
+  height:       8px;
   border-radius: 50%;
-  background: var(--color-primary);
-  flex-shrink: 0;
+  background:   var(--color-primary);
+  flex-shrink:  0;
+  align-self:   center;
 }
 
 .drawer__list-item-before {
@@ -534,35 +532,41 @@
    ============================================================================= */
 
 .drawer__notification-item {
-  display:         flex;
-  align-items:     flex-start;
-  gap:             var(--spacing-75);
-  /* Horizontal padding comes from DrawerSection */
-  padding:         var(--spacing-75) 0;
-  position:        relative;
-  cursor:          default;
-  border-bottom:   var(--border-width-100) solid var(--border-neutral);
+  /* Private state tokens — same pattern as menu items */
+  --_bg:     transparent;
+  --_cursor: default;
+
+  display:       flex;
+  align-items:   flex-start;
+  gap:           var(--spacing-75); /* 12px */
+  padding:       var(--spacing-50); /* 8px all sides — matches menu items */
+  border-radius: var(--border-radius-100); /* 4px */
+
+  background: var(--_bg);
+  cursor:     var(--_cursor);
+  transition: background 120ms ease;
 }
 
-.drawer__notification-item[data-last] {
-  border-bottom: none;
-}
-
+/* Unread — soft primary tint */
 .drawer__notification-item[data-unread] {
-  background: var(--bg-primary-softest);
+  --_bg: var(--bg-primary-softest);
 }
 
+/* Interactive (has onClick) */
 .drawer__notification-item[role="button"] {
-  cursor:     pointer;
-  transition: background 150ms ease;
+  --_cursor: pointer;
 }
 
 .drawer__notification-item[role="button"]:hover {
-  background: var(--bg-neutral-softest);
+  --_bg: var(--bg-primary-softest);
 }
 
-.drawer__notification-item[role="button"]:focus-visible {
-  outline:        var(--border-width-focus) solid var(--border-focus);
+.drawer__notification-item[role="button"]:active {
+  --_bg: var(--bg-primary-soft);
+}
+
+.drawer__notification-item[role="button"]:focus-visible:not(:hover) {
+  outline:        2px solid var(--border-focus);
   outline-offset: -2px;
 }
 
