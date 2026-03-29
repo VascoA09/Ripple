@@ -11,6 +11,8 @@ import { ChevronDown, Check } from 'lucide-react'
 import './Combobox.css'
 import { Button } from '../Button'
 import { Chip } from '../Chip'
+import { Hint } from '../Hint'
+import { ValidationMessage } from '../ValidationMessage'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -423,10 +425,13 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
         ? `${listboxId}-${flatFiltered[activeIndex].value}`
         : undefined
 
-    // --- aria-describedby ------------------------------------------------
+    // --- ARIA wiring -----------------------------------------------------
+    // negative: aria-invalid + aria-errormessage (not in describedby)
+    // positive / notice: aria-describedby includes the message id
+    const isNegative  = validation === 'negative'
     const describedBy = [
       hint ? hintId : null,
-      validationMessage ? messageId : null,
+      validationMessage && !isNegative ? messageId : null,
     ].filter(Boolean).join(' ') || undefined
 
     // --- Render ----------------------------------------------------------
@@ -480,6 +485,8 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
             aria-activedescendant={activeDescendantId}
             aria-autocomplete="list"
             aria-describedby={describedBy}
+            aria-invalid={isNegative && !!validationMessage ? true : undefined}
+            aria-errormessage={isNegative && validationMessage ? messageId : undefined}
             aria-required={required}
             autoComplete="off"
             onChange={e => {
@@ -667,21 +674,11 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
         </div>{/* /combobox__field-row */}
 
         {/* Hint */}
-        {hint && (
-          <p id={hintId} className="combobox__hint">
-            {hint}
-          </p>
-        )}
+        {hint && <Hint id={hintId} text={hint} />}
 
         {/* Validation message */}
-        {validationMessage && (
-          <p
-            id={messageId}
-            className="combobox__message"
-            role={validation === 'negative' ? 'alert' : undefined}
-          >
-            {validationMessage}
-          </p>
+        {validationMessage && validation && (
+          <ValidationMessage id={messageId} message={validationMessage} variant={validation} />
         )}
 
         {/* Below chips — after hint/message, single row with overflow collapse */}

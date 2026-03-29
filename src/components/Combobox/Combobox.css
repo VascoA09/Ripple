@@ -200,23 +200,6 @@
 }
 
 
-/* =============================================================================
-   HINT + VALIDATION MESSAGE
-   ============================================================================= */
-
-.combobox__hint,
-.combobox__message {
-  margin:      0;
-  font-family: var(--font-family-base);
-  font-size:   var(--font-size-80); /* 14px */
-  font-weight: var(--font-weight-regular);
-  line-height: var(--font-line-height-body);
-  color:       var(--text-soft);
-}
-
-.combobox[data-validation="positive"] .combobox__message { color: var(--text-positive); }
-.combobox[data-validation="notice"]   .combobox__message { color: var(--text-notice);   }
-.combobox[data-validation="negative"] .combobox__message { color: var(--text-negative); }
 
 /* =============================================================================
    DROPDOWN PANEL — positions and styles the floating container
