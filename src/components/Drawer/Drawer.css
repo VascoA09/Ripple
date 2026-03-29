@@ -252,13 +252,13 @@
   --_color:  var(--text);
   --_cursor: pointer;
 
-  /* Layout */
+  /* Layout — horizontal padding comes from DrawerSection */
   display:       flex;
   align-items:   center;
   gap:           var(--spacing-50); /* 8px */
   width:         100%;
   min-height:    40px;
-  padding:       var(--spacing-50); /* 8px all sides */
+  padding:       var(--spacing-50) 0; /* vertical only */
   border-radius: var(--border-radius-100); /* 4px */
 
   /* Typography */
@@ -293,17 +293,16 @@
   outline-offset: -2px;
 }
 
-/* Active / current page — primary fill, white text and icon */
+/* Active / current page — colour + weight only, no box-shadow */
 .drawer__menu-item[data-active],
 .drawer__multi-item-trigger[data-active] {
-  --_bg:       var(--bg-primary);
-  --_color:    var(--text-loud-inverse);
+  --_color:    var(--color-primary-loud);
   font-weight: var(--font-weight-semibold);
 }
 
 .drawer__menu-item[data-active] .drawer__menu-item-icon,
 .drawer__multi-item-trigger[data-active] .drawer__menu-item-icon {
-  color: var(--icon-inverse);
+  color: var(--color-primary-loud);
 }
 
 /* Disabled */
@@ -324,6 +323,7 @@
   align-items: center;
   flex-shrink: 0;
   color:       var(--icon-soft);
+  /* Pressed state: inherits --_color (text-loud-inverse) via currentColor */
   transition:  color 120ms ease;
 }
 
