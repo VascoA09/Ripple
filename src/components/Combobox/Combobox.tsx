@@ -152,6 +152,10 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
     // Active keyboard index into the flat filtered options list
     const [activeIndex, setActiveIndex] = useState(-1)
 
+    // Tracks whether the active index was last set by the keyboard (not mouse).
+    // Used to show the focus ring only during keyboard navigation.
+    const [isKeyboardNav, setIsKeyboardNav] = useState(false)
+
     // --- Selection state (controlled / uncontrolled) ----------------------
     const isControlled = props.value !== undefined
 
@@ -373,11 +377,13 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
         case 'ArrowDown': {
           e.preventDefault()
           if (!isOpen) { open(); return }
+          setIsKeyboardNav(true)
           setActiveIndex(i => Math.min(i + 1, flatFiltered.length - 1))
           break
         }
         case 'ArrowUp': {
           e.preventDefault()
+          setIsKeyboardNav(true)
           setActiveIndex(i => Math.max(i - 1, 0))
           break
         }
@@ -550,13 +556,14 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
                         className="combobox__option"
                         data-index={idx}
                         data-active={active || undefined}
+                        data-keyboard-active={active && isKeyboardNav ? true : undefined}
                         data-selected={sel || undefined}
                         data-disabled={opt.disabled || undefined}
                         onMouseDown={e => {
                           e.preventDefault() // prevent input blur before selection
                           selectOption(opt)
                         }}
-                        onMouseEnter={() => setActiveIndex(idx)}
+                        onMouseEnter={() => { setActiveIndex(idx); setIsKeyboardNav(false) }}
                       >
                         {/* Single-select checkmark — leading, left-aligned */}
                         {!isMulti && (

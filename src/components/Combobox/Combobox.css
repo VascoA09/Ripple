@@ -337,6 +337,12 @@
   background: var(--bg-primary-softest);
 }
 
+/* Keyboard navigation focus ring — suppressed on mouse hover */
+.combobox__option[data-keyboard-active] {
+  outline:        2px solid var(--border-focus);
+  outline-offset: -2px;
+}
+
 .combobox__option[data-selected] {
   background: var(--bg-primary-softest);
 }
