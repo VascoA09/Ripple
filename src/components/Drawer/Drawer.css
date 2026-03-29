@@ -163,9 +163,9 @@
    ============================================================================= */
 
 .drawer__section {
-  /* Section owns horizontal spacing — items inside use 0 horizontal padding */
-  padding-inline:  var(--spacing-100); /* 16px left/right */
-  padding-bottom:  var(--spacing-50);  /* 8px bottom gap */
+  /* Section owns horizontal spacing */
+  padding-inline:  var(--spacing-50); /* 8px left/right */
+  padding-bottom:  var(--spacing-50); /* 8px bottom gap */
 }
 
 .drawer__section[data-divider] {
@@ -252,13 +252,13 @@
   --_color:  var(--text);
   --_cursor: pointer;
 
-  /* Layout — horizontal padding comes from DrawerSection */
+  /* Layout */
   display:       flex;
   align-items:   center;
   gap:           var(--spacing-50); /* 8px */
   width:         100%;
   min-height:    40px;
-  padding:       var(--spacing-50) 0; /* vertical only */
+  padding:       var(--spacing-50); /* 8px all sides */
   border-radius: var(--border-radius-100); /* 4px */
 
   /* Typography */
