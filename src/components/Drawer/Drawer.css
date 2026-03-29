@@ -199,21 +199,6 @@
   line-height:     1;
 }
 
-.drawer__section-count {
-  display:         inline-flex;
-  align-items:     center;
-  justify-content: center;
-  min-width:       20px;
-  height:          20px;
-  padding:         0 var(--spacing-25);
-  border:          var(--border-width-100) solid var(--border-neutral-loud);
-  border-radius:   999px;
-  font-family:     var(--font-family-base);
-  font-size:       var(--font-size-60); /* 12px */
-  font-weight:     var(--font-weight-semibold);
-  color:           var(--text-soft);
-  line-height:     1;
-}
 
 .drawer__section-link {
   all:         unset;

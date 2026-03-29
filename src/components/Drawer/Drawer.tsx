@@ -2,6 +2,7 @@ import React, { useId, useRef, useState, useEffect, useContext, createContext } 
 import ReactDOM from 'react-dom'
 import { X, ChevronDown, MoreHorizontal } from 'lucide-react'
 import { IconButton } from '../IconButton'
+import { Counter } from '../Counter'
 import './Drawer.css'
 
 // ---------------------------------------------------------------------------
@@ -284,7 +285,7 @@ export function DrawerSection({ title, count, link, divider, children, className
           <div className="drawer__section-header-start">
             {title && <span className="drawer__section-title">{title}</span>}
             {count !== undefined && (
-              <span className="drawer__section-count">{count}</span>
+              <Counter count={count} variant="outline" size="small" color="neutral" />
             )}
           </div>
           {link && (

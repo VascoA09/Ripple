@@ -13,6 +13,8 @@ import {
 import type { DrawerProps } from './Drawer'
 import { Button } from '../Button'
 import { Avatar } from '../Avatar'
+import { Chip, ChipGroup } from '../Chip'
+import { Counter } from '../Counter'
 
 // ---------------------------------------------------------------------------
 
@@ -165,7 +167,10 @@ export const DetailPanel: Story = {
 
 export const Notifications: Story = {
   render: () => {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen]       = useState(false)
+    const [activeFilter, setActiveFilter] = useState('All')
+
+    const filters = ['All', 'Unread', 'HR', 'Finance']
 
     const notifications = [
       { id: '1', title: 'Leave request approved', message: 'Your 3-day leave request for 15–17 April has been approved by Alex Chen.', timestamp: '5m ago', unread: true },
@@ -178,7 +183,8 @@ export const Notifications: Story = {
       <>
         <div style={{ padding: '24px' }}>
           <Button onClick={() => setOpen(true)} iconStart={<Bell size={16} />}>
-            Notifications <span style={{ background: 'var(--bg-negative)', color: '#fff', borderRadius: '999px', padding: '1px 6px', fontSize: '11px', marginLeft: '4px' }}>2</span>
+            Notifications
+            <Counter count={2} color="negative" size="small" />
           </Button>
         </div>
 
@@ -190,19 +196,18 @@ export const Notifications: Story = {
             }
           />
           <DrawerTools>
-            <div style={{ display: 'flex', gap: '8px' }}>
-              {['All', 'Unread', 'HR', 'Finance'].map(label => (
-                <button key={label} style={{
-                  all: 'unset', boxSizing: 'border-box', padding: '4px 12px',
-                  borderRadius: '999px', border: '1px solid var(--border-default)',
-                  fontSize: '14px', cursor: 'pointer', background: label === 'All' ? 'var(--bg-primary-softest)' : 'transparent',
-                  color: label === 'All' ? 'var(--color-primary-loud)' : 'var(--text)',
-                  fontFamily: 'var(--font-family-base)',
-                }}>
-                  {label}
-                </button>
+            <ChipGroup aria-label="Filter notifications">
+              {filters.map(label => (
+                <Chip
+                  key={label}
+                  variant="selectable"
+                  label={label}
+                  size="small"
+                  selected={activeFilter === label}
+                  onChange={() => setActiveFilter(label)}
+                />
               ))}
-            </div>
+            </ChipGroup>
           </DrawerTools>
           <DrawerContent>
             <DrawerSection>
@@ -237,6 +242,12 @@ export const FilterPanel: Story = {
   name: 'Filter Panel',
   render: () => {
     const [open, setOpen] = useState(false)
+    const [activeFilters, setActiveFilters] = useState<string[]>([])
+
+    const toggleFilter = (label: string) =>
+      setActiveFilters(prev =>
+        prev.includes(label) ? prev.filter(f => f !== label) : [...prev, label]
+      )
 
     return (
       <>
@@ -249,16 +260,18 @@ export const FilterPanel: Story = {
         <Drawer open={open} onClose={() => setOpen(false)} side="right" size="small">
           <DrawerHeader title="Filters" description="Narrow down your results" />
           <DrawerTools>
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            <ChipGroup aria-label="Filter by status">
               {['Active', 'Draft', 'Archived'].map(label => (
-                <button key={label} style={{
-                  all: 'unset', boxSizing: 'border-box', padding: '4px 10px',
-                  borderRadius: '999px', border: '1px solid var(--border-default)',
-                  fontSize: '13px', cursor: 'pointer', fontFamily: 'var(--font-family-base)',
-                  color: 'var(--text)',
-                }}>{label}</button>
+                <Chip
+                  key={label}
+                  variant="selectable"
+                  label={label}
+                  size="small"
+                  selected={activeFilters.includes(label)}
+                  onChange={() => toggleFilter(label)}
+                />
               ))}
-            </div>
+            </ChipGroup>
           </DrawerTools>
           <DrawerContent>
             <DrawerSection title="Department">
