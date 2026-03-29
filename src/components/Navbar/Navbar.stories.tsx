@@ -20,6 +20,7 @@ import {
 } from 'lucide-react'
 import { Navbar } from './Navbar'
 import type { NavbarProps, NavItem, UserMenuItem } from './Navbar'
+import { Unit4Logo } from '../../assets/Unit4Logo'
 
 // ---------------------------------------------------------------------------
 
@@ -61,6 +62,7 @@ const defaultUserMenuItems: UserMenuItem[] = [
 
 export const Default: Story = {
   args: {
+    logo:          <Unit4Logo />,
     productName:   'ERPx',
     userName:      'Alex Johnson',
     userMenuItems: defaultUserMenuItems,
@@ -78,6 +80,7 @@ export const Default: Story = {
 export const WithTenantBadge: Story = {
   name: 'With Tenant Badge',
   args: {
+    logo:          <Unit4Logo />,
     productName:   'ERPx',
     tenantLabel:   'Staging',
     tenantColor:   'notice',
@@ -97,6 +100,7 @@ export const WithTenantBadge: Story = {
 export const WithCounters: Story = {
   name: 'With Counters',
   args: {
+    logo:          <Unit4Logo />,
     productName:   'ERPx',
     tenantLabel:   'Redrock',
     tenantColor:   'notice',
@@ -130,6 +134,7 @@ export const SelectedState: Story = {
 
     return (
       <Navbar
+        logo={<Unit4Logo />}
         productName="ERPx"
         userName="Alex Johnson"
         userMenuItems={defaultUserMenuItems}
@@ -168,6 +173,7 @@ export const WithContextualNav: Story = {
 
     return (
       <Navbar
+        logo={<Unit4Logo />}
         productName="ERPx"
         tenantLabel="Redrock"
         userName="Alex Johnson"
@@ -209,6 +215,7 @@ export const WithOverflowMenu: Story = {
 
     return (
       <Navbar
+        logo={<Unit4Logo />}
         productName="ERPx"
         tenantLabel="Redrock"
         userName="Alex Johnson"
@@ -236,6 +243,7 @@ export const WithOverflowMenu: Story = {
 export const WithDisabledItems: Story = {
   name: 'With Disabled Items',
   args: {
+    logo:          <Unit4Logo />,
     productName:   'ERPx',
     userName:      'Alex Johnson',
     userMenuItems: defaultUserMenuItems,
@@ -255,6 +263,7 @@ export const WithDisabledItems: Story = {
 export const TenantTruncation: Story = {
   name: 'Tenant Label Truncation',
   args: {
+    logo:          <Unit4Logo />,
     productName:   'ERPx',
     tenantLabel:   'Staging-EU-West',
     tenantColor:   'negative',
@@ -274,6 +283,7 @@ export const TenantTruncation: Story = {
 export const WithLogoClick: Story = {
   name: 'Interactive Logo',
   args: {
+    logo:          <Unit4Logo />,
     productName:   'ERPx',
     userName:      'Alex Johnson',
     userMenuItems: defaultUserMenuItems,
@@ -297,6 +307,7 @@ export const FullExample: Story = {
 
     return (
       <Navbar
+        logo={<Unit4Logo />}
         productName="ERPx"
         tenantLabel="Redrock"
         tenantColor="notice"
