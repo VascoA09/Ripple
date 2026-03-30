@@ -11,9 +11,9 @@ import {
   FileText,
   Calendar,
   HelpCircle,
+  Info,
   LogOut,
   User,
-  Star,
   Inbox,
   Layout,
   Grid,
@@ -50,10 +50,10 @@ type Story = StoryObj<NavbarProps>
 // ---------------------------------------------------------------------------
 
 const defaultUserMenuItems: UserMenuItem[] = [
-  { id: 'profile',  label: 'Your profile', icon: <User size={16} /> },
-  { id: 'help',     label: 'Help',         icon: <HelpCircle size={16} /> },
-  { id: 'about',    label: 'About',        icon: <Star size={16} /> },
-  { id: 'logout',   label: 'Log out',      icon: <LogOut size={16} />, separator: true },
+  { id: 'about',   label: 'About',        icon: <Info size={16} /> },
+  { id: 'help',    label: 'Help',         icon: <HelpCircle size={16} /> },
+  { id: 'profile', label: 'Your profile', icon: <User size={16} /> },
+  { id: 'logout',  label: 'Log out',      icon: <LogOut size={16} />, separator: true },
 ]
 
 // ---------------------------------------------------------------------------
@@ -62,10 +62,12 @@ const defaultUserMenuItems: UserMenuItem[] = [
 
 export const Default: Story = {
   args: {
-    logo:          <Unit4Logo />,
-    productName:   'ERPx',
-    userName:      'Alex Johnson',
-    userMenuItems: defaultUserMenuItems,
+    logo:            <Unit4Logo />,
+    productName:     'ERPx',
+    userName:        'Alex Johnson',
+    userRole:        'Finance Manager',
+    userProductArea: 'Finance',
+    userMenuItems:   defaultUserMenuItems,
     globalNavItems: [
       { id: 'home',     label: 'Home',     icon: <Home size={20} /> },
       { id: 'settings', label: 'Settings', icon: <Settings size={20} /> },
@@ -80,12 +82,14 @@ export const Default: Story = {
 export const WithTenantBadge: Story = {
   name: 'With Tenant Badge',
   args: {
-    logo:          <Unit4Logo />,
-    productName:   'ERPx',
-    tenantLabel:   'Staging',
-    tenantColor:   'notice',
-    userName:      'Alex Johnson',
-    userMenuItems: defaultUserMenuItems,
+    logo:            <Unit4Logo />,
+    productName:     'ERPx',
+    tenantLabel:     'Staging',
+    tenantColor:     'notice',
+    userName:        'Alex Johnson',
+    userRole:        'Finance Manager',
+    userProductArea: 'Finance',
+    userMenuItems:   defaultUserMenuItems,
     globalNavItems: [
       { id: 'home',     label: 'Home',     icon: <Home size={20} /> },
       { id: 'settings', label: 'Settings', icon: <Settings size={20} /> },
@@ -100,17 +104,19 @@ export const WithTenantBadge: Story = {
 export const WithCounters: Story = {
   name: 'With Counters',
   args: {
-    logo:          <Unit4Logo />,
-    productName:   'ERPx',
-    tenantLabel:   'Redrock',
-    tenantColor:   'notice',
-    userName:      'Alex Johnson',
-    userMenuItems: defaultUserMenuItems,
+    logo:            <Unit4Logo />,
+    productName:     'ERPx',
+    tenantLabel:     'Redrock',
+    tenantColor:     'notice',
+    userName:        'Alex Johnson',
+    userRole:        'Finance Manager',
+    userProductArea: 'Finance',
+    userMenuItems:   defaultUserMenuItems,
     globalNavItems: [
       { id: 'home',          label: 'Home',          icon: <Home size={20} /> },
-      { id: 'notifications', label: 'Notifications', icon: <Bell size={20} />,          count: 4,   countColor: 'negative' },
-      { id: 'messages',      label: 'Messages',      icon: <MessageSquare size={20} />, count: 12,  countColor: 'primary' },
-      { id: 'inbox',         label: 'Inbox',         icon: <Inbox size={20} />,         count: 103, countColor: 'notice' },
+      { id: 'notifications', label: 'Notifications', icon: <Bell size={20} />,          count: 4 },
+      { id: 'messages',      label: 'Messages',      icon: <MessageSquare size={20} />, count: 12 },
+      { id: 'inbox',         label: 'Inbox',         icon: <Inbox size={20} />,         count: 103 },
       { id: 'settings',      label: 'Settings',      icon: <Settings size={20} /> },
     ],
   },
@@ -137,6 +143,8 @@ export const SelectedState: Story = {
         logo={<Unit4Logo />}
         productName="ERPx"
         userName="Alex Johnson"
+        userRole="Finance Manager"
+        userProductArea="Finance"
         userMenuItems={defaultUserMenuItems}
         globalNavItems={items.map(item => ({
           ...item,
@@ -177,6 +185,8 @@ export const WithContextualNav: Story = {
         productName="ERPx"
         tenantLabel="Redrock"
         userName="Alex Johnson"
+        userRole="Finance Manager"
+        userProductArea="Finance"
         userMenuItems={defaultUserMenuItems}
         showContextualDivider
         globalNavItems={globalItems.map(item => ({
@@ -219,6 +229,8 @@ export const WithOverflowMenu: Story = {
         productName="ERPx"
         tenantLabel="Redrock"
         userName="Alex Johnson"
+        userRole="Finance Manager"
+        userProductArea="Finance"
         userMenuItems={defaultUserMenuItems}
         showContextualDivider
         globalNavItems={[
@@ -243,14 +255,16 @@ export const WithOverflowMenu: Story = {
 export const WithDisabledItems: Story = {
   name: 'With Disabled Items',
   args: {
-    logo:          <Unit4Logo />,
-    productName:   'ERPx',
-    userName:      'Alex Johnson',
-    userMenuItems: defaultUserMenuItems,
+    logo:            <Unit4Logo />,
+    productName:     'ERPx',
+    userName:        'Alex Johnson',
+    userRole:        'Finance Manager',
+    userProductArea: 'Finance',
+    userMenuItems:   defaultUserMenuItems,
     globalNavItems: [
       { id: 'home',          label: 'Home',          icon: <Home size={20} /> },
       { id: 'notifications', label: 'Notifications', icon: <Bell size={20} />, disabled: true },
-      { id: 'messages',      label: 'Messages',      icon: <MessageSquare size={20} />, disabled: true, count: 3, countColor: 'primary' },
+      { id: 'messages',      label: 'Messages',      icon: <MessageSquare size={20} />, disabled: true, count: 3 },
       { id: 'settings',      label: 'Settings',      icon: <Settings size={20} /> },
     ],
   },
@@ -263,12 +277,14 @@ export const WithDisabledItems: Story = {
 export const TenantTruncation: Story = {
   name: 'Tenant Label Truncation',
   args: {
-    logo:          <Unit4Logo />,
-    productName:   'ERPx',
-    tenantLabel:   'Staging-EU-West',
-    tenantColor:   'negative',
-    userName:      'Alex Johnson',
-    userMenuItems: defaultUserMenuItems,
+    logo:            <Unit4Logo />,
+    productName:     'ERPx',
+    tenantLabel:     'Staging-EU-West',
+    tenantColor:     'negative',
+    userName:        'Alex Johnson',
+    userRole:        'Finance Manager',
+    userProductArea: 'Finance',
+    userMenuItems:   defaultUserMenuItems,
     globalNavItems: [
       { id: 'home',     label: 'Home',     icon: <Home size={20} /> },
       { id: 'settings', label: 'Settings', icon: <Settings size={20} /> },
@@ -283,11 +299,13 @@ export const TenantTruncation: Story = {
 export const WithLogoClick: Story = {
   name: 'Interactive Logo',
   args: {
-    logo:          <Unit4Logo />,
-    productName:   'ERPx',
-    userName:      'Alex Johnson',
-    userMenuItems: defaultUserMenuItems,
-    onLogoClick:   () => alert('Navigate to home'),
+    logo:            <Unit4Logo />,
+    productName:     'ERPx',
+    userName:        'Alex Johnson',
+    userRole:        'Finance Manager',
+    userProductArea: 'Finance',
+    userMenuItems:   defaultUserMenuItems,
+    onLogoClick:     () => alert('Navigate to home'),
     globalNavItems: [
       { id: 'home',     label: 'Home',     icon: <Home size={20} /> },
       { id: 'settings', label: 'Settings', icon: <Settings size={20} /> },
@@ -312,6 +330,8 @@ export const FullExample: Story = {
         tenantLabel="Redrock"
         tenantColor="notice"
         onLogoClick={() => setActiveGlobal('home')}
+        userRole="Finance Manager"
+        userProductArea="Finance"
         userName="Alex Johnson"
         userMenuItems={defaultUserMenuItems}
         showContextualDivider

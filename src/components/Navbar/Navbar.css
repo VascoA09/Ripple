@@ -136,63 +136,29 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Nav button
+   Nav item — wrapper that positions the counter badge over the IconButton
    --------------------------------------------------------------------------- */
 
-.navbar__nav-btn {
-  --_bg:           transparent;
-  --_color:        var(--text);
-  --_opacity:      1;
-
-  position:         relative;
-  display:          flex;
-  align-items:      center;
-  justify-content:  center;
-  width:            40px;
-  height:           40px;
-  border-radius:    var(--border-radius-150);  /* 8px */
-  border:           none;
-  background:       var(--_bg);
-  color:            var(--_color);
-  opacity:          var(--_opacity);
-  cursor:           pointer;
-  padding:          0;
-  flex-shrink:      0;
-  outline:          none;
-  transition:       background 120ms ease, color 120ms ease;
+.navbar__nav-item {
+  position: relative;
+  display:  flex;
 }
 
-.navbar__nav-btn:hover {
-  --_bg: var(--bg-neutral-softest);
-}
+/* ---------------------------------------------------------------------------
+   Nav button — selected state override on top of IconButton ghost/neutral
+   Uses 4-class specificity (.navbar .navbar__nav-btn.button[data-selected])
+   to beat ghost/neutral's 3-class specificity (.button[data-v][data-c])
+   --------------------------------------------------------------------------- */
 
-.navbar__nav-btn:active {
-  --_bg: var(--bg-neutral-soft);
-}
-
-.navbar__nav-btn:focus-visible {
-  outline:        2px solid var(--border-focus);
-  outline-offset: 2px;
-}
-
-.navbar__nav-btn[data-selected] {
-  --_bg:    var(--bg-primary-soft);
-  --_color: var(--color-primary-loud);
-}
-
-.navbar__nav-btn:disabled {
-  --_opacity: 0.4;
-  --_color:   var(--text-disabled);
-  cursor:     not-allowed;
-  pointer-events: none;
-}
-
-.navbar__nav-btn-icon {
-  display:         flex;
-  align-items:     center;
-  justify-content: center;
-  width:           20px;
-  height:          20px;
+.navbar .navbar__nav-btn.button[data-selected],
+.navbar .navbar__nav-btn.button[data-selected]:hover:not(:disabled),
+.navbar .navbar__nav-btn.button[data-selected]:active:not(:disabled) {
+  --_bg:        var(--bg-primary-soft);
+  --_bg-hover:  var(--bg-primary-soft);
+  --_bg-active: var(--bg-primary-soft);
+  --_color:     var(--color-primary-loud);
+  background:   var(--bg-primary-soft);
+  color:        var(--color-primary-loud);
 }
 
 /* ---------------------------------------------------------------------------
@@ -250,4 +216,31 @@
   outline:        2px solid var(--border-focus);
   outline-offset: 2px;
   border-radius:  50%;
+}
+
+/* ---------------------------------------------------------------------------
+   User flyout header — non-interactive profile section above the divider
+   --------------------------------------------------------------------------- */
+
+.navbar__user-header {
+  display:        flex;
+  flex-direction: column;
+  gap:            2px;
+  padding:        var(--spacing-50) var(--spacing-75); /* 8px 12px — matches flyout-menu-item */
+}
+
+.navbar__user-name {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-100);   /* 16px */
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-loud);
+}
+
+.navbar__user-subtitle {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);    /* 14px */
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-soft);
 }

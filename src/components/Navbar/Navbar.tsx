@@ -3,12 +3,12 @@ import { MoreHorizontal } from 'lucide-react'
 import { Avatar } from '../Avatar'
 import { Badge } from '../Badge'
 import { Counter } from '../Counter'
+import { IconButton } from '../IconButton'
 import { Tooltip } from '../Tooltip'
 import {
   FlyoutMenu,
   FlyoutMenuTrigger,
   FlyoutMenuContent,
-  FlyoutMenuLabel,
   FlyoutMenuItem,
   FlyoutMenuSeparator,
 } from '../FlyoutMenu'
@@ -18,8 +18,7 @@ import './Navbar.css'
 // Types
 // ---------------------------------------------------------------------------
 
-export type CounterColor = 'primary' | 'notice' | 'negative' | 'positive' | 'neutral'
-export type BadgeColor   = 'primary' | 'notice' | 'negative' | 'positive' | 'neutral'
+export type BadgeColor = 'primary' | 'notice' | 'negative' | 'positive' | 'neutral'
 
 export interface NavItem {
   /** Unique key */
@@ -28,10 +27,8 @@ export interface NavItem {
   icon: ReactNode
   /** Accessible label + tooltip text */
   label: string
-  /** Counter value — shown when > 0 */
+  /** Counter value — shown when > 0, always renders in negative (red) color */
   count?: number
-  /** Counter color variant */
-  countColor?: CounterColor
   /** Click handler */
   onClick?: () => void
   /** True when the associated drawer is open */
@@ -69,6 +66,10 @@ export interface NavbarProps {
   showContextualDivider?: boolean
   /** User's full name — used for avatar initials and user menu header */
   userName?: string
+  /** User's role title (e.g. "Finance Manager") */
+  userRole?: string
+  /** User's product area (e.g. "Finance") */
+  userProductArea?: string
   /** Image URL for the user avatar */
   userAvatarSrc?: string
   /** Items in the user menu flyout */
@@ -91,33 +92,33 @@ function NavButton({ item }: NavButtonProps) {
     : item.label
 
   return (
-    <Tooltip content={ariaLabel} placement="right">
-      <button
-        type="button"
-        className="navbar__nav-btn"
-        aria-label={ariaLabel}
-        aria-pressed={item.selected ?? false}
-        disabled={item.disabled}
-        aria-disabled={item.disabled}
-        onClick={item.onClick}
-        data-selected={item.selected ? '' : undefined}
-      >
-        <span className="navbar__nav-btn-icon" aria-hidden="true">
-          {item.icon}
-        </span>
+    <div className="navbar__nav-item">
+      <Tooltip content={ariaLabel} placement="right">
+        <IconButton
+          variant="ghost"
+          color="neutral"
+          size="m"
+          icon={item.icon}
+          aria-label={ariaLabel}
+          aria-pressed={item.selected ?? false}
+          disabled={item.disabled}
+          onClick={item.onClick}
+          data-selected={item.selected ? '' : undefined}
+          className="navbar__nav-btn"
+        />
+      </Tooltip>
 
-        {item.count !== undefined && item.count > 0 && (
-          <Counter
-            count={item.count}
-            size="small"
-            variant="fill"
-            color={item.countColor ?? 'primary'}
-            aria-hidden="true"
-            className="navbar__counter"
-          />
-        )}
-      </button>
-    </Tooltip>
+      {item.count !== undefined && item.count > 0 && (
+        <Counter
+          count={item.count}
+          size="small"
+          variant="fill"
+          color="negative"
+          aria-hidden={true}
+          className="navbar__counter"
+        />
+      )}
+    </div>
   )
 }
 
@@ -135,6 +136,8 @@ export function Navbar({
   contextualNavItems = [],
   showContextualDivider = true,
   userName = 'User',
+  userRole,
+  userProductArea,
   userAvatarSrc,
   userMenuItems = [],
   className,
@@ -186,7 +189,7 @@ export function Navbar({
       {tenantLabel && (
         <div className="navbar__tenant">
           <Badge
-            variant="fill"
+            variant="outline"
             size="small"
             color={tenantColor}
             className="navbar__tenant-badge"
@@ -291,7 +294,17 @@ export function Navbar({
           </Tooltip>
 
           <FlyoutMenuContent side="right" align="end" sideOffset={12}>
-            <FlyoutMenuLabel>{userName}</FlyoutMenuLabel>
+            {/* Non-interactive user profile header */}
+            <div className="navbar__user-header" role="presentation">
+              <span className="navbar__user-name">{userName}</span>
+              {(userRole || userProductArea) && (
+                <span className="navbar__user-subtitle">
+                  {[userRole, userProductArea].filter(Boolean).join(' · ')}
+                </span>
+              )}
+            </div>
+
+            <FlyoutMenuSeparator />
 
             {userMenuItems.map(item => (
               <span key={item.id}>

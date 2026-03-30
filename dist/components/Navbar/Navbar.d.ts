@@ -1,6 +1,5 @@
 import { CSSProperties, ReactNode } from 'react';
 
-export type CounterColor = 'primary' | 'notice' | 'negative' | 'positive' | 'neutral';
 export type BadgeColor = 'primary' | 'notice' | 'negative' | 'positive' | 'neutral';
 export interface NavItem {
     /** Unique key */
@@ -9,10 +8,8 @@ export interface NavItem {
     icon: ReactNode;
     /** Accessible label + tooltip text */
     label: string;
-    /** Counter value — shown when > 0 */
+    /** Counter value — shown when > 0, always renders in negative (red) color */
     count?: number;
-    /** Counter color variant */
-    countColor?: CounterColor;
     /** Click handler */
     onClick?: () => void;
     /** True when the associated drawer is open */
@@ -48,6 +45,10 @@ export interface NavbarProps {
     showContextualDivider?: boolean;
     /** User's full name — used for avatar initials and user menu header */
     userName?: string;
+    /** User's role title (e.g. "Finance Manager") */
+    userRole?: string;
+    /** User's product area (e.g. "Finance") */
+    userProductArea?: string;
     /** Image URL for the user avatar */
     userAvatarSrc?: string;
     /** Items in the user menu flyout */
@@ -55,4 +56,4 @@ export interface NavbarProps {
     className?: string;
     style?: CSSProperties;
 }
-export declare function Navbar({ logo, productName, onLogoClick, tenantLabel, tenantColor, globalNavItems, contextualNavItems, showContextualDivider, userName, userAvatarSrc, userMenuItems, className, style, }: NavbarProps): import("react/jsx-runtime").JSX.Element;
+export declare function Navbar({ logo, productName, onLogoClick, tenantLabel, tenantColor, globalNavItems, contextualNavItems, showContextualDivider, userName, userRole, userProductArea, userAvatarSrc, userMenuItems, className, style, }: NavbarProps): import("react/jsx-runtime").JSX.Element;
