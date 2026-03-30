@@ -46,6 +46,8 @@ export interface MainNavigationProps {
     contextualNavItems?: MainNavItem[];
     showContextualDivider?: boolean;
     userName?: string;
+    userRole?: string;
+    userProductArea?: string;
     userAvatarSrc?: string;
     userMenuItems?: UserMenuItem[];
     /** Drawer panel definitions. Each must have an `id` matching a nav item's `drawerId`. */
@@ -77,4 +79,4 @@ export interface MainNavigationProps {
  * Drawer wiring: nav items with a `drawerId` automatically receive
  * `selected` state and `onClick` toggle behaviour.
  */
-export declare function MainNavigation({ logo, productName, onLogoClick, tenantLabel, tenantColor, globalNavItems, contextualNavItems, showContextualDivider, userName, userAvatarSrc, userMenuItems, drawers, openDrawerId: controlledId, onDrawerChange, children, className, }: MainNavigationProps): import("react/jsx-runtime").JSX.Element;
+export declare function MainNavigation({ logo, productName, onLogoClick, tenantLabel, tenantColor, globalNavItems, contextualNavItems, showContextualDivider, userName, userRole, userProductArea, userAvatarSrc, userMenuItems, drawers, openDrawerId: controlledId, onDrawerChange, children, className, }: MainNavigationProps): import("react/jsx-runtime").JSX.Element;

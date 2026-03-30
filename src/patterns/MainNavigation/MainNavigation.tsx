@@ -56,6 +56,8 @@ export interface MainNavigationProps {
   contextualNavItems?: MainNavItem[]
   showContextualDivider?: boolean
   userName?: string
+  userRole?: string
+  userProductArea?: string
   userAvatarSrc?: string
   userMenuItems?: UserMenuItem[]
 
@@ -108,6 +110,8 @@ export function MainNavigation({
   contextualNavItems = [],
   showContextualDivider,
   userName,
+  userRole,
+  userProductArea,
   userAvatarSrc,
   userMenuItems,
   drawers = [],
@@ -166,6 +170,8 @@ export function MainNavigation({
         contextualNavItems={wiredContextual}
         showContextualDivider={showContextualDivider}
         userName={userName}
+        userRole={userRole}
+        userProductArea={userProductArea}
         userAvatarSrc={userAvatarSrc}
         userMenuItems={userMenuItems}
       />

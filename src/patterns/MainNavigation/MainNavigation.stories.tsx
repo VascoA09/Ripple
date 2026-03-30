@@ -10,11 +10,13 @@ import {
   FileText,
   Grid,
   HelpCircle,
+  Info,
   LayoutDashboard,
   LogOut,
   Search,
   Settings,
   ShoppingCart,
+  User,
   Users,
 } from 'lucide-react'
 import { MainNavigation } from './MainNavigation'
@@ -30,6 +32,7 @@ import {
 } from '../../components/Drawer'
 import { TextInput } from '../../components/TextInput'
 import { Avatar } from '../../components/Avatar'
+import { Unit4Logo } from '../../assets/Unit4Logo'
 
 // ---------------------------------------------------------------------------
 
@@ -47,10 +50,10 @@ type Story = StoryObj<MainNavigationProps>
 // ---------------------------------------------------------------------------
 
 const USER_MENU = [
-  { id: 'profile',   label: 'My profile',      icon: <Users size={14} /> },
-  { id: 'settings',  label: 'Settings',        icon: <Settings size={14} /> },
-  { id: 'help',      label: 'Help & support',  icon: <HelpCircle size={14} /> },
-  { id: 'signout',   label: 'Sign out',        icon: <LogOut size={14} />, separator: true },
+  { id: 'about',   label: 'About',        icon: <Info size={14} /> },
+  { id: 'help',    label: 'Help',         icon: <HelpCircle size={14} /> },
+  { id: 'profile', label: 'Your profile', icon: <User size={14} /> },
+  { id: 'logout',  label: 'Log out',      icon: <LogOut size={14} />, separator: true },
 ]
 
 // ---------------------------------------------------------------------------
@@ -251,10 +254,11 @@ export const UtilitiesBar: Story = {
 
     return (
       <MainNavigation
+        logo={<Unit4Logo />}
         productName="ERPx"
         globalNavItems={[
-          { id: 'search',        icon: <Search size={20} />,       label: 'Search',        drawerId: 'search' },
-          { id: 'notifications', icon: <Bell size={20} />,         label: 'Notifications', drawerId: 'notifications', count: 2, countColor: 'negative' },
+          { id: 'search',        icon: <Search size={20} />,   label: 'Search',        drawerId: 'search' },
+          { id: 'notifications', icon: <Bell size={20} />,     label: 'Notifications', drawerId: 'notifications', count: 2 },
         ]}
         contextualNavItems={[
           { id: 'dashboard', icon: <LayoutDashboard size={20} />, label: 'Dashboard',  selected: page === 'dashboard',  onClick: () => setPage('dashboard') },
@@ -265,6 +269,8 @@ export const UtilitiesBar: Story = {
         ]}
         showContextualDivider
         userName="Vasco Antunes"
+        userRole="Finance Manager"
+        userProductArea="Finance"
         userMenuItems={USER_MENU}
         drawers={[
           {
@@ -299,11 +305,14 @@ export const PersistentNavigation: Story = {
 
     return (
       <MainNavigation
+        logo={<Unit4Logo />}
         productName="ERPx"
         globalNavItems={[
           { id: 'nav', icon: <Grid size={20} />, label: 'Finance navigation', drawerId: 'nav' },
         ]}
         userName="Vasco Antunes"
+        userRole="Finance Manager"
+        userProductArea="Finance"
         userMenuItems={USER_MENU}
         drawers={[
           {
@@ -337,16 +346,17 @@ export const FullEnterpriseShell: Story = {
 
     return (
       <MainNavigation
+        logo={<Unit4Logo />}
         productName="ERPx"
         tenantLabel="Demo"
         tenantColor="notice"
         globalNavItems={[
-          { id: 'nav',           icon: <Grid size={20} />,    label: 'Finance navigation', drawerId: 'nav' },
-          { id: 'search',        icon: <Search size={20} />,  label: 'Search',             drawerId: 'search' },
-          { id: 'notifications', icon: <Bell size={20} />,    label: 'Notifications',      drawerId: 'notifications', count: 2, countColor: 'negative' },
+          { id: 'nav',           icon: <Grid size={20} />,   label: 'Finance navigation', drawerId: 'nav' },
+          { id: 'search',        icon: <Search size={20} />, label: 'Search',             drawerId: 'search' },
+          { id: 'notifications', icon: <Bell size={20} />,   label: 'Notifications',      drawerId: 'notifications', count: 2 },
         ]}
         contextualNavItems={[
-          { id: 'finance',      icon: <DollarSign size={20} />,  label: 'Finance',      selected: true },
+          { id: 'finance',      icon: <DollarSign size={20} />,   label: 'Finance',     selected: true },
           { id: 'procurement',  icon: <ShoppingCart size={20} />, label: 'Procurement'  },
           { id: 'hr',           icon: <Users size={20} />,        label: 'HR'           },
           { id: 'reports',      icon: <BarChart2 size={20} />,    label: 'Reports'      },
@@ -354,6 +364,8 @@ export const FullEnterpriseShell: Story = {
         ]}
         showContextualDivider
         userName="Vasco Antunes"
+        userRole="Finance Manager"
+        userProductArea="Finance"
         userMenuItems={USER_MENU}
         drawers={[
           {
