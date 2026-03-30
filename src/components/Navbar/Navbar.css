@@ -99,12 +99,11 @@
   box-sizing:    border-box;
 }
 
-/* Higher specificity (2 classes) overrides .badge's inline-flex (1 class).
-   block-level flex fills the 48px content area; text truncates via .badge__label */
+/* border-box makes max-width include padding, so total width stays within
+   the parent container. Higher specificity (2 classes) beats .badge (1 class). */
 .navbar .navbar__tenant-badge {
-  display:   flex;
-  width:     100%;
-  max-width: none;
+  box-sizing: border-box;
+  max-width:  100%;
 }
 
 /* ---------------------------------------------------------------------------
