@@ -293,27 +293,6 @@ export const TenantTruncation: Story = {
 }
 
 // ---------------------------------------------------------------------------
-// Interactive logo
-// ---------------------------------------------------------------------------
-
-export const WithLogoClick: Story = {
-  name: 'Interactive Logo',
-  args: {
-    logo:            <Unit4Logo />,
-    productName:     'ERPx',
-    userName:        'Alex Johnson',
-    userRole:        'Finance Manager',
-    userProductArea: 'Finance',
-    userMenuItems:   defaultUserMenuItems,
-    onLogoClick:     () => alert('Navigate to home'),
-    globalNavItems: [
-      { id: 'home',     label: 'Home',     icon: <Home size={20} /> },
-      { id: 'settings', label: 'Settings', icon: <Settings size={20} /> },
-    ],
-  },
-}
-
-// ---------------------------------------------------------------------------
 // Full example — everything enabled
 // ---------------------------------------------------------------------------
 

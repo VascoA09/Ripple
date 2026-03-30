@@ -100,11 +100,7 @@
 }
 
 .navbar__tenant-badge {
-  max-width:    52px;
-  overflow:     hidden;
-  text-overflow: ellipsis;
-  white-space:  nowrap;
-  display:      block;
+  max-width: 52px; /* badge truncates internally via .badge__label */
 }
 
 /* ---------------------------------------------------------------------------
@@ -150,15 +146,14 @@
    to beat ghost/neutral's 3-class specificity (.button[data-v][data-c])
    --------------------------------------------------------------------------- */
 
+/* Selected = ghost/neutral active state (bg-neutral, unchanged color) */
 .navbar .navbar__nav-btn.button[data-selected],
 .navbar .navbar__nav-btn.button[data-selected]:hover:not(:disabled),
 .navbar .navbar__nav-btn.button[data-selected]:active:not(:disabled) {
-  --_bg:        var(--bg-primary-soft);
-  --_bg-hover:  var(--bg-primary-soft);
-  --_bg-active: var(--bg-primary-soft);
-  --_color:     var(--color-primary-loud);
-  background:   var(--bg-primary-soft);
-  color:        var(--color-primary-loud);
+  --_bg:        var(--bg-neutral);
+  --_bg-hover:  var(--bg-neutral);
+  --_bg-active: var(--bg-neutral);
+  background:   var(--bg-neutral);
 }
 
 /* ---------------------------------------------------------------------------

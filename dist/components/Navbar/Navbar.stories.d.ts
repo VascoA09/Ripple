@@ -12,5 +12,4 @@ export declare const WithContextualNav: Story;
 export declare const WithOverflowMenu: Story;
 export declare const WithDisabledItems: Story;
 export declare const TenantTruncation: Story;
-export declare const WithLogoClick: Story;
 export declare const FullExample: Story;

@@ -228,19 +228,20 @@ export function Navbar({
             {hasOverflow && (
               <li>
                 <FlyoutMenu>
-                  <Tooltip content="More" placement="right">
-                    <FlyoutMenuTrigger asChild>
-                      <button
-                        type="button"
-                        className="navbar__nav-btn"
-                        aria-label="More navigation items"
-                      >
-                        <span className="navbar__nav-btn-icon" aria-hidden="true">
-                          <MoreHorizontal size={20} />
-                        </span>
-                      </button>
-                    </FlyoutMenuTrigger>
-                  </Tooltip>
+                  <div className="navbar__nav-item">
+                    <Tooltip content="More" placement="right">
+                      <FlyoutMenuTrigger asChild>
+                        <IconButton
+                          variant="ghost"
+                          color="neutral"
+                          size="m"
+                          icon={<MoreHorizontal size={20} />}
+                          aria-label="More navigation items"
+                          className="navbar__nav-btn"
+                        />
+                      </FlyoutMenuTrigger>
+                    </Tooltip>
+                  </div>
 
                   <FlyoutMenuContent side="right" align="start" sideOffset={12}>
                     {overflowContextual.map(item => (
@@ -260,7 +261,7 @@ export function Navbar({
                             count={item.count}
                             size="small"
                             variant="fill"
-                            color={item.countColor ?? 'primary'}
+                            color="negative"
                             aria-hidden="true"
                             className="navbar__overflow-counter"
                           />
@@ -281,17 +282,15 @@ export function Navbar({
       {/* ── User menu ───────────────────────────────────────────────────── */}
       <div className="navbar__user">
         <FlyoutMenu>
-          <Tooltip content={userName} placement="right">
-            <FlyoutMenuTrigger asChild>
-              <Avatar
-                name={userName}
-                src={userAvatarSrc}
-                size="m"
-                aria-label={`${userName} — open user menu`}
-                className="navbar__avatar-trigger"
-              />
-            </FlyoutMenuTrigger>
-          </Tooltip>
+          <FlyoutMenuTrigger asChild>
+            <Avatar
+              name={userName}
+              src={userAvatarSrc}
+              size="m"
+              aria-label={`${userName} — open user menu`}
+              className="navbar__avatar-trigger"
+            />
+          </FlyoutMenuTrigger>
 
           <FlyoutMenuContent side="right" align="end" sideOffset={12}>
             {/* Non-interactive user profile header */}
