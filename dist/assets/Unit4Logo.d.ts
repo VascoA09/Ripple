@@ -1,7 +1,7 @@
 /**
- * Unit4Logo — the Unit4 "4" brand mark as an inline SVG.
+ * Unit4Logo — the U4 brand symbol as an inline SVG.
  *
- * Renders at 32 × 32 px by default. Pass width/height to override.
+ * Renders at its natural aspect ratio (37 × 21). Pass width or height to scale.
  * Always aria-hidden — the parent element is responsible for an accessible label.
  */
 export declare function Unit4Logo({ width, height, }: {
