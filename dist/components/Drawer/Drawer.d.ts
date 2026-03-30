@@ -2,6 +2,11 @@ import { default as React } from 'react';
 
 export type DrawerSide = 'left' | 'right';
 export type DrawerSize = 'small' | 'medium' | 'large' | 'full';
+export interface DrawerContextValue {
+    onClose: () => void;
+    titleId: string;
+}
+export declare const DrawerContext: React.Context<DrawerContextValue>;
 export interface DrawerProps {
     open: boolean;
     onClose: () => void;

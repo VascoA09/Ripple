@@ -1,6 +1,6 @@
 import { default as React } from 'react';
 import { NavItem, UserMenuItem, BadgeColor } from '../../components/Navbar';
-import { DrawerSize, DrawerSide } from '../../components/Drawer';
+import { DrawerSize } from '../../components/Drawer';
 
 export interface MainNavDrawerDef {
     /** Must match the `drawerId` on the nav item that opens this drawer. */
@@ -12,12 +12,6 @@ export interface MainNavDrawerDef {
     content: React.ReactNode;
     /** Default: 'medium' */
     size?: DrawerSize;
-    /**
-     * Side the modal drawer slides in from. Default: 'right'.
-     * 'left' positions the drawer immediately to the right of the Navbar.
-     * Has no effect on persistent drawers.
-     */
-    side?: DrawerSide;
     /**
      * Persistent drawers render as in-flow panels to the right of the Navbar,
      * pushing the content area. No backdrop. No focus trap.

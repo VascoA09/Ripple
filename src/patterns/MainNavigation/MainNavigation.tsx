@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useId, useState } from 'react'
 import { Navbar } from '../../components/Navbar'
 import type { NavItem, UserMenuItem, BadgeColor } from '../../components/Navbar'
-import { Drawer } from '../../components/Drawer'
-import type { DrawerSize, DrawerSide } from '../../components/Drawer'
+import { Drawer, DrawerContext } from '../../components/Drawer'
+import type { DrawerSize } from '../../components/Drawer'
 import './MainNavigation.css'
 
 // =============================================================================
@@ -19,12 +19,6 @@ export interface MainNavDrawerDef {
   content: React.ReactNode
   /** Default: 'medium' */
   size?: DrawerSize
-  /**
-   * Side the modal drawer slides in from. Default: 'right'.
-   * 'left' positions the drawer immediately to the right of the Navbar.
-   * Has no effect on persistent drawers.
-   */
-  side?: DrawerSide
   /**
    * Persistent drawers render as in-flow panels to the right of the Navbar,
    * pushing the content area. No backdrop. No focus trap.
@@ -120,9 +114,10 @@ export function MainNavigation({
   children,
   className,
 }: MainNavigationProps) {
-  const isControlled = controlledId !== undefined
+  const isControlled      = controlledId !== undefined
   const [internalId, setInternalId] = useState<string | null>(null)
-  const openId = isControlled ? controlledId : internalId
+  const openId            = isControlled ? controlledId : internalId
+  const persistentTitleId = useId()
 
   function setOpenId(id: string | null) {
     if (!isControlled) setInternalId(id)
@@ -178,14 +173,16 @@ export function MainNavigation({
 
       {/* ── Persistent panel — in-flow, pushes content area ─────────────── */}
       {persistentDrawer && (
-        <div
-          className="main-navigation__panel"
-          data-size={persistentDrawer.size ?? 'medium'}
-          role="complementary"
-          aria-label="Navigation panel"
-        >
-          {persistentDrawer.content}
-        </div>
+        <DrawerContext.Provider value={{ onClose: () => setOpenId(null), titleId: persistentTitleId }}>
+          <div
+            className="main-navigation__panel"
+            data-size={persistentDrawer.size ?? 'medium'}
+            role="complementary"
+            aria-labelledby={persistentTitleId}
+          >
+            {persistentDrawer.content}
+          </div>
+        </DrawerContext.Provider>
       )}
 
       {/* ── Content area ────────────────────────────────────────────────── */}
@@ -193,15 +190,15 @@ export function MainNavigation({
         {children}
       </div>
 
-      {/* ── Modal drawers — portal-rendered, always mounted for animations ─ */}
+      {/* ── Modal drawers — always left-side, flush with navbar right edge ── */}
       {modalDrawers.map(d => (
         <Drawer
           key={d.id}
           open={openId === d.id}
           onClose={() => setOpenId(null)}
           size={d.size ?? 'medium'}
-          side={d.side ?? 'right'}
-          className={d.side === 'left' ? 'main-navigation__modal-drawer' : undefined}
+          side="left"
+          className="main-navigation__modal-drawer"
         >
           {d.content}
         </Drawer>

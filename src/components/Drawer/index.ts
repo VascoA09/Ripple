@@ -1,5 +1,6 @@
 export {
   Drawer,
+  DrawerContext,
   DrawerHeader,
   DrawerTools,
   DrawerContent,
@@ -9,12 +10,14 @@ export {
   DrawerListItem,
   DrawerNotificationItem,
   DrawerContextButton,
+  DrawerFooter,
 } from './Drawer'
 
 export type {
   DrawerProps,
   DrawerSide,
   DrawerSize,
+  DrawerContextValue,
   DrawerHeaderProps,
   DrawerToolsProps,
   DrawerContentProps,
@@ -24,4 +27,5 @@ export type {
   DrawerListItemProps,
   DrawerNotificationItemProps,
   DrawerContextButtonProps,
+  DrawerFooterProps,
 } from './Drawer'

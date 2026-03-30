@@ -276,13 +276,11 @@ export const UtilitiesBar: Story = {
           {
             id:      'search',
             size:    'small',
-            side:    'right',
             content: <SearchDrawerContent />,
           },
           {
             id:      'notifications',
             size:    'small',
-            side:    'right',
             content: <NotificationsDrawerContent />,
           },
         ]}
@@ -382,13 +380,11 @@ export const FullEnterpriseShell: Story = {
           {
             id:      'search',
             size:    'small',
-            side:    'right',
             content: <SearchDrawerContent />,
           },
           {
             id:      'notifications',
             size:    'small',
-            side:    'right',
             content: <NotificationsDrawerContent />,
           },
         ]}

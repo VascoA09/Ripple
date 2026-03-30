@@ -16,12 +16,12 @@ export type DrawerSize = 'small' | 'medium' | 'large' | 'full'
 // Context
 // ---------------------------------------------------------------------------
 
-interface DrawerContextValue {
+export interface DrawerContextValue {
   onClose: () => void
   titleId: string
 }
 
-const DrawerContext = createContext<DrawerContextValue>({ onClose: () => {}, titleId: '' })
+export const DrawerContext = createContext<DrawerContextValue>({ onClose: () => {}, titleId: '' })
 const useDrawerContext = () => useContext(DrawerContext)
 
 // ---------------------------------------------------------------------------

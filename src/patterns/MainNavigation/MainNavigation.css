@@ -57,14 +57,11 @@
 
 /* =============================================================================
    MODAL DRAWER OFFSET
-   Left-side modal drawers open at left: 0 (viewport edge) by default,
-   overlapping the 64px Navbar. This class — applied only when side="left" —
-   shifts the panel right so it appears flush with the Navbar's right edge.
-
-   Higher specificity (.drawer.main-navigation__modal-drawer) ensures this
-   override beats the Drawer component's .drawer[data-side="left"] rule.
+   All modal drawers in MainNavigation open from the left, flush with the
+   Navbar's right edge (64 px). The 2-class selector beats the Drawer
+   component's .drawer[data-side="left"] { left: 0 } rule.
    ============================================================================= */
 
-.drawer.main-navigation__modal-drawer[data-side="left"] {
+.drawer.main-navigation__modal-drawer {
   left: 64px;
 }
