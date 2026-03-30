@@ -8691,13 +8691,12 @@ function Ap({
         /* @__PURE__ */ o("div", { className: "navbar__spacer", "aria-hidden": "true" }),
         /* @__PURE__ */ o("div", { className: "navbar__user", children: /* @__PURE__ */ w(De, { children: [
           /* @__PURE__ */ o(Le, { asChild: !0, children: /* @__PURE__ */ o(
-            gf,
+            "button",
             {
-              name: c,
-              src: d,
-              size: "m",
+              type: "button",
+              className: "navbar__avatar-trigger",
               "aria-label": `${c} — open user menu`,
-              className: "navbar__avatar-trigger"
+              children: /* @__PURE__ */ o(gf, { name: c, src: d, size: "m", "aria-hidden": !0 })
             }
           ) }),
           /* @__PURE__ */ w(Be, { side: "right", align: "end", sideOffset: 12, children: [

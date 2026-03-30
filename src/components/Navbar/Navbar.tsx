@@ -283,13 +283,13 @@ export function Navbar({
       <div className="navbar__user">
         <FlyoutMenu>
           <FlyoutMenuTrigger asChild>
-            <Avatar
-              name={userName}
-              src={userAvatarSrc}
-              size="m"
-              aria-label={`${userName} — open user menu`}
+            <button
+              type="button"
               className="navbar__avatar-trigger"
-            />
+              aria-label={`${userName} — open user menu`}
+            >
+              <Avatar name={userName} src={userAvatarSrc} size="m" aria-hidden={true} />
+            </button>
           </FlyoutMenuTrigger>
 
           <FlyoutMenuContent side="right" align="end" sideOffset={12}>

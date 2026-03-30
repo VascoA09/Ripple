@@ -100,7 +100,7 @@
 }
 
 .navbar__tenant-badge {
-  max-width: 52px; /* badge truncates internally via .badge__label */
+  max-width: 100%; /* fills parent container; text truncates via .badge__label */
 }
 
 /* ---------------------------------------------------------------------------
@@ -146,14 +146,17 @@
    to beat ghost/neutral's 3-class specificity (.button[data-v][data-c])
    --------------------------------------------------------------------------- */
 
-/* Selected = ghost/neutral active state (bg-neutral, unchanged color) */
+/* Selected = ghost/neutral active state + white icon */
 .navbar .navbar__nav-btn.button[data-selected],
 .navbar .navbar__nav-btn.button[data-selected]:hover:not(:disabled),
 .navbar .navbar__nav-btn.button[data-selected]:active:not(:disabled) {
-  --_bg:        var(--bg-neutral);
-  --_bg-hover:  var(--bg-neutral);
-  --_bg-active: var(--bg-neutral);
-  background:   var(--bg-neutral);
+  --_bg:           var(--bg-neutral);
+  --_bg-hover:     var(--bg-neutral);
+  --_bg-active:    var(--bg-neutral);
+  --_color:        var(--text-loud-inverse);
+  --_color-active: var(--text-loud-inverse);
+  background:      var(--bg-neutral);
+  color:           var(--text-loud-inverse);
 }
 
 /* ---------------------------------------------------------------------------
@@ -204,13 +207,19 @@
 }
 
 .navbar__avatar-trigger {
-  cursor: pointer;
+  display:     flex;
+  align-items: center;
+  appearance:  none;
+  border:      none;
+  background:  transparent;
+  padding:     0;
+  cursor:      pointer;
+  border-radius: 50%;
 }
 
 .navbar__avatar-trigger:focus-visible {
   outline:        2px solid var(--border-focus);
   outline-offset: 2px;
-  border-radius:  50%;
 }
 
 /* ---------------------------------------------------------------------------
