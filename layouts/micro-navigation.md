@@ -48,6 +48,8 @@ The L-shape navigation forms the structural foundation of the template, consisti
 - **Location:** Left side of the screen, spanning full height
 - **Behavior:** Can be expanded or collapsed to adjust workspace size
 
+> **Contextual navigation is not shown by default.** The Navbar supports two groups of nav items: global items (always present — Search, Hub, Notifications, Client) and contextual items (module-specific, e.g. Finance, People, Reports). Contextual items are omitted from the layout default because they are product and team specific. Consuming applications add them via `contextualNavItems` and set `showContextualDivider: true` to visually separate the two groups.
+
 #### Footer (Horizontal Part of "L")
 - **Tab Bar:** Displays currently open pages as tabs
 - **Location:** Bottom of the screen, spanning full width

@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useId } from 'react'
 import { CheckCircle, AlertCircle, XCircle } from 'lucide-react'
+import { FieldLabel } from '../FieldLabel'
+import { Hint } from '../Hint'
 import './Radio.css'
 
 // ---------------------------------------------------------------------------
@@ -13,11 +15,15 @@ export interface RadioGroupProps {
   value: string
   /** Called with the new value when a radio is selected. */
   onValueChange: (value: string) => void
-  /** Group label rendered as `<legend>`. */
+  /** Group label rendered via FieldLabel inside a <legend>. */
   label?: string
-  /** Supplementary context below the legend. */
+  /** Sub-label below the legend. Forwarded to FieldLabel's description. */
   description?: string
-  /** Helper text below the radio items. */
+  /** Appends "(optional)" to the legend. Mutually exclusive with required. */
+  optional?: boolean
+  /** Help tooltip on the legend. Forwarded to FieldLabel's helpText. */
+  helpText?: string
+  /** Helper text below the legend, rendered via Hint. */
   hint?: string
   /** Validation state applied to the group. */
   validation?: RadioValidation
@@ -127,6 +133,8 @@ export const RadioGroup = React.forwardRef<HTMLFieldSetElement, RadioGroupProps>
       onValueChange,
       label,
       description,
+      optional,
+      helpText,
       hint,
       validation,
       validationMessage,
@@ -164,24 +172,21 @@ export const RadioGroup = React.forwardRef<HTMLFieldSetElement, RadioGroupProps>
         >
           {label && (
             <legend className="radio-group__legend">
-              {label}
-              {required && (
-                <span className="radio-group__required" aria-hidden="true"> *</span>
-              )}
+              <FieldLabel
+                label={label}
+                description={description}
+                required={required}
+                optional={optional}
+                helpText={helpText}
+              />
             </legend>
           )}
 
-          {description && (
-            <p className="radio-group__description">{description}</p>
-          )}
+          {hint && <Hint id={hintId} text={hint} />}
 
           <div className="radio-group__items">
             {children}
           </div>
-
-          {hint && (
-            <p id={hintId} className="radio-group__hint">{hint}</p>
-          )}
 
           {validationMessage && validation && (
             <p

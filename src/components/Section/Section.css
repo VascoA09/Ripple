@@ -50,40 +50,27 @@
 
 /* =============================================================================
    TITLE
-   Heading element (h2–h6). Font size driven by element tag via element selector.
-   Weight, color, and line-height shared across all levels.
+   Heading element (h2–h6). Semantic level only — visual style is always
+   typography-heading-s (18px semibold). Typography class owns all font
+   properties; only layout resets live here.
    ============================================================================= */
 
 .section__title {
-  margin:      0;
-  font-family: var(--font-family-base);
-  font-weight: var(--font-weight-semibold);
-  line-height: var(--font-line-height-heading);
-  color:       var(--text-loud);
+  margin: 0;
 }
-
-h2.section__title { font-size: var(--font-size-180);    /* 24px */ }
-h3.section__title { font-size: 22px;                    /* --font-size-160 not yet in token system */ }
-h4.section__title { font-size: 20px;                    /* --font-size-140 not yet in token system */ }
-h5.section__title { font-size: var(--font-size-120);    /* 18px */ }
-h6.section__title { font-size: var(--font-size-100);    /* 16px */ }
 
 /* =============================================================================
    DESCRIPTION
    Optional text below the heading. Clamped to 2 lines.
+   Typography class (typography-caption) owns all font properties.
    ============================================================================= */
 
 .section__description {
-  display:              -webkit-box;
-  -webkit-line-clamp:   2;
-  -webkit-box-orient:   vertical;
-  overflow:             hidden;
-  margin:               var(--spacing-50) 0 0;  /* 8px top */
-  font-family:          var(--font-family-base);
-  font-size:            var(--font-size-100);    /* 16px */
-  font-weight:          var(--font-weight-regular);
-  line-height:          var(--font-line-height-body);
-  color:                var(--text-soft);
+  display:            -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow:           hidden;
+  margin:             0;
 }
 
 /* =============================================================================

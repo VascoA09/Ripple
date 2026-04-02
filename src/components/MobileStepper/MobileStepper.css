@@ -1,0 +1,196 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — MOBILE STEPPER PATTERN
+   Source: patterns/mobile-stepper.md
+
+   Two variants:
+   - progress-bar:  counter + track + step title/description
+   - active-only:   filled indicator + step info + step labels row
+
+   Responsive switching is consumer-controlled. This component does not
+   adapt based on viewport width.
+   ============================================================================= */
+
+/* ---------------------------------------------------------------------------
+   Root
+   --------------------------------------------------------------------------- */
+
+.mobile-stepper {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-75);   /* 12px between internal sections */
+  width:          100%;
+}
+
+/* ---------------------------------------------------------------------------
+   PROGRESS BAR VARIANT
+   --------------------------------------------------------------------------- */
+
+/* Step counter: "Step N of Total" */
+.mobile-stepper__counter {
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-soft);
+}
+
+/* Track: the full-width progress bar */
+.mobile-stepper__track {
+  width:         100%;
+  height:        4px;
+  background:    var(--bg-neutral-soft);
+  border-radius: var(--border-radius-full, 9999px);
+  overflow:      hidden;
+}
+
+/* Fill: colored portion representing progress */
+.mobile-stepper__fill {
+  height:        100%;
+  background:    var(--color-primary);
+  border-radius: var(--border-radius-full, 9999px);
+  transition:    width 300ms ease;
+}
+
+/* Step info: title + description */
+.mobile-stepper__body {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-25);   /* 4px */
+}
+
+/* ---------------------------------------------------------------------------
+   ACTIVE ONLY VARIANT
+   --------------------------------------------------------------------------- */
+
+/* Header row: indicator circle + step info side by side */
+.mobile-stepper__header {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-100);   /* 16px */
+}
+
+/* Indicator circle — always rendered in the active/filled style */
+.mobile-stepper__indicator {
+  --_bg:    var(--bg-primary);
+  --_color: var(--text-loud-inverse);
+
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+  width:           var(--size-200);   /* 32px */
+  height:          var(--size-200);
+  border-radius:   50%;
+  background:      var(--_bg);
+  color:           var(--_color);
+
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-heading);
+}
+
+.mobile-stepper__indicator[data-type="notice"] {
+  --_bg: var(--bg-notice);
+}
+
+.mobile-stepper__indicator[data-type="error"] {
+  --_bg: var(--bg-negative);
+}
+
+/* Step info: title + meta line */
+.mobile-stepper__step-info {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-25);   /* 4px */
+  min-width:      0;
+}
+
+/* Meta line: "Step N of Total · description" */
+.mobile-stepper__meta {
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-soft);
+}
+
+/* ---------------------------------------------------------------------------
+   STEP LABELS ROW (active-only)
+   --------------------------------------------------------------------------- */
+
+.mobile-stepper__labels {
+  display:     flex;
+  flex-wrap:   wrap;
+  align-items: center;
+  list-style:  none;
+  padding:     0;
+  margin:      0;
+  gap:         0;
+}
+
+/* Dot separator between labels */
+.mobile-stepper__label + .mobile-stepper__label::before {
+  content:     '·';
+  padding:     0 var(--spacing-50);   /* 0 8px */
+  color:       var(--text-softest, var(--text-soft));
+  font-weight: var(--font-weight-regular);
+}
+
+.mobile-stepper__label {
+  display:     inline-flex;
+  align-items: center;
+  gap:         var(--spacing-25);   /* 4px between check icon and name */
+
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-soft);
+}
+
+/* Current step: full color, semibold */
+.mobile-stepper__label[data-status="current"] {
+  color:       var(--text);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Completed step: check icon + soft text */
+.mobile-stepper__label-check {
+  color:       var(--color-positive);
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   SHARED — title (used in both variants)
+   --------------------------------------------------------------------------- */
+
+.mobile-stepper__title {
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-100);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-loud);
+}
+
+.mobile-stepper__description {
+  margin:      0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text-soft);
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-stepper__fill {
+    transition: none;
+  }
+}

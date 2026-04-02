@@ -2,7 +2,7 @@ import React, {
   createContext, useContext, useState, useEffect, useRef, useCallback,
 } from 'react'
 import { createPortal } from 'react-dom'
-import { Info, CheckCircle, AlertTriangle, XCircle, X } from 'lucide-react'
+import { Info, CheckCircle, CircleAlert, XCircle, X } from 'lucide-react'
 import './Toast.css'
 
 // ---------------------------------------------------------------------------
@@ -79,7 +79,7 @@ const DEFAULT_DURATION: Record<ToastVariant, number> = {
 const VARIANT_ICON: Record<ToastVariant, React.ElementType> = {
   neutral:  Info,
   positive: CheckCircle,
-  notice:   AlertTriangle,
+  notice:   CircleAlert,
   negative: XCircle,
 }
 
@@ -133,6 +133,8 @@ function ToastItem({ toast, onExitStart, onExitComplete }: ToastItemProps) {
     ? toast.icon
     : VARIANT_ICON[toast.variant]
 
+  const hasFooter = !!(toast.timestamp || toast.action)
+
   return (
     <div
       className="toast"
@@ -148,47 +150,52 @@ function ToastItem({ toast, onExitStart, onExitComplete }: ToastItemProps) {
       }
       onAnimationEnd={handleAnimationEnd}
     >
-      {/* Variant icon */}
-      <span className="toast__icon" aria-hidden="true">
-        <IconComponent size={20} />
-      </span>
+      {/* Top row: icon + content + close button */}
+      <div className="toast__row">
+        <span className="toast__icon" aria-hidden="true">
+          <IconComponent size={24} />
+        </span>
 
-      {/* Content body */}
-      <div className="toast__body">
-        <p className="toast__title">{toast.title}</p>
+        <div className="toast__body">
+          <p className="toast__title">{toast.title}</p>
 
-        {toast.description && (
-          <p className="toast__description">{toast.description}</p>
-        )}
+          {toast.description && (
+            <p className="toast__description">{toast.description}</p>
+          )}
+        </div>
 
-        {toast.timestamp && (
-          <p className="toast__timestamp">{toast.timestamp}</p>
-        )}
-
-        {toast.action && (
+        {toast.showCloseButton && (
           <button
             type="button"
-            className="toast__action"
-            onClick={() => {
-              toast.action!.onClick()
-              onExitStart(toast.id)
-            }}
+            className="toast__close"
+            aria-label="Dismiss notification"
+            onClick={() => onExitStart(toast.id)}
           >
-            {toast.action.label}
+            <X size={14} aria-hidden="true" />
           </button>
         )}
       </div>
 
-      {/* Close button */}
-      {toast.showCloseButton && (
-        <button
-          type="button"
-          className="toast__close"
-          aria-label="Dismiss notification"
-          onClick={() => onExitStart(toast.id)}
-        >
-          <X size={16} aria-hidden="true" />
-        </button>
+      {/* Footer: timestamp + action — offset to align with body text, past icon */}
+      {hasFooter && (
+        <div className="toast__footer">
+          {toast.timestamp && (
+            <p className="toast__timestamp">{toast.timestamp}</p>
+          )}
+
+          {toast.action && (
+            <button
+              type="button"
+              className="toast__action"
+              onClick={() => {
+                toast.action!.onClick()
+                onExitStart(toast.id)
+              }}
+            >
+              {toast.action.label}
+            </button>
+          )}
+        </div>
       )}
 
       {/* Progress bar — only while not exiting (timer still running) */}

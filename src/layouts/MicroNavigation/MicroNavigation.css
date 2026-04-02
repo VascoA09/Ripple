@@ -3,54 +3,20 @@
    Source: layouts/micro-navigation.md
 
    L-shaped enterprise shell: MainNavigation (left) + Footer (bottom).
-   This file only contains overrides needed to integrate the two patterns.
-   Each pattern manages its own visual design internally.
+   The Footer is rendered inside MainNavigation's content column via the
+   `footer` prop — it is an in-flow flex child, not a fixed overlay.
+   No clearance overrides are required.
 
-   The .micro-navigation class is added to the MainNavigation root element.
-   Descendant selectors target the Navbar, content area, and persistent
-   panel within that context to add Footer clearance.
-
-   Footer height: 56px (fixed, position: fixed, bottom: 0).
-   Original Navbar bottom padding: var(--spacing-50) = 8px.
+   This file contains only the <main> wrapper rule. All visual design
+   is owned by the MainNavigation and Footer patterns respectively.
    ============================================================================= */
-
-/* =============================================================================
-   NAVBAR — FOOTER CLEARANCE
-   The Navbar user avatar sits at the very bottom of the 100vh column.
-   Without clearance, the Footer (56px fixed) covers it.
-   56px Footer + 8px original padding = 64px total.
-   ============================================================================= */
-
-.micro-navigation .navbar {
-  padding-bottom: 64px;
-}
-
-/* =============================================================================
-   CONTENT AREA — FOOTER CLEARANCE
-   MainNavigation's content area uses overflow-y: auto. Without bottom
-   padding, the Footer obscures the last 56px of scrollable page content.
-   ============================================================================= */
-
-.micro-navigation .main-navigation__content {
-  padding-bottom: 56px;
-}
-
-/* =============================================================================
-   PERSISTENT PANEL — FOOTER CLEARANCE
-   When a persistent navigation panel is open, its scrollable DrawerContent
-   also needs clearance so the last items aren't hidden by the Footer.
-   ============================================================================= */
-
-.micro-navigation .main-navigation__panel {
-  padding-bottom: 56px;
-}
 
 /* =============================================================================
    MAIN CONTENT ELEMENT
-   The <main> element wraps page content (PageHeader + body).
-   height: 100% ensures it fills the scrollable content area fully.
+   Wraps page content (PageHeader + body) inside the scroll region.
    ============================================================================= */
 
 .micro-navigation__main {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
 }

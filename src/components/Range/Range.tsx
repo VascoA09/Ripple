@@ -1,5 +1,6 @@
 import React, { useId, useMemo, useRef, useState } from 'react'
 import { XCircle } from 'lucide-react'
+import { FieldLabel } from '../FieldLabel'
 import './Range.css'
 
 // ---------------------------------------------------------------------------
@@ -232,15 +233,14 @@ export function Range(props: RangeProps) {
   // ---------------------------------------------------------------------------
 
   const labelBlock = (
-    <label
+    <FieldLabel
       id={labelId}
+      label={label}
       className={[
         'range__label',
         hideLabel ? 'range__label--hidden' : '',
       ].filter(Boolean).join(' ')}
-    >
-      {label}
-    </label>
+    />
   )
 
   // ---------------------------------------------------------------------------

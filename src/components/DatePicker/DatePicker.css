@@ -1,0 +1,611 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — DATE PICKER COMPONENT
+
+   Architecture:
+   - Root (.date-picker): flex column; size + validation private tokens
+   - Label: rendered by <FieldLabel>
+   - Field wrap (.date-picker__field-wrap): position anchor for the panel
+   - Wrapper (.date-picker__wrapper): visual field boundary
+     ├── Icon start (.date-picker__icon-start): optional leading icon
+     ├── Segments (.date-picker__segments): DD / MM / YYYY spinbutton spans
+     ├── Action btn (.date-picker__action-btn): clear button
+     └── Trigger (.date-picker__trigger): calendar icon button
+   - Panel (.date-picker__panel): absolute below the wrapper
+     ├── Calendar header (.date-picker__cal-header): view toggle + nav arrows
+     ├── Day grid (.date-picker__grid): 7-col grid with optional week numbers
+     ├── Month grid (.date-picker__month-grid): 3×4 month selector
+     ├── Year grid (.date-picker__year-grid): 3×4 year selector
+     └── Calendar footer (.date-picker__cal-footer): Today / Clear
+   - Footer (.date-picker__footer): hint or validation message
+
+   Button usage: header uses Ripple Button (ghost neutral) and IconButton (ghost neutral)
+   for the view toggle and nav arrows. Footer uses Ripple Button (ghost primary, small)
+   for Clear and Today. Day, month, and year selector buttons are native buttons styled locally.
+   ============================================================================= */
+
+/* ---------------------------------------------------------------------------
+   Root — private tokens (medium defaults)
+   --------------------------------------------------------------------------- */
+
+.date-picker {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-25);
+  width:          100%;
+
+  /* Size tokens */
+  --_height:    var(--size-component-height-default);  /* 40px */
+  --_font-size: var(--font-size-100);                  /* 16px */
+  --_icon-size: 16px;
+  --_radius:    var(--border-radius-200);              /* 8px  */
+
+  /* Validation tokens */
+  --_border:    var(--border-default);
+  --_text:      var(--text);
+  --_msg-color: var(--text-soft);
+}
+
+/* ---------------------------------------------------------------------------
+   Size modifiers
+   --------------------------------------------------------------------------- */
+
+.date-picker[data-size="small"] {
+  --_height:    var(--size-component-height-small);  /* 32px */
+  --_font-size: var(--font-size-80);                 /* 14px */
+  --_icon-size: 14px;
+  --_radius:    var(--border-radius-150);            /* 6px  */
+}
+
+.date-picker[data-size="large"] {
+  --_height:    var(--size-component-height-large);  /* 48px */
+  --_font-size: var(--font-size-120);                /* 18px */
+  --_icon-size: 18px;
+}
+
+/* ---------------------------------------------------------------------------
+   Validation states
+   --------------------------------------------------------------------------- */
+
+.date-picker[data-validation="negative"] {
+  --_border:    var(--border-negative);
+  --_text:      var(--text-negative);
+  --_msg-color: var(--text-negative);
+}
+
+.date-picker[data-validation="notice"] {
+  --_border:    var(--border-notice);
+  --_text:      var(--text-notice);
+  --_msg-color: var(--text-notice);
+}
+
+.date-picker[data-validation="positive"] {
+  --_border:    var(--border-positive);
+  --_text:      var(--text-positive);
+  --_msg-color: var(--text-positive);
+}
+
+/* ---------------------------------------------------------------------------
+   Disabled
+   --------------------------------------------------------------------------- */
+
+.date-picker[data-disabled] {
+  opacity:        0.5;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Label — visually hidden
+   --------------------------------------------------------------------------- */
+
+.date-picker__label--hidden {
+  position:    absolute;
+  width:       1px;
+  height:      1px;
+  padding:     0;
+  margin:      -1px;
+  overflow:    hidden;
+  clip:        rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border:      0;
+}
+
+/* ---------------------------------------------------------------------------
+   Field wrap — position anchor for the panel
+   --------------------------------------------------------------------------- */
+
+.date-picker__field-wrap {
+  position: relative;
+}
+
+/* ---------------------------------------------------------------------------
+   Wrapper — visual field boundary
+   --------------------------------------------------------------------------- */
+
+.date-picker__wrapper {
+  display:       flex;
+  align-items:   center;
+  height:        var(--_height);
+  background:    var(--bg-surface);
+  border:        var(--border-width-default) solid var(--_border);
+  border-radius: var(--_radius);
+  overflow:      hidden;
+  transition:    border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.date-picker__wrapper:hover:not([data-focused]):not([data-disabled]):not([data-readonly]) {
+  border-color: var(--border-primary);
+}
+
+.date-picker__wrapper[data-focused] {
+  border-color:   var(--border-focus);
+  outline:        var(--border-width-focus) solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.date-picker__wrapper[data-readonly] {
+  background: var(--bg-neutral-softest);
+}
+
+/* ---------------------------------------------------------------------------
+   Leading icon
+   --------------------------------------------------------------------------- */
+
+.date-picker__icon-start {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  padding-left:    var(--spacing-75);
+  color:           var(--icon-default);
+  flex-shrink:     0;
+  line-height:     0;
+}
+
+.date-picker__icon-start svg {
+  width:  var(--_icon-size);
+  height: var(--_icon-size);
+}
+
+/* ---------------------------------------------------------------------------
+   Segments container
+   --------------------------------------------------------------------------- */
+
+.date-picker__segments {
+  display:     flex;
+  align-items: center;
+  flex:        1;
+  gap:         var(--spacing-25);
+  padding:     0 var(--spacing-75);
+  min-width:   0;
+}
+
+/* ---------------------------------------------------------------------------
+   Individual segment (spinbutton)
+   --------------------------------------------------------------------------- */
+
+.date-picker__segment {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  min-width:       2ch;
+  padding:         2px var(--spacing-25);
+  border-radius:   var(--border-radius-100);
+  font-family:     var(--font-family-base);
+  font-size:       var(--_font-size);
+  font-weight:     var(--font-weight-regular);
+  color:           var(--_text);
+  cursor:          default;
+  outline:         none;
+  user-select:     none;
+  -webkit-user-select: none;
+  transition:      background 100ms ease, color 100ms ease;
+}
+
+.date-picker__segment[data-placeholder] {
+  color: var(--text-soft);
+}
+
+.date-picker__segment:focus {
+  background: var(--bg-primary-softest);
+  color:      var(--color-primary, var(--text-primary, var(--text)));
+}
+
+/* Year is wider (4 chars) */
+.date-picker__segment--year {
+  min-width: 4ch;
+}
+
+/* ---------------------------------------------------------------------------
+   Separator  /
+   --------------------------------------------------------------------------- */
+
+.date-picker__sep {
+  font-family: var(--font-family-base);
+  font-size:   var(--_font-size);
+  color:       var(--text-soft);
+  user-select: none;
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Action buttons (clear)
+   --------------------------------------------------------------------------- */
+
+.date-picker__action-btn {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  padding:         0 var(--spacing-75);
+  height:          100%;
+  border:          none;
+  background:      transparent;
+  color:           var(--icon-default);
+  cursor:          pointer;
+  flex-shrink:     0;
+  line-height:     0;
+  transition:      color 100ms ease;
+}
+
+.date-picker__action-btn:hover { color: var(--text); }
+
+.date-picker__action-btn:focus-visible {
+  outline:        2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------------
+   Calendar trigger button — right edge
+   --------------------------------------------------------------------------- */
+
+.date-picker__trigger {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  width:           var(--_height);
+  height:          100%;
+  flex-shrink:     0;
+  border:          none;
+  border-left:     var(--border-width-default) solid var(--_border);
+  background:      transparent;
+  color:           var(--icon-default);
+  cursor:          pointer;
+  line-height:     0;
+  transition:      background 100ms ease, color 100ms ease;
+}
+
+.date-picker__trigger:hover {
+  background: var(--bg-neutral-soft);
+  color:      var(--text);
+}
+
+.date-picker__trigger:focus-visible {
+  outline:        2px solid var(--border-focus);
+  outline-offset: -2px;
+}
+
+.date-picker__trigger[aria-expanded="true"] {
+  background: var(--bg-primary-softest);
+  color:      var(--color-primary, var(--text-primary, var(--text)));
+}
+
+/* ---------------------------------------------------------------------------
+   Calendar panel
+   --------------------------------------------------------------------------- */
+
+.date-picker__panel {
+  position:       absolute;
+  top:            calc(100% + var(--spacing-25));
+  left:           0;
+  z-index:        200;
+  background:     var(--bg-surface);
+  border:         var(--border-width-default) solid var(--border-neutral);
+  border-radius:  var(--border-radius-200);
+  box-shadow:     var(--box-shadow-400);
+  width:          316px;
+  display:        flex;
+  flex-direction: column;
+}
+
+/* With week numbers the panel needs extra width */
+.date-picker__panel:has(.date-picker__week-col) {
+  width: 348px;
+}
+
+/* ---------------------------------------------------------------------------
+   Calendar header
+   --------------------------------------------------------------------------- */
+
+.date-picker__cal-header {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  padding:         var(--spacing-75) var(--spacing-75) var(--spacing-50);
+  gap:             var(--spacing-50);
+}
+
+/* View button — layout override only; visual styling from Button component */
+.date-picker__view-btn.button {
+  flex:            1;
+  justify-content: flex-start;
+  font-weight:     var(--font-weight-semibold);
+}
+
+.date-picker__view-chevron {
+  flex-shrink: 0;
+  transition:  transform 150ms ease;
+}
+
+.date-picker__view-chevron--up {
+  transform: rotate(-90deg);
+}
+
+.date-picker__nav {
+  display:    flex;
+  gap:        var(--spacing-25);
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Day grid
+   --------------------------------------------------------------------------- */
+
+.date-picker__grid {
+  padding:        0 var(--spacing-75) var(--spacing-75);
+  display:        flex;
+  flex-direction: column;
+  gap:            2px;
+}
+
+.date-picker__grid-row {
+  display: flex;
+  gap:     2px;
+}
+
+.date-picker__grid-row--header {
+  margin-bottom: var(--spacing-25);
+}
+
+/* Column headers — Mon, Tue … */
+.date-picker__day-header {
+  flex:            1;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  height:          28px;
+  font-family:     var(--font-family-base);
+  font-size:       var(--font-size-60);
+  font-weight:     var(--font-weight-semibold);
+  color:           var(--text-soft);
+  text-transform:  uppercase;
+  letter-spacing:  0.04em;
+}
+
+/* Week number column */
+.date-picker__week-col {
+  width:           28px;
+  flex-shrink:     0;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+}
+
+.date-picker__week-header {
+  height:      28px;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-60);
+  font-weight: var(--font-weight-semibold);
+  color:       var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.date-picker__week-num {
+  height:      40px;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-60);
+  color:       var(--text-soft);
+}
+
+/* Grid cells — flex: 1 to fill the row; centred to contain circular buttons */
+.date-picker__cell {
+  flex:            1;
+  display:         flex;
+  justify-content: center;
+  align-items:     center;
+}
+
+/* Day buttons — 40×40 circles */
+.date-picker__day {
+  width:           40px;
+  height:          40px;
+  flex-shrink:     0;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  border:          none;
+  border-radius:   50%;
+  background:      transparent;
+  font-family:     var(--font-family-base);
+  font-size:       var(--font-size-80);
+  font-weight:     var(--font-weight-regular);
+  color:           var(--text);
+  cursor:          pointer;
+  transition:      background 80ms ease, color 80ms ease, box-shadow 80ms ease;
+}
+
+/* Default hover */
+.date-picker__day:hover:not(:disabled):not(.date-picker__day--selected):not(.date-picker__day--today) {
+  background: var(--bg-neutral-soft);
+}
+
+/* Default pressed */
+.date-picker__day:active:not(:disabled):not(.date-picker__day--selected):not(.date-picker__day--today) {
+  background: var(--bg-neutral);
+  color:      var(--text-loud-inverse, #fff);
+}
+
+/* Focus ring — 2px */
+.date-picker__day:focus-visible {
+  outline:        2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Today — primary ring by default */
+.date-picker__day--today:not(.date-picker__day--selected) {
+  font-weight: var(--font-weight-semibold);
+  box-shadow:  inset 0 0 0 1.5px var(--border-primary);
+  color:       var(--color-primary, var(--text-primary, var(--text)));
+}
+
+/* Today hover */
+.date-picker__day--today:hover:not(:disabled):not(.date-picker__day--selected) {
+  background: var(--bg-primary-soft, var(--bg-primary-softest));
+}
+
+/* Today pressed */
+.date-picker__day--today:active:not(:disabled):not(.date-picker__day--selected) {
+  background: var(--bg-primary-loud, var(--bg-primary));
+  color:      var(--text-loud-inverse, #fff);
+  box-shadow: none;
+}
+
+/* Selected */
+.date-picker__day--selected {
+  background:  var(--bg-primary);
+  color:       var(--text-loud-inverse, var(--text-on-primary, #fff));
+  font-weight: var(--font-weight-semibold);
+  box-shadow:  none;
+}
+
+/* Selected hover */
+.date-picker__day--selected:hover:not(:disabled) {
+  background: var(--bg-primary-loud, var(--bg-primary));
+}
+
+/* Adjacent months */
+.date-picker__day--adjacent {
+  color: var(--text-soft);
+}
+
+/* Disabled */
+.date-picker__day--disabled {
+  color:   var(--text-soft);
+  opacity: 0.4;
+  cursor:  not-allowed;
+}
+
+/* ---------------------------------------------------------------------------
+   Month grid
+   --------------------------------------------------------------------------- */
+
+.date-picker__month-grid {
+  padding: var(--spacing-50) var(--spacing-75) var(--spacing-75);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-50);
+}
+
+.date-picker__month-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-50);
+}
+
+/* Month buttons — layout override only; visual styling from Button component */
+.date-picker__month-btn.button {
+  width: 100%;
+}
+
+/* Selected state — bg-neutral + white text */
+.date-picker__month-btn--selected.button,
+.date-picker__month-btn--selected.button:hover {
+  background:  var(--bg-neutral);
+  color:       var(--text-loud-inverse, #fff);
+  font-weight: var(--font-weight-semibold);
+  border-color: transparent;
+}
+
+/* ---------------------------------------------------------------------------
+   Year grid
+   --------------------------------------------------------------------------- */
+
+.date-picker__year-grid {
+  padding: var(--spacing-50) var(--spacing-75) var(--spacing-75);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-50);
+}
+
+.date-picker__year-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-50);
+}
+
+/* Year buttons — layout override only; visual styling from Button component */
+.date-picker__year-btn.button {
+  width: 100%;
+}
+
+/* Selected state — bg-neutral + white text */
+.date-picker__year-btn--selected.button,
+.date-picker__year-btn--selected.button:hover {
+  background:  var(--bg-neutral);
+  color:       var(--text-loud-inverse, #fff);
+  font-weight: var(--font-weight-semibold);
+  border-color: transparent;
+}
+
+/* ---------------------------------------------------------------------------
+   Calendar footer — Clear (left) / Today (right)
+   Visual styling from Button component; layout only here.
+   --------------------------------------------------------------------------- */
+
+.date-picker__cal-footer {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  padding:         var(--spacing-50) var(--spacing-75);
+  border-top:      var(--border-width-default) solid var(--border-neutral);
+}
+
+/* ---------------------------------------------------------------------------
+   Field footer: hint / validation message
+   --------------------------------------------------------------------------- */
+
+.date-picker__footer {
+  display:     flex;
+  align-items: flex-start;
+}
+
+.date-picker__message {
+  margin:      0;
+  flex:        1;
+  display:     flex;
+  align-items: flex-start;
+  gap:         var(--spacing-25);
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--_msg-color);
+}
+
+.date-picker__msg-icon {
+  flex-shrink: 0;
+  margin-top:  3px;
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .date-picker__wrapper,
+  .date-picker__trigger,
+  .date-picker__action-btn,
+  .date-picker__segment,
+  .date-picker__day,
+  .date-picker__view-chevron {
+    transition: none;
+  }
+}

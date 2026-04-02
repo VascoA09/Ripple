@@ -1,7 +1,7 @@
 ---
 type: registry
 scope: patterns
-last_updated: 2026-03-20
+last_updated: 2026-03-31
 ---
 
 # Pattern Registry
@@ -10,14 +10,17 @@ last_updated: 2026-03-20
 |---------|--------|---------|--------------|-------|-----------------|------|
 | [Footer](footer.md) | draft | 0.1.0 | 2026-03-20 | Vasco Antunes | Tag, FlyoutMenu, Button | layout, navigation |
 | [Main Navigation](main-navigation.md) | draft | 0.1.0 | 2026-03-20 | Vasco Antunes | Navbar, Drawer | navigation, layout |
+| [Mobile Stepper](mobile-stepper.md) | draft | 0.1.0 | 2026-03-31 | Vasco Antunes | Stepper, ProgressBar | navigation, form, mobile |
+| [Stackable List](stackable-list.md) | stable | 1.0.0 | 2026-04-02 | Vasco Antunes | Avatar, Tag, FlyoutMenu, IconButton | data, list, display |
 
 ## Status Summary
 
 | Status | Count |
 |--------|-------|
-| Draft | 2 |
+| Draft | 3 |
+| Stable | 1 |
 | Review | 0 |
-| Stable | 0 |
+| Stable | 1 |
 | Deprecated | 0 |
 
 ## Note on Micro Navigation

@@ -41,7 +41,6 @@ export interface MainNavigationProps {
   // ── Navbar ──────────────────────────────────────────────────────────────────
   logo?: React.ReactNode
   productName?: string
-  onLogoClick?: () => void
   tenantLabel?: string
   tenantColor?: BadgeColor
   /** Global nav items (max 5). Items with a `drawerId` are auto-wired. */
@@ -69,8 +68,14 @@ export interface MainNavigationProps {
   onDrawerChange?: (id: string | null) => void
 
   // ── Layout ───────────────────────────────────────────────────────────────────
-  /** Application content rendered in the main area to the right of navigation. */
+  /** Application content rendered in the scrollable main area. */
   children?: React.ReactNode
+  /**
+   * Footer rendered at the bottom of the main area (below the scroll region).
+   * Pass a <Footer /> component here. Its fixed positioning is cancelled by
+   * the shell — it becomes a natural flex child anchored to the bottom.
+   */
+  footer?: React.ReactNode
   className?: string
 }
 
@@ -86,7 +91,10 @@ export interface MainNavigationProps {
  * for controlled mode (e.g., when the URL should reflect the open panel).
  *
  * Layout:
- *   [Navbar 64px] [Persistent panel (optional)] [Content area (flex: 1)]
+ *   [Navbar 72px] [Persistent panel (optional)] [Content area (flex: 1)]
+ *                                                ├── scroll wrapper (flex: 1, overflow-y: auto)
+ *                                                │   └── children
+ *                                                └── footer (Footer component, optional)
  *
  * Modal drawers are portal-rendered and do not affect layout.
  * Persistent drawers are in-flow panels that push the content area.
@@ -97,7 +105,6 @@ export interface MainNavigationProps {
 export function MainNavigation({
   logo,
   productName,
-  onLogoClick,
   tenantLabel,
   tenantColor,
   globalNavItems = [],
@@ -112,6 +119,7 @@ export function MainNavigation({
   openDrawerId: controlledId,
   onDrawerChange,
   children,
+  footer,
   className,
 }: MainNavigationProps) {
   const isControlled      = controlledId !== undefined
@@ -128,10 +136,22 @@ export function MainNavigation({
     setOpenId(openId === drawerId ? null : drawerId)
   }
 
-  // Wire onClick and selected onto items that reference a drawer.
-  // Preserves any onClick the caller provided alongside the toggle.
+  // Wire onClick and selected onto all nav items.
+  // Only one button may be selected at a time: drawer triggers are selected
+  // when their drawer is open; non-drawer items are selected only when no
+  // drawer is open (their caller-provided `selected` is suppressed otherwise).
+  // Clicking a non-drawer item also closes any open drawer.
   function wire(item: MainNavItem): NavItem {
-    if (!item.drawerId) return item
+    if (!item.drawerId) {
+      return {
+        ...item,
+        selected: openId ? false : item.selected,
+        onClick: () => {
+          setOpenId(null)
+          item.onClick?.()
+        },
+      }
+    }
     const { drawerId, ...rest } = item
     return {
       ...rest,
@@ -158,7 +178,6 @@ export function MainNavigation({
       <Navbar
         logo={logo}
         productName={productName}
-        onLogoClick={onLogoClick}
         tenantLabel={tenantLabel}
         tenantColor={tenantColor}
         globalNavItems={wiredGlobal}
@@ -187,7 +206,13 @@ export function MainNavigation({
 
       {/* ── Content area ────────────────────────────────────────────────── */}
       <div className="main-navigation__content">
-        {children}
+        {/* Scroll wrapper — children can use position:sticky for page headers */}
+        <div className="main-navigation__scroll">
+          {children}
+        </div>
+
+        {/* Footer — anchored to the bottom of the content area, not the viewport */}
+        {footer}
       </div>
 
       {/* ── Modal drawers — always left-side, flush with navbar right edge ── */}
@@ -199,6 +224,7 @@ export function MainNavigation({
           size={d.size ?? 'medium'}
           side="left"
           className="main-navigation__modal-drawer"
+          overlayClassName="main-navigation__drawer-overlay"
         >
           {d.content}
         </Drawer>

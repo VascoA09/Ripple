@@ -2,23 +2,32 @@ import React from 'react'
 import { Footer } from '../../patterns/Footer'
 import type { FooterProps } from '../../patterns/Footer'
 import { MainNavigation } from '../../patterns/MainNavigation'
-import type { MainNavigationProps } from '../../patterns/MainNavigation'
+import type { MainNavigationProps, MainNavDrawerDef } from '../../patterns/MainNavigation'
 import './MicroNavigation.css'
 
 // =============================================================================
 // TYPES
 // =============================================================================
 
+/** Overlay drawer definition — `persistent` is not allowed in MicroNavigation. */
+export type MicroNavDrawerDef = Omit<MainNavDrawerDef, 'persistent'>
+
 export interface MicroNavigationProps {
   /**
    * Props forwarded to the MainNavigation pattern.
    * Provides the Navbar, drawer management, and left-side layout.
-   * Do not pass `children` here — use the top-level `children` instead.
+   * Do not pass `children` or `footer` here — use the top-level props instead.
+   *
+   * Only overlay (modal) drawers are supported. Persistent panels belong to
+   * the Persistent Navigation layout, not MicroNavigation.
    */
-  nav: Omit<MainNavigationProps, 'children'>
+  nav: Omit<MainNavigationProps, 'children' | 'footer' | 'drawers'> & {
+    drawers?: MicroNavDrawerDef[]
+  }
   /**
    * Props forwarded to the Footer pattern.
-   * Provides the tab bar fixed at the bottom of the viewport.
+   * The Footer is rendered inside the content area (below the scroll region),
+   * anchored to the bottom — it does not cover the Navbar.
    */
   footer: FooterProps
   /** Page content rendered in the scrollable main area. */
@@ -39,10 +48,13 @@ export interface MicroNavigationProps {
  *   │         │  Page content (scrollable)              │
  *   │  Main   │                                         │
  *   │  Nav    │                                         │
- *   │         │                                         │
- *   ├─────────┴─────────────────────────────────────────┤
- *   │  Footer (tab bar, fixed)                          │
- *   └───────────────────────────────────────────────────┘
+ *   │         ├─────────────────────────────────────────┤
+ *   │         │  Footer (tab bar, in-flow)               │
+ *   └─────────┴─────────────────────────────────────────┘
+ *
+ * The Footer is passed through MainNavigation's `footer` prop so it renders
+ * inside the content column — anchored to the bottom of the content area,
+ * not the viewport. It never covers the Navbar.
  *
  * All state (open tabs, active tab, groups, open drawers) is managed by
  * the consuming application and passed through `nav` and `footer` props.
@@ -57,17 +69,14 @@ export function MicroNavigation({
   className,
 }: MicroNavigationProps) {
   return (
-    <>
-      <MainNavigation
-        {...nav}
-        className={['micro-navigation', nav.className, className].filter(Boolean).join(' ')}
-      >
-        <main className="micro-navigation__main">
-          {children}
-        </main>
-      </MainNavigation>
-
-      <Footer {...footer} />
-    </>
+    <MainNavigation
+      {...nav}
+      className={['micro-navigation', nav.className, className].filter(Boolean).join(' ')}
+      footer={<Footer {...footer} />}
+    >
+      <main className="micro-navigation__main">
+        {children}
+      </main>
+    </MainNavigation>
   )
 }

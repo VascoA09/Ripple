@@ -52,8 +52,6 @@ export interface NavbarProps {
   logo?: ReactNode
   /** Abbreviated product name below the logo (e.g. "ERPx") */
   productName?: string
-  /** Makes the logo area an interactive button that navigates to home */
-  onLogoClick?: () => void
   /** Environment / tenant badge label */
   tenantLabel?: string
   /** Badge color variant — defaults to 'notice' */
@@ -97,7 +95,7 @@ function NavButton({ item }: NavButtonProps) {
         <IconButton
           variant="ghost"
           color="neutral"
-          size="m"
+          size="large"
           icon={item.icon}
           aria-label={ariaLabel}
           aria-pressed={item.selected ?? false}
@@ -129,7 +127,6 @@ function NavButton({ item }: NavButtonProps) {
 export function Navbar({
   logo,
   productName,
-  onLogoClick,
   tenantLabel,
   tenantColor = 'notice',
   globalNavItems = [],
@@ -170,20 +167,9 @@ export function Navbar({
       style={style}
     >
       {/* ── Logo area ───────────────────────────────────────────────────── */}
-      {onLogoClick ? (
-        <button
-          type="button"
-          className="navbar__logo navbar__logo--interactive"
-          aria-label="Go to home"
-          onClick={onLogoClick}
-        >
-          {logoContent}
-        </button>
-      ) : (
-        <div className="navbar__logo">
-          {logoContent}
-        </div>
-      )}
+      <div className="navbar__logo">
+        {logoContent}
+      </div>
 
       {/* ── Tenant badge ────────────────────────────────────────────────── */}
       {tenantLabel && (
@@ -234,7 +220,7 @@ export function Navbar({
                         <IconButton
                           variant="ghost"
                           color="neutral"
-                          size="m"
+                          size="large"
                           icon={<MoreHorizontal size={20} />}
                           aria-label="More navigation items"
                           className="navbar__nav-btn"
@@ -288,7 +274,7 @@ export function Navbar({
               className="navbar__avatar-trigger"
               aria-label={`${userName} — open user menu`}
             >
-              <Avatar name={userName} src={userAvatarSrc} size="m" aria-hidden={true} />
+              <Avatar name={userName} src={userAvatarSrc} size="l" aria-hidden={true} />
             </button>
           </FlyoutMenuTrigger>
 

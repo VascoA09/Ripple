@@ -1,4 +1,7 @@
 import React, { useId, useEffect, useRef, useImperativeHandle } from 'react'
+import { XCircle, AlertCircle, CheckCircle } from 'lucide-react'
+import { FieldLabel } from '../FieldLabel'
+import { Hint } from '../Hint'
 import './Checkbox.css'
 
 // ---------------------------------------------------------------------------
@@ -21,18 +24,34 @@ export interface CheckboxProps
 }
 
 export interface CheckboxGroupProps {
-  /** Group label rendered as a <legend> */
-  legend: string
-  /** Appends a required asterisk to the legend */
-  required?: boolean
-  /** Supplementary text below the legend */
-  hint?: string
-  /** Validation state — propagated visually to the group container */
-  validation?: CheckboxValidation
-  /** Validation feedback message */
-  validationMessage?: string
-  children: React.ReactNode
-  className?: string
+  /** Group label, rendered via FieldLabel inside a <legend>. */
+  legend:              string
+  /** Sub-label below the legend. Forwarded to FieldLabel's description. */
+  description?:        string
+  /** Appends a required asterisk to the legend. */
+  required?:           boolean
+  /** Appends "(optional)" to the legend. Mutually exclusive with required. */
+  optional?:           boolean
+  /** Help tooltip on the legend. Forwarded to FieldLabel's helpText. */
+  helpText?:           string
+  /** Supplementary text below the legend, rendered via Hint. */
+  hint?:               string
+  /** Validation state — propagated visually to the group container. */
+  validation?:         CheckboxValidation
+  /** Validation feedback message with contextual icon. */
+  validationMessage?:  string
+  children:            React.ReactNode
+  className?:          string
+}
+
+// ---------------------------------------------------------------------------
+// Validation icons
+// ---------------------------------------------------------------------------
+
+const VALIDATION_ICON: Record<CheckboxValidation, React.ReactNode> = {
+  negative: <XCircle     size={14} aria-hidden="true" className="checkbox-group__msg-icon" />,
+  notice:   <AlertCircle size={14} aria-hidden="true" className="checkbox-group__msg-icon" />,
+  positive: <CheckCircle size={14} aria-hidden="true" className="checkbox-group__msg-icon" />,
 }
 
 // ---------------------------------------------------------------------------
@@ -132,11 +151,14 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 
 export const CheckboxGroup = React.forwardRef<HTMLFieldSetElement, CheckboxGroupProps>(
   function CheckboxGroup(
-    { legend, required, hint, validation, validationMessage, children, className },
+    {
+      legend, description, required, optional, helpText,
+      hint, validation, validationMessage, children, className,
+    },
     ref,
   ) {
-    const hintId      = useId()
-    const messageId   = useId()
+    const hintId    = useId()
+    const messageId = useId()
 
     return (
       <fieldset
@@ -149,18 +171,19 @@ export const CheckboxGroup = React.forwardRef<HTMLFieldSetElement, CheckboxGroup
             .join(' ') || undefined
         }
       >
+        {/* FieldLabel inside <legend> keeps semantic fieldset/legend association
+            for screen readers while gaining Ripple's label capabilities. */}
         <legend className="checkbox-group__legend">
-          {legend}
-          {required && (
-            <span className="checkbox-group__required" aria-hidden="true"> *</span>
-          )}
+          <FieldLabel
+            label={legend}
+            description={description}
+            required={required}
+            optional={optional}
+            helpText={helpText}
+          />
         </legend>
 
-        {hint && (
-          <p id={hintId} className="checkbox-group__hint">
-            {hint}
-          </p>
-        )}
+        {hint && <Hint id={hintId} text={hint} />}
 
         <div className="checkbox-group__items">{children}</div>
 
@@ -170,6 +193,7 @@ export const CheckboxGroup = React.forwardRef<HTMLFieldSetElement, CheckboxGroup
             className="checkbox-group__message"
             role={validation === 'negative' ? 'alert' : undefined}
           >
+            {validation && VALIDATION_ICON[validation]}
             {validationMessage}
           </p>
         )}

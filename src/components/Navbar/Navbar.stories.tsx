@@ -133,8 +133,8 @@ export const SelectedState: Story = {
 
     const items: NavItem[] = [
       { id: 'home',          label: 'Home',          icon: <Home size={20} /> },
-      { id: 'notifications', label: 'Notifications', icon: <Bell size={20} />, count: 4, countColor: 'negative' },
-      { id: 'messages',      label: 'Messages',      icon: <MessageSquare size={20} />, count: 12, countColor: 'primary' },
+      { id: 'notifications', label: 'Notifications', icon: <Bell size={20} />, count: 4 },
+      { id: 'messages',      label: 'Messages',      icon: <MessageSquare size={20} />, count: 12 },
       { id: 'settings',      label: 'Settings',      icon: <Settings size={20} /> },
     ]
 
@@ -218,7 +218,7 @@ export const WithOverflowMenu: Story = {
       { id: 'projects', label: 'Projects',     icon: <Briefcase size={20} /> },
       { id: 'calendar', label: 'Calendar',     icon: <Calendar size={20} /> },
       { id: 'files',    label: 'Files',        icon: <FileText size={20} /> },
-      { id: 'reports',  label: 'Reports',      icon: <BarChart2 size={20} />, count: 2, countColor: 'notice' },
+      { id: 'reports',  label: 'Reports',      icon: <BarChart2 size={20} />, count: 2 },
       { id: 'layouts',  label: 'Layouts',      icon: <Layout size={20} /> },
       { id: 'widgets',  label: 'Widgets',      icon: <Grid size={20} /> },
     ]
@@ -235,7 +235,7 @@ export const WithOverflowMenu: Story = {
         showContextualDivider
         globalNavItems={[
           { id: 'home',     label: 'Home',     icon: <Home size={20} /> },
-          { id: 'messages', label: 'Messages', icon: <MessageSquare size={20} />, count: 5, countColor: 'primary' },
+          { id: 'messages', label: 'Messages', icon: <MessageSquare size={20} />, count: 5 },
           { id: 'settings', label: 'Settings', icon: <Settings size={20} /> },
         ]}
         contextualNavItems={contextualItems.map(item => ({
@@ -308,7 +308,6 @@ export const FullExample: Story = {
         productName="ERPx"
         tenantLabel="Redrock"
         tenantColor="notice"
-        onLogoClick={() => setActiveGlobal('home')}
         userRole="Finance Manager"
         userProductArea="Finance"
         userName="Alex Johnson"
@@ -316,8 +315,8 @@ export const FullExample: Story = {
         showContextualDivider
         globalNavItems={[
           { id: 'home',          label: 'Home',          icon: <Home size={20} />,          selected: activeGlobal === 'home',          onClick: () => setActiveGlobal('home') },
-          { id: 'notifications', label: 'Notifications', icon: <Bell size={20} />,          selected: activeGlobal === 'notifications', onClick: () => setActiveGlobal('notifications'), count: 4, countColor: 'negative' },
-          { id: 'messages',      label: 'Messages',      icon: <MessageSquare size={20} />, selected: activeGlobal === 'messages',      onClick: () => setActiveGlobal('messages'),      count: 12, countColor: 'primary' },
+          { id: 'notifications', label: 'Notifications', icon: <Bell size={20} />,          selected: activeGlobal === 'notifications', onClick: () => setActiveGlobal('notifications'), count: 4 },
+          { id: 'messages',      label: 'Messages',      icon: <MessageSquare size={20} />, selected: activeGlobal === 'messages',      onClick: () => setActiveGlobal('messages'),      count: 12 },
           { id: 'settings',      label: 'Settings',      icon: <Settings size={20} />,      selected: activeGlobal === 'settings',      onClick: () => setActiveGlobal('settings') },
         ]}
         contextualNavItems={[

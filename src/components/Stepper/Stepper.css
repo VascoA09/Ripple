@@ -56,6 +56,7 @@
   --_indicator-border-color: var(--border-default);
   --_indicator-border-width: var(--border-width-default);
   --_indicator-color:        var(--text-soft);
+  --_halo-color:             transparent;               /* set by active state rules */
 
   display:         inline-flex;
   align-items:     center;
@@ -65,6 +66,7 @@
   border-radius:   50%;
   background:      var(--_indicator-bg);
   border:          var(--_indicator-border-width) solid var(--_indicator-border-color);
+  box-shadow:      0 0 0 4px var(--_halo-color);
   color:           var(--_indicator-color);
   flex-shrink:     0;
 
@@ -74,7 +76,8 @@
   font-weight: var(--font-weight-semibold);
   line-height: var(--font-line-height-heading);
 
-  transition:  background 150ms ease, border-color 150ms ease, color 150ms ease;
+  transition:  background 150ms ease, border-color 150ms ease, color 150ms ease,
+               box-shadow 150ms ease;
 }
 
 /* =============================================================================
@@ -192,6 +195,15 @@
 }
 
 /* =============================================================================
+   UNORDERED VARIANT — smaller indicator
+   ============================================================================= */
+
+.stepper[data-variant="unordered"] .stepper-step__indicator {
+  --_indicator-size: var(--size-150);   /* 24px */
+  box-sizing:        border-box;
+}
+
+/* =============================================================================
    TYPE: CHECKED
    ============================================================================= */
 
@@ -248,6 +260,7 @@
   --_indicator-border-color: var(--border-primary);
   --_indicator-border-width: var(--border-width-200);
   --_indicator-color:        var(--text-loud-inverse);
+  --_halo-color:             color-mix(in srgb, var(--bg-primary) 20%, transparent);
 }
 
 .stepper-step[data-active][data-type="notice"] .stepper-step__indicator {
@@ -255,6 +268,7 @@
   --_indicator-border-color: var(--border-notice);
   --_indicator-border-width: var(--border-width-200);
   --_indicator-color:        var(--text-loud-inverse);
+  --_halo-color:             color-mix(in srgb, var(--bg-notice) 20%, transparent);
 }
 
 .stepper-step[data-active][data-type="error"] .stepper-step__indicator {
@@ -262,6 +276,7 @@
   --_indicator-border-color: var(--border-negative);
   --_indicator-border-width: var(--border-width-200);
   --_indicator-color:        var(--text-loud-inverse);
+  --_halo-color:             color-mix(in srgb, var(--bg-negative) 20%, transparent);
 }
 
 /* Active title: semibold → bold */

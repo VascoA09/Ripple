@@ -1,8 +1,8 @@
 ---
 name: Range
-status: draft
-version: 0.1.0
-last_updated: 2026-03-19
+status: stable
+version: 1.1.0
+last_updated: 2026-04-01
 owner: Vasco Antunes
 figma: TBD
 storybook: TBD
@@ -184,7 +184,7 @@ When the user interacts with the handle, a tooltip appears above it displaying t
 
 **Visual appearance:**
 * Background: var(--bg-inverse)
-* Text color: var(--text-inverse)
+* Text color: var(--text-loud)
 * Font size: var(--font-size-80)
 * Padding: var(--spacing-25) var(--spacing-50)
 * Border radius: var(--border-radius-100)
@@ -319,9 +319,7 @@ Validation can be applied to ensure the selected value meets specific requiremen
   * Use `hideLabel` prop to control visibility
 
 * **Styling**
-  * Font size: var(--font-size-100)
-  * Font weight: var(--font-weight-semibold)
-  * Color: var(--text)
+  * Typography and color are owned by the `FieldLabel` component — do not override
   * Margin bottom (top position): var(--spacing-50)
   * Min width (left position): 120px
 
@@ -380,7 +378,7 @@ Validation can be applied to ensure the selected value meets specific requiremen
 **Focus State:**
 * Focus ring: 2px solid var(--border-focus) with 4px offset
 * Tooltip background: var(--bg-inverse)
-* Tooltip text: var(--text-inverse)
+* Tooltip text: var(--text-loud)
 
 **Active State:**
 * Handle shadow: elevated (0 2px 8px rgba(0, 0, 0, 0.2))
@@ -487,6 +485,15 @@ Validation can be applied to ensure the selected value meets specific requiremen
 * Maintain consistent validation timing across forms
 * Ensure sufficient spacing around interactive elements
 * Use `formatValue` prop to customize value display consistently
+
+---
+
+## Technical Notes
+
+* The label is rendered via Ripple's `FieldLabel` component. Pass `id` to `FieldLabel` and reference it on the input via `aria-labelledby` — this preserves the accessible association without using `htmlFor`. Do not hardcode label typography or color in Range styles; `FieldLabel` owns them.
+* The tooltip uses `var(--bg-inverse)` for its background and `var(--text-loud)` for its text. This keeps the tooltip legible in both light and dark themes without relying on inverse text tokens.
+* For dual-handle ranges, both native `<input type="range">` elements are stacked with `pointer-events: none` at the input level; only `::webkit-slider-thumb` and `::moz-range-thumb` receive `pointer-events: all`. A custom `<div>` renders the fill between the two handle positions.
+* The `--_fill-pct` CSS custom property on the single-handle input drives the linear-gradient fill trick — no JavaScript DOM writes required.
 
 ---
 

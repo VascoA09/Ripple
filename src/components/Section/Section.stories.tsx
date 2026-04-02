@@ -4,6 +4,8 @@ import type { SectionProps, SectionVariant, SectionHeadingLevel } from './Sectio
 import { Panel, PanelHeader, PanelBody } from '../Panel'
 import { Card, CardContent } from '../Card'
 import { Button } from '../Button'
+import { Input } from '../Input'
+import { Switch } from '../Switch'
 import { BannerAlert } from '../BannerAlert'
 
 // ---------------------------------------------------------------------------
@@ -37,7 +39,7 @@ export const Default: Story = {
   render: (args) => (
     <div style={{ maxWidth: '720px' }}>
       <Section {...args}>
-        <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-soft)' }}>Section body content goes here.</p>
+        <p className="typography-caption" style={{ margin: 0 }}>Section body content goes here.</p>
       </Section>
     </div>
   ),
@@ -67,11 +69,11 @@ const variantExamples: { variant: SectionVariant; label: string; note: string }[
 
 export const Variants: Story = {
   render: () => (
-    <div style={{ fontFamily: 'sans-serif', maxWidth: '720px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+    <div style={{ maxWidth: '720px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <p style={{ fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-soft)', margin: '0 0 8px' }}>Variants</p>
       {variantExamples.map(({ variant, label, note }) => (
         <Section key={variant} variant={variant} heading={label} description={note}>
-          <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-soft)' }}>Section body content.</p>
+          <p className="typography-caption" style={{ margin: 0 }}>Section body content.</p>
         </Section>
       ))}
     </div>
@@ -87,11 +89,11 @@ const headingLevels: SectionHeadingLevel[] = ['h2', 'h3', 'h4', 'h5', 'h6']
 export const HeadingLevels: Story = {
   name: 'Heading levels',
   render: () => (
-    <div style={{ fontFamily: 'sans-serif', maxWidth: '720px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+    <div style={{ maxWidth: '720px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
       <p style={{ fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-soft)', margin: '0 0 8px' }}>Heading levels</p>
       {headingLevels.map(level => (
         <Section key={level} variant="flat" heading={`Section title — ${level}`} headingLevel={level}>
-          <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-soft)' }}>Body content nested under an {level} heading.</p>
+          <p className="typography-caption" style={{ margin: 0 }}>Body content nested under an {level} heading.</p>
         </Section>
       ))}
     </div>
@@ -105,19 +107,19 @@ export const HeadingLevels: Story = {
 export const WithDivider: Story = {
   name: 'With divider',
   render: () => (
-    <div style={{ fontFamily: 'sans-serif', maxWidth: '720px' }}>
+    <div style={{ maxWidth: '720px' }}>
       <p style={{ fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-soft)', margin: '0 0 16px' }}>With divider</p>
 
       <Section variant="flat" heading="Personal information" description="Your name, email, and profile photo." divider>
-        <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-soft)' }}>Form fields go here.</p>
+        <p className="typography-caption" style={{ margin: 0 }}>Form fields go here.</p>
       </Section>
 
       <Section variant="flat" heading="Security" description="Password, two-factor authentication, and active sessions." divider>
-        <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-soft)' }}>Security settings.</p>
+        <p className="typography-caption" style={{ margin: 0 }}>Security settings.</p>
       </Section>
 
       <Section variant="flat" heading="Notifications" description="When and how you receive alerts and updates.">
-        <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-soft)' }}>Notification preferences.</p>
+        <p className="typography-caption" style={{ margin: 0 }}>Notification preferences.</p>
       </Section>
     </div>
   ),
@@ -130,13 +132,13 @@ export const WithDivider: Story = {
 export const HeadingOnly: Story = {
   name: 'Heading only',
   render: () => (
-    <div style={{ fontFamily: 'sans-serif', maxWidth: '720px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+    <div style={{ maxWidth: '720px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
       <p style={{ fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-soft)', margin: '0 0 8px' }}>Heading only</p>
       <Section variant="flat" heading="Team members">
-        <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-soft)' }}>Simple header with no description.</p>
+        <p className="typography-caption" style={{ margin: 0 }}>Simple header with no description.</p>
       </Section>
       <Section variant="flat">
-        <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-soft)' }}>No header at all — body-only section.</p>
+        <p className="typography-caption" style={{ margin: 0 }}>No header at all — body-only section.</p>
       </Section>
     </div>
   ),
@@ -149,7 +151,7 @@ export const HeadingOnly: Story = {
 export const InContext: Story = {
   name: 'In Context',
   render: () => (
-    <div style={{ fontFamily: 'sans-serif', maxWidth: '800px' }}>
+    <div style={{ maxWidth: '800px' }}>
 
       {/* Page-level BannerAlert */}
       <BannerAlert variant="informative" style={{ marginBottom: '24px' }}>
@@ -164,12 +166,10 @@ export const InContext: Story = {
         divider
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          {['Full name', 'Email address', 'Job title', 'Location'].map(field => (
-            <div key={field}>
-              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--text)', marginBottom: '4px' }}>{field}</label>
-              <div style={{ height: '36px', background: 'var(--bg-app)', border: '1px solid var(--border-neutral)', borderRadius: '6px' }} />
-            </div>
-          ))}
+          <Input label="Full name"      defaultValue="Alex Morgan" />
+          <Input label="Email address"  type="email" defaultValue="alex.morgan@unit4.com" />
+          <Input label="Job title"      defaultValue="Senior UX Designer" />
+          <Input label="Location"       defaultValue="Amsterdam, Netherlands" />
           <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', paddingTop: '4px' }}>
             <Button size="small" variant="ghost" color="neutral">Cancel</Button>
             <Button size="small">Save changes</Button>
@@ -191,12 +191,12 @@ export const InContext: Story = {
             </PanelHeader>
             <PanelBody>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {['Current password', 'New password', 'Confirm new password'].map(f => (
-                  <div key={f}>
-                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--text)', marginBottom: '4px' }}>{f}</label>
-                    <div style={{ height: '36px', background: 'var(--bg-app)', border: '1px solid var(--border-neutral)', borderRadius: '6px' }} />
-                  </div>
-                ))}
+                <Input label="Current password"    type="password" />
+                <Input label="New password"        type="password" />
+                <Input label="Confirm new password" type="password" />
+                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <Button size="small">Update password</Button>
+                </div>
               </div>
             </PanelBody>
           </Panel>
@@ -206,14 +206,18 @@ export const InContext: Story = {
               Two-factor authentication
             </PanelHeader>
             <PanelBody>
-              <p style={{ margin: '0 0 12px', fontSize: '14px', color: 'var(--text-soft)' }}>2FA is currently disabled. Enable it to protect your account with a second verification step.</p>
-              <Button size="small" variant="outline" color="neutral">Enable 2FA</Button>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
+                <p className="typography-caption" style={{ margin: 0 }}>
+                  Require a verification code in addition to your password each time you sign in.
+                </p>
+                <Switch label="Enable 2FA" labelPosition="before" />
+              </div>
             </PanelBody>
           </Panel>
         </div>
       </Section>
 
-      {/* Section 3 — Dashboard widgets — elevated, no-padding cards */}
+      {/* Section 3 — Usage overview — elevated Cards */}
       <Section
         variant="no-padding"
         heading="Usage overview"
@@ -227,9 +231,9 @@ export const InContext: Story = {
           ].map(({ label, value, sub }) => (
             <Card key={label} variant="elevated">
               <CardContent>
-                <p style={{ margin: '0 0 4px', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-soft)' }}>{label}</p>
-                <p style={{ margin: '0 0 2px', fontSize: '28px', fontWeight: 700, color: 'var(--text-loud)', lineHeight: 1.1 }}>{value}</p>
-                <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-soft)' }}>{sub}</p>
+                <p className="typography-label"  style={{ margin: '0 0 4px' }}>{label}</p>
+                <p className="typography-heading-m" style={{ margin: '0 0 2px', lineHeight: 1.1 }}>{value}</p>
+                <p className="typography-detail" style={{ margin: 0 }}>{sub}</p>
               </CardContent>
             </Card>
           ))}

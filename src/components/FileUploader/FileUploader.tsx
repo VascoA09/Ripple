@@ -1,8 +1,11 @@
 import React, { useId, useRef, useState, useCallback } from 'react'
 import {
   UploadCloud, File as FileIcon, FileText, Image as ImageIcon,
-  Archive, X, Check, AlertCircle, Loader2, Upload,
+  Archive, X, Check, AlertCircle, Upload,
 } from 'lucide-react'
+import { Button } from '../Button'
+import { IconButton } from '../IconButton'
+import { Spinner } from '../Spinner'
 import './FileUploader.css'
 
 // ---------------------------------------------------------------------------
@@ -301,21 +304,27 @@ export function FileUploader({
           tabIndex={disabled ? -1 : 0}
           onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openFilePicker() } }}
         >
-          <UploadCloud size={32} className="file-uploader__zone-icon" aria-hidden="true" />
-
-          <span className="file-uploader__zone-text">
-            Drag &amp; drop files here
+          <span className="file-uploader__zone-icon-wrap" aria-hidden="true">
+            <UploadCloud size={24} className="file-uploader__zone-icon" />
           </span>
 
           <span className="file-uploader__zone-browse">
-            or{' '}
-            <span className="file-uploader__browse-link">
-              browse files
-            </span>
+            <span className="file-uploader__browse-link">Browse</span>
+            {' '}or drop files here to add
           </span>
 
-          {dropHint && (
-            <span className="file-uploader__zone-hint">{dropHint}</span>
+          {showUploadButton && onUpload && (
+            <Button
+              variant="ghost"
+              color="primary"
+              size="small"
+              iconStart={<Upload size={14} />}
+              disabled={!hasUploadable || isUploading || disabled}
+              tabIndex={-1}
+              onClick={e => { e.stopPropagation(); handleUpload() }}
+            >
+              {isUploading ? 'Uploading…' : 'Upload'}
+            </Button>
           )}
         </div>
 
@@ -351,7 +360,7 @@ export function FileUploader({
                 {/* Status icon */}
                 <span className="file-uploader__item-status" aria-hidden="true">
                   {item.status === 'uploading' && (
-                    <Loader2 size={16} className="file-uploader__spin" />
+                    <Spinner size="s" variant="neutral" aria-label="Uploading" />
                   )}
                   {item.status === 'uploaded' && (
                     <Check size={16} />
@@ -362,39 +371,24 @@ export function FileUploader({
                 </span>
 
                 {/* Remove button */}
-                <button
-                  type="button"
-                  className="file-uploader__item-remove"
+                <IconButton
+                  variant="ghost"
+                  size="small"
+                  color="neutral"
+                  icon={<X size={14} />}
                   aria-label={`Remove ${item.file.name}`}
                   disabled={item.status === 'uploading'}
                   onClick={() => removeFile(item.id)}
-                >
-                  <X size={14} aria-hidden="true" />
-                </button>
+                />
               </li>
             ))}
           </ul>
         )}
       </div>
 
-      {/* Upload button */}
-      {showUploadButton && onUpload && hasFiles && (
-        <div className="file-uploader__actions">
-          <button
-            type="button"
-            className="file-uploader__upload-btn"
-            disabled={!hasUploadable || isUploading || disabled}
-            onClick={handleUpload}
-          >
-            <Upload size={14} aria-hidden="true" />
-            {isUploading ? 'Uploading…' : 'Upload files'}
-          </button>
-        </div>
-      )}
-
-      {/* Hint */}
-      {hint && (
-        <span className="file-uploader__hint">{hint}</span>
+      {/* Hint — user-provided text takes priority; falls back to auto-generated format/size */}
+      {(hint || dropHint) && (
+        <span className="file-uploader__hint">{hint ?? dropHint}</span>
       )}
 
       {/* Hidden file input */}

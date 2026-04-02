@@ -59,14 +59,14 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
           <div className="section__header">
             {heading && (
               <HeadingTag
-                className="section__title"
+                className="section__title typography-heading-s"
                 data-level={headingLevel}
               >
                 {heading}
               </HeadingTag>
             )}
             {description && (
-              <p className="section__description">{description}</p>
+              <p className="section__description typography-caption">{description}</p>
             )}
           </div>
         )}

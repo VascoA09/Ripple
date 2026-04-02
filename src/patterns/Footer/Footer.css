@@ -8,14 +8,15 @@
    Default positioning: fixed to the bottom of the viewport.
    Override via className when embedding in a layout context.
 
-   Components used: Tag (group labels), FlyoutMenu (contextual menus),
-   Button (scroll buttons, action buttons).
+   Tab items use Ripple Tabs CSS classes (.tab-item, .tab, .tab__actions)
+   for visual consistency. Footer-specific overrides are scoped via the
+   .footer-tab modifier class.
 
    State driven by data attributes:
-   - [data-active]           — active/selected tab
+   - [data-selected]             — active/selected tab (mirrors Tabs component)
    - [data-type="standard|locked|pinned"] — tab type
-   - [data-color="..."]      — group color
-   - [data-expanded]         — group is expanded
+   - [data-color="..."]          — group color
+   - [data-expanded]             — group is expanded
    ============================================================================= */
 
 /* =============================================================================
@@ -23,15 +24,16 @@
    ============================================================================= */
 
 .footer {
-  position:   fixed;
-  bottom:     0;
-  left:       0;
-  right:      0;
-  height:     56px;
-  display:    flex;
+  position:    fixed;
+  bottom:      0;
+  left:        0;
+  right:       0;
+  height:      52px;
+  box-sizing:  border-box;
+  display:     flex;
   align-items: center;
-  gap:        var(--spacing-25);   /* 4px between chrome elements */
-  padding:    0 var(--spacing-100); /* 0 16px */
+  gap:         var(--spacing-25);    /* 4px between chrome elements */
+  padding:     0 var(--spacing-100); /* 0 16px */
 
   background:  var(--bg-surface);
   border-top:  1px solid var(--border-neutral);
@@ -52,14 +54,14 @@
    ============================================================================= */
 
 .footer__content {
-  flex:           1;
-  display:        flex;
-  align-items:    center;
-  gap:            var(--spacing-50);  /* 8px between tabs / groups */
-  overflow-x:     auto;
-  overflow-y:     visible;           /* groups with borders don't clip */
-  scrollbar-width: none;             /* Firefox */
-  min-width:      0;
+  flex:            1;
+  display:         flex;
+  align-items:     center;
+  gap:             var(--spacing-50);   /* 8px between tabs / groups */
+  overflow-x:      auto;
+  overflow-y:      visible;             /* groups with borders don't clip */
+  scrollbar-width: none;                /* Firefox */
+  min-width:       0;
 }
 
 .footer__content::-webkit-scrollbar {
@@ -67,109 +69,51 @@
 }
 
 /* =============================================================================
-   FOOTER TAB
+   FOOTER TAB — overrides on top of Ripple .tab-item / .tab
+
+   .footer-tab is added alongside .tab-item so footer-specific rules
+   can target it without affecting the shared Tabs component styles.
    ============================================================================= */
 
-.footer-tab {
-  --_bg: transparent;
-
-  position:     relative;
-  display:      flex;
-  align-items:  center;
-  gap:          2px;
-  min-width:    120px;
-  max-width:    200px;
-  height:       40px;
-  padding:      0 var(--spacing-50);   /* 0 8px */
-  flex-shrink:  0;
-
-  background:    var(--_bg);
-  border-radius: var(--border-radius-100);   /* 4px */
-  transition:    background 120ms ease;
-}
-
-.footer-tab:hover {
-  --_bg: var(--bg-neutral-softest);
-}
-
-.footer-tab[data-active] {
-  --_bg: var(--bg-neutral-soft);
-}
-
-/* ── Trigger (main clickable area) ────────────────────────────────────────── */
-
-.footer-tab__trigger {
-  flex:        1;
-  display:     flex;
-  align-items: center;
-  gap:         var(--spacing-50);   /* 8px between icon, label, type-icon */
-  height:      100%;
-  min-width:   0;
-
-  background:  transparent;
-  border:      none;
-  padding:     0;
-  cursor:      pointer;
-
-  font-family: var(--font-family-base);
-  font-size:   var(--font-size-80);         /* 14px */
-  font-weight: var(--font-weight-regular);
-  color:       var(--text);
-  text-align:  left;
-  outline:     none;
-}
-
-.footer-tab__label {
-  flex:          1;
-  overflow:      hidden;
-  text-overflow: ellipsis;
-  white-space:   nowrap;
-}
-
-.footer-tab__icon {
+.footer-tab.tab-item {
+  min-width:   120px;
   flex-shrink: 0;
-  display:     flex;
-  align-items: center;
-  color:       var(--icon-soft);
+  align-items: center; /* Tabs uses stretch; Button's explicit height keeps it top-aligned without this */
 }
 
+/* Close button — always visible for standard tabs */
+.footer-tab .footer-tab__close-btn {
+  flex-shrink: 0;
+}
+
+/* More button — hidden by default, shown on hover or when selected.
+   display: none removes it from the layout so it doesn't contribute
+   to tab width when not visible. */
+.footer-tab .footer-tab__more-btn {
+  display: none;
+}
+
+.footer-tab:hover .footer-tab__more-btn,
+.footer-tab[data-selected] .footer-tab__more-btn {
+  display: inline-flex;
+}
+
+/* Compact font, weight, and padding — footer is denser than page-level tabs */
+.footer-tab .tab {
+  font-size:   var(--font-size-80);     /* 14px  */
+  font-weight: var(--font-weight-regular);
+  padding:     0 var(--spacing-50);     /* 0 8px — tighter than standard tabs */
+}
+
+.footer-tab.tab-item:hover,
+.footer-tab.tab-item[data-selected] {
+  padding-right: var(--spacing-25);     /* 4px — accounts for visible action buttons */
+}
+
+/* Type indicator icons (lock, pin) — sit inside the .tab button after the label */
 .footer-tab__type-icon {
   flex-shrink: 0;
   color:       var(--icon-soft);
-}
-
-/* ── Action buttons (close + more) ───────────────────────────────────────── */
-
-.footer-tab__actions {
-  display:     flex;
-  align-items: center;
-  gap:         2px;
-  flex-shrink: 0;
-}
-
-.footer-tab__close-btn,
-.footer-tab__more-btn {
-  opacity:    0;
-  transition: opacity 120ms ease;
-}
-
-.footer-tab:hover .footer-tab__close-btn,
-.footer-tab:hover .footer-tab__more-btn,
-.footer-tab[data-active] .footer-tab__close-btn,
-.footer-tab[data-active] .footer-tab__more-btn {
-  opacity: 1;
-}
-
-/* ── Focus management ─────────────────────────────────────────────────────── */
-
-.footer-tab:focus-within {
-  outline:        var(--border-width-focus) solid var(--border-focus);
-  outline-offset: 1px;
-}
-
-/* Suppress the native focus ring on the inner trigger — the parent handles it */
-.footer-tab__trigger:focus-visible {
-  outline: none;
 }
 
 /* =============================================================================
@@ -181,45 +125,73 @@
 
   display:     flex;
   align-items: center;
-  gap:         var(--spacing-50);   /* 8px between header and tabs */
-  padding:     var(--spacing-25) var(--spacing-50);  /* 4px 8px */
+  gap:         var(--spacing-50);              /* 8px between header and tabs */
+  padding:     0 var(--spacing-50);            /* 0 8px */
   flex-shrink: 0;
+  height:      40px;
+  box-sizing:  border-box;
 
-  border:        2px solid var(--_group-color);
-  border-radius: var(--border-radius-100);   /* 4px */
+  border-bottom: 2px solid var(--_group-color);
 }
 
-/* Color variants — one rule per TagColor, using the -60 primitive stop.
-   Mirrors the Tag component's color set; no semantic meaning is implied. */
+/* Color variants — one rule per TagColor, using the -60 primitive stop */
 .footer-group[data-color="gray"]    { --_group-color: var(--color-cool-gray-60); }
-.footer-group[data-color="blue"]    { --_group-color: var(--color-blue-60); }
-.footer-group[data-color="green"]   { --_group-color: var(--color-green-60); }
-.footer-group[data-color="emerald"] { --_group-color: var(--color-emerald-60); }
-.footer-group[data-color="aqua"]    { --_group-color: var(--color-aqua-60); }
-.footer-group[data-color="purple"]  { --_group-color: var(--color-purple-60); }
-.footer-group[data-color="violet"]  { --_group-color: var(--color-violet-60); }
-.footer-group[data-color="pink"]    { --_group-color: var(--color-pink-60); }
-.footer-group[data-color="red"]     { --_group-color: var(--color-red-60); }
-.footer-group[data-color="orange"]  { --_group-color: var(--color-orange-60); }
-.footer-group[data-color="ochre"]   { --_group-color: var(--color-ochre-60); }
+.footer-group[data-color="blue"]    { --_group-color: var(--color-blue-60);      }
+.footer-group[data-color="green"]   { --_group-color: var(--color-green-60);     }
+.footer-group[data-color="emerald"] { --_group-color: var(--color-emerald-60);   }
+.footer-group[data-color="aqua"]    { --_group-color: var(--color-aqua-60);      }
+.footer-group[data-color="purple"]  { --_group-color: var(--color-purple-60);    }
+.footer-group[data-color="violet"]  { --_group-color: var(--color-violet-60);    }
+.footer-group[data-color="pink"]    { --_group-color: var(--color-pink-60);      }
+.footer-group[data-color="red"]     { --_group-color: var(--color-red-60);       }
+.footer-group[data-color="orange"]  { --_group-color: var(--color-orange-60);    }
+.footer-group[data-color="ochre"]   { --_group-color: var(--color-ochre-60);     }
 
-/* ── Group header (tag + menu button) ────────────────────────────────────── */
+/* ── Group header (label button + menu button) ────────────────────────────── */
 
 .footer-group__header {
   display:     flex;
   align-items: center;
-  gap:         var(--spacing-25);  /* 4px */
+  gap:         var(--spacing-25);   /* 4px */
 }
 
-.footer-group__tag {
+/* Group label — outlined badge button styled in the group color */
+.footer-group__label {
+  /* Reset */
+  all:        unset;
+  box-sizing: border-box;
+
+  /* Layout */
+  display:     inline-flex;
+  align-items: center;
+  height:      32px;
+  padding:     0 var(--spacing-50);     /* 0 8px */
+  flex-shrink: 0;
+
+  /* Visual — border and text in group color, transparent fill */
+  border:        1.5px solid var(--_group-color);
+  border-radius: var(--border-radius-100);
+
+  /* Typography */
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-60);     /* 12px */
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  color:       var(--_group-color);
+  white-space: nowrap;
+
   cursor:      pointer;
   user-select: none;
+  transition:  background 120ms ease;
 }
 
-.footer-group__tag:focus-visible {
+.footer-group__label:hover {
+  background: var(--bg-neutral-softest);
+}
+
+.footer-group__label:focus-visible {
   outline:        var(--border-width-focus) solid var(--border-focus);
   outline-offset: 2px;
-  border-radius:  var(--border-radius-100);
 }
 
 .footer-group__more-btn {
@@ -231,5 +203,5 @@
 .footer-group__tabs {
   display:     flex;
   align-items: center;
-  gap:         var(--spacing-25);  /* 4px — tighter inside a group */
+  gap:         var(--spacing-25);   /* 4px — tighter inside a group */
 }

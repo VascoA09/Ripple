@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Dialog, DialogHeader, DialogBody, DialogFooter } from './Dialog'
 import type { DialogProps, DialogSize } from './Dialog'
 import { Button } from '../Button'
-import { TextInput } from '../TextInput'
+import { Input } from '../Input'
 import { TextArea } from '../TextArea'
 import { Combobox } from '../Combobox'
 import { BannerAlert } from '../BannerAlert'
@@ -101,13 +101,13 @@ export const Default: Story = {
             <DialogHeader>Account settings</DialogHeader>
             <DialogBody>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <TextInput
+                <Input
                   label="Display name"
                   placeholder="Enter your name"
                   value={name}
                   onChange={e => setName(e.target.value)}
                 />
-                <TextInput
+                <Input
                   label="Email address"
                   type="email"
                   placeholder="name@organisation.com"
@@ -169,13 +169,13 @@ export const Sizes: Story = {
               <DialogHeader>Edit team member</DialogHeader>
               <DialogBody>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <TextInput
+                  <Input
                     label="Full name"
                     placeholder="Enter full name"
                     value={name}
                     onChange={e => setName(e.target.value)}
                   />
-                  <TextInput
+                  <Input
                     label="Email address"
                     type="email"
                     placeholder="name@organisation.com"

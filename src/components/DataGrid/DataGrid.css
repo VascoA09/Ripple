@@ -1,0 +1,265 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — DATA GRID COMPONENT
+   Source: components/data-grid.md
+
+   Built on AG Grid Community (v35). The Ripple theme is defined via
+   themeQuartz.withParams() in DataGrid.tsx — mapping Ripple semantic tokens
+   to AG Grid theme params. This file handles layout, loading overlay, and
+   CSS selector overrides for visual details not reachable via params.
+   ============================================================================= */
+
+/* ---------------------------------------------------------------------------
+   Root wrapper
+   --------------------------------------------------------------------------- */
+
+.data-grid {
+  position: relative;
+  width:     100%;
+}
+
+/* ---------------------------------------------------------------------------
+   Loading overlay
+   Sits above the grid content; shows a spinner centred over the grid area.
+   --------------------------------------------------------------------------- */
+
+.data-grid__loading-overlay {
+  position:         absolute;
+  inset:            0;
+  z-index:          10;
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  background:       color-mix(in srgb, var(--bg-surface) 80%, transparent);
+  border-radius:    var(--border-radius-200);
+  pointer-events:   none;
+}
+
+.data-grid--loading .data-grid__loading-overlay {
+  pointer-events: all;
+}
+
+/* ---------------------------------------------------------------------------
+   Header typography
+   chromeBackgroundColor covers the header background; these selectors
+   apply Ripple text tokens that params cannot reach.
+   --------------------------------------------------------------------------- */
+
+.data-grid .ag-header-cell-text {
+  font-size:   var(--font-size-60);       /* 12px */
+  font-weight: var(--font-weight-bold);
+  color:       var(--text-loud);
+}
+
+.data-grid .ag-header-cell-menu-button,
+.data-grid .ag-header-cell-filter-button {
+  color: var(--text-soft);
+}
+
+.data-grid .ag-header-cell-menu-button:hover,
+.data-grid .ag-header-cell-filter-button:hover {
+  color: var(--text-loud);
+}
+
+/* ---------------------------------------------------------------------------
+   Row hover — reinforce theme param with explicit transition
+   --------------------------------------------------------------------------- */
+
+.data-grid .ag-row {
+  transition: background 120ms ease;
+}
+
+/* ---------------------------------------------------------------------------
+   Focus ring on cells — maps to Ripple focus token
+   --------------------------------------------------------------------------- */
+
+.data-grid .ag-cell:focus-visible {
+  outline:        2px solid var(--border-focus);
+  outline-offset: -2px;
+}
+
+/* ---------------------------------------------------------------------------
+   Floating filter button
+   Ghost neutral, small (32px, 6px radius). AG Grid renders a <button> inside
+   .ag-floating-filter-button for the "open full filter" affordance.
+   --------------------------------------------------------------------------- */
+
+.data-grid .ag-floating-filter-button button {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  height:          var(--size-component-height-small);  /* 32px */
+  min-width:       var(--size-component-height-small);
+  padding:         0;
+  border:          none;
+  border-radius:   var(--border-radius-150);            /* 6px  */
+  background:      transparent;
+  box-shadow:      none;
+  color:           var(--text);
+  cursor:          pointer;
+  transition:      background 150ms ease, color 150ms ease;
+}
+
+.data-grid .ag-floating-filter-button button:hover {
+  background: var(--bg-neutral-soft);
+  box-shadow: none;
+}
+
+.data-grid .ag-floating-filter-button button:active {
+  background: var(--bg-neutral);
+  box-shadow: none;
+  color:      var(--text-loud-inverse);
+}
+
+.data-grid .ag-floating-filter-button button:focus-visible {
+  outline:        2px solid var(--border-focus);
+  outline-offset: 2px;
+  background:     var(--bg-neutral-softest);
+  box-shadow:     none;
+}
+
+/* ---------------------------------------------------------------------------
+   AG Grid built-in pagination panel — hidden.
+   Replaced entirely by the custom .data-grid__pagination footer.
+   --------------------------------------------------------------------------- */
+
+.data-grid .ag-paging-panel {
+  display: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Custom pagination footer
+   Mirrors the image: [Page size + Dropdown] [row range] [nav buttons]
+   --------------------------------------------------------------------------- */
+
+.data-grid__pagination {
+  display:         flex;
+  align-items:     center;
+  justify-content: flex-end;
+  gap:             var(--spacing-100);
+  padding:         0 var(--spacing-100);
+  height:          48px;
+  border:          1px solid var(--border-neutral);
+  border-top:      none;
+  border-radius:   0 0 var(--border-radius-200) var(--border-radius-200);
+  background:      var(--bg-neutral-softest);
+  font-family:     var(--font-family-base);
+  font-size:       var(--font-size-80);
+  color:           var(--text-soft);
+  overflow:        visible;   /* allow Dropdown listbox to escape the footer bounds */
+}
+
+.data-grid__pagination-size {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-50);
+}
+
+/* Page-size Dropdown listbox minimum width */
+.data-grid__pagination-size .dropdown__listbox {
+  min-width: 80px;
+}
+
+.data-grid__pagination-label {
+  white-space: nowrap;
+  color:       var(--text-soft);
+}
+
+.data-grid__pagination-info {
+  white-space: nowrap;
+}
+
+.data-grid__pagination-nav {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-25);
+}
+
+.data-grid__pagination-pages {
+  padding:     0 var(--spacing-50);
+  white-space: nowrap;
+}
+
+/* Remove bottom border-radius on AG Grid wrapper when the custom footer is shown */
+.data-grid[data-paginated] .ag-root-wrapper {
+  border-bottom-left-radius:  0;
+  border-bottom-right-radius: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Compact size — row height driven by grid prop; this adjusts internal padding
+   --------------------------------------------------------------------------- */
+
+.data-grid--compact .ag-cell {
+  padding-top:    var(--spacing-25);   /* 4px */
+  padding-bottom: var(--spacing-25);
+}
+
+/* ---------------------------------------------------------------------------
+   Floating filter row
+   Matches the header background; input uses Ripple border and focus tokens.
+   --------------------------------------------------------------------------- */
+
+.data-grid .ag-floating-filter {
+  background: var(--bg-neutral-softest);
+}
+
+/* AG Grid's floating filter body is a flex child alongside the filter button.
+   min-width: 0 lets it shrink so the button always remains visible.
+   No overflow: hidden — picker panels must escape the header boundary. */
+.data-grid .ag-floating-filter-full-body {
+  min-width: 0;
+}
+
+/* Ripple floating filter cell — wraps Ripple Input / DatePicker / TimePicker */
+.data-grid__floating-filter-cell {
+  display:    flex;
+  align-items: center;
+  width:      100%;
+  min-width:  0;
+  box-sizing: border-box;
+}
+
+/* Fill available width and remove all intrinsic minimums so the component
+   shrinks with the column. .input__field targets the native <input> element
+   which carries a browser-default min-width of ~170px. */
+.data-grid__floating-filter-cell .input,
+.data-grid__floating-filter-cell .input__wrapper,
+.data-grid__floating-filter-cell .input__field,
+.data-grid__floating-filter-cell .date-picker,
+.data-grid__floating-filter-cell .date-picker__wrapper,
+.data-grid__floating-filter-cell .time-picker,
+.data-grid__floating-filter-cell .time-picker__wrapper {
+  width:     100%;
+  min-width: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Checkbox cell — used in the dedicated selection column for multi-select
+   --------------------------------------------------------------------------- */
+
+.data-grid__checkbox-cell {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  height:          100%;
+  width:           100%;
+}
+
+/* Suppress the label gap — no text label in grid checkboxes */
+.data-grid__checkbox-cell .checkbox {
+  gap: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Filter/column menu panel
+   --------------------------------------------------------------------------- */
+
+.data-grid .ag-filter,
+.data-grid .ag-column-menu {
+  background:    var(--bg-surface);
+  border:        1px solid var(--border-default);
+  border-radius: var(--border-radius-100);
+  box-shadow:    var(--box-shadow-300);
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-80);
+}

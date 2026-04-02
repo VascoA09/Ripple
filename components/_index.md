@@ -1,7 +1,7 @@
 ---
 type: registry
 scope: components
-last_updated: 2026-03-19
+last_updated: 2026-03-31
 ---
 
 # Component Registry
@@ -9,6 +9,7 @@ last_updated: 2026-03-19
 | Component | Status | Version | Last Updated | Owner | Figma | Tags |
 |-----------|--------|---------|--------------|-------|-------|------|
 | [Accordion](accordion.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | disclosure, navigation |
+| [Data Grid](data-grid.md) | stable | 1.0.0 | 2026-04-02 | Vasco Antunes | TBD | data, table, display |
 | [Avatar](avatar.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | display, identity |
 | [Badge](badge.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | display, status |
 | [Banner Alert](banner-alert.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | feedback, status |
@@ -48,7 +49,7 @@ last_updated: 2026-03-19
 | [Tabs](tabs.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | navigation |
 | [Tag](tag.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | display, filter |
 | [Text Area](text-area.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | form, input |
-| [Text Input](text-input.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | form, input |
+| [Input](input.md) | stable | 1.0.0 | 2026-03-31 | Vasco Antunes | TBD | form, input |
 | [Toast](toast.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | feedback, overlay |
 | [Tooltip](tooltip.md) | draft | 0.1.0 | 2026-03-20 | Vasco Antunes | TBD | overlay, feedback |
 | [Validation Message](validation-message.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | form, feedback |
@@ -57,9 +58,9 @@ last_updated: 2026-03-19
 
 | Status | Count |
 |--------|-------|
-| Draft | 44 |
+| Draft | 43 |
 | Review | 0 |
-| Stable | 0 |
+| Stable | 1 |
 | Deprecated | 0 |
 
 ## Build Coverage
@@ -106,7 +107,7 @@ last_updated: 2026-03-19
 | Tabs | Yes | Yes |
 | Tag | Yes | Yes |
 | Text Area | No | Yes |
-| Text Input | No | Yes |
+| Input | Yes | Yes |
 | Toast | No | Yes |
 | Tooltip | Yes | Yes |
 | Validation Message | Yes | Yes |

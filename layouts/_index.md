@@ -1,23 +1,25 @@
 ---
 type: registry
 scope: layouts
-last_updated: 2026-03-20
+last_updated: 2026-03-31
 ---
 
 # Layout Registry
 
-Layout templates are full-page scaffolds that compose patterns into complete application shells.
+Layouts are full-page scaffolds that compose patterns into complete application shells.
 They contain no behavioural logic — all state is owned by the patterns they arrange.
 
-| Layout | Status | Version | Last Updated | Owner | Patterns Used |
-|--------|--------|---------|--------------|-------|---------------|
-| [Micro Navigation](micro-navigation.md) | draft | 0.1.0 | 2026-03-20 | Vasco Antunes | MainNavigation, Footer |
+| Layout | Status | Version | Last Updated | Owner | Patterns Used | Product |
+|--------|--------|---------|--------------|-------|---------------|---------|
+| [Micro Navigation](micro-navigation.md) | draft | 0.1.0 | 2026-03-20 | Vasco Antunes | MainNavigation, Footer | Any |
+| [Standard Navigation](standard-navigation.md) | draft | 0.1.0 | 2026-03-31 | Vasco Antunes | Navbar, Drawer, PageHeader | ERPx |
+| [Extension Kit Navigation](extension-kit-navigation.md) | draft | 0.1.0 | 2026-03-31 | Vasco Antunes | PageHeader | Extension Kit |
 
 ## Status Summary
 
 | Status | Count |
 |--------|-------|
-| Draft | 1 |
+| Draft | 3 |
 | Review | 0 |
 | Stable | 0 |
 | Deprecated | 0 |
@@ -30,4 +32,16 @@ They contain no behavioural logic — all state is owned by the patterns they ar
 | **Has internal state?** | Often | Never |
 | **Individually tested?** | Yes | No (covered by composed patterns) |
 | **Versioned independently?** | Yes | Yes, but rarely breaking |
-| **Examples** | Footer, MainNavigation | MicroNavigation |
+| **Examples** | Footer, MainNavigation | MicroNavigation, StandardNavigation |
+
+## Layouts vs App Templates
+
+Layouts are generic and product-agnostic. App Templates (see `templates/_index.md`) wrap a layout with product-specific configuration — the correct nav items, branding slots, and content zones pre-wired for a specific product.
+
+| | Layouts | App Templates |
+|---|---|---|
+| **Product-specific?** | No | Yes |
+| **Reusable across products?** | Yes | No |
+| **Contains configuration?** | No | Yes |
+| **Where it lives** | `layouts/` | `templates/` |
+| **Examples** | MicroNavigation | ERPx MicroNavigation |

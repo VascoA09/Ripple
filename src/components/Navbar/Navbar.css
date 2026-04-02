@@ -4,10 +4,6 @@
 
    Fixed 64 px wide vertical navigation shell, left-anchored.
    Zones: Logo → Tenant Badge → Global Nav → Contextual Nav → Spacer → User Menu
-
-   NOTE: spec references var(--font-size-20) (10 px) for product name.
-   That token does not exist in Ripple. Using 10px literal as it falls below
-   the smallest available token (--font-size-60 = 12 px).
    ============================================================================= */
 
 /* ---------------------------------------------------------------------------
@@ -18,13 +14,15 @@
   display:          flex;
   flex-direction:   column;
   align-items:      center;
-  width:            64px;
+  width:            72px;
   min-height:       100vh;
-  padding:          var(--spacing-50) 0;   /* 8px top/bottom */
+  padding:          var(--spacing-100) var(--spacing-50) var(--spacing-50); /* 16px top, 8px right/left, 8px bottom */
   background:       var(--bg-surface);
   border-right:     1px solid var(--border-neutral);
   box-sizing:       border-box;
   flex-shrink:      0;
+  position:         relative;
+  z-index:          500;
 }
 
 /* ---------------------------------------------------------------------------
@@ -36,9 +34,10 @@
   flex-direction:  column;
   align-items:     center;
   justify-content: center;
-  width:           64px;
-  height:          64px;
+  width:           100%;
   gap:             4px;
+  padding:         var(--spacing-50) 0;
+  margin-bottom:   var(--spacing-75); /* 12px gap to tenant badge */
   flex-shrink:     0;
 
   /* Reset button styles when interactive */
@@ -50,20 +49,6 @@
   text-decoration: none;
 }
 
-.navbar__logo--interactive {
-  cursor:          pointer;
-  border-radius:   var(--border-radius-150);
-  outline:         none;
-}
-
-.navbar__logo--interactive:hover {
-  background: var(--bg-neutral-softest);
-}
-
-.navbar__logo--interactive:focus-visible {
-  outline:        2px solid var(--border-focus);
-  outline-offset: 2px;
-}
 
 .navbar__logo-icon {
   display:         flex;
@@ -76,16 +61,16 @@
 }
 
 .navbar__product-name {
-  font-family:  var(--font-family-base);
-  font-size:    10px;             /* --font-size-20 (10px) does not exist; using literal */
-  font-weight:  var(--font-weight-bold);
-  line-height:  1;
-  color:        var(--text-loud);
-  max-width:    56px;
-  overflow:     hidden;
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-80);     /* 14px */
+  font-weight:   var(--font-weight-semibold);
+  line-height:   1;
+  color:         var(--text-loud);
+  max-width:     100%;
+  overflow:      hidden;
   text-overflow: ellipsis;
-  white-space:  nowrap;
-  text-align:   center;
+  white-space:   nowrap;
+  text-align:    center;
 }
 
 /* ---------------------------------------------------------------------------
@@ -94,7 +79,6 @@
 
 .navbar__tenant {
   margin-bottom: var(--spacing-50);    /* 8px */
-  padding:       0 var(--spacing-50);  /* 8px horizontal — gives 48px badge width */
   width:         100%;
   box-sizing:    border-box;
 }
@@ -115,7 +99,7 @@
   flex-direction: column;
   align-items:    center;
   gap:            var(--spacing-25);  /* 4px */
-  padding:        var(--spacing-50) var(--spacing-75); /* 8px 12px */
+  padding:        var(--spacing-50) 0;
   margin:         0;
   list-style:     none;
   width:          100%;
@@ -127,7 +111,7 @@
    --------------------------------------------------------------------------- */
 
 .navbar__divider {
-  width:        calc(100% - 24px);  /* inset 12px each side */
+  width:        100%;
   height:       1px;
   background:   var(--border-neutral);
   flex-shrink:  0;

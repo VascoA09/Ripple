@@ -60,24 +60,19 @@
    --------------------------------------------------------------------------- */
 
 .toast {
-  --_accent:       var(--border-default);
-  --_icon-color:   var(--icon-default);
-  --_bg:           var(--bg-surface);
+  --_icon-color: var(--color-neutral);
 }
 
 .toast[data-variant="positive"] {
-  --_accent:       var(--color-positive-loud);
-  --_icon-color:   var(--color-positive-loud);
+  --_icon-color: var(--color-positive);
 }
 
 .toast[data-variant="notice"] {
-  --_accent:       var(--color-notice-loud);
-  --_icon-color:   var(--color-notice-loud);
+  --_icon-color: var(--color-notice);
 }
 
 .toast[data-variant="negative"] {
-  --_accent:       var(--color-negative-loud);
-  --_icon-color:   var(--color-negative-loud);
+  --_icon-color: var(--color-negative);
 }
 
 /* ---------------------------------------------------------------------------
@@ -87,22 +82,32 @@
 .toast {
   pointer-events: all; /* restore pointer events for the toast itself */
   position: relative;
-  width: 400px;
+  width: 344px;
   max-width: calc(100vw - var(--spacing-100) * 2);
   display: flex;
-  align-items: flex-start;
-  gap: var(--spacing-50); /* 8px */
+  flex-direction: column;
+  gap: var(--spacing-100); /* 16px between top row and footer */
   padding: var(--spacing-100); /* 16px */
-  background: var(--_bg);
-  border-radius: var(--border-radius-150); /* 12px */
-  border: var(--border-width-default) solid var(--border-default);
-  box-shadow: inset 4px 0 0 var(--_accent), var(--box-shadow-400);
+  background: var(--bg-surface);
+  border-radius: var(--border-radius-200); /* 8px */
+  box-shadow: var(--elevation-overlay);
 
   animation: toast-enter 250ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .toast[data-exiting] {
   animation: toast-exit 250ms ease-in both;
+}
+
+/* ---------------------------------------------------------------------------
+   Toast — top row (icon + body + close)
+   --------------------------------------------------------------------------- */
+
+.toast__row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-100); /* 16px */
+  width: 100%;
 }
 
 /* ---------------------------------------------------------------------------
@@ -129,59 +134,30 @@
 }
 
 .toast__title {
-  font-size: var(--font-size-100); /* 16px */
-  font-weight: 600;
-  line-height: 1.4;
-  color: var(--text-loud);
-  overflow: hidden;
+  /* typography-heading-s */
+  font-family:  var(--font-family-base);
+  font-size:    var(--font-size-120); /* 18px */
+  font-weight:  var(--font-weight-semibold);
+  line-height:  var(--font-line-height-heading); /* 1.3 */
+  color:        var(--text-loud);
+  margin:       0;
+  overflow:     hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space:  nowrap;
 }
 
 .toast__description {
-  font-size: var(--font-size-80); /* 14px */
-  font-weight: 400;
-  line-height: 1.5;
-  color: var(--text-default);
-  display: -webkit-box;
+  /* typography-caption */
+  font-family:  var(--font-family-base);
+  font-size:    var(--font-size-80); /* 14px */
+  font-weight:  var(--font-weight-regular);
+  line-height:  var(--font-line-height-body); /* 1.5 */
+  color:        var(--text-soft);
+  margin:       0;
+  display:      -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.toast__timestamp {
-  font-size: var(--font-size-60); /* 12px */
-  color: var(--text-muted);
-  line-height: 1.4;
-  margin-top: var(--spacing-25);
-}
-
-/* ---------------------------------------------------------------------------
-   Toast — action button
-   --------------------------------------------------------------------------- */
-
-.toast__action {
-  align-self: flex-start;
-  background: none;
-  border: none;
-  padding: 0;
-  margin-top: var(--spacing-25);
-  font-size: var(--font-size-80);
-  font-weight: 600;
-  color: var(--_icon-color);
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  border-radius: var(--border-radius-50, 4px);
-  outline-offset: 2px;
-}
-
-.toast__action:hover {
-  opacity: 0.8;
-}
-
-.toast__action:focus-visible {
-  outline: var(--border-width-focus) solid var(--border-focus);
+  overflow:     hidden;
 }
 
 /* ---------------------------------------------------------------------------
@@ -195,10 +171,10 @@
   justify-content: center;
   width: 32px;
   height: 32px;
-  margin: -4px -4px 0 0; /* optical compensation for padding */
+  margin: -4px -4px 0 0; /* optical compensation */
   background: none;
   border: none;
-  border-radius: var(--border-radius-100, 8px);
+  border-radius: var(--border-radius-150); /* 6px */
   color: var(--icon-default);
   cursor: pointer;
   transition: background 150ms ease, color 150ms ease;
@@ -215,7 +191,66 @@
 }
 
 /* ---------------------------------------------------------------------------
+   Toast — footer (timestamp + action)
+   Offset left to align with body text, past the 24px icon and 16px gap.
+   --------------------------------------------------------------------------- */
+
+.toast__footer {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-50); /* 8px */
+  padding-left: calc(24px + var(--spacing-100)); /* 40px — icon + gap */
+}
+
+/* ---------------------------------------------------------------------------
+   Toast — timestamp
+   --------------------------------------------------------------------------- */
+
+.toast__timestamp {
+  /* typography-detail + text-soft */
+  font-family:  var(--font-family-base);
+  font-size:    var(--font-size-60); /* 12px */
+  font-weight:  var(--font-weight-regular);
+  line-height:  var(--font-line-height-body);
+  color:        var(--text-soft);
+  margin:       0;
+}
+
+/* ---------------------------------------------------------------------------
+   Toast — action button
+   Ghost button style: primary colour, no underline, 32px tall.
+   --------------------------------------------------------------------------- */
+
+.toast__action {
+  flex-shrink: 0;
+  margin-left: auto; /* push to the right of the footer */
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 var(--spacing-75); /* 0 12px */
+  background: none;
+  border: none;
+  border-radius: var(--border-radius-150); /* 6px */
+  font-size: var(--font-size-80); /* 14px */
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary-loud);
+  cursor: pointer;
+  white-space: nowrap;
+  outline-offset: 2px;
+}
+
+.toast__action:hover {
+  background: var(--bg-primary-softest);
+}
+
+.toast__action:focus-visible {
+  outline: var(--border-width-focus) solid var(--border-focus);
+}
+
+/* ---------------------------------------------------------------------------
    Toast — progress bar
+   4px track at the bottom, rounded corners clipped by the toast container.
+   Fill is always primary — it is a timer indicator, not a status colour.
    --------------------------------------------------------------------------- */
 
 .toast__progress {
@@ -223,15 +258,15 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 3px;
+  height: 4px;
   background: var(--bg-neutral-soft);
-  border-radius: 0 0 var(--border-radius-150) var(--border-radius-150);
+  border-radius: 0 0 var(--border-radius-200) var(--border-radius-200);
   overflow: hidden;
 }
 
 .toast__progress-bar {
   height: 100%;
-  background: var(--_accent);
+  background: var(--color-primary);
   transform-origin: left center;
   animation: toast-progress linear forwards;
   animation-duration: var(--_duration, 6000ms);

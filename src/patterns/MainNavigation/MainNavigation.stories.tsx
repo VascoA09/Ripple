@@ -4,7 +4,6 @@ import {
   BarChart2,
   Bell,
   BookOpen,
-  CheckCheck,
   Clock,
   DollarSign,
   FileText,
@@ -30,9 +29,13 @@ import {
   DrawerMultiLevelItem,
   DrawerNotificationItem,
 } from '../../components/Drawer'
-import { TextInput } from '../../components/TextInput'
+import { Input } from '../../components/Input'
 import { Avatar } from '../../components/Avatar'
+import { Button } from '../../components/Button'
+import { Chip, ChipGroup } from '../../components/Chip'
 import { Unit4Logo } from '../../assets/Unit4Logo'
+import { Footer } from '../Footer'
+import type { FooterTab } from '../Footer'
 
 // ---------------------------------------------------------------------------
 
@@ -57,27 +60,53 @@ const USER_MENU = [
 ]
 
 // ---------------------------------------------------------------------------
-// Page content placeholder — keeps stories readable
+// Page content placeholder — sticky header + scrollable body
+// Demonstrates how a Page Header stays pinned while content scrolls,
+// with the Footer anchored at the bottom of the shell.
 // ---------------------------------------------------------------------------
 
 function PageContent({ title }: { title: string }) {
   return (
-    <div style={{
-      padding: '32px',
-      fontFamily: 'var(--font-family-base)',
-    }}>
-      <h1 style={{
-        margin: '0 0 8px',
-        fontSize: 'var(--font-size-160)',
-        fontWeight: 'var(--font-weight-semibold)',
-        color: 'var(--text-loud)',
+    <>
+      {/* Page Header — sticky within the scroll container */}
+      <div style={{
+        position:     'sticky',
+        top:          0,
+        zIndex:       10,
+        padding:      '16px 32px',
+        background:   'var(--bg-canvas)',
+        borderBottom: '1px solid var(--border-neutral)',
+        fontFamily:   'var(--font-family-base)',
       }}>
-        {title}
-      </h1>
-      <p style={{ margin: 0, fontSize: 'var(--font-size-80)', color: 'var(--text-soft)' }}>
-        Application content area. The Main Navigation sits to the left.
-      </p>
-    </div>
+        <h1 style={{
+          margin:     0,
+          fontSize:   'var(--font-size-160)',
+          fontWeight: 'var(--font-weight-semibold)',
+          color:      'var(--text-loud)',
+        }}>
+          {title}
+        </h1>
+      </div>
+
+      {/* Scrollable body */}
+      <div style={{ padding: '32px', fontFamily: 'var(--font-family-base)' }}>
+        {Array.from({ length: 20 }, (_, i) => (
+          <p
+            key={i}
+            style={{
+              margin:    '0 0 16px',
+              fontSize:  'var(--font-size-80)',
+              color:     'var(--text-soft)',
+              padding:   '12px 16px',
+              background: i % 2 === 0 ? 'var(--bg-surface)' : 'transparent',
+              borderRadius: 'var(--border-radius-100)',
+            }}
+          >
+            Row {i + 1} — application content for {title}.
+          </p>
+        ))}
+      </div>
+    </>
   )
 }
 
@@ -92,7 +121,7 @@ function SearchDrawerContent() {
     <>
       <DrawerHeader title="Search" />
       <DrawerTools>
-        <TextInput
+        <Input
           label="Search"
           hideLabel
           placeholder="Search across modules…"
@@ -123,57 +152,50 @@ function SearchDrawerContent() {
 }
 
 function NotificationsDrawerContent() {
+  const [activeFilter, setActiveFilter] = useState('All')
   const [items, setItems] = useState([
-    { id: '1', title: 'Approval required',   message: 'Invoice #4821 requires your approval', time: '2m ago',  unread: true  },
-    { id: '2', title: 'Document shared',      message: 'Anna shared "Q1 Finance Report" with you', time: '14m ago', unread: true  },
-    { id: '3', title: 'Task completed',       message: 'Payroll run for March completed successfully', time: '1h ago',  unread: false },
-    { id: '4', title: 'New comment',          message: 'John commented on Budget Review 2026', time: '3h ago',  unread: false },
+    { id: '1', title: 'Leave request approved',  message: 'Your 3-day leave request for 15–17 April has been approved by Alex Chen.', timestamp: '5m ago',    unread: true  },
+    { id: '2', title: 'Performance review due',  message: 'Your Q1 self-assessment is due in 2 days. Complete it to avoid delays.',    timestamp: '1h ago',    unread: true  },
+    { id: '3', title: 'New team member',          message: 'Marcus Holt joined the Design team. Say hello!',                            timestamp: 'Yesterday', unread: false },
+    { id: '4', title: 'Payslip available',        message: 'Your March 2026 payslip is now available for download.',                    timestamp: '3 days ago', unread: false },
   ])
 
-  const unreadCount = items.filter(n => n.unread).length
-
-  function markAllRead() {
-    setItems(prev => prev.map(n => ({ ...n, unread: false })))
-  }
+  const filters = ['All', 'Unread', 'HR', 'Finance']
 
   return (
     <>
       <DrawerHeader
         title="Notifications"
-        actions={
-          unreadCount > 0 ? (
-            <button
-              type="button"
-              onClick={markAllRead}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
-                padding: '4px 8px',
-                border: 'none',
-                background: 'none',
-                cursor: 'pointer',
-                fontSize: 'var(--font-size-70)',
-                color: 'var(--text-action)',
-              }}
-            >
-              <CheckCheck size={12} />
-              Mark all read
-            </button>
-          ) : undefined
-        }
+        actions={<Button size="small" variant="ghost" color="neutral">Mark all read</Button>}
       />
+      <DrawerTools>
+        <ChipGroup aria-label="Filter notifications">
+          {filters.map(label => (
+            <Chip
+              key={label}
+              variant="selectable"
+              label={label}
+              size="small"
+              selected={activeFilter === label}
+              onChange={() => setActiveFilter(label)}
+            />
+          ))}
+        </ChipGroup>
+      </DrawerTools>
       <DrawerContent>
-        <DrawerSection count={unreadCount > 0 ? unreadCount : undefined}>
+        <DrawerSection>
           {items.map((n, i) => (
             <DrawerNotificationItem
               key={n.id}
               title={n.title}
               message={n.message}
-              timestamp={n.time}
+              timestamp={n.timestamp}
               unread={n.unread}
-              avatar={<Avatar name={n.title} size="s" />}
               last={i === items.length - 1}
+              avatar={<Avatar name={n.title} size="s" />}
+              action={n.unread ? (
+                <Button size="xsmall" variant="outline" color="neutral">View</Button>
+              ) : undefined}
               onClick={() => setItems(prev => prev.map(item => item.id === n.id ? { ...item, unread: false } : item))}
             />
           ))}
@@ -243,14 +265,35 @@ function NavigationDrawerContent({ activeItem, onNavigate }: { activeItem: strin
 }
 
 // ---------------------------------------------------------------------------
-// Pattern 1: Utilities Bar
-// Overlay drawers for search and notifications. No persistent panel.
+// Pattern 1: Overlay
+// Contextual nav items + overlay drawers for search and notifications.
+// Drawers appear over the content area without pushing it.
+// The Footer is anchored to the bottom of the content area (not the viewport).
 // ---------------------------------------------------------------------------
 
-export const UtilitiesBar: Story = {
-  name: 'Utilities Bar',
+const INITIAL_TABS: FooterTab[] = [
+  { id: 'home',     label: 'Home' },
+  { id: 'payroll',  label: 'Payroll Navigator' },
+  { id: 'q1',       label: 'Q1 Reports' },
+  { id: 'people',   label: 'People' },
+]
+
+export const Overlay: Story = {
+  name: 'Overlay',
   render: () => {
-    const [page, setPage] = useState('home')
+    const [page, setPage]           = useState('dashboard')
+    const [tabs, setTabs]           = useState<FooterTab[]>(INITIAL_TABS)
+    const [activeTabId, setActiveTabId] = useState('payroll')
+
+    function handleTabClose(tabId: string) {
+      setTabs(prev => {
+        const next = prev.filter(t => t.id !== tabId)
+        if (activeTabId === tabId && next.length > 0) {
+          setActiveTabId(next[next.length - 1].id)
+        }
+        return next
+      })
+    }
 
     return (
       <MainNavigation
@@ -284,6 +327,20 @@ export const UtilitiesBar: Story = {
             content: <NotificationsDrawerContent />,
           },
         ]}
+        footer={
+          <Footer
+            tabs={tabs}
+            activeTabId={activeTabId}
+            onTabActivate={setActiveTabId}
+            onTabClose={handleTabClose}
+            onCloseAllTabs={() => setTabs([])}
+            onCloseOtherTabs={(id) => setTabs(prev => prev.filter(t => t.id === id))}
+            onTabLock={(id) => setTabs(prev => prev.map(t => t.id === id ? { ...t, type: 'locked' } : t))}
+            onTabUnlock={(id) => setTabs(prev => prev.map(t => t.id === id ? { ...t, type: 'standard' } : t))}
+            onTabPin={(id) => setTabs(prev => prev.map(t => t.id === id ? { ...t, type: 'pinned' } : t))}
+            onTabUnpin={(id) => setTabs(prev => prev.map(t => t.id === id ? { ...t, type: 'standard' } : t))}
+          />
+        }
       >
         <PageContent title={page.charAt(0).toUpperCase() + page.slice(1)} />
       </MainNavigation>
@@ -292,12 +349,13 @@ export const UtilitiesBar: Story = {
 }
 
 // ---------------------------------------------------------------------------
-// Pattern 2: Persistent Navigation
+// Pattern 2: Persistent
 // A toggleable in-flow nav panel for a module with a deep hierarchy.
+// The panel pushes the content area rather than covering it.
 // ---------------------------------------------------------------------------
 
-export const PersistentNavigation: Story = {
-  name: 'Persistent Navigation',
+export const Persistent: Story = {
+  name: 'Persistent',
   render: () => {
     const [activeItem, setActiveItem] = useState('dashboard')
 
@@ -332,65 +390,3 @@ export const PersistentNavigation: Story = {
   },
 }
 
-// ---------------------------------------------------------------------------
-// Pattern 3: Full Enterprise Shell
-// Persistent nav panel + utility overlay drawers + tenant badge.
-// ---------------------------------------------------------------------------
-
-export const FullEnterpriseShell: Story = {
-  name: 'Full Enterprise Shell',
-  render: () => {
-    const [activeItem, setActiveItem] = useState('dashboard')
-
-    return (
-      <MainNavigation
-        logo={<Unit4Logo />}
-        productName="ERPx"
-        tenantLabel="Demo"
-        tenantColor="notice"
-        globalNavItems={[
-          { id: 'nav',           icon: <Grid size={20} />,   label: 'Finance navigation', drawerId: 'nav' },
-          { id: 'search',        icon: <Search size={20} />, label: 'Search',             drawerId: 'search' },
-          { id: 'notifications', icon: <Bell size={20} />,   label: 'Notifications',      drawerId: 'notifications', count: 2 },
-        ]}
-        contextualNavItems={[
-          { id: 'finance',      icon: <DollarSign size={20} />,   label: 'Finance',     selected: true },
-          { id: 'procurement',  icon: <ShoppingCart size={20} />, label: 'Procurement'  },
-          { id: 'hr',           icon: <Users size={20} />,        label: 'HR'           },
-          { id: 'reports',      icon: <BarChart2 size={20} />,    label: 'Reports'      },
-          { id: 'settings',     icon: <Settings size={20} />,     label: 'Settings'     },
-        ]}
-        showContextualDivider
-        userName="Vasco Antunes"
-        userRole="Finance Manager"
-        userProductArea="Finance"
-        userMenuItems={USER_MENU}
-        drawers={[
-          {
-            id:         'nav',
-            size:       'small',
-            persistent: true,
-            content:    (
-              <NavigationDrawerContent
-                activeItem={activeItem}
-                onNavigate={setActiveItem}
-              />
-            ),
-          },
-          {
-            id:      'search',
-            size:    'small',
-            content: <SearchDrawerContent />,
-          },
-          {
-            id:      'notifications',
-            size:    'small',
-            content: <NotificationsDrawerContent />,
-          },
-        ]}
-      >
-        <PageContent title={activeItem.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())} />
-      </MainNavigation>
-    )
-  },
-}

@@ -5,16 +5,18 @@ import {
   Search, Eye, EyeOff, X,
   XCircle, AlertCircle, CheckCircle,
 } from 'lucide-react'
-import './TextInput.css'
+import { FieldLabel } from '../FieldLabel'
+import { Hint } from '../Hint'
+import './Input.css'
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
 
-export type TextInputValidation = 'positive' | 'notice' | 'negative'
-export type TextInputSize       = 'small' | 'medium' | 'large'
+export type InputValidation = 'positive' | 'notice' | 'negative'
+export type InputSize       = 'small' | 'medium' | 'large'
 
-export interface TextInputProps
+export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'className' | 'style' | 'id' | 'size' | 'prefix'> {
   /** Visible label. Always required — provide hideLabel for search bars and similar contexts. */
   label: string
@@ -23,11 +25,11 @@ export interface TextInputProps
   /** Helper text below the field. Replaced by validationMessage when triggered. */
   hint?: string
   /** Validation state. */
-  validation?: TextInputValidation
+  validation?: InputValidation
   /** Validation feedback message, rendered with the appropriate icon. */
   validationMessage?: string
   /** Height scale. Default: 'medium'. */
-  size?: TextInputSize
+  size?: InputSize
   /**
    * Attached prefix block — displayed before the input with its own background.
    * Typical use: currency symbols ($), protocol labels (https://), or icons.
@@ -59,20 +61,20 @@ export interface TextInputProps
 // Helpers
 // ---------------------------------------------------------------------------
 
-const VALIDATION_ICON: Record<TextInputValidation, React.ReactNode> = {
-  negative: <XCircle     size={14} aria-hidden="true" className="text-input__msg-icon" />,
-  notice:   <AlertCircle size={14} aria-hidden="true" className="text-input__msg-icon" />,
-  positive: <CheckCircle size={14} aria-hidden="true" className="text-input__msg-icon" />,
+const VALIDATION_ICON: Record<InputValidation, React.ReactNode> = {
+  negative: <XCircle     size={14} aria-hidden="true" className="input__msg-icon" />,
+  notice:   <AlertCircle size={14} aria-hidden="true" className="input__msg-icon" />,
+  positive: <CheckCircle size={14} aria-hidden="true" className="input__msg-icon" />,
 }
 
-const ICON_SIZE: Record<TextInputSize, number> = { small: 14, medium: 16, large: 18 }
+const ICON_SIZE: Record<InputSize, number> = { small: 14, medium: 16, large: 18 }
 
 // ---------------------------------------------------------------------------
-// TextInput
+// Input
 // ---------------------------------------------------------------------------
 
-export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
-  function TextInput(
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  function Input(
     {
       label,
       hideLabel   = false,
@@ -143,7 +145,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       resolvedIconEnd = (
         <button
           type="button"
-          className="text-input__action-btn"
+          className="input__action-btn"
           aria-label={showPassword ? 'Hide password' : 'Show password'}
           tabIndex={0}
           onClick={() => {
@@ -161,7 +163,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       resolvedIconEnd = (
         <button
           type="button"
-          className="text-input__action-btn"
+          className="input__action-btn"
           aria-label="Clear"
           tabIndex={0}
           onClick={() => {
@@ -207,48 +209,42 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 
     return (
       <div
-        className={['text-input', className].filter(Boolean).join(' ')}
+        className={['input', className].filter(Boolean).join(' ')}
         data-size={size}
         data-validation={validation}
         data-disabled={disabled || undefined}
         style={style}
       >
-        {/* Label */}
-        <label
+        {/* Label — rendered via FieldLabel */}
+        <FieldLabel
           htmlFor={generatedId}
-          className={[
-            'text-input__label',
-            hideLabel ? 'text-input__label--hidden' : '',
-          ].filter(Boolean).join(' ')}
-        >
-          {label}
-          {required && (
-            <span className="text-input__required" aria-hidden="true"> *</span>
-          )}
-        </label>
+          label={label}
+          required={required}
+          className={hideLabel ? 'input__label--hidden' : undefined}
+        />
 
         {/* Field wrapper */}
         <div
-          className="text-input__wrapper"
+          className="input__wrapper"
           data-focused={focused || undefined}
           data-disabled={disabled || undefined}
           data-readonly={readOnly || undefined}
         >
           {/* Attached prefix block */}
           {prefix != null && (
-            <div className="text-input__prefix" aria-hidden="true">
+            <div className="input__prefix" aria-hidden="true">
               {prefix}
             </div>
           )}
 
           {/* Input + inner icons */}
           <div
-            className="text-input__inner"
+            className="input__inner"
             data-icon-start={hasIconStart || undefined}
             data-icon-end={hasIconEnd || undefined}
           >
             {resolvedIconStart && (
-              <span className="text-input__icon-start" aria-hidden="true">
+              <span className="input__icon-start" aria-hidden="true">
                 {resolvedIconStart}
               </span>
             )}
@@ -256,7 +252,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
             <input
               ref={internalRef}
               id={generatedId}
-              className="text-input__field"
+              className="input__field"
               type={resolvedType}
               required={required}
               disabled={disabled}
@@ -274,7 +270,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
             />
 
             {resolvedIconEnd && (
-              <span className="text-input__icon-end">
+              <span className="input__icon-end">
                 {resolvedIconEnd}
               </span>
             )}
@@ -282,7 +278,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 
           {/* Attached suffix block */}
           {suffix != null && (
-            <div className="text-input__suffix" aria-hidden="true">
+            <div className="input__suffix" aria-hidden="true">
               {suffix}
             </div>
           )}
@@ -290,26 +286,26 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 
         {/* Footer: hint/message + counter */}
         {(hint || hasMessage || (showCounter && maxLength != null)) && (
-          <div className="text-input__footer">
+          <div className="input__footer">
             {hasMessage ? (
               <p
                 id={messageId}
-                className="text-input__message"
+                className="input__message"
                 role={validation === 'negative' ? 'alert' : undefined}
               >
                 {VALIDATION_ICON[validation!]}
                 {validationMessage}
               </p>
             ) : hint ? (
-              <p id={hintId} className="text-input__hint">{hint}</p>
+              <Hint id={hintId} text={hint} />
             ) : null}
 
             {showCounter && maxLength != null && (
               <div
                 id={counterId}
                 className={[
-                  'text-input__counter',
-                  charCount >= maxLength ? 'text-input__counter--at-limit' : '',
+                  'input__counter',
+                  charCount >= maxLength ? 'input__counter--at-limit' : '',
                 ].filter(Boolean).join(' ')}
               >
                 {charCount} / {maxLength}
@@ -320,7 +316,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 
         {/* Screen-reader live region — announces when char limit is reached */}
         {showCounter && maxLength != null && (
-          <div className="text-input__sr-announce" aria-live="polite" aria-atomic="true">
+          <div className="input__sr-announce" aria-live="polite" aria-atomic="true">
             {charCount >= maxLength ? `Character limit of ${maxLength} reached` : ''}
           </div>
         )}

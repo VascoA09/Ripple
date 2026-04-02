@@ -201,38 +201,32 @@
   gap:            var(--spacing-25); /* 4px between legend/hint and items */
 }
 
+/* <legend> reset — FieldLabel provides all visual typography */
 .checkbox-group__legend {
-  font-family: var(--font-family-base);
-  font-size:   var(--font-size-80); /* 14px */
-  font-weight: var(--font-weight-semibold);
-  line-height: var(--font-line-height-body);
-  color:       var(--text);
-  padding:     0;
-  margin-bottom: var(--spacing-25); /* 4px */
+  padding: 0;
+  margin:  0;
+  float:   left; /* keeps legend inside the flex flow on all browsers */
+  width:   100%;
 }
 
-.checkbox-group__required {
-  color: var(--text-negative);
-}
-
-.checkbox-group__hint {
-  margin:      0;
-  font-family: var(--font-family-base);
-  font-size:   var(--font-size-80);
-  font-weight: var(--font-weight-regular);
-  color:       var(--text-soft);
-  line-height: var(--font-line-height-body);
+/* Clear the float so items follow naturally */
+.checkbox-group__legend + * {
+  clear: left;
 }
 
 .checkbox-group__items {
   display:        flex;
   flex-direction: column;
   gap:            var(--spacing-75); /* 12px between checkboxes */
-  margin-top:     var(--spacing-50); /* 8px below legend/hint */
+  margin-top:     var(--spacing-50); /* 8px below legend / hint */
 }
 
+/* Validation message — flex row for icon + text alignment */
 .checkbox-group__message {
   margin:      0;
+  display:     flex;
+  align-items: flex-start;
+  gap:         var(--spacing-25);
   font-family: var(--font-family-base);
   font-size:   var(--font-size-80);
   font-weight: var(--font-weight-regular);
@@ -240,7 +234,12 @@
   color:       var(--text-soft);
 }
 
-/* Validation message colors */
+.checkbox-group__msg-icon {
+  flex-shrink: 0;
+  margin-top:  3px;
+}
+
+/* Validation message colours */
 .checkbox-group[data-validation="positive"] .checkbox-group__message {
   color: var(--text-positive);
 }

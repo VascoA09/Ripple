@@ -92,9 +92,9 @@
   justify-content: center;
   gap:             var(--spacing-50); /* 8px between zone elements */
 
-  min-height:      200px;
+  min-height:      140px;
   padding:         var(--spacing-200); /* 32px */
-  border:          2px var(--_border-style) var(--_border-color);
+  border:          1px var(--_border-style) var(--_border-color);
   border-radius:   var(--border-radius-200);
   background:      var(--_bg);
   cursor:          pointer;
@@ -138,20 +138,28 @@
    DROP ZONE — content elements
    ============================================================================= */
 
+/* Icon wrapped in a soft neutral circle */
+.file-uploader__zone-icon-wrap {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+  width:           56px;
+  height:          56px;
+  border-radius:   50%;
+  background:      var(--bg-neutral-soft);
+}
+
 .file-uploader__zone-icon {
-  color:       var(--text-soft);
+  color:       var(--icon-default);
   flex-shrink: 0;
 }
 
-.file-uploader__zone-text {
-  font-family: var(--font-family-base);
-  font-size:   var(--font-size-100); /* 16px */
-  font-weight: var(--font-weight-regular);
-  color:       var(--text);
-  line-height: var(--font-line-height-body);
-}
-
+/* Single-row message: "Browse or drop files here to add" */
 .file-uploader__zone-browse {
+  display:     inline-flex;
+  align-items: center;
+  gap:         var(--spacing-25);   /* 4px between link and text */
   font-family: var(--font-family-base);
   font-size:   var(--font-size-100);
   font-weight: var(--font-weight-regular);
@@ -160,19 +168,13 @@
 }
 
 .file-uploader__browse-link {
-  font-weight:     var(--font-weight-semibold);
-  color:           var(--color-primary);
-  text-decoration: underline;
+  font-weight:           var(--font-weight-semibold);
+  color:                 var(--color-primary);
+  text-decoration:       underline;
   text-underline-offset: 2px;
+  cursor:                pointer;
 }
 
-.file-uploader__zone-hint {
-  font-family: var(--font-family-base);
-  font-size:   var(--font-size-80); /* 14px */
-  font-weight: var(--font-weight-regular);
-  color:       var(--text-softest);
-  line-height: var(--font-line-height-body);
-}
 
 /* =============================================================================
    FILE LIST
@@ -197,7 +199,7 @@
   gap:         var(--spacing-75); /* 12px */
   min-height:  var(--size-300); /* 48px */
   padding:     0 var(--spacing-75); /* 12px horizontal */
-  border:      var(--border-width-100) solid var(--border-default);
+  border:      var(--border-width-100) solid var(--border-neutral);
   border-radius: var(--border-radius-200);
   background:  var(--bg-surface);
   box-sizing:  border-box;
@@ -283,86 +285,6 @@
 }
 
 /* =============================================================================
-   FILE ITEM — remove button
-   ============================================================================= */
-
-.file-uploader__item-remove {
-  /* Reset */
-  all:        unset;
-  box-sizing: border-box;
-
-  display:         flex;
-  align-items:     center;
-  justify-content: center;
-  flex-shrink:     0;
-  width:           32px;
-  height:          32px;
-  border-radius:   var(--border-radius-100);
-  cursor:          pointer;
-  color:           var(--text-soft);
-  transition:      color 100ms ease, background 100ms ease;
-}
-
-.file-uploader__item-remove:hover {
-  color:       var(--text);
-  background:  var(--bg-neutral-soft);
-}
-
-.file-uploader__item-remove:focus-visible {
-  outline:        var(--border-width-focus) solid var(--border-focus);
-  outline-offset: 1px;
-}
-
-.file-uploader__item-remove:disabled {
-  opacity: var(--opacity-60);
-  cursor:  not-allowed;
-}
-
-/* =============================================================================
-   UPLOAD BUTTON ROW
-   ============================================================================= */
-
-.file-uploader__actions {
-  display:     flex;
-  align-items: center;
-}
-
-.file-uploader__upload-btn {
-  /* Reset */
-  all:        unset;
-  box-sizing: border-box;
-
-  display:         inline-flex;
-  align-items:     center;
-  gap:             var(--spacing-50); /* 8px */
-  height:          var(--size-250); /* 40px */
-  padding:         0 var(--spacing-100); /* 16px */
-  border-radius:   var(--border-radius-200);
-  background:      var(--bg-primary);
-  color:           var(--text-loud-inverse);
-  cursor:          pointer;
-  font-family:     var(--font-family-base);
-  font-size:       var(--font-size-100);
-  font-weight:     var(--font-weight-semibold);
-  line-height:     1;
-  transition:      background 150ms ease;
-}
-
-.file-uploader__upload-btn:hover:not(:disabled) {
-  background: var(--bg-primary-loud);
-}
-
-.file-uploader__upload-btn:focus-visible {
-  outline:        var(--border-width-focus) solid var(--border-focus);
-  outline-offset: 2px;
-}
-
-.file-uploader__upload-btn:disabled {
-  opacity: var(--opacity-60);
-  cursor:  not-allowed;
-}
-
-/* =============================================================================
    HINT
    ============================================================================= */
 
@@ -404,29 +326,11 @@
 }
 
 /* =============================================================================
-   SPIN ANIMATION
-   ============================================================================= */
-
-.file-uploader__spin {
-  animation: file-uploader-spin 700ms linear infinite;
-}
-
-@keyframes file-uploader-spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-/* =============================================================================
    REDUCED MOTION
    ============================================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .file-uploader__zone,
-  .file-uploader__item-remove,
-  .file-uploader__upload-btn {
+  .file-uploader__zone {
     transition: none;
-  }
-  .file-uploader__spin {
-    animation: none;
   }
 }

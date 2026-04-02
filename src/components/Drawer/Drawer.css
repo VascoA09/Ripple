@@ -92,7 +92,6 @@
   align-items:     flex-start;
   justify-content: space-between;
   gap:             var(--spacing-100);
-  min-height:      64px;
   padding:         var(--spacing-100);
   border-bottom:   var(--border-width-100) solid var(--border-neutral);
   flex-shrink:     0;
@@ -153,9 +152,10 @@
    ============================================================================= */
 
 .drawer__content {
-  flex:          1;
-  overflow-y:    auto;
+  flex:                1;
+  overflow-y:          auto;
   overscroll-behavior: contain;
+  padding:             var(--spacing-100);  /* 16px — matches header and footer */
 }
 
 /* =============================================================================

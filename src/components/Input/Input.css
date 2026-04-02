@@ -1,18 +1,22 @@
 /* =============================================================================
-   RIPPLE DESIGN SYSTEM — TEXT INPUT COMPONENT
-   Source: components/text-input.md
+   RIPPLE DESIGN SYSTEM — INPUT COMPONENT
+   Source: components/input.md
 
    Architecture:
-   - Root (.text-input): flex column; holds size + validation private tokens
-   - Label (.text-input__label): above the wrapper
-   - Wrapper (.text-input__wrapper): flex row; owns border, background, radius
-     ├── Prefix (.text-input__prefix): attached left block with own background
-     ├── Inner (.text-input__inner): flex row, padding, contains field + icons
-     │   ├── Icon start (.text-input__icon-start)
-     │   ├── Field (.text-input__field): grows to fill inner; no own border
-     │   └── Icon end (.text-input__icon-end): may contain action buttons
-     └── Suffix (.text-input__suffix): attached right block with own background
-   - Footer (.text-input__footer): hint/message left, counter right
+   - Root (.input): flex column; holds size + validation private tokens
+   - Label: rendered by <FieldLabel> — see components/field-label.md
+   - Wrapper (.input__wrapper): flex row; owns border, background, radius
+     ├── Prefix (.input__prefix): attached left block with own background
+     ├── Inner (.input__inner): flex row, padding, contains field + icons
+     │   ├── Icon start (.input__icon-start)
+     │   ├── Field (.input__field): grows to fill inner; no own border
+     │   └── Icon end (.input__icon-end): may contain action buttons
+     └── Suffix (.input__suffix): attached right block with own background
+   - Footer (.input__footer): hint/message left, counter right
+
+   Label is rendered by <FieldLabel> and hint by <Hint>. The footer uses a
+   contextual override to give the Hint component flex: 1 so the counter
+   aligns to the right edge.
 
    Focus ring: driven by data-focused on wrapper (set via React onFocus/onBlur).
    All hover/focus guards respect disabled and read-only states.
@@ -22,7 +26,7 @@
    Root — private tokens (medium defaults)
    --------------------------------------------------------------------------- */
 
-.text-input {
+.input {
   display:        flex;
   flex-direction: column;
   gap:            var(--spacing-25);   /* 4px between label, wrapper, footer */
@@ -46,7 +50,7 @@
    Size modifiers
    --------------------------------------------------------------------------- */
 
-.text-input[data-size="small"] {
+.input[data-size="small"] {
   --_height:    var(--size-component-height-small);  /* 32px */
   --_font-size: var(--font-size-80);                 /* 14px */
   --_padding-x: var(--spacing-100);                  /* 16px */
@@ -54,7 +58,7 @@
   --_radius:    var(--border-radius-150);            /* 6px  */
 }
 
-.text-input[data-size="large"] {
+.input[data-size="large"] {
   --_height:    var(--size-component-height-large);  /* 48px */
   --_font-size: var(--font-size-120);                /* 18px */
   --_padding-x: var(--spacing-125, 20px);            /* 20px */
@@ -66,21 +70,21 @@
    Validation state tokens
    --------------------------------------------------------------------------- */
 
-.text-input[data-validation="negative"] {
+.input[data-validation="negative"] {
   --_border:    var(--border-negative);
   --_text:      var(--text-negative);
   --_msg-color: var(--text-negative);
   --_affix-bg:  var(--bg-negative-softest);
 }
 
-.text-input[data-validation="notice"] {
+.input[data-validation="notice"] {
   --_border:    var(--border-notice);
   --_text:      var(--text-notice);
   --_msg-color: var(--text-notice);
   --_affix-bg:  var(--bg-notice-softest);
 }
 
-.text-input[data-validation="positive"] {
+.input[data-validation="positive"] {
   --_border:    var(--border-positive);
   --_text:      var(--text-positive);
   --_msg-color: var(--text-positive);
@@ -91,27 +95,17 @@
    Disabled — dims the entire component
    --------------------------------------------------------------------------- */
 
-.text-input[data-disabled] {
+.input[data-disabled] {
   opacity:        0.5;
   pointer-events: none;
 }
 
 /* ---------------------------------------------------------------------------
-   Label
+   Label — visually hidden utility (used when hideLabel=true)
+   Applied to <FieldLabel> via className prop.
    --------------------------------------------------------------------------- */
 
-.text-input__label {
-  display:     block;
-  font-family: var(--font-family-base);
-  font-size:   var(--font-size-100);
-  font-weight: var(--font-weight-semibold);
-  line-height: var(--font-line-height-body);
-  color:       var(--text);
-  cursor:      default;
-  user-select: none;
-}
-
-.text-input__label--hidden {
+.input__label--hidden {
   position:   absolute;
   width:      1px;
   height:     1px;
@@ -123,16 +117,11 @@
   border:     0;
 }
 
-.text-input__required {
-  color:       var(--color-negative-loud);
-  font-weight: var(--font-weight-semibold);
-}
-
 /* ---------------------------------------------------------------------------
    Wrapper — the visual field boundary
    --------------------------------------------------------------------------- */
 
-.text-input__wrapper {
+.input__wrapper {
   display:       flex;
   align-items:   stretch;
   height:        var(--_height);
@@ -146,24 +135,24 @@
 }
 
 /* Hover — only when not focused, not read-only */
-.text-input__wrapper:hover:not([data-focused]):not([data-disabled]):not([data-readonly]) {
+.input__wrapper:hover:not([data-focused]):not([data-disabled]):not([data-readonly]) {
   border-color: var(--border-primary);
 }
 
 /* Focus ring */
-.text-input__wrapper[data-focused] {
+.input__wrapper[data-focused] {
   border-color: var(--border-focus);
   outline:      var(--border-width-focus) solid var(--border-focus);
   outline-offset: 2px;
 }
 
 /* Read-only background */
-.text-input__wrapper[data-readonly] {
+.input__wrapper[data-readonly] {
   background: var(--bg-neutral-softest);
 }
 
 /* Disabled background */
-.text-input__wrapper[data-disabled] {
+.input__wrapper[data-disabled] {
   background: var(--bg-neutral-soft);
 }
 
@@ -171,8 +160,8 @@
    Prefix / Suffix — attached blocks
    --------------------------------------------------------------------------- */
 
-.text-input__prefix,
-.text-input__suffix {
+.input__prefix,
+.input__suffix {
   display:        flex;
   align-items:    center;
   padding:        0 var(--spacing-75);   /* 12px */
@@ -188,17 +177,17 @@
 }
 
 /* Separator borders */
-.text-input__prefix {
+.input__prefix {
   border-right: var(--border-width-default) solid var(--_border);
 }
 
-.text-input__suffix {
+.input__suffix {
   border-left:  var(--border-width-default) solid var(--_border);
 }
 
 /* SVG icons inside prefix/suffix */
-.text-input__prefix svg,
-.text-input__suffix svg {
+.input__prefix svg,
+.input__suffix svg {
   width:       var(--_icon-size);
   height:      var(--_icon-size);
   flex-shrink: 0;
@@ -208,7 +197,7 @@
    Inner — contains the input + floating icons
    --------------------------------------------------------------------------- */
 
-.text-input__inner {
+.input__inner {
   display:     flex;
   align-items: center;
   flex:        1;
@@ -218,11 +207,11 @@
 }
 
 /* Reduce padding on sides where icons are present to keep gap consistent */
-.text-input__inner[data-icon-start] {
+.input__inner[data-icon-start] {
   padding-left: var(--spacing-75);   /* 12px */
 }
 
-.text-input__inner[data-icon-end] {
+.input__inner[data-icon-end] {
   padding-right: var(--spacing-75);  /* 12px */
 }
 
@@ -230,7 +219,7 @@
    Input field — transparent; wrapper owns border/background
    --------------------------------------------------------------------------- */
 
-.text-input__field {
+.input__field {
   flex:        1;
   min-width:   0;
   height:      100%;
@@ -245,27 +234,27 @@
   color:       var(--_text);
 }
 
-.text-input__field::placeholder {
+.input__field::placeholder {
   color: var(--text-soft);
 }
 
-.text-input__field:disabled {
+.input__field:disabled {
   cursor: not-allowed;
 }
 
-.text-input__field:read-only {
+.input__field:read-only {
   cursor: default;
 }
 
 /* Suppress browser-native clear/reveal buttons on search and password inputs */
-.text-input__field[type="search"]::-webkit-search-cancel-button,
-.text-input__field[type="search"]::-webkit-search-decoration {
+.input__field[type="search"]::-webkit-search-cancel-button,
+.input__field[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
   appearance: none;
 }
 
-.text-input__field[type="password"]::-ms-reveal,
-.text-input__field[type="password"]::-ms-clear {
+.input__field[type="password"]::-ms-reveal,
+.input__field[type="password"]::-ms-clear {
   display: none;
 }
 
@@ -273,8 +262,8 @@
    Icon start / end — decorative icons inside the field
    --------------------------------------------------------------------------- */
 
-.text-input__icon-start,
-.text-input__icon-end {
+.input__icon-start,
+.input__icon-end {
   display:        flex;
   align-items:    center;
   justify-content: center;
@@ -283,16 +272,16 @@
   line-height:    0;
 }
 
-.text-input__icon-start svg,
-.text-input__icon-end svg {
+.input__icon-start svg,
+.input__icon-end svg {
   width:          var(--_icon-size);
   height:         var(--_icon-size);
   pointer-events: none;
 }
 
 /* Validation state colors on inner icons */
-.text-input[data-validation] .text-input__icon-start,
-.text-input[data-validation] .text-input__icon-end {
+.input[data-validation] .input__icon-start,
+.input[data-validation] .input__icon-end {
   color: var(--_text);
 }
 
@@ -300,7 +289,7 @@
    Action buttons — password toggle and search clear
    --------------------------------------------------------------------------- */
 
-.text-input__action-btn {
+.input__action-btn {
   display:         flex;
   align-items:     center;
   justify-content: center;
@@ -315,16 +304,16 @@
   transition:      color 100ms ease;
 }
 
-.text-input__action-btn:hover {
+.input__action-btn:hover {
   color: var(--text);
 }
 
-.text-input__action-btn:focus-visible {
+.input__action-btn:focus-visible {
   outline:        2px solid var(--border-focus);
   outline-offset: 2px;
 }
 
-.text-input__action-btn svg {
+.input__action-btn svg {
   width:          var(--_icon-size);
   height:         var(--_icon-size);
   pointer-events: none;
@@ -334,23 +323,19 @@
    Footer: hint / message + counter
    --------------------------------------------------------------------------- */
 
-.text-input__footer {
+.input__footer {
   display:     flex;
   align-items: flex-start;
   gap:         var(--spacing-100);
 }
 
-.text-input__hint {
-  margin:      0;
-  flex:        1;
-  font-family: var(--font-family-base);
-  font-size:   var(--font-size-80);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--font-line-height-body);
-  color:       var(--text-soft);
+/* Hint component inside the footer fills available space so the counter
+   aligns to the right edge. */
+.input__footer .hint {
+  flex: 1;
 }
 
-.text-input__message {
+.input__message {
   margin:      0;
   flex:        1;
   display:     flex;
@@ -363,12 +348,12 @@
   color:       var(--_msg-color);
 }
 
-.text-input__msg-icon {
+.input__msg-icon {
   flex-shrink: 0;
-  margin-top:  1px;
+  margin-top:  3px;
 }
 
-.text-input__counter {
+.input__counter {
   margin-left: auto;
   flex-shrink: 0;
   font-family: var(--font-family-base);
@@ -379,7 +364,7 @@
   white-space: nowrap;
 }
 
-.text-input__counter--at-limit {
+.input__counter--at-limit {
   color: var(--text-negative);
 }
 
@@ -387,7 +372,7 @@
    Screen reader live region (visually hidden)
    --------------------------------------------------------------------------- */
 
-.text-input__sr-announce {
+.input__sr-announce {
   position:    absolute;
   width:       1px;
   height:      1px;
@@ -404,8 +389,8 @@
    --------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .text-input__wrapper,
-  .text-input__action-btn {
+  .input__wrapper,
+  .input__action-btn {
     transition: none;
   }
 }

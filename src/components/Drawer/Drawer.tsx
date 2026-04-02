@@ -83,6 +83,8 @@ export interface DrawerProps {
   'aria-label'?: string
   children: React.ReactNode
   className?: string
+  /** Extra class(es) applied to the overlay element (modal drawers only) */
+  overlayClassName?: string
 }
 
 export function Drawer({
@@ -95,6 +97,7 @@ export function Drawer({
   'aria-label': ariaLabel,
   children,
   className,
+  overlayClassName,
 }: DrawerProps) {
   const titleId    = useId()
   const panelRef   = useRef<HTMLDivElement>(null)
@@ -150,7 +153,7 @@ export function Drawer({
       {/* Overlay — modal only */}
       {!persistent && (
         <div
-          className="drawer-overlay"
+          className={['drawer-overlay', overlayClassName].filter(Boolean).join(' ')}
           data-open={String(visible)}
           aria-hidden="true"
           onClick={closeOnOverlayClick ? onClose : undefined}

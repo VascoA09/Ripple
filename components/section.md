@@ -1,8 +1,8 @@
 ---
 name: Section
-status: draft
-version: 0.1.0
-last_updated: 2026-03-19
+status: stable
+version: 1.1.0
+last_updated: 2026-04-01
 owner: Vasco Antunes
 figma: TBD
 storybook: TBD
@@ -41,17 +41,14 @@ Use `no-padding` when wrapping full-bleed content or components that manage thei
 
 ---
 
-## Heading levels
+## Typography
 
-| Level | Token | Size |
-|---|---|---|
-| h2 (default) | `--font-size-180` | 24px |
-| h3 | `22px` (`--font-size-160` not yet in token system) |
-| h4 | `20px` (`--font-size-140` not yet in token system) |
-| h5 | `--font-size-120` | 18px |
-| h6 | `--font-size-100` | 16px |
+| Element | Class | Size | Weight | Color |
+|---|---|---|---|---|
+| Title | `typography-heading-s` | 18px | Semibold | `--text-loud` |
+| Description | `typography-caption` | 14px | Regular | `--text-soft` |
 
-All heading levels use `--font-weight-semibold` (600) and `--text-loud`.
+The title is always `typography-heading-s` regardless of the `headingLevel` prop. `headingLevel` controls semantic HTML only (`h2`–`h6`) — it has no effect on visual size. Description is clamped to 2 lines.
 
 ---
 
@@ -71,7 +68,7 @@ Optional `<hr>` rendered as a **sibling after** `</section>`. Controlled by `div
 |---|---|---|
 | Flat/elevated padding | `--spacing-125` | 20px |
 | Header margin-bottom | `--spacing-150` | 24px |
-| Description margin-top | `--spacing-50` | 8px |
+| Description margin-top | — | 0 |
 | Divider vertical margin | `--spacing-150` | 24px each |
 | Border radius | `--border-radius-200` | 8px |
 

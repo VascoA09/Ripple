@@ -1,0 +1,315 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — STACKABLE LIST PATTERN
+
+   Architecture:
+   - Root (.stackable-list): container; border, radius, shadow
+   - Header (.stackable-list__header): sticky top; grid row of header cells
+     └── HeaderCell (.stackable-list__header-cell): label, optional icons/description
+   - Body (.stackable-list__body): scrollable; contains items
+     └── Item (.stackable-list__item): one row; flex; contains unread dot, column grid, actions
+         ├── Columns (.stackable-list__item-columns): CSS grid matching header
+         │   └── Cell (.stackable-list__cell): individual data cell
+         └── Actions (.stackable-list__item-actions): trailing fixed slot
+   - Footer (.stackable-list__footer): sticky bottom; typically pagination
+
+   Column layout is driven by --_cols CSS custom property set by the root.
+   Both the header row and each item's column grid use the same value.
+   ============================================================================= */
+
+/* =============================================================================
+   ROOT
+   ============================================================================= */
+
+.stackable-list {
+  --_cols: 1fr; /* overridden via style prop */
+
+  display:        flex;
+  flex-direction: column;
+  border:         var(--border-width-default) solid var(--border-neutral);
+  border-radius:  var(--border-radius-200);
+  overflow:       hidden;
+  background:     var(--bg-surface);
+}
+
+/* =============================================================================
+   HEADER
+   ============================================================================= */
+
+.stackable-list__header {
+  display:          flex;
+  align-items:      stretch;
+  background:       var(--bg-neutral-softest);
+  border-bottom:    var(--border-width-default) solid var(--border-neutral);
+  position:         sticky;
+  top:              0;
+  z-index:          1;
+  flex-shrink:      0;
+}
+
+/* Grid container matching item columns */
+.stackable-list__header {
+  /* Use the same inner-columns trick as items so header cells align perfectly */
+  display: grid;
+  grid-template-columns: var(--_cols) auto;
+}
+
+/* When no actions: remove the auto column */
+.stackable-list__header:not(:has(.stackable-list__header-actions-spacer)) {
+  grid-template-columns: var(--_cols);
+}
+
+/* Actions column spacer — matches item actions slot width (40px) */
+.stackable-list__header-actions-spacer {
+  width: 40px;
+  flex-shrink: 0;
+}
+
+/* =============================================================================
+   HEADER CELL
+   ============================================================================= */
+
+.stackable-list__header-cell {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-50);
+  padding:     var(--spacing-75) var(--spacing-100);
+  min-width:   0;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.stackable-list__header-cell[data-align="center"] { align-items: center; }
+.stackable-list__header-cell[data-align="end"]    { align-items: flex-end; }
+
+/* Inner row for icon + label + icon-after */
+.stackable-list__header-cell-label,
+.stackable-list__header-cell-icon {
+  display:     flex;
+  align-items: center;
+}
+
+.stackable-list__header-cell {
+  flex-direction: row;
+}
+
+.stackable-list__header-cell[data-align="center"] {
+  justify-content: center;
+}
+
+.stackable-list__header-cell[data-align="end"] {
+  justify-content: flex-end;
+}
+
+.stackable-list__header-cell-label {
+  font-family:    var(--font-family-base);
+  font-size:      var(--font-size-60);     /* 12px */
+  font-weight:    var(--font-weight-semibold);
+  line-height:    var(--font-line-height-body);
+  color:          var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space:    nowrap;
+  overflow:       hidden;
+  text-overflow:  ellipsis;
+}
+
+.stackable-list__header-cell-description {
+  display:       block;
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-60);
+  font-weight:   var(--font-weight-regular);
+  color:         var(--text-soft);
+  margin-top:    var(--spacing-25);
+  white-space:   nowrap;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+}
+
+.stackable-list__header-cell-icon {
+  color:       var(--icon-soft);
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.stackable-list__header-cell-icon svg {
+  width:  14px;
+  height: 14px;
+}
+
+/* =============================================================================
+   BODY
+   ============================================================================= */
+
+.stackable-list__body {
+  display:        flex;
+  flex-direction: column;
+  overflow-y:     auto;
+  overscroll-behavior: contain;
+}
+
+/* =============================================================================
+   ITEM
+   ============================================================================= */
+
+.stackable-list__item {
+  /* Private state tokens */
+  --_bg:     transparent;
+  --_border: var(--border-neutral);
+
+  display:        flex;
+  flex-direction: column;   /* main row on top, item footer below */
+  background:     var(--_bg);
+  border-bottom:  var(--border-width-default) solid var(--_border);
+  position:       relative;
+  transition:     background 120ms ease;
+}
+
+.stackable-list__item:last-child {
+  border-bottom: none;
+}
+
+/* Hover — interactive items only */
+.stackable-list__item[data-interactive]:hover {
+  --_bg: var(--bg-primary-softest);
+  cursor: pointer;
+}
+
+.stackable-list__item[data-interactive]:active {
+  --_bg: var(--bg-primary-soft);
+}
+
+/* Focus ring — keyboard only */
+.stackable-list__item[data-interactive]:focus-visible {
+  outline:        2px solid var(--border-focus);
+  outline-offset: -2px;
+}
+
+/* Selected */
+.stackable-list__item[data-selected] {
+  --_bg: var(--bg-primary-soft);
+}
+
+.stackable-list__item[data-selected]:hover {
+  --_bg: var(--bg-primary-soft);
+}
+
+/* Disabled */
+.stackable-list__item[data-disabled] {
+  opacity:        0.5;
+  pointer-events: none;
+}
+
+/* Unread — leading accent line */
+.stackable-list__item[data-unread]::before {
+  content:       '';
+  position:      absolute;
+  left:          0;
+  top:           0;
+  bottom:        0;
+  width:         3px;
+  background:    var(--color-primary);
+  border-radius: 0 var(--border-radius-100) var(--border-radius-100) 0;
+}
+
+/* =============================================================================
+   UNREAD DOT — visually hidden, provides accessible label only
+   ============================================================================= */
+
+.stackable-list__unread-dot {
+  position:    absolute;
+  clip:        rect(0 0 0 0);
+  clip-path:   inset(50%);
+  overflow:    hidden;
+  white-space: nowrap;
+  width:       1px;
+  height:      1px;
+}
+
+/* =============================================================================
+   ITEM MAIN ROW — column cells + trailing actions side by side
+   ============================================================================= */
+
+.stackable-list__item-main {
+  display:     flex;
+  align-items: center;
+  min-height:  56px;
+}
+
+/* =============================================================================
+   ITEM COLUMNS GRID
+   ============================================================================= */
+
+.stackable-list__item-columns {
+  display:               grid;
+  grid-template-columns: var(--_cols);
+  flex:                  1;
+  min-width:             0;
+  align-items:           center;
+}
+
+/* =============================================================================
+   CELL
+   ============================================================================= */
+
+.stackable-list__cell {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-75);
+  padding:     var(--spacing-75) var(--spacing-100);
+  min-width:   0;
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);         /* 14px */
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color:       var(--text);
+}
+
+.stackable-list__cell[data-align="center"] { justify-content: center; }
+.stackable-list__cell[data-align="end"]    { justify-content: flex-end; }
+
+/* =============================================================================
+   ITEM ACTIONS — trailing fixed slot within main row
+   ============================================================================= */
+
+.stackable-list__item-actions {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  width:           40px;
+  flex-shrink:     0;
+  padding:         0 var(--spacing-25);
+  align-self:      stretch;
+
+  /* Hidden by default; revealed on row hover/focus */
+  opacity:    0;
+  transition: opacity 120ms ease;
+}
+
+.stackable-list__item:hover     .stackable-list__item-actions,
+.stackable-list__item:focus-within .stackable-list__item-actions {
+  opacity: 1;
+}
+
+/* =============================================================================
+   ITEM FOOTER — optional area below the main row
+   Spans the full item width. Use for tags, secondary attributes, notes.
+   ============================================================================= */
+
+.stackable-list__item-footer {
+  display:     flex;
+  align-items: center;
+  flex-wrap:   wrap;
+  gap:         var(--spacing-50);
+  padding:     0 var(--spacing-100) var(--spacing-75);
+}
+
+/* =============================================================================
+   REDUCED MOTION
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .stackable-list__item,
+  .stackable-list__item-actions {
+    transition: none;
+  }
+}

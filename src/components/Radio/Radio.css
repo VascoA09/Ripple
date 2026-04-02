@@ -8,7 +8,7 @@
 
    Radio circle:  16×16px
    Inner dot:     8×8px (visible when checked)
-   Border:        2px
+   Border:        1px
    Focus ring:    2px solid var(--border-focus), 2px offset
    Touch target:  label wraps the control + text (48×48px minimum enforced
                   by min-height on the label)
@@ -25,6 +25,12 @@
   cursor:      pointer;
   min-height:  48px;               /* touch target */
   user-select: none;
+}
+
+/* Inside a group the items share a flex column — let each item
+   size to its content rather than enforcing the standalone touch target. */
+.radio-group .radio {
+  min-height: 100%;
 }
 
 .radio[data-disabled] {
@@ -69,7 +75,7 @@
   position:      absolute;
   inset:         0;
   border-radius: 50%;
-  border:        2px solid var(--border-default);
+  border:        1px solid var(--border-default);
   background:    var(--bg-surface);
   transition:    border-color 120ms ease, background 120ms ease;
   pointer-events: none;
@@ -145,7 +151,7 @@
 
 .radio__label {
   font-family: var(--font-family-base);
-  font-size:   var(--font-size-100);  /* 16px */
+  font-size:   var(--font-size-80);   /* 14px */
   font-weight: var(--font-weight-regular);
   line-height: var(--font-line-height-body);
   color:       var(--text);
@@ -170,36 +176,18 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Legend (group label)
+   Legend — FieldLabel provides all visual typography
    --------------------------------------------------------------------------- */
 
 .radio-group__legend {
-  font-family: var(--font-family-base);
-  font-size:   var(--font-size-80);   /* 14px */
-  font-weight: var(--font-weight-semibold);
-  line-height: var(--font-line-height-body);
-  color:       var(--text);
-  padding:     0;
-  margin-bottom: var(--spacing-25);  /* 4px gap between legend and description/items */
-  float:       left;    /* required to make legends work inside flex containers */
-  width:       100%;
+  padding: 0;
+  margin:  0;
+  float:   left;   /* keeps legend inside the flex flow on all browsers */
+  width:   100%;
 }
 
-.radio-group__required {
-  color: var(--text-negative);
-}
-
-/* ---------------------------------------------------------------------------
-   Description
-   --------------------------------------------------------------------------- */
-
-.radio-group__description {
-  margin:      0;
-  font-family: var(--font-family-base);
-  font-size:   var(--font-size-80);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--font-line-height-body);
-  color:       var(--text-soft);
+.radio-group__legend + * {
+  clear: left;
 }
 
 /* ---------------------------------------------------------------------------
@@ -218,18 +206,7 @@
   gap:            var(--spacing-100);  /* 16px inline */
 }
 
-/* ---------------------------------------------------------------------------
-   Hint text
-   --------------------------------------------------------------------------- */
-
-.radio-group__hint {
-  margin:      0;
-  font-family: var(--font-family-base);
-  font-size:   var(--font-size-80);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--font-line-height-body);
-  color:       var(--text-soft);
-}
+/* Hint — rendered by Ripple's <Hint> component (.hint class) */
 
 /* ---------------------------------------------------------------------------
    Validation message
@@ -248,7 +225,7 @@
 
 .radio-group__msg-icon {
   flex-shrink: 0;
-  margin-top:  1px;  /* optical alignment with text cap height */
+  margin-top:  3px;
 }
 
 .radio-group[data-validation='positive'] .radio-group__message {

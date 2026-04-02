@@ -35,6 +35,26 @@ Ripple serves two audiences:
 
 ---
 
+## Architecture Hierarchy
+
+Ripple has four tiers of composition, from generic primitives to product-specific starting points:
+
+```
+Components  →  Patterns  →  Layouts  →  App Templates
+(generic)      (generic)    (generic)    (product-specific)
+```
+
+| Tier | Definition | Product-specific? | Lives in |
+|------|-----------|------------------|----------|
+| **Component** | Single-responsibility UI primitive | No | `src/components/`, `components/` |
+| **Pattern** | Stateful composition of components | No | `src/patterns/`, `patterns/` |
+| **Layout** | Stateless structural scaffold composing patterns | No | `src/layouts/`, `layouts/` |
+| **App Template** | Pre-configured layout + patterns for a specific product | Yes | `templates/` (specs) |
+
+**App Templates** encode "what a new screen looks like out of the box for a specific product." They are not reusable across products and are not versioned like components. They reference layouts but do not replace them.
+
+---
+
 ## Reference Files
 
 | Need | File | Status |
@@ -47,11 +67,15 @@ Ripple serves two audiences:
 | Component registry (all statuses) | `components/_index.md` | Exists |
 | Pattern spec | `patterns/{pattern-name}.md` | Create per pattern |
 | Pattern registry | `patterns/_index.md` | Exists |
+| Layout spec | `layouts/{layout-name}.md` | Create per layout |
+| Layout registry | `layouts/_index.md` | Exists |
+| App template spec | `templates/{template-name}.md` | Create per template |
+| App template registry | `templates/_index.md` | Exists |
+| Contribution authoring templates | `templates/component-spec.md` etc. | Exists |
 | Contribution process | `governance/contribution-model.md` | Exists |
 | Versioning rules | `governance/versioning.md` | Planned |
 | Deprecation process | `governance/deprecation.md` | Planned |
 | Adoption tracking | `governance/adoption.md` | Planned |
-| Templates | `templates/` | Exists |
 | Unit4 brand guidelines | `/Users/vascoantunes/Documents/VA/_Jarvis/Unit4/Unit4 About/Unit4-Brand-Guidelines-2025.md` | Exists |
 
 ---

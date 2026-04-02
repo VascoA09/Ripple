@@ -1,8 +1,8 @@
 ---
 name: Stepper
 status: draft
-version: 0.1.0
-last_updated: 2026-03-19
+version: 0.2.0
+last_updated: 2026-03-31
 owner: Vasco Antunes
 figma: TBD
 storybook: TBD
@@ -56,11 +56,11 @@ The Stepper component guides users through a series of logical steps in a proces
 
 ## Variants
 
-| Variant     | Indicator content         | Use when                                                   |
-|-------------|---------------------------|------------------------------------------------------------|
-| `ordered`   | Step numbers (1, 2, 3…)  | Sequential processes where position adds context (default) |
-| `unordered` | Filled dot                | Sub-steps or simpler processes where numbering adds noise  |
-| `icons`     | Custom icon per step      | Icons meaningfully identify each step's purpose            |
+| Variant     | Indicator content        | Indicator size | Use when                                                   |
+|-------------|--------------------------|----------------|------------------------------------------------------------|
+| `ordered`   | Step numbers (1, 2, 3…) | 32px           | Sequential processes where position adds context (default) |
+| `unordered` | Filled dot               | 24px           | Sub-steps or simpler processes where numbering adds noise  |
+| `icons`     | Custom icon per step     | 32px           | Icons meaningfully identify each step's purpose            |
 
 ---
 
@@ -83,18 +83,22 @@ Connector after a `checked` step is colored `--border-primary`. All other connec
 
 | State       | Description                                      | Visual treatment                                           |
 |-------------|--------------------------------------------------|------------------------------------------------------------|
-| Default     | Resting, non-interactive                         | Type colors as above, no hover                           |
-| Active      | The step the user is currently working on        | Indicator filled (type-specific color), 2px border, `--text-loud-inverse` text, title bold |
-| Hover       | Pointer over an interactive step                 | Title color → `--text-accent`                            |
+| Default     | Resting, non-interactive                         | Type colors as above, no hover                            |
+| Active      | The step the user is currently working on        | Indicator filled (type-specific color), 2px border, `--text-loud-inverse` text, title bold, halo ring |
+| Hover       | Pointer over an interactive step                 | Title color → `--text-accent`                             |
 | Disabled    | Prerequisites not met, cannot be accessed        | `opacity: 0.5`, `cursor: not-allowed`                     |
 
 ### Active indicator fills
 
-| Type              | Active bg          | Active border       |
-|-------------------|--------------------|---------------------|
-| `default`/`checked` | `--bg-primary`   | `--border-primary`  |
-| `notice`          | `--bg-notice`      | `--border-notice`   |
-| `error`           | `--bg-negative`    | `--border-negative` |
+Active steps show a filled indicator and a halo ring — a 4px circular outline behind the indicator rendered via `box-shadow`.
+
+| Type                | Active bg       | Active border       | Halo (`box-shadow`)                         |
+|---------------------|-----------------|---------------------|---------------------------------------------|
+| `default`/`checked` | `--bg-primary`  | `--border-primary`  | `--bg-primary` at 20% opacity               |
+| `notice`            | `--bg-notice`   | `--border-notice`   | `--bg-notice` at 20% opacity                |
+| `error`             | `--bg-negative` | `--border-negative` | `--bg-negative` at 20% opacity              |
+
+The halo is implemented as `box-shadow: 0 0 0 4px color-mix(in srgb, <token> 20%, transparent)`. It has no layout impact and transitions with the other active state properties.
 
 ---
 

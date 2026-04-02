@@ -1,8 +1,8 @@
 ---
 name: Checkbox
-status: draft
-version: 0.1.0
-last_updated: 2026-03-19
+status: stable
+version: 1.1.0
+last_updated: 2026-04-01
 owner: Vasco Antunes
 figma: TBD
 storybook: TBD
@@ -43,9 +43,15 @@ Do not use checkboxes when:
 * **Checkbox label**: Text that provides information about the option
 
 **Checkbox Group:**
-* **Checkbox group**: A collection of two or more checkboxes
-* **Label area**: Optional but recommended field label to give context about the options
-* **Supporting text area**: Optional area for hint and/or validation messages
+* **Checkbox group**: A collection of two or more checkboxes wrapped in a `<fieldset>`
+* **Legend** — Rendered via Ripple's `FieldLabel` component inside the `<legend>` element. Supports:
+  * **Label** — required; the group question or topic
+  * **Description** — optional sub-label below the label text
+  * **Required indicator** — asterisk (*) appended when `required` is true
+  * **Optional indicator** — "(optional)" appended when `optional` is true
+  * **Help tooltip** — icon button with tooltip when `helpText` is provided
+* **Hint** — Rendered via Ripple's `Hint` component below the legend
+* **Validation message** — Rendered with a contextual icon (positive / notice / negative) aligned to the text cap height
 
 ---
 
@@ -99,6 +105,10 @@ Use validation to give feedback to the user about the status of the data entered
 * **Notice**: Orange/yellow border/background to inform users about relevant information
 * **Negative**: Red border/background to inform users about critical information or errors
 
+**Validation message:**
+
+The `validationMessage` prop renders below the checkbox list as a flex row: a contextual icon on the left, message text on the right. Icon and text are aligned using `align-items: flex-start` with `margin-top: 3px` on the icon. This 3px offset is the system-wide standard across all Ripple validation messages — it optically aligns the 14px icon centre with the cap height of 14px text at a `~1.5` line-height. Negative messages use `role="alert"` for immediate screen reader announcement. Positive and notice messages do not.
+
 ---
 
 ### Checkbox Label
@@ -114,11 +124,13 @@ The Checkbox should always have a clear and concise label. The label appears to 
 ### Grouping
 
 When grouping checkboxes:
-* Each checkbox group should have a corresponding group label
+* Each checkbox group should have a corresponding group label (`legend` prop)
 * The group label provides context for all options in the group
-* Use the required indicator (*) when at least one selection is mandatory
-* Include optional description text for additional context
-* Add hint text for guidance or validation messages
+* Use `required` when at least one selection is mandatory; use `optional` when selection is not required — never both together
+* Use `description` for a sub-label that adds context below the group label
+* Use `hint` for secondary guidance (rendered via Ripple's `Hint` component)
+* Use `helpText` to surface additional context in a tooltip without cluttering the label area
+* Add `validationMessage` with a matching `validation` state when user input needs feedback
 
 ---
 
@@ -189,6 +201,12 @@ When grouping checkboxes:
 **Validation - Negative:**
 * Border: var(--border-negative)
 * Background (when checked): var(--bg-negative)
+
+**Validation message (group):**
+* Positive message colour: var(--text-positive)
+* Notice message colour: var(--text-notice)
+* Negative message colour: var(--text-negative)
+* Icon: 14px — CheckCircle / AlertCircle / XCircle (lucide-react), `margin-top: 3px` for optical alignment
 
 **Hover State:**
 * Unselected border: var(--border-primary)

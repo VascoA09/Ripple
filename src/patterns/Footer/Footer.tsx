@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, Lock, MoreHorizontal, Pin, X } from 'lucide-react'
-import { Tag } from '../../components/Tag'
 import type { TagColor } from '../../components/Tag'
 import {
   FlyoutMenu,
@@ -12,6 +11,7 @@ import {
   FlyoutMenuTrigger,
 } from '../../components/FlyoutMenu'
 import { Button } from '../../components/Button'
+import '../../components/Tabs/Tabs.css'
 import './Footer.css'
 
 // =============================================================================
@@ -39,7 +39,7 @@ export interface FooterTab {
 export interface FooterGroup {
   id: string
   label: string
-  /** Color used for the group border and tag. Default: 'neutral'. */
+  /** Color used for the group border and label badge. Default: 'neutral'. */
   color?: FooterGroupColor
 }
 
@@ -156,8 +156,6 @@ export function Footer({
   const [canScrollRight, setCanScrollRight] = useState(false)
 
   // Track only explicitly collapsed groups. All groups open by default.
-  // New groups added later are automatically expanded (not in this set).
-  // No useEffect — eliminates reference equality and StrictMode double-invoke issues.
   const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(new Set())
 
   const updateScrollState = useCallback(() => {
@@ -319,7 +317,9 @@ export function Footer({
 
 // =============================================================================
 // FOOTER TAB ITEM
-// Internal — not exported. All tab rendering passes through here.
+// Internal — not exported.
+// Uses Ripple Tabs CSS classes (.tab-item, .tab, .tab__actions) for visual
+// consistency. Footer-specific overrides are scoped via .footer-tab modifier.
 // =============================================================================
 
 interface FooterTabItemProps {
@@ -355,23 +355,24 @@ function FooterTabItem({
 
   return (
     <div
-      className="footer-tab"
-      data-active={isActive ? '' : undefined}
+      className="tab-item footer-tab"
+      data-selected={isActive ? '' : undefined}
+      data-size="medium"
       data-type={type}
     >
-      {/* Main interactive element */}
+      {/* Main interactive element — uses .tab for Ripple tab styling */}
       <button
         type="button"
         role="tab"
         aria-selected={isActive}
         aria-label={`${tab.label}, ${type} tab`}
-        className="footer-tab__trigger"
+        className="tab"
         onClick={onActivate}
       >
         {tab.icon && (
-          <span className="footer-tab__icon" aria-hidden="true">{tab.icon}</span>
+          <span className="tab__icon" aria-hidden="true">{tab.icon}</span>
         )}
-        <span className="footer-tab__label">{tab.label}</span>
+        <span className="tab__label">{tab.label}</span>
         {type === 'locked' && (
           <Lock size={13} className="footer-tab__type-icon" aria-hidden="true" />
         )}
@@ -380,59 +381,60 @@ function FooterTabItem({
         )}
       </button>
 
-      {/* Action buttons — visible on hover and when active */}
-      <span className="footer-tab__actions">
-        {type === 'standard' && onClose && (
+      {/* Close button — always visible for standard tabs */}
+      {type === 'standard' && onClose && (
+        <Button
+          variant="ghost"
+          size="small"
+          color="neutral"
+          iconStart={<X size={12} />}
+          aria-label={`Close ${tab.label}`}
+          className="footer-tab__close-btn"
+          onClick={onClose}
+        />
+      )}
+
+      {/* More button — hidden until hover or selected (via CSS display: none) */}
+      <FlyoutMenu>
+        <FlyoutMenuTrigger asChild>
           <Button
             variant="ghost"
             size="small"
             color="neutral"
-            iconStart={<X size={12} />}
-            aria-label={`Close ${tab.label}`}
-            className="footer-tab__close-btn"
-            onClick={onClose}
+            iconStart={<MoreHorizontal size={14} />}
+            aria-label={`More actions for ${tab.label}`}
+            className="footer-tab__more-btn"
+            tabIndex={isActive ? 0 : -1}
           />
-        )}
-        <FlyoutMenu>
-          <FlyoutMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              size="small"
-              color="neutral"
-              iconStart={<MoreHorizontal size={14} />}
-              aria-label={`More actions for ${tab.label}`}
-              className="footer-tab__more-btn"
-            />
-          </FlyoutMenuTrigger>
-          <FlyoutMenuContent side="top" align="start" sideOffset={8}>
-            {type === 'standard' && onLock && (
-              <FlyoutMenuItem onSelect={onLock}>Lock tab</FlyoutMenuItem>
-            )}
-            {type === 'locked' && onUnlock && (
-              <FlyoutMenuItem onSelect={onUnlock}>Unlock tab</FlyoutMenuItem>
-            )}
-            {type !== 'pinned' && onPin && (
-              <FlyoutMenuItem onSelect={onPin}>Pin to left of screen</FlyoutMenuItem>
-            )}
-            {type === 'pinned' && onUnpin && (
-              <FlyoutMenuItem onSelect={onUnpin}>Unpin tab</FlyoutMenuItem>
-            )}
-            {groups.length > 0 && onAddToGroup && (
-              <FlyoutMenuItem onSelect={onAddToGroup}>Add to group</FlyoutMenuItem>
-            )}
-            <FlyoutMenuSeparator />
-            {type === 'standard' && onClose && (
-              <FlyoutMenuItem onSelect={onClose}>Close this tab</FlyoutMenuItem>
-            )}
-            {onCloseOthers && (
-              <FlyoutMenuItem onSelect={onCloseOthers}>Close all other tabs</FlyoutMenuItem>
-            )}
-            {type === 'standard' && onCloseAll && (
-              <FlyoutMenuItem onSelect={onCloseAll}>Close all tabs</FlyoutMenuItem>
-            )}
-          </FlyoutMenuContent>
-        </FlyoutMenu>
-      </span>
+        </FlyoutMenuTrigger>
+        <FlyoutMenuContent side="top" align="start" sideOffset={8}>
+          {type === 'standard' && onLock && (
+            <FlyoutMenuItem onSelect={onLock}>Lock tab</FlyoutMenuItem>
+          )}
+          {type === 'locked' && onUnlock && (
+            <FlyoutMenuItem onSelect={onUnlock}>Unlock tab</FlyoutMenuItem>
+          )}
+          {type !== 'pinned' && onPin && (
+            <FlyoutMenuItem onSelect={onPin}>Pin to left of screen</FlyoutMenuItem>
+          )}
+          {type === 'pinned' && onUnpin && (
+            <FlyoutMenuItem onSelect={onUnpin}>Unpin tab</FlyoutMenuItem>
+          )}
+          {groups.length > 0 && onAddToGroup && (
+            <FlyoutMenuItem onSelect={onAddToGroup}>Add to group</FlyoutMenuItem>
+          )}
+          <FlyoutMenuSeparator />
+          {type === 'standard' && onClose && (
+            <FlyoutMenuItem onSelect={onClose}>Close this tab</FlyoutMenuItem>
+          )}
+          {onCloseOthers && (
+            <FlyoutMenuItem onSelect={onCloseOthers}>Close all other tabs</FlyoutMenuItem>
+          )}
+          {type === 'standard' && onCloseAll && (
+            <FlyoutMenuItem onSelect={onCloseAll}>Close all tabs</FlyoutMenuItem>
+          )}
+        </FlyoutMenuContent>
+      </FlyoutMenu>
     </div>
   )
 }
@@ -495,12 +497,9 @@ function FooterGroupItem({
     >
       {/* ── Group header ──────────────────────────────────────────────── */}
       <div className="footer-group__header">
-        <Tag
-          color={color}
-          size="small"
-          className="footer-group__tag"
-          role="button"
-          tabIndex={0}
+        <button
+          type="button"
+          className="footer-group__label"
           onClick={onToggle}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onToggle() }
@@ -509,7 +508,7 @@ function FooterGroupItem({
           aria-label={`${group.label} group — ${isExpanded ? 'collapse' : 'expand'}`}
         >
           {group.label}
-        </Tag>
+        </button>
 
         {isExpanded && (onGroupEdit || onGroupUngroup || onGroupClose) && (
           <FlyoutMenu>

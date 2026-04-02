@@ -1,8 +1,8 @@
 ---
 name: Radio
-status: draft
-version: 0.1.0
-last_updated: 2026-03-19
+status: stable
+version: 1.1.0
+last_updated: 2026-04-01
 owner: Vasco Antunes
 figma: TBD
 storybook: TBD
@@ -41,12 +41,15 @@ Do not use Radio buttons when:
 The Radio component consists of the following elements:
 
 ### Radio Group
-* **Label** (optional) — Describes the group of options
-* **Description** (optional) — Additional context about the selection
+* **Legend** — Rendered via Ripple's `FieldLabel` component inside the `<legend>` element. Supports:
+  * **Label** (optional) — Describes the group of options
+  * **Description** (optional) — Sub-label below the label text
+  * **Required indicator** (*) — Shown when `required` is true
+  * **Optional indicator** ("optional") — Shown when `optional` is true; mutually exclusive with required
+  * **Help tooltip** — Icon button with tooltip when `helpText` is provided
+* **Hint** (optional) — Rendered via Ripple's `Hint` component, positioned between the legend and the radio items
 * **Radio Items** — Individual radio button options
-* **Hint** (optional) — Helper text below the radio group
-* **Validation Message** (optional) — Error, warning, or success feedback
-* **Required Indicator** (*) — Shows when selection is required
+* **Validation Message** (optional) — Error, warning, or success feedback with contextual icon
 
 ### Radio Item
 * **Radio Circle** — Circular selection indicator
@@ -81,10 +84,10 @@ The Radio component has a single fixed size:
 
 * **Radio circle**: 16×16px
 * **Inner dot** (selected): 8×8px (centered within outer circle)
-* **Border width**: 2px
-* **Label font size**: var(--font-size-100) (16px)
+* **Border width**: 1px
+* **Label font size**: var(--font-size-80) (14px)
 * **Focus ring**: 2px border with 2px offset
-* **Touch target**: Minimum 48×48px (includes label and surrounding space)
+* **Touch target**: Minimum 48×48px for standalone use. Inside a `RadioGroup`, `min-height` is set to `100%` so items size to their content rather than enforcing the fixed 48px floor.
 
 ---
 
@@ -93,20 +96,20 @@ The Radio component has a single fixed size:
 ### Unselected States
 
 * **Default (Unselected)**
-  * Outer circle: 2px border, var(--border-default)
+  * Outer circle: 1px border, var(--border-default)
   * Background: var(--bg-surface)
   * Inner dot: Not visible
   * Label: var(--text)
 
 * **Hover (Unselected)**
-  * Outer circle: 2px border, var(--border-primary)
+  * Outer circle: 1px border, var(--border-primary)
   * Background: var(--bg-primary-soft)
   * Inner dot: Not visible
   * Label: var(--text)
   * Cursor: pointer
 
 * **Focus (Unselected)**
-  * Outer circle: 2px border, var(--border-primary)
+  * Outer circle: 1px border, var(--border-primary)
   * Background: var(--bg-surface)
   * Focus ring: 2px solid var(--border-focus) with 2px offset
   * Inner dot: Not visible
@@ -115,20 +118,20 @@ The Radio component has a single fixed size:
 ### Selected States
 
 * **Default (Selected)**
-  * Outer circle: 2px border, var(--border-primary)
+  * Outer circle: 1px border, var(--border-primary)
   * Background: var(--bg-primary)
   * Inner dot: 8×8px, visible, var(--bg-surface)
   * Label: var(--text)
 
 * **Hover (Selected)**
-  * Outer circle: 2px border, var(--border-primary)
+  * Outer circle: 1px border, var(--border-primary)
   * Background: var(--bg-primary-loud)
   * Inner dot: 8×8px, visible, var(--bg-surface)
   * Label: var(--text)
   * Cursor: pointer
 
 * **Focus (Selected)**
-  * Outer circle: 2px border, var(--border-primary)
+  * Outer circle: 1px border, var(--border-primary)
   * Background: var(--bg-primary)
   * Focus ring: 2px solid var(--border-focus) with 2px offset
   * Inner dot: 8×8px, visible, var(--bg-surface)
@@ -137,7 +140,7 @@ The Radio component has a single fixed size:
 ### Disabled States
 
 * **Disabled (Unselected)**
-  * Outer circle: 2px border, var(--border-default)
+  * Outer circle: 1px border, var(--border-default)
   * Background: var(--bg-surface)
   * Inner dot: Not visible
   * Label: var(--text-soft)
@@ -145,7 +148,7 @@ The Radio component has a single fixed size:
   * Cursor: not-allowed
 
 * **Disabled (Selected)**
-  * Outer circle: 2px border, var(--border-primary)
+  * Outer circle: 1px border, var(--border-primary)
   * Background: var(--bg-primary)
   * Inner dot: 8×8px, visible, var(--bg-surface)
   * Label: var(--text-soft)
@@ -213,19 +216,21 @@ Radio Groups support validation feedback:
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| `value` | string | required | Currently selected radio value |
-| `onValueChange` | function | required | Callback when selection changes |
-| `name` | string | auto-generated | Name attribute for radio group |
-| `label` | string | — | Label for the radio group |
-| `description` | string | — | Description text for context |
-| `hint` | string | — | Helper text below radio buttons |
-| `validation` | 'none' \| 'positive' \| 'notice' \| 'negative' | 'none' | Validation state |
-| `validationMessage` | string | — | Validation feedback message |
-| `required` | boolean | false | Whether selection is required |
-| `disabled` | boolean | false | Disable entire group |
-| `layout` | 'stacked' \| 'inline' | 'stacked' | Layout direction |
-| `className` | string | — | Optional CSS class |
-| `style` | CSSProperties | — | Optional inline styles |
+| `value` | `string` | required | Currently selected radio value |
+| `onValueChange` | `(value: string) => void` | required | Callback when selection changes |
+| `name` | `string` | auto-generated | Name attribute for the radio group |
+| `label` | `string` | — | Group label, rendered via FieldLabel inside `<legend>` |
+| `description` | `string` | — | Sub-label below the legend. Forwarded to FieldLabel |
+| `required` | `boolean` | `false` | Appends a required asterisk to the legend |
+| `optional` | `boolean` | `false` | Appends "(optional)" to the legend. Mutually exclusive with `required` |
+| `helpText` | `string` | — | Tooltip on the legend help icon. Forwarded to FieldLabel |
+| `hint` | `string` | — | Helper text rendered via Hint, between legend and items |
+| `validation` | `'positive' \| 'notice' \| 'negative'` | — | Validation state |
+| `validationMessage` | `string` | — | Validation feedback message with contextual icon |
+| `disabled` | `boolean` | `false` | Disables all radios in the group |
+| `layout` | `'stacked' \| 'inline'` | `'stacked'` | Layout direction |
+| `className` | `string` | — | Applied to the root fieldset element |
+| `style` | `CSSProperties` | — | Inline styles on the root element |
 
 ### Radio Properties
 
@@ -296,8 +301,8 @@ Use Ripple spacing tokens for all spacing:
   * Required indicator (*) for mandatory selections
 
 * **Touch Targets**:
-  * Radio circle + label creates 48×48px minimum touch target
-  * Adequate spacing between radios for accurate selection
+  * Standalone `Radio` enforces `min-height: 48px` for touch compliance
+  * Inside `RadioGroup`, `min-height` is `100%` so items size to content; the group's internal spacing provides the interaction buffer
   * Entire label area is tappable
 
 * **Screen Readers**:
@@ -354,7 +359,7 @@ Use Ripple spacing tokens for all spacing:
 * Label: var(--text)
 
 **Disabled:**
-* Outer circle border: var(--border-default) or var(--border-primary) (if selected)
+* Outer circle border: 1px var(--border-default) or var(--border-primary) (if selected)
 * Background: var(--bg-surface) or var(--bg-primary) (if selected)
 * Inner dot: var(--bg-surface) (if selected)
 * Label: var(--text-soft)
@@ -553,24 +558,25 @@ const [value, setValue] = useState('option1');
 
 All text uses Ripple typography tokens:
 
-* **Group label**: var(--font-size-80) (14px), var(--font-weight-semibold)
-* **Group description**: var(--font-size-80) (14px), var(--font-weight-regular)
-* **Radio label**: var(--font-size-100) (16px), var(--font-weight-regular)
-* **Hint text**: var(--font-size-80) (14px), var(--font-weight-regular)
+* **Group label**: var(--font-size-80) (14px), var(--font-weight-semibold) — rendered by FieldLabel
+* **Group description**: var(--font-size-80) (14px), var(--font-weight-regular) — rendered by FieldLabel
+* **Radio label**: var(--font-size-80) (14px), var(--font-weight-regular)
+* **Hint text**: var(--font-size-80) (14px), var(--font-weight-regular) — rendered by Hint component
 * **Validation message**: var(--font-size-80) (14px), var(--font-weight-regular)
-* **Required indicator (*)**: var(--font-size-80) (14px)
-* **Font family**: var(--font-family) (Open Sans)
-* **Line height**: var(--line-height-body) (150%)
+* **Required indicator (*)**: var(--font-size-80) (14px) — rendered by FieldLabel
+* **Font family**: var(--font-family-base) (Open Sans)
+* **Line height**: var(--font-line-height-body) (~150%)
 
 ---
 
 ## Technical Notes
 
 * Built with native HTML `<input type="radio">` for accessibility
-* Uses React Context to manage group state
-* Controlled component pattern (requires `value` and `onValueChange`)
-* Auto-generates unique `name` attribute if not provided
-* Supports custom styling via className and style props
-* Keyboard navigation follows standard radio button behavior
-* Focus management handled automatically
+* Uses React Context to share group state with child `Radio` items
+* Controlled component pattern — requires `value` and `onValueChange`
+* Auto-generates a unique `name` attribute when none is provided
+* `RadioGroup` legend rendered via Ripple's `FieldLabel` (inside `<legend>`) for consistent typography, `description`, `optional`, and `helpText` tooltip support
+* `hint` rendered via Ripple's `Hint` component, positioned between the legend and the items
+* Validation message includes a contextual icon (CheckCircle / AlertCircle / XCircle) with `margin-top: 3px` for optical alignment with text cap height
+* `min-height: 48px` on standalone `Radio`; overridden to `100%` inside `RadioGroup`
 * Compatible with form libraries (React Hook Form, Formik, etc.)

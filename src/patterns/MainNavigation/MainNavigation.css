@@ -5,7 +5,14 @@
    Application shell that composes Navbar + Drawer into a full navigation
    structure. Three zones in a flex row:
 
-     [Navbar 64px] [Persistent panel (optional)] [Content area (flex: 1)]
+     [Navbar 72px] [Persistent panel (optional)] [Content area (flex: 1)]
+
+   The content area is itself a flex column:
+
+     [Content area]
+       ├── .main-navigation__scroll  (flex: 1, overflow-y: auto)
+       │   └── page content (children)
+       └── .footer                   (flex-shrink: 0, position overridden)
 
    Modal drawers are portal-rendered by the Drawer component and sit outside
    this flex row. The .main-navigation__modal-drawer override positions
@@ -47,21 +54,54 @@
 
 /* =============================================================================
    CONTENT AREA
+   Flex column: scroll wrapper (flex: 1) + footer (flex-shrink: 0).
    ============================================================================= */
 
 .main-navigation__content {
+  flex:           1;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  overflow:       hidden;
+}
+
+/* =============================================================================
+   SCROLL WRAPPER
+   Page content lives here. Use position:sticky on Page Header inside
+   this container to keep it pinned at the top while content scrolls.
+   ============================================================================= */
+
+.main-navigation__scroll {
   flex:       1;
   min-width:  0;
   overflow-y: auto;
 }
 
 /* =============================================================================
-   MODAL DRAWER OFFSET
-   All modal drawers in MainNavigation open from the left, flush with the
-   Navbar's right edge (64 px). The 2-class selector beats the Drawer
-   component's .drawer[data-side="left"] { left: 0 } rule.
+   FOOTER INSIDE THE SHELL
+   The Footer component uses position:fixed by default (standalone use).
+   Inside MainNavigation, it becomes an in-flow flex child anchored to the
+   bottom of the content area. The override cancels the fixed positioning so
+   the footer fills the content area's full width naturally.
    ============================================================================= */
 
-.drawer.main-navigation__modal-drawer {
-  left: 64px;
+.main-navigation__content .footer {
+  position:   relative; /* cancels position:fixed from Footer.css */
+  flex-shrink: 0;
+}
+
+/* =============================================================================
+   MODAL DRAWER + OVERLAY OFFSET
+   All modal drawers in MainNavigation open from the left, flush with the
+   Navbar's right edge (72 px). The 3-selector specificity (0,3,0) beats the
+   Drawer component's .drawer[data-side="left"] { left: 0 } rule (0,2,0).
+   The overlay is also offset so it doesn't cover the Navbar.
+   ============================================================================= */
+
+.drawer.main-navigation__modal-drawer[data-side="left"] {
+  left: 72px;
+}
+
+.main-navigation__drawer-overlay {
+  left: 72px;
 }

@@ -74,13 +74,8 @@
    Label
    --------------------------------------------------------------------------- */
 
+/* Label — FieldLabel provides all visual typography */
 .range__label {
-  display:     block;
-  font-family: var(--font-family-base);
-  font-size:   var(--font-size-100);   /* 16px */
-  font-weight: var(--font-weight-semibold);
-  line-height: var(--font-line-height-body);
-  color:       var(--text);
   cursor:      default;
   user-select: none;
 }
@@ -300,7 +295,7 @@
   font-size:      var(--font-size-80);
   font-weight:    var(--font-weight-medium);
   white-space:    nowrap;
-  color:          var(--text-on-fill);
+  color:          var(--text-loud);
   background:     var(--bg-inverse);
   padding:        var(--spacing-25) var(--spacing-50);   /* 4px 8px */
   border-radius:  var(--border-radius-100);
@@ -405,5 +400,5 @@
 
 .range__msg-icon {
   flex-shrink: 0;
-  margin-top:  1px;
+  margin-top:  3px;
 }
