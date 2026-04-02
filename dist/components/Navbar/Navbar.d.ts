@@ -31,8 +31,6 @@ export interface NavbarProps {
     logo?: ReactNode;
     /** Abbreviated product name below the logo (e.g. "ERPx") */
     productName?: string;
-    /** Makes the logo area an interactive button that navigates to home */
-    onLogoClick?: () => void;
     /** Environment / tenant badge label */
     tenantLabel?: string;
     /** Badge color variant — defaults to 'notice' */
@@ -56,4 +54,4 @@ export interface NavbarProps {
     className?: string;
     style?: CSSProperties;
 }
-export declare function Navbar({ logo, productName, onLogoClick, tenantLabel, tenantColor, globalNavItems, contextualNavItems, showContextualDivider, userName, userRole, userProductArea, userAvatarSrc, userMenuItems, className, style, }: NavbarProps): import("react/jsx-runtime").JSX.Element;
+export declare function Navbar({ logo, productName, tenantLabel, tenantColor, globalNavItems, contextualNavItems, showContextualDivider, userName, userRole, userProductArea, userAvatarSrc, userMenuItems, className, style, }: NavbarProps): import("react/jsx-runtime").JSX.Element;

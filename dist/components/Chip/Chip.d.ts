@@ -36,5 +36,5 @@ export interface ChipGroupProps {
     children: React.ReactNode;
     className?: string;
 }
-export declare const Chip: React.ForwardRefExoticComponent<ChipProps & React.RefAttributes<HTMLButtonElement | HTMLSpanElement>>;
+export declare const Chip: React.ForwardRefExoticComponent<ChipProps & React.RefAttributes<HTMLSpanElement | HTMLButtonElement>>;
 export declare function ChipGroup({ 'aria-label': ariaLabel, gap, children, className, }: ChipGroupProps): import("react/jsx-runtime").JSX.Element;

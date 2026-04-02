@@ -24,8 +24,10 @@ export interface DrawerProps {
     'aria-label'?: string;
     children: React.ReactNode;
     className?: string;
+    /** Extra class(es) applied to the overlay element (modal drawers only) */
+    overlayClassName?: string;
 }
-export declare function Drawer({ open, onClose, side, size, closeOnOverlayClick, persistent, 'aria-label': ariaLabel, children, className, }: DrawerProps): import("react/jsx-runtime").JSX.Element | null;
+export declare function Drawer({ open, onClose, side, size, closeOnOverlayClick, persistent, 'aria-label': ariaLabel, children, className, overlayClassName, }: DrawerProps): import("react/jsx-runtime").JSX.Element | null;
 export interface DrawerHeaderProps {
     title: string;
     description?: string;

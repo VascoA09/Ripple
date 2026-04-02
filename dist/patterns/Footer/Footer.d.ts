@@ -16,7 +16,7 @@ export interface FooterTab {
 export interface FooterGroup {
     id: string;
     label: string;
-    /** Color used for the group border and tag. Default: 'neutral'. */
+    /** Color used for the group border and label badge. Default: 'neutral'. */
     color?: FooterGroupColor;
 }
 export interface FooterProps {

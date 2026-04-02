@@ -1,8 +1,8 @@
 import { default as React } from 'react';
 
-export type TextInputValidation = 'positive' | 'notice' | 'negative';
-export type TextInputSize = 'small' | 'medium' | 'large';
-export interface TextInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'className' | 'style' | 'id' | 'size' | 'prefix'> {
+export type InputValidation = 'positive' | 'notice' | 'negative';
+export type InputSize = 'small' | 'medium' | 'large';
+export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'className' | 'style' | 'id' | 'size' | 'prefix'> {
     /** Visible label. Always required — provide hideLabel for search bars and similar contexts. */
     label: string;
     /** Visually hides the label while keeping it accessible. */
@@ -10,11 +10,11 @@ export interface TextInputProps extends Omit<React.InputHTMLAttributes<HTMLInput
     /** Helper text below the field. Replaced by validationMessage when triggered. */
     hint?: string;
     /** Validation state. */
-    validation?: TextInputValidation;
+    validation?: InputValidation;
     /** Validation feedback message, rendered with the appropriate icon. */
     validationMessage?: string;
     /** Height scale. Default: 'medium'. */
-    size?: TextInputSize;
+    size?: InputSize;
     /**
      * Attached prefix block — displayed before the input with its own background.
      * Typical use: currency symbols ($), protocol labels (https://), or icons.
@@ -41,4 +41,4 @@ export interface TextInputProps extends Omit<React.InputHTMLAttributes<HTMLInput
     /** Applies to the root container. */
     style?: React.CSSProperties;
 }
-export declare const TextInput: React.ForwardRefExoticComponent<TextInputProps & React.RefAttributes<HTMLInputElement>>;
+export declare const Input: React.ForwardRefExoticComponent<InputProps & React.RefAttributes<HTMLInputElement>>;

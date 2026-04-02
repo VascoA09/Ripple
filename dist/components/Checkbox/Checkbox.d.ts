@@ -13,15 +13,21 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
     validation?: CheckboxValidation;
 }
 export interface CheckboxGroupProps {
-    /** Group label rendered as a <legend> */
+    /** Group label, rendered via FieldLabel inside a <legend>. */
     legend: string;
-    /** Appends a required asterisk to the legend */
+    /** Sub-label below the legend. Forwarded to FieldLabel's description. */
+    description?: string;
+    /** Appends a required asterisk to the legend. */
     required?: boolean;
-    /** Supplementary text below the legend */
+    /** Appends "(optional)" to the legend. Mutually exclusive with required. */
+    optional?: boolean;
+    /** Help tooltip on the legend. Forwarded to FieldLabel's helpText. */
+    helpText?: string;
+    /** Supplementary text below the legend, rendered via Hint. */
     hint?: string;
-    /** Validation state — propagated visually to the group container */
+    /** Validation state — propagated visually to the group container. */
     validation?: CheckboxValidation;
-    /** Validation feedback message */
+    /** Validation feedback message with contextual icon. */
     validationMessage?: string;
     children: React.ReactNode;
     className?: string;

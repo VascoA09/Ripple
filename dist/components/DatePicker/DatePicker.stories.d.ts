@@ -1,0 +1,20 @@
+import { Meta, StoryObj } from '@storybook/react';
+import { DatePickerProps } from './DatePicker';
+
+declare const meta: Meta<DatePickerProps>;
+export default meta;
+type Story = StoryObj<DatePickerProps>;
+export declare const Default: Story;
+export declare const Controlled: Story;
+export declare const Sizes: Story;
+export declare const Clearable: Story;
+export declare const WithIcon: Story;
+export declare const WeekNumbers: Story;
+export declare const DisablePast: Story;
+export declare const DisableFuture: Story;
+export declare const Validation: Story;
+export declare const Disabled: Story;
+export declare const ReadOnly: Story;
+export declare const DateRange: Story;
+export declare const NoFooter: Story;
+export declare const HiddenLabel: Story;

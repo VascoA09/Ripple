@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { TextInputProps } from './TextInput';
+import { InputProps } from './Input';
 
-declare const meta: Meta<TextInputProps>;
+declare const meta: Meta<InputProps>;
 export default meta;
-type Story = StoryObj<TextInputProps>;
+type Story = StoryObj<InputProps>;
 export declare const Default: Story;
 export declare const Sizes: Story;
 export declare const WithHint: Story;

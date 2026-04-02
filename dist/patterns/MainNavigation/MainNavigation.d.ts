@@ -31,7 +31,6 @@ export interface MainNavItem extends NavItem {
 export interface MainNavigationProps {
     logo?: React.ReactNode;
     productName?: string;
-    onLogoClick?: () => void;
     tenantLabel?: string;
     tenantColor?: BadgeColor;
     /** Global nav items (max 5). Items with a `drawerId` are auto-wired. */
@@ -53,8 +52,14 @@ export interface MainNavigationProps {
     openDrawerId?: string | null;
     /** Called when the user opens or closes a drawer. */
     onDrawerChange?: (id: string | null) => void;
-    /** Application content rendered in the main area to the right of navigation. */
+    /** Application content rendered in the scrollable main area. */
     children?: React.ReactNode;
+    /**
+     * Footer rendered at the bottom of the main area (below the scroll region).
+     * Pass a <Footer /> component here. Its fixed positioning is cancelled by
+     * the shell — it becomes a natural flex child anchored to the bottom.
+     */
+    footer?: React.ReactNode;
     className?: string;
 }
 /**
@@ -65,7 +70,10 @@ export interface MainNavigationProps {
  * for controlled mode (e.g., when the URL should reflect the open panel).
  *
  * Layout:
- *   [Navbar 64px] [Persistent panel (optional)] [Content area (flex: 1)]
+ *   [Navbar 72px] [Persistent panel (optional)] [Content area (flex: 1)]
+ *                                                ├── scroll wrapper (flex: 1, overflow-y: auto)
+ *                                                │   └── children
+ *                                                └── footer (Footer component, optional)
  *
  * Modal drawers are portal-rendered and do not affect layout.
  * Persistent drawers are in-flow panels that push the content area.
@@ -73,4 +81,4 @@ export interface MainNavigationProps {
  * Drawer wiring: nav items with a `drawerId` automatically receive
  * `selected` state and `onClick` toggle behaviour.
  */
-export declare function MainNavigation({ logo, productName, onLogoClick, tenantLabel, tenantColor, globalNavItems, contextualNavItems, showContextualDivider, userName, userRole, userProductArea, userAvatarSrc, userMenuItems, drawers, openDrawerId: controlledId, onDrawerChange, children, className, }: MainNavigationProps): import("react/jsx-runtime").JSX.Element;
+export declare function MainNavigation({ logo, productName, tenantLabel, tenantColor, globalNavItems, contextualNavItems, showContextualDivider, userName, userRole, userProductArea, userAvatarSrc, userMenuItems, drawers, openDrawerId: controlledId, onDrawerChange, children, footer, className, }: MainNavigationProps): import("react/jsx-runtime").JSX.Element;
