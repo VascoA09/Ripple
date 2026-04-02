@@ -68,16 +68,29 @@ The `data-theme="light"` attribute on the wrapper activates Ripple's light theme
 ## 5. Use components
 
 ```tsx
-import { Button, TextInput, Tag, Badge, Card, BannerAlert } from '@ripple/ui'
+import { Button, Input, Tag, Badge, Card, CardHeader, CardTitle, CardContent } from '@ripple/ui'
 
 export default function App() {
   return (
-    <div style={{ padding: 'var(--spacing-200)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-150)' }}>
-      <Button variant="fill">Save</Button>
-      <Button variant="outline">Cancel</Button>
-      <TextInput label="Full name" placeholder="Enter your name" />
-      <Tag color="blue">Draft</Tag>
-      <Badge color="negative">3</Badge>
+    <div style={{ padding: 'var(--spacing-200)' }}>
+      <Card>
+        <CardHeader>
+          <CardTitle as="h1">Ripple app</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-150)' }}>
+            <div style={{ display: 'flex', gap: 'var(--spacing-50)' }}>
+              <Button variant="fill">Save</Button>
+              <Button variant="outline">Cancel</Button>
+            </div>
+            <div style={{ display: 'flex', gap: 'var(--spacing-50)', alignItems: 'center' }}>
+              <Tag color="blue">Draft</Tag>
+              <Badge color="negative">3</Badge>
+            </div>
+            <Input label="Full name" placeholder="Enter your name" />
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }
