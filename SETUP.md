@@ -139,19 +139,27 @@ Full token reference: `src/tokens/themes.css`
 
 ## 7. Apply Ripple typography to headings
 
-HTML headings (`h1`–`h6`) are not automatically styled by Ripple. Apply tokens explicitly:
+HTML headings (`h1`–`h6`) are not automatically styled by Ripple. Use the semantic typography classes included in the stylesheet:
 
 ```tsx
-<h1 style={{
-  fontFamily: 'var(--font-family-base)',
-  fontSize: 'var(--font-size-500)',
-  fontWeight: 'var(--font-weight-semibold)',
-  color: 'var(--text-loud)',
-  margin: 0
-}}>
-  Page title
-</h1>
+<h1 className="typography-heading-xl">Page title</h1>
+<h2 className="typography-heading-l">Section title</h2>
+<h3 className="typography-heading-m">Card heading</h3>
+<h4 className="typography-heading-s">Sub-section</h4>
 ```
+
+| Class | Size | Use for |
+|---|---|---|
+| `typography-heading-xl` | 32px | Page titles, hero headings |
+| `typography-heading-l` | 28px | Section titles |
+| `typography-heading-m` | 24px | Card headings, dialogs |
+| `typography-heading-s` | 18px | Sub-sections |
+| `typography-body` | 16px | Default body text |
+| `typography-caption` | 14px | Secondary, muted text |
+| `typography-label` | 14px | Form labels, tags |
+| `typography-detail` | 12px | Fine print, metadata |
+
+Each class sets font-family, font-size, line-height, font-weight, and color in one go. No inline styles needed.
 
 ---
 
