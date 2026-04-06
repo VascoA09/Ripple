@@ -86,8 +86,7 @@ function PageContent({ title, breadcrumb = ['Home'] }: PageContentProps) {
         color: 'var(--text-soft)',
       }}>
         <p style={{ margin: 0 }}>
-          Content area for <strong style={{ color: 'var(--text)' }}>{title}</strong>.{' '}
-          The Main Navigation is fixed to the left and the Footer tab bar is anchored to the bottom.
+          Content area for <strong style={{ color: 'var(--text)' }}>{title}</strong>.
         </p>
       </div>
     </>
@@ -142,9 +141,7 @@ function getPageMeta(tabId: string) {
 }
 
 // ---------------------------------------------------------------------------
-// Default story — Overlay navigation with tab bar
-// Overlay drawers open over the content area without pushing it.
-// The Footer is anchored to the bottom of the content area.
+// Default story
 // ---------------------------------------------------------------------------
 
 const DEFAULT_TABS: FooterTab[] = [
@@ -154,7 +151,7 @@ const DEFAULT_TABS: FooterTab[] = [
 ]
 
 export const Default: Story = {
-  name: 'Overlay',
+  name: 'Default',
   render: () => {
     const [activeTabId, setActiveTabId] = useState('dashboard')
     const [tabs, setTabs]               = useState<FooterTab[]>(DEFAULT_TABS)

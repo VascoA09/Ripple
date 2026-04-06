@@ -10,8 +10,9 @@
    The content area is itself a flex column:
 
      [Content area]
-       └── .main-navigation__scroll  (flex: 1, overflow-y: auto)
-           └── page content (children)
+       ├── .main-navigation__scroll  (flex: 1, overflow-y: auto)
+       │   └── page content (children)
+       └── belowScroll slot          (flex-shrink: 0, optional)
 
    Modal drawers are portal-rendered by the Drawer component and sit outside
    this flex row. The .main-navigation__modal-drawer override positions

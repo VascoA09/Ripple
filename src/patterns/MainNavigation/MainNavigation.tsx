@@ -70,6 +70,13 @@ export interface MainNavigationProps {
   // ── Layout ───────────────────────────────────────────────────────────────────
   /** Application content rendered in the scrollable main area. */
   children?: React.ReactNode
+  /**
+   * Content rendered below the scroll region, anchored to the bottom of the
+   * content column. Sits to the right of the Navbar — it never covers it.
+   * Layout consumers (e.g. MicroNavigation) use this slot to inject a tab bar
+   * or other persistent bottom UI.
+   */
+  belowScroll?: React.ReactNode
   className?: string
 }
 
@@ -86,8 +93,9 @@ export interface MainNavigationProps {
  *
  * Layout:
  *   [Navbar 72px] [Persistent panel (optional)] [Content area (flex: 1)]
- *                                                └── scroll wrapper (flex: 1, overflow-y: auto)
- *                                                    └── children
+ *                                                ├── scroll wrapper (flex: 1, overflow-y: auto)
+ *                                                │   └── children
+ *                                                └── belowScroll (flex-shrink: 0, optional)
  *
  * Modal drawers are portal-rendered and do not affect layout.
  * Persistent drawers are in-flow panels that push the content area.
@@ -112,6 +120,7 @@ export function MainNavigation({
   openDrawerId: controlledId,
   onDrawerChange,
   children,
+  belowScroll,
   className,
 }: MainNavigationProps) {
   const isControlled      = controlledId !== undefined
@@ -202,6 +211,8 @@ export function MainNavigation({
         <div className="main-navigation__scroll">
           {children}
         </div>
+        {/* Below-scroll slot — anchored to the bottom of the content column */}
+        {belowScroll}
       </div>
 
       {/* ── Modal drawers — always left-side, flush with navbar right edge ── */}

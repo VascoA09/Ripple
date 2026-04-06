@@ -16,18 +16,18 @@ export interface MicroNavigationProps {
   /**
    * Props forwarded to the MainNavigation pattern.
    * Provides the Navbar, drawer management, and left-side layout.
-   * Do not pass `children` or `footer` here — use the top-level props instead.
+   * Do not pass `children` or `belowScroll` here — use the top-level props instead.
    *
    * Only overlay (modal) drawers are supported. Persistent panels belong to
    * the Persistent Navigation layout, not MicroNavigation.
    */
-  nav: Omit<MainNavigationProps, 'children' | 'footer' | 'drawers'> & {
+  nav: Omit<MainNavigationProps, 'children' | 'belowScroll' | 'drawers'> & {
     drawers?: MicroNavDrawerDef[]
   }
   /**
-   * Props forwarded to the Footer pattern.
-   * The Footer is rendered inside the content area (below the scroll region),
-   * anchored to the bottom — it does not cover the Navbar.
+   * Props forwarded to the Footer pattern. Placed in MainNavigation's
+   * `belowScroll` slot — anchored to the bottom of the content column,
+   * never covering the Navbar.
    */
   footer: FooterProps
   /** Page content rendered in the scrollable main area. */
@@ -52,7 +52,7 @@ export interface MicroNavigationProps {
  *   │         │  Footer (tab bar, in-flow)               │
  *   └─────────┴─────────────────────────────────────────┘
  *
- * The Footer is passed through MainNavigation's `footer` prop so it renders
+ * The Footer is placed in MainNavigation's `belowScroll` slot so it renders
  * inside the content column — anchored to the bottom of the content area,
  * not the viewport. It never covers the Navbar.
  *
@@ -72,7 +72,7 @@ export function MicroNavigation({
     <MainNavigation
       {...nav}
       className={['micro-navigation', nav.className, className].filter(Boolean).join(' ')}
-      footer={<Footer {...footer} />}
+      belowScroll={<Footer {...footer} />}
     >
       <main className="micro-navigation__main">
         {children}
