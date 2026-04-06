@@ -504,4 +504,4 @@ The Navbar renders as `<nav aria-label="Application navigation">`. Drawers use `
 * **[Badge](/guidelines/components/badge.md)** — Tenant environment indicator
 * **[Counter](/guidelines/components/counter.md)** — Notification counts on nav buttons
 * **[FlyoutMenu](/guidelines/components/flyout-menu.md)** — User menu and overflow menu
-* **[Footer](/guidelines/patterns/footer.md)** — Bottom tab bar for open pages
+* **[Micro Navigation](/guidelines/layouts/micro-navigation.md)** — Layout that assembles Main Navigation and Footer into a full-page shell
