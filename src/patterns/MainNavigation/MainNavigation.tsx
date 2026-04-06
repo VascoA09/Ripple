@@ -70,12 +70,6 @@ export interface MainNavigationProps {
   // ── Layout ───────────────────────────────────────────────────────────────────
   /** Application content rendered in the scrollable main area. */
   children?: React.ReactNode
-  /**
-   * Footer rendered at the bottom of the main area (below the scroll region).
-   * Pass a <Footer /> component here. Its fixed positioning is cancelled by
-   * the shell — it becomes a natural flex child anchored to the bottom.
-   */
-  footer?: React.ReactNode
   className?: string
 }
 
@@ -92,9 +86,8 @@ export interface MainNavigationProps {
  *
  * Layout:
  *   [Navbar 72px] [Persistent panel (optional)] [Content area (flex: 1)]
- *                                                ├── scroll wrapper (flex: 1, overflow-y: auto)
- *                                                │   └── children
- *                                                └── footer (Footer component, optional)
+ *                                                └── scroll wrapper (flex: 1, overflow-y: auto)
+ *                                                    └── children
  *
  * Modal drawers are portal-rendered and do not affect layout.
  * Persistent drawers are in-flow panels that push the content area.
@@ -119,7 +112,6 @@ export function MainNavigation({
   openDrawerId: controlledId,
   onDrawerChange,
   children,
-  footer,
   className,
 }: MainNavigationProps) {
   const isControlled      = controlledId !== undefined
@@ -210,9 +202,6 @@ export function MainNavigation({
         <div className="main-navigation__scroll">
           {children}
         </div>
-
-        {/* Footer — anchored to the bottom of the content area, not the viewport */}
-        {footer}
       </div>
 
       {/* ── Modal drawers — always left-side, flush with navbar right edge ── */}

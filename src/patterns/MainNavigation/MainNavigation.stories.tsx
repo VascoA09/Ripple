@@ -34,8 +34,6 @@ import { Avatar } from '../../components/Avatar'
 import { Button } from '../../components/Button'
 import { Chip, ChipGroup } from '../../components/Chip'
 import { Unit4Logo } from '../../assets/Unit4Logo'
-import { Footer } from '../Footer'
-import type { FooterTab } from '../Footer'
 
 // ---------------------------------------------------------------------------
 
@@ -61,8 +59,7 @@ const USER_MENU = [
 
 // ---------------------------------------------------------------------------
 // Page content placeholder — sticky header + scrollable body
-// Demonstrates how a Page Header stays pinned while content scrolls,
-// with the Footer anchored at the bottom of the shell.
+// Demonstrates how a Page Header stays pinned while content scrolls.
 // ---------------------------------------------------------------------------
 
 function PageContent({ title }: { title: string }) {
@@ -265,35 +262,15 @@ function NavigationDrawerContent({ activeItem, onNavigate }: { activeItem: strin
 }
 
 // ---------------------------------------------------------------------------
-// Pattern 1: Overlay
+// Default
 // Contextual nav items + overlay drawers for search and notifications.
 // Drawers appear over the content area without pushing it.
-// The Footer is anchored to the bottom of the content area (not the viewport).
 // ---------------------------------------------------------------------------
 
-const INITIAL_TABS: FooterTab[] = [
-  { id: 'home',     label: 'Home' },
-  { id: 'payroll',  label: 'Payroll Navigator' },
-  { id: 'q1',       label: 'Q1 Reports' },
-  { id: 'people',   label: 'People' },
-]
-
-export const Overlay: Story = {
-  name: 'Overlay',
+export const Default: Story = {
+  name: 'Default',
   render: () => {
-    const [page, setPage]           = useState('dashboard')
-    const [tabs, setTabs]           = useState<FooterTab[]>(INITIAL_TABS)
-    const [activeTabId, setActiveTabId] = useState('payroll')
-
-    function handleTabClose(tabId: string) {
-      setTabs(prev => {
-        const next = prev.filter(t => t.id !== tabId)
-        if (activeTabId === tabId && next.length > 0) {
-          setActiveTabId(next[next.length - 1].id)
-        }
-        return next
-      })
-    }
+    const [page, setPage] = useState('dashboard')
 
     return (
       <MainNavigation
@@ -327,20 +304,6 @@ export const Overlay: Story = {
             content: <NotificationsDrawerContent />,
           },
         ]}
-        footer={
-          <Footer
-            tabs={tabs}
-            activeTabId={activeTabId}
-            onTabActivate={setActiveTabId}
-            onTabClose={handleTabClose}
-            onCloseAllTabs={() => setTabs([])}
-            onCloseOtherTabs={(id) => setTabs(prev => prev.filter(t => t.id === id))}
-            onTabLock={(id) => setTabs(prev => prev.map(t => t.id === id ? { ...t, type: 'locked' } : t))}
-            onTabUnlock={(id) => setTabs(prev => prev.map(t => t.id === id ? { ...t, type: 'standard' } : t))}
-            onTabPin={(id) => setTabs(prev => prev.map(t => t.id === id ? { ...t, type: 'pinned' } : t))}
-            onTabUnpin={(id) => setTabs(prev => prev.map(t => t.id === id ? { ...t, type: 'standard' } : t))}
-          />
-        }
       >
         <PageContent title={page.charAt(0).toUpperCase() + page.slice(1)} />
       </MainNavigation>

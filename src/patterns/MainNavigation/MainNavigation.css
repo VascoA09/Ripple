@@ -10,9 +10,8 @@
    The content area is itself a flex column:
 
      [Content area]
-       ├── .main-navigation__scroll  (flex: 1, overflow-y: auto)
-       │   └── page content (children)
-       └── .footer                   (flex-shrink: 0, position overridden)
+       └── .main-navigation__scroll  (flex: 1, overflow-y: auto)
+           └── page content (children)
 
    Modal drawers are portal-rendered by the Drawer component and sit outside
    this flex row. The .main-navigation__modal-drawer override positions
@@ -54,7 +53,6 @@
 
 /* =============================================================================
    CONTENT AREA
-   Flex column: scroll wrapper (flex: 1) + footer (flex-shrink: 0).
    ============================================================================= */
 
 .main-navigation__content {
@@ -75,19 +73,6 @@
   flex:       1;
   min-width:  0;
   overflow-y: auto;
-}
-
-/* =============================================================================
-   FOOTER INSIDE THE SHELL
-   The Footer component uses position:fixed by default (standalone use).
-   Inside MainNavigation, it becomes an in-flow flex child anchored to the
-   bottom of the content area. The override cancels the fixed positioning so
-   the footer fills the content area's full width naturally.
-   ============================================================================= */
-
-.main-navigation__content .footer {
-  position:   relative; /* cancels position:fixed from Footer.css */
-  flex-shrink: 0;
 }
 
 /* =============================================================================
