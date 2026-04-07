@@ -102,7 +102,7 @@ export function ExtensionKitNavigation({
         {/* Top bar */}
         <header className="extension-kit-navigation__topbar">
           <div className="extension-kit-navigation__topbar-start">
-            <Unit4Wordmark />
+            <Unit4Wordmark height={24} />
             <span className="extension-kit-navigation__divider" aria-hidden />
             <span className="extension-kit-navigation__app-name">{appName}</span>
           </div>

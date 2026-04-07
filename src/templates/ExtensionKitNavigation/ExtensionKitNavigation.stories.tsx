@@ -1,15 +1,21 @@
 import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import {
+  Activity,
   BarChart2,
-  Code2,
+  BookOpen,
   Filter,
-  FolderOpen,
-  LayoutDashboard,
+  GitBranch,
+  LayoutGrid,
+  Mail,
   Search,
-  Settings,
+  Server,
+  ShieldCheck,
+  SlidersHorizontal,
+  Table2,
   Users,
 } from 'lucide-react'
+import { IconButton } from '../../components/IconButton'
 import { ExtensionKitNavigation } from './ExtensionKitNavigation'
 import type { ExtensionKitNavigationProps } from './ExtensionKitNavigation'
 
@@ -29,12 +35,17 @@ type Story = StoryObj<ExtensionKitNavigationProps>
 // ---------------------------------------------------------------------------
 
 const NAV_ITEMS = [
-  { id: 'dashboard', label: 'Dashboard',   icon: <LayoutDashboard size={20} /> },
-  { id: 'projects',  label: 'Projects',    icon: <FolderOpen size={20} /> },
-  { id: 'apis',      label: 'APIs',        icon: <Code2 size={20} /> },
-  { id: 'users',     label: 'Users',       icon: <Users size={20} /> },
-  { id: 'analytics', label: 'Analytics',   icon: <BarChart2 size={20} /> },
-  { id: 'settings',  label: 'Settings',    icon: <Settings size={20} /> },
+  { id: 'monitoring',       label: 'Monitoring',       icon: <Activity size={20} /> },
+  { id: 'my-flows',         label: 'My Flows',         icon: <GitBranch size={20} /> },
+  { id: 'my-apps',          label: 'My Apps',          icon: <LayoutGrid size={20} /> },
+  { id: 'parameters',       label: 'Parameters',       icon: <SlidersHorizontal size={20} /> },
+  { id: 'certificates',     label: 'Certificates',     icon: <ShieldCheck size={20} /> },
+  { id: 'sftp-connections', label: 'SFTP Connections', icon: <Server size={20} /> },
+  { id: 'mapping-tables',   label: 'Mapping Tables',   icon: <Table2 size={20} /> },
+  { id: 'flows-catalogue',  label: 'Flows Catalogue',  icon: <BookOpen size={20} /> },
+  { id: 'users',            label: 'Users',            icon: <Users size={20} /> },
+  { id: 'invitations',      label: 'Invitations',      icon: <Mail size={20} /> },
+  { id: 'metrics',          label: 'Metrics',          icon: <BarChart2 size={20} /> },
 ]
 
 // ---------------------------------------------------------------------------
@@ -127,7 +138,7 @@ export const Default: Story = {
 export const WithTopBarActions: Story = {
   name: 'With Top Bar Actions',
   render: () => {
-    const [activeId, setActiveId] = useState('apis')
+    const [activeId, setActiveId] = useState('my-flows')
 
     const items = NAV_ITEMS.map(item => ({
       ...item,
@@ -147,40 +158,20 @@ export const WithTopBarActions: Story = {
         copyright="© 2026 Unit4"
         topBarActions={
           <>
-            <button
-              style={{
-                display:         'flex',
-                alignItems:      'center',
-                justifyContent:  'center',
-                width:           '32px',
-                height:          '32px',
-                background:      'transparent',
-                border:          'none',
-                borderRadius:    'var(--border-radius-100)',
-                color:           'var(--text-soft)',
-                cursor:          'pointer',
-              }}
+            <IconButton
+              variant="ghost"
+              color="neutral"
+              size="small"
+              icon={<Search size={16} />}
               aria-label="Search"
-            >
-              <Search size={16} />
-            </button>
-            <button
-              style={{
-                display:         'flex',
-                alignItems:      'center',
-                justifyContent:  'center',
-                width:           '32px',
-                height:          '32px',
-                background:      'transparent',
-                border:          'none',
-                borderRadius:    'var(--border-radius-100)',
-                color:           'var(--text-soft)',
-                cursor:          'pointer',
-              }}
+            />
+            <IconButton
+              variant="ghost"
+              color="neutral"
+              size="small"
+              icon={<Filter size={16} />}
               aria-label="Filters"
-            >
-              <Filter size={16} />
-            </button>
+            />
           </>
         }
       >

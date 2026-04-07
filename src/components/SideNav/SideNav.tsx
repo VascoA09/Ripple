@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { ChevronLeft, ChevronRight, LogOut } from 'lucide-react'
 import { Avatar } from '../Avatar'
+import { Button } from '../Button'
+import { Tooltip } from '../Tooltip'
 import './SideNav.css'
 
 // =============================================================================
@@ -108,7 +110,7 @@ export function SideNav({
 
       {/* ── Identity — hidden in collapsed state ──────────────────────────── */}
       <div className="side-nav__identity" aria-hidden={isCollapsed || undefined}>
-        <Avatar name={userName} src={userAvatarSrc} size="s" />
+        <Avatar name={userName} src={userAvatarSrc} size="l" />
         <div className="side-nav__identity-text">
           <span className="side-nav__user-name">{userName}</span>
           {tenantName && (
@@ -120,30 +122,38 @@ export function SideNav({
       {/* ── Navigation items ──────────────────────────────────────────────── */}
       <div className="side-nav__items" role="list">
         {items.map(item => (
-          <button
+          <Tooltip
             key={item.id}
-            role="listitem"
-            className="side-nav__item"
-            aria-current={item.selected ? 'page' : undefined}
-            aria-label={isCollapsed ? item.label : undefined}
-            onClick={item.onClick}
+            content={item.label}
+            placement="right"
+            disabled={!isCollapsed}
           >
-            <span className="side-nav__item-icon" aria-hidden>{item.icon}</span>
-            <span className="side-nav__item-label">{item.label}</span>
-          </button>
+            <button
+              role="listitem"
+              className="side-nav__item"
+              aria-current={item.selected ? 'page' : undefined}
+              aria-label={isCollapsed ? item.label : undefined}
+              onClick={item.onClick}
+            >
+              <span className="side-nav__item-icon" aria-hidden>{item.icon}</span>
+              <span className="side-nav__item-label">{item.label}</span>
+            </button>
+          </Tooltip>
         ))}
       </div>
 
-      {/* ── Footer ────────────────────────────────────────────────────────── */}
+      {/* ── Footer — hidden in collapsed state ───────────────────────────── */}
       <div className="side-nav__footer">
-        <button
-          className="side-nav__logout"
+        <Button
+          variant="fill"
+          color="primary"
+          size="small"
+          iconStart={<LogOut size={16} aria-hidden />}
           onClick={onLogout}
-          aria-label="Log out"
+          className="side-nav__logout"
         >
-          <LogOut size={16} aria-hidden />
-          <span className="side-nav__logout-label">Log out</span>
-        </button>
+          Log out
+        </Button>
 
         {(version || copyright) && (
           <div className="side-nav__meta" aria-hidden>

@@ -1,19 +1,62 @@
-import { Unit4Logo } from './Unit4Logo'
-
 /**
- * Unit4Wordmark — the full UNIT4 brand wordmark.
+ * Unit4Wordmark — the full UNIT4 brand wordmark as an inline SVG.
  *
- * ⚠ SVG paths pending: the accurate wordmark SVG must be sourced from brand
- * asset files (Figma / brand guidelines). Until then this component renders
- * Unit4Logo (the compact U4 symbol) as a placeholder.
+ * Natural dimensions: 164 × 40. Pass `height` to scale proportionally;
+ * or pass both `width` and `height` to override. Always aria-hidden — the
+ * parent element is responsible for an accessible label.
  *
- * Do not ship this component in stable status until the wordmark SVG is confirmed.
- *
- * Natural dimensions of the full wordmark: ~111 × 21 (approximate — update
- * once the real SVG is sourced).
+ * Colours are taken directly from the official brand asset:
+ *   U / N / I / T  →  #7C878F  (neutral grey)
+ *   4              →  #85BC3B  (Unit4 brand green)
  */
-export function Unit4Wordmark({ height = 21 }: { height?: number }) {
-  // TODO: replace with full wordmark SVG paths sourced from Figma / brand assets.
-  // The compact U4 symbol (Unit4Logo) is a placeholder until then.
-  return <Unit4Logo height={height} width={Math.round(height * (37 / 21))} />
+export function Unit4Wordmark({
+  height = 40,
+  width,
+}: {
+  height?: number
+  width?: number
+}) {
+  const computedWidth = width ?? Math.round(height * (164 / 40))
+
+  return (
+    <svg
+      width={computedWidth}
+      height={height}
+      viewBox="0 0 164 40"
+      fill="none"
+      aria-hidden="true"
+      focusable="false"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* U */}
+      <g transform="translate(0, 0.714311)">
+        <path
+          d="M25.5538814,0.100753282 L25.5538814,22.7356296 C25.5538814,28.3733395 22.1919694,31.7390373 16.5614159,31.7390373 C10.8940376,31.7390373 7.51129855,28.3733395 7.51129855,22.7356296 L7.51129855,0.100753282 L0,0.100753282 L0,21.878335 C0,31.9355258 6.65587939,38.6932205 16.5614159,38.6932205 C26.4660468,38.6932205 33.120749,31.9355258 33.120749,21.878335 L33.120749,0.100753282 L25.5538814,0.100753282 Z"
+          fill="#7C878F"
+        />
+      </g>
+      {/* N */}
+      <g transform="translate(42.559669, 0.109731)">
+        <path
+          d="M16.5931092,0.192437863 C6.68757276,0.192437863 0.0319650276,6.94922565 0.0319650276,17.004905 L0.0319650276,38.9614424 L7.60154919,38.9614424 L7.60154919,16.1497264 C7.60154919,10.5108073 10.9631593,7.14450504 16.5931092,7.14450504 C22.259582,7.14450504 25.6429247,10.5108073 25.6429247,16.1497264 L25.6429247,38.9614424 L33.155159,38.9614424 L33.155159,17.004905 C33.155159,6.94922565 26.4992494,0.192437863 16.5931092,0.192437863"
+          fill="#7C878F"
+        />
+      </g>
+      {/* I */}
+      <polygon
+        points="86.9644948,39.0712947 94.4761254,39.0712947 94.4761254,0.814974046 86.9644948,0.814974046"
+        fill="#7C878F"
+      />
+      {/* T */}
+      <polygon
+        points="104.509492,0.815064733 104.509492,7.9379258 115.759431,7.9379258 115.759431,39.0710831 123.269854,39.0710831 123.269854,7.9379258 134.521,7.9379258 134.521,0.815064733"
+        fill="#7C878F"
+      />
+      {/* 4 */}
+      <path
+        d="M163.867069,0.815064733 L155.739078,0.815064733 L137.479773,26.427196 C136.948532,27.1898739 136.745392,28.1136724 136.908085,29.0290067 C137.070777,29.9452479 137.57938,30.7417823 138.340927,31.2732082 C138.925594,31.6837182 139.613793,31.9004602 140.330365,31.9004602 L154.270317,31.8941121 L154.270317,39.0710831 L161.222635,39.0710831 L161.244367,25.908164 L146.318299,25.908164 L163.867069,0.815064733 Z"
+        fill="#85BC3B"
+      />
+    </svg>
+  )
 }
