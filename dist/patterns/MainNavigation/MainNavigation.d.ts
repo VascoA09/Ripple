@@ -55,11 +55,12 @@ export interface MainNavigationProps {
     /** Application content rendered in the scrollable main area. */
     children?: React.ReactNode;
     /**
-     * Footer rendered at the bottom of the main area (below the scroll region).
-     * Pass a <Footer /> component here. Its fixed positioning is cancelled by
-     * the shell — it becomes a natural flex child anchored to the bottom.
+     * Content rendered below the scroll region, anchored to the bottom of the
+     * content column. Sits to the right of the Navbar — it never covers it.
+     * Layout consumers (e.g. MicroNavigation) use this slot to inject a tab bar
+     * or other persistent bottom UI.
      */
-    footer?: React.ReactNode;
+    belowScroll?: React.ReactNode;
     className?: string;
 }
 /**
@@ -73,7 +74,7 @@ export interface MainNavigationProps {
  *   [Navbar 72px] [Persistent panel (optional)] [Content area (flex: 1)]
  *                                                ├── scroll wrapper (flex: 1, overflow-y: auto)
  *                                                │   └── children
- *                                                └── footer (Footer component, optional)
+ *                                                └── belowScroll (flex-shrink: 0, optional)
  *
  * Modal drawers are portal-rendered and do not affect layout.
  * Persistent drawers are in-flow panels that push the content area.
@@ -81,4 +82,4 @@ export interface MainNavigationProps {
  * Drawer wiring: nav items with a `drawerId` automatically receive
  * `selected` state and `onClick` toggle behaviour.
  */
-export declare function MainNavigation({ logo, productName, tenantLabel, tenantColor, globalNavItems, contextualNavItems, showContextualDivider, userName, userRole, userProductArea, userAvatarSrc, userMenuItems, drawers, openDrawerId: controlledId, onDrawerChange, children, footer, className, }: MainNavigationProps): import("react/jsx-runtime").JSX.Element;
+export declare function MainNavigation({ logo, productName, tenantLabel, tenantColor, globalNavItems, contextualNavItems, showContextualDivider, userName, userRole, userProductArea, userAvatarSrc, userMenuItems, drawers, openDrawerId: controlledId, onDrawerChange, children, belowScroll, className, }: MainNavigationProps): import("react/jsx-runtime").JSX.Element;

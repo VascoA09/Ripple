@@ -1,4 +1,2 @@
-export { MicroNavigation } from './MicroNavigation';
-export type { MicroNavigationProps } from './MicroNavigation';
 export { StandardNavigation } from './StandardNavigation';
 export type { StandardNavigationProps } from './StandardNavigation';
