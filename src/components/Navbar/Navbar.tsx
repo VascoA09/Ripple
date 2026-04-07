@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from 'react'
 import { MoreHorizontal } from 'lucide-react'
+import { Unit4Logo } from '../../assets/Unit4Logo'
 import { Avatar } from '../Avatar'
 import { Badge } from '../Badge'
 import { Counter } from '../Counter'
@@ -150,7 +151,7 @@ export function Navbar({
   const logoContent = (
     <>
       <span className="navbar__logo-icon" aria-hidden="true">
-        {logo ?? <DefaultLogo />}
+        {logo ?? <Unit4Logo height={21} width={37} />}
       </span>
       {productName && (
         <span className="navbar__product-name" aria-hidden="true">
@@ -309,25 +310,3 @@ export function Navbar({
   )
 }
 
-// ---------------------------------------------------------------------------
-// DefaultLogo — fallback SVG when no logo prop is provided
-// ---------------------------------------------------------------------------
-
-function DefaultLogo() {
-  return (
-    <svg
-      width="32"
-      height="32"
-      viewBox="0 0 32 32"
-      fill="none"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <rect width="32" height="32" rx="8" fill="var(--color-primary)" />
-      <path
-        d="M10 22V10h4l2 8 2-8h4v12h-3v-7l-2 7h-2l-2-7v7H10z"
-        fill="white"
-      />
-    </svg>
-  )
-}

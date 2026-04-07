@@ -39,6 +39,7 @@ App Templates are pre-configured instances of a layout with patterns and slots p
 | Template | Status | Layout Used | Product |
 |----------|--------|-------------|---------|
 | [ERPx MicroNavigation](erp-micro-navigation.md) | draft | Micro Navigation | ERPx |
+| [Extension Kit Navigation](extension-kit-navigation.md) | draft | None (self-contained) | Extension Kit |
 
 ---
 
@@ -46,7 +47,7 @@ App Templates are pre-configured instances of a layout with patterns and slots p
 
 | Status | Count |
 |--------|-------|
-| Draft | 1 |
+| Draft | 2 |
 | Review | 0 |
 | Stable | 0 |
 

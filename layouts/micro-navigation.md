@@ -3,7 +3,7 @@ name: Micro Navigation
 type: layout
 status: draft
 version: 0.1.0
-last_updated: 2026-03-20
+last_updated: 2026-04-06
 owner: Vasco Antunes
 figma: TBD
 storybook: TBD
@@ -16,7 +16,7 @@ tags: [navigation, layout]
 
 **Type: Layout template** — not a pattern.
 
-Micro Navigation has no behavioural logic of its own. It arranges two existing patterns — MainNavigation and Footer — into an L-shaped shell and adds 56px clearance so the Footer does not obscure content. All state (drawers, tabs, groups) is owned by those patterns and managed by the consuming application.
+Micro Navigation has no behavioural logic of its own. It arranges two existing patterns — MainNavigation and Footer — into an L-shaped shell. All state (drawers, tabs, groups) is owned by those patterns and managed by the consuming application.
 
 This distinction matters for maintenance:
 - **Patterns** own behaviour and are individually tested
@@ -352,108 +352,105 @@ All text uses Ripple typography tokens:
 ## Implementation Example
 
 ```tsx
-import { MicroNavigation, BodyContainer } from './components/ui/micro-navigation';
-import { Navbar } from './components/ui/navbar';
-import { RippleDrawer, DrawerSection, DrawerMenuItem } from './components/ui/ripple-drawer';
-import { PageHeader } from './components/ui/page-header';
-import { Footer } from './components/ui/footer';
-import { GridContainer, GridItem } from './components/ui/grid';
-import { IconButton } from './components/ui/icon-button';
+import { useState } from 'react'
+import { MicroNavigation } from '@ripple/ui'
+import type { FooterTab } from '@ripple/ui'
+import {
+  DrawerHeader,
+  DrawerContent,
+  DrawerSection,
+  DrawerMenuItem,
+} from '@ripple/ui'
+import { PageHeader } from '@ripple/ui'
+import { Unit4Logo } from '@ripple/ui'
+import { BarChart2, DollarSign, FileText, LayoutDashboard, Search, Users } from 'lucide-react'
+
+const USER_MENU = [
+  { id: 'profile', label: 'My profile',    icon: <User size={14} /> },
+  { id: 'signout', label: 'Sign out',      icon: <LogOut size={14} />, separator: true },
+]
+
+function SearchDrawerContent() {
+  const [query, setQuery] = useState('')
+  return (
+    <>
+      <DrawerHeader title="Search" />
+      <DrawerContent>
+        <DrawerSection title="Recent">
+          <DrawerMenuItem label="Payroll Navigator" icon={<DollarSign size={14} />} onClick={() => {}} />
+          <DrawerMenuItem label="Q1 Budget Report"  icon={<BarChart2 size={14} />}  onClick={() => {}} />
+        </DrawerSection>
+      </DrawerContent>
+    </>
+  )
+}
 
 function App() {
-  const [drawerExpanded, setDrawerExpanded] = useState(true);
+  const [activeTabId, setActiveTabId] = useState('dashboard')
+  const [tabs, setTabs] = useState<FooterTab[]>([
+    { id: 'dashboard', label: 'Dashboard',     icon: <LayoutDashboard size={14} /> },
+    { id: 'invoices',  label: 'Invoices',      icon: <FileText size={14} /> },
+  ])
+
+  function handleTabClose(tabId: string) {
+    setTabs(prev => {
+      const next = prev.filter(t => t.id !== tabId)
+      if (activeTabId === tabId && next.length > 0) {
+        setActiveTabId(next[next.length - 1].id)
+      }
+      return next
+    })
+  }
 
   return (
     <MicroNavigation
-      mainNav={
-        <>
-          <Navbar
-            productName="Unit4 ERP"
-            searchButton={<IconButton variant="ghost" color="neutral" icon={Search} />}
-            hubButton={<IconButton variant="ghost" color="neutral" icon={Grid3x3} />}
-            notificationsButton={<IconButton variant="ghost" color="neutral" icon={Bell} />}
-            userMenuButton={<IconButton variant="ghost" color="neutral" icon={User} />}
-          />
-          <RippleDrawer 
-            expanded={drawerExpanded}
-            onToggle={() => setDrawerExpanded(!drawerExpanded)}
-          >
-            <DrawerSection label="Main">
-              <DrawerMenuItem 
-                icon={LayoutDashboard}
-                label="Dashboard" 
-                active={true}
-              />
-              <DrawerMenuItem 
-                icon={Users}
-                label="Customers" 
-              />
-              <DrawerMenuItem 
-                icon={FileText}
-                label="Orders" 
-              />
-            </DrawerSection>
-            <DrawerSection label="Reports">
-              <DrawerMenuItem 
-                icon={BarChart}
-                label="Analytics" 
-              />
-              <DrawerMenuItem 
-                icon={TrendingUp}
-                label="Trends" 
-              />
-            </DrawerSection>
-          </RippleDrawer>
-        </>
-      }
-      pageHeader={
-        <PageHeader
-          title="Dashboard"
-          breadcrumbs={[
-            { label: 'Home', href: '#' }, 
-            { label: 'Dashboard' }
-          ]}
-          primaryActions={
-            <Button variant="fill" color="primary">
-              Create New
-            </Button>
-          }
-        />
-      }
-      footer={
-        <Footer
-          tabs={[
-            { id: '1', name: 'Dashboard', active: true },
-            { id: '2', name: 'Customers', active: false },
-          ]}
-          groups={[
-            {
-              id: 'group1',
-              name: 'Reports',
-              tabs: [
-                { id: '3', name: 'Analytics' },
-                { id: '4', name: 'Trends' },
-              ],
-            },
-          ]}
-        />
-      }
+      nav={{
+        logo:            <Unit4Logo />,
+        productName:     'ERPx',
+        globalNavItems: [
+          { id: 'search', icon: <Search size={20} />, label: 'Search', drawerId: 'search' },
+        ],
+        contextualNavItems: [
+          { id: 'finance', icon: <DollarSign size={20} />, label: 'Finance', selected: true },
+          { id: 'people',  icon: <Users size={20} />,      label: 'People' },
+          { id: 'reports', icon: <BarChart2 size={20} />,  label: 'Reports' },
+        ],
+        showContextualDivider: true,
+        userName:        'Alex Johnson',
+        userRole:        'Finance Manager',
+        userProductArea: 'Finance',
+        userMenuItems:   USER_MENU,
+        drawers: [
+          { id: 'search', size: 'small', content: <SearchDrawerContent /> },
+        ],
+      }}
+      footer={{
+        tabs,
+        activeTabId,
+        onTabActivate:    setActiveTabId,
+        onTabClose:       handleTabClose,
+        onCloseAllTabs:   () => setTabs([]),
+        onCloseOtherTabs: id => setTabs(prev => prev.filter(t => t.id === id)),
+        onTabLock:   id => setTabs(prev => prev.map(t => t.id === id ? { ...t, type: 'locked' }   : t)),
+        onTabUnlock: id => setTabs(prev => prev.map(t => t.id === id ? { ...t, type: 'standard' } : t)),
+        onTabPin:    id => setTabs(prev => prev.map(t => t.id === id ? { ...t, type: 'pinned' }   : t)),
+        onTabUnpin:  id => setTabs(prev => prev.map(t => t.id === id ? { ...t, type: 'standard' } : t)),
+      }}
     >
-      <BodyContainer>
-        <GridContainer>
-          <GridItem xs={12} m={6} xl={4}>
-            {/* Page content */}
-          </GridItem>
-          <GridItem xs={12} m={6} xl={4}>
-            {/* Page content */}
-          </GridItem>
-          <GridItem xs={12} m={6} xl={4}>
-            {/* Page content */}
-          </GridItem>
-        </GridContainer>
-      </BodyContainer>
+      <PageHeader
+        title="Dashboard"
+        showBreadcrumb
+        breadcrumbItems={[
+          { label: 'Finance', href: '#' },
+          { label: 'Dashboard' },
+        ]}
+        mainActions={[
+          { id: 'create', label: 'Create new', type: 'primary', onClick: () => {} },
+        ]}
+      />
+      {/* Page body content */}
     </MicroNavigation>
-  );
+  )
 }
 ```
 
@@ -470,31 +467,27 @@ The Quick Access drawer is a specialized drawer component that provides users wi
 
 ### Usage
 ```tsx
-<RippleDrawer className="quick-access-drawer">
-  <div className="flex items-center justify-between p-[var(--spacing-100)]">
-    <h2 className="font-[family-name:var(--font-family)] font-[var(--font-weight-semibold)] text-[length:var(--font-size-100)]">
-      Quick Access
-    </h2>
-    <IconButton 
-      variant="ghost" 
-      color="neutral" 
-      icon={X}
-      onClick={onClose}
-      aria-label="Close quick access"
-    />
-  </div>
-  
-  <DrawerSection label="Frequently Used">
-    <DrawerMenuItem icon={FileText} label="Create Invoice" />
-    <DrawerMenuItem icon={Users} label="Add Customer" />
-    <DrawerMenuItem icon={Package} label="New Order" />
-  </DrawerSection>
-  
-  <DrawerSection label="Recent">
-    <DrawerMenuItem icon={Clock} label="Invoice #1234" />
-    <DrawerMenuItem icon={Clock} label="Customer: Acme Corp" />
-  </DrawerSection>
-</RippleDrawer>
+// Passed as the `content` of a DrawerConfig in the `nav.drawers` array:
+{
+  id: 'quick-access',
+  size: 'small',
+  content: (
+    <>
+      <DrawerHeader title="Quick Access" />
+      <DrawerContent>
+        <DrawerSection title="Frequently Used">
+          <DrawerMenuItem icon={<FileText size={14} />} label="Create Invoice" onClick={() => {}} />
+          <DrawerMenuItem icon={<Users size={14} />}    label="Add Customer"   onClick={() => {}} />
+          <DrawerMenuItem icon={<Package size={14} />}  label="New Order"      onClick={() => {}} />
+        </DrawerSection>
+        <DrawerSection title="Recent">
+          <DrawerMenuItem icon={<Clock size={14} />} label="Invoice #1234"        onClick={() => {}} />
+          <DrawerMenuItem icon={<Clock size={14} />} label="Customer: Acme Corp"  onClick={() => {}} />
+        </DrawerSection>
+      </DrawerContent>
+    </>
+  ),
+}
 ```
 
 ---

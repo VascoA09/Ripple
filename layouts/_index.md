@@ -12,14 +12,13 @@ They contain no behavioural logic — all state is owned by the patterns they ar
 | Layout | Status | Version | Last Updated | Owner | Patterns Used | Product |
 |--------|--------|---------|--------------|-------|---------------|---------|
 | [Micro Navigation](micro-navigation.md) | draft | 0.1.0 | 2026-03-20 | Vasco Antunes | MainNavigation, Footer | Any |
-| [Standard Navigation](standard-navigation.md) | draft | 0.1.0 | 2026-03-31 | Vasco Antunes | Navbar, Drawer, PageHeader | ERPx |
-| [Extension Kit Navigation](extension-kit-navigation.md) | draft | 0.1.0 | 2026-03-31 | Vasco Antunes | PageHeader | Extension Kit |
+| [Standard Navigation](standard-navigation.md) | draft | 0.1.0 | 2026-04-06 | Vasco Antunes | MainNavigation | Any |
 
 ## Status Summary
 
 | Status | Count |
 |--------|-------|
-| Draft | 3 |
+| Draft | 2 |
 | Review | 0 |
 | Stable | 0 |
 | Deprecated | 0 |

@@ -1,3 +1,6 @@
+export { SideNav } from './SideNav'
+export type { SideNavProps, SideNavItem } from './SideNav'
+
 export { DataGrid } from './DataGrid'
 export type { DataGridProps, DataGridSize } from './DataGrid'
 

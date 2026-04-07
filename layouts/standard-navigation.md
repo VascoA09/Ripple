@@ -3,11 +3,11 @@ name: Standard Navigation
 type: layout
 status: draft
 version: 0.1.0
-last_updated: 2026-03-31
+last_updated: 2026-04-06
 owner: Vasco Antunes
 figma: TBD
 storybook: TBD
-tags: [navigation, layout, erpx]
+tags: [navigation, layout]
 ---
 
 # Standard Navigation
@@ -16,66 +16,63 @@ tags: [navigation, layout, erpx]
 
 **Type: Layout** — not a pattern.
 
-Standard Navigation is a stateless structural scaffold. It arranges a top Navbar, a persistent collapsible Drawer, and a main content area (Page Header + scrollable Body) into a two-region application shell. All interaction state (drawer open/closed, active menu item, page content) is owned by the consuming application and its patterns.
+Standard Navigation is a stateless structural scaffold. It composes `MainNavigation` into a complete application shell with a content area using `var(--bg-app)`. It has no behavioural logic of its own — all state (drawers, nav selection) is owned by the consuming application.
 
-> **⚠ Zone arrangement pending confirmation.** This spec documents the assumed structure based on ERPx Standard Navigation behaviour. Confirm the exact layout zones with the ERPx product team before moving this to `review`.
+This is the default layout for Ripple applications. When building a new app with Ripple and no other layout is specified, use Standard Navigation.
 
-Source: `src/layouts/StandardNavigation/` (not yet implemented)
+Source: `src/layouts/StandardNavigation/`
 
 ---
 
 ## Description
 
-Standard Navigation provides a conventional enterprise application shell: a horizontal top bar for global actions and branding, a vertical sidebar for module-level navigation, and a primary content area. It is the default navigation structure for ERPx when the multi-tab workspace (Footer tab bar) is not needed.
+Standard Navigation provides the baseline enterprise application shell: a fixed 72 px vertical Navbar on the left and a scrollable content area on the right. The content area uses `var(--bg-app)` as its background.
 
-> **Device scope:** Desktop and tablet. Do not use on mobile. At mobile viewports, the sidebar should collapse to an overlay or be replaced with a mobile navigation pattern.
+Both overlay and persistent drawer variants are supported. PageHeader, Grid, and content structure are the consumer's responsibility — this layout provides the shell only.
+
+> **Device scope:** Desktop and tablet. Do not use on mobile.
 
 ---
 
 ## Anatomy
 
-### 1. Navbar (top bar)
+```
+┌──────────┬──────────────────────────────────────────────┐
+│          │                                              │
+│  72 px   │  Content area (var(--bg-app))                │
+│  Navbar  │                                              │
+│          │  Consumer owns:                              │
+│          │  - Page Header (sticky)                      │
+│          │  - Body content                              │
+│          │  - Grid layout                               │
+│          │                                              │
+└──────────┴──────────────────────────────────────────────┘
+```
 
-- Spans the full width at the top of the viewport
-- Contains product branding, global actions (Search, Hub, Notifications, Client or user menu)
-- Fixed (does not scroll)
-- Uses `var(--bg-nav)` background
+With a persistent drawer open:
 
-### 2. Sidebar (Drawer)
-
-- Persistent vertical panel, left side, below the Navbar
-- Contains hierarchical module/section navigation via `DrawerSection` and `DrawerMenuItem`
-- Collapsible: collapsed state shows icon-only items; expanded state shows icon + label
-- Width transitions smoothly on toggle
-- Does not overlay the main area — pushes it
-
-### 3. Main Area
-
-#### Page Header
-- Sticky, sits at the top of the main area (below Navbar)
-- Contains: page title, breadcrumbs, primary actions
-
-#### Body
-- Scrollable content region below the Page Header
-- Uses the Ripple Grid for content layout
+```
+┌──────────┬──────────────┬───────────────────────────────┐
+│          │              │                               │
+│  72 px   │  Persistent  │  Content area (var(--bg-app)) │
+│  Navbar  │  panel       │                               │
+│          │  (280–400px) │                               │
+└──────────┴──────────────┴───────────────────────────────┘
+```
 
 ---
 
-## Layout Structure
+## Drawer Variants
 
-```
-┌────────────────────────────────────────────────┐
-│  Navbar (top, full width, fixed)               │
-├──────────────┬─────────────────────────────────┤
-│              │  Page Header (sticky)           │
-│  Sidebar     ├─────────────────────────────────┤
-│  (Drawer)    │                                 │
-│              │  Body (scrollable)              │
-│  Collapsed:  │  Uses Grid System               │
-│  icons only  │                                 │
-│              │                                 │
-└──────────────┴─────────────────────────────────┘
-```
+### Overlay (default)
+
+Drawers open on demand over the content area. Content width does not change. Use for global utilities: search, notifications, hub.
+
+### Persistent
+
+A drawer panel renders in-flow to the right of the Navbar, pushing the content area. Use for module-level navigation trees that users need visible while working.
+
+Both variants are configured via `nav.drawers`. Set `persistent: true` on a drawer definition for the persistent variant.
 
 ---
 
@@ -83,72 +80,99 @@ Standard Navigation provides a conventional enterprise application shell: a hori
 
 | | Standard Navigation | Micro Navigation |
 |---|---|---|
-| **Bottom Footer** | No | Yes (tab bar) |
+| **Footer tab bar** | No | Yes |
 | **Multi-page workspace** | No | Yes |
-| **Sidebar** | Pushes content | Pushes content |
-| **Primary use case** | Single-page focus, module navigation | Multi-tab document workspace |
-| **Navbar position** | Top, full width | Top, full width |
+| **Content background** | `var(--bg-app)` | `var(--bg-app)` |
+| **Drawer variants** | Overlay and persistent | Overlay only |
+| **Default for new apps** | Yes | No |
 
-Use Standard Navigation when users work in one context at a time. Use Micro Navigation when users manage multiple open pages simultaneously.
-
----
-
-## Use Cases
-
-- Module-level navigation across ERPx functional areas (Finance, HR, Projects)
-- Applications where users work in a single context before navigating elsewhere
-- Simpler workflows that do not require a persistent tab bar
-- Cases where the tab management overhead of Micro Navigation is unnecessary
+Use Standard Navigation when users work in a single context at a time. Use Micro Navigation when users manage multiple open pages simultaneously via a tab bar.
 
 ---
 
-## Usage Guidelines
+## When to Use
 
-### When to Use
+- Building a new Ripple app with no other layout specified
+- The application has module-level navigation without a multi-tab workspace
+- Users work in a single context before navigating elsewhere
+- A persistent navigation panel is needed alongside content
 
-- The application has clear module-level navigation with hierarchical sections
-- Users do not need to manage multiple open pages simultaneously
-- A conventional sidebar + top bar pattern meets the workflow requirements
+## When Not to Use
 
-### When Not to Use
-
-- Users frequently work across multiple pages at once → use Micro Navigation instead
+- Users need to manage multiple open pages simultaneously — use Micro Navigation
 - Mobile-only or responsive-first applications
-- Applications with flat navigation (three items or fewer) — consider a simpler Navbar-only layout
+- Applications with very flat navigation (three items or fewer)
 
 ---
 
-## Accessibility
+## Component API
 
-Inherits all requirements from MicroNavigation. Key points for this layout:
-
-- The Navbar and Drawer must use correct landmark roles (`banner`, `navigation`)
-- The main content region must use `<main>`
-- Sidebar collapse state must be communicated via `aria-expanded`
-- Focus must not be trapped in the sidebar when it collapses
-- Page Header must remain accessible when sticky
+```ts
+interface StandardNavigationProps {
+  /**
+   * Forwarded to MainNavigation. Both overlay and persistent drawers are
+   * supported. `belowScroll` is excluded — use MicroNavigation if a bottom
+   * slot is needed.
+   */
+  nav: Omit<MainNavigationProps, 'children' | 'belowScroll'>
+  /** Page content rendered in the scrollable main area. */
+  children?: React.ReactNode
+  className?: string
+}
+```
 
 ---
 
 ## Component Integration
 
 ### Required
-- **Navbar** — top bar branding and global actions
-- **Drawer** — sidebar navigation container
-- **DrawerSection** — groups navigation items
-- **DrawerMenuItem** — individual navigation items
-- **PageHeader** — page title, breadcrumbs, actions
-- **Grid** — body content layout
 
-### Supporting
-- **IconButton** — actions in Navbar and Drawer header
-- **Breadcrumbs** — location context in PageHeader
-- **Button** — primary actions in PageHeader
+- **MainNavigation** — Navbar, drawer management, and the left-side layout shell
+
+### Consumer responsibility
+
+- **PageHeader** — page title, breadcrumbs, and actions
+- **Grid** — body content layout
+- **DrawerHeader, DrawerContent, DrawerSection, DrawerMenuItem** — drawer contents
+
+---
+
+## Accessibility
+
+Inherits all accessibility requirements from MainNavigation. Key points:
+
+- The Navbar renders as `<nav aria-label="Application navigation">`
+- The content area uses `<main>` via the `standard-navigation__main` wrapper
+- Overlay drawers use `role="dialog"` with `aria-modal="true"` and focus trap
+- Persistent drawers use `role="complementary"` with no focus trap
+- Focus returns to the triggering Navbar button when a drawer closes
+
+---
+
+## Responsive Behaviour
+
+### Desktop (1024 px and above)
+Full layout. Persistent panels work alongside content.
+
+### Tablet (768 px – 1023 px)
+Layout remains functional. Persistent drawers may be omitted in favour of overlay at narrower widths.
+
+### Mobile (below 768 px)
+Do not use Standard Navigation. Use alternative mobile navigation patterns.
+
+---
+
+## Tokens
+
+| Area | Token |
+|------|-------|
+| Content area background | `var(--bg-app)` |
+| Navbar background | Owned by MainNavigation |
+| Persistent panel background | Owned by MainNavigation |
 
 ---
 
 ## Related
 
-- [Micro Navigation](micro-navigation.md) — adds a footer tab bar for multi-page workspaces
-- [ERPx MicroNavigation Template](../templates/erp-micro-navigation.md) — ERPx-specific pre-configuration of MicroNavigation
-- **ERPx Standard Navigation Template** — planned; ERPx-specific pre-configuration of this layout
+- [Main Navigation](../patterns/main-navigation.md) — the pattern this layout composes
+- [Micro Navigation](micro-navigation.md) — adds a Footer tab bar for multi-page workspaces

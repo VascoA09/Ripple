@@ -1,0 +1,96 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — EXTENSION KIT NAVIGATION TEMPLATE
+   Source: templates/extension-kit-navigation.md
+
+   L-shaped shell: SideNav (left) + main area (top bar + content).
+
+   Layout:
+     [SideNav 360px/56px] [Main area (flex: 1)]
+                           ├── Top bar (56px, bg-nav, 2px #7eb843 border)
+                           └── Content area (flex: 1, bg-app, overflow-y: auto)
+
+   The Extension Kit brand accent colour (#7eb843) is scoped as a CSS custom
+   property on the root element. This keeps it easy to update and avoids
+   leaking a product-specific value into the Ripple token system.
+   ============================================================================= */
+
+/* =============================================================================
+   SHELL
+   ============================================================================= */
+
+.extension-kit-navigation {
+  --ek-accent:    #7eb843;
+  --ek-topbar-h:  56px;
+
+  display:        flex;
+  flex-direction: row;
+  height:         100vh;
+  overflow:       hidden;
+}
+
+/* =============================================================================
+   MAIN AREA
+   ============================================================================= */
+
+.extension-kit-navigation__main {
+  flex:           1;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  overflow:       hidden;
+}
+
+/* =============================================================================
+   TOP BAR
+   ============================================================================= */
+
+.extension-kit-navigation__topbar {
+  flex-shrink:     0;
+  height:          var(--ek-topbar-h);
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  padding:         0 var(--spacing-150);
+
+  background:      var(--bg-nav);
+  border-bottom:   2px solid var(--ek-accent);
+}
+
+.extension-kit-navigation__topbar-start {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-100);
+}
+
+.extension-kit-navigation__divider {
+  display:          block;
+  width:            1px;
+  height:           20px;
+  background-color: var(--border-neutral);
+  flex-shrink:      0;
+}
+
+.extension-kit-navigation__app-name {
+  font-family: var(--font-family-base);
+  font-size:   var(--font-size-80);
+  font-weight: var(--font-weight-semibold);
+  color:       var(--text-loud);
+  white-space: nowrap;
+}
+
+.extension-kit-navigation__topbar-end {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-50);
+}
+
+/* =============================================================================
+   CONTENT AREA
+   ============================================================================= */
+
+.extension-kit-navigation__content {
+  flex:       1;
+  min-width:  0;
+  overflow-y: auto;
+  background: var(--bg-app);
+}

@@ -1,0 +1,31 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — STANDARD NAVIGATION LAYOUT
+   Source: layouts/standard-navigation.md
+
+   Default application shell that composes MainNavigation with a content area.
+   The content area uses var(--bg-app). The Navbar retains its own background.
+   PageHeader, Grid, and content structure are the consumer's responsibility.
+
+   This file contains only the content area background and the <main> wrapper
+   rule. All structural layout is owned by the MainNavigation pattern.
+   ============================================================================= */
+
+/* =============================================================================
+   CONTENT AREA BACKGROUND
+   Scoped to .standard-navigation so it does not affect MainNavigation
+   when used standalone or in other layout contexts.
+   ============================================================================= */
+
+.standard-navigation .main-navigation__content {
+  background: var(--bg-app);
+}
+
+/* =============================================================================
+   MAIN CONTENT ELEMENT
+   Wraps page content inside the scroll region.
+   ============================================================================= */
+
+.standard-navigation__main {
+  display:        flex;
+  flex-direction: column;
+}

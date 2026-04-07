@@ -1,5 +1,2 @@
-export { ERPxMicroNavigation } from './ERPxMicroNavigation'
-export type { ERPxMicroNavigationProps } from './ERPxMicroNavigation'
-
 export { ExtensionKitNavigation } from './ExtensionKitNavigation'
 export type { ExtensionKitNavigationProps, SideNavItem } from './ExtensionKitNavigation'
