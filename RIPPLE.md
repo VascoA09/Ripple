@@ -19,6 +19,43 @@ These rules are non-negotiable. Apply them to every file you generate.
 2. **Import the stylesheet.** All prototypes must include `import '@ripple/ui/style.css'` at the root of the app. This loads all tokens, themes, and component styles.
 3. **Use Ripple components.** When a UI need matches an existing Ripple component, use it. Do not build custom equivalents. Check `components/_index.md` before creating anything new.
 4. **Follow Ripple patterns and layouts.** For navigation, footer, and page structure, use `patterns/` and `layouts/` as the reference. Do not invent structural patterns from scratch.
+
+**App shell selection** — when generating an app from a prompt, PRD, or document:
+
+| Situation | Shell |
+|-----------|-------|
+| No preference stated | `StandardNavigation` (default) |
+| Multi-tab workspace (ERPx) | `MicroNavigation` |
+| Extension Kit product | `ExtensionKitNavigation` |
+
+Import all shells from `@ripple/ui`. Never import `Navbar` directly to build a custom shell — use a layout or template instead.
+
+Always import `Unit4Logo` from `@ripple/ui`. Never define a local logo component. Pass it explicitly: `logo={<Unit4Logo />}`.
+
+Never apply `background` or `padding` to a wrapper that includes a PageHeader. Layout components handle the content area background token. Consumer padding belongs on the body section below the PageHeader, not on a shared container.
+
+**Minimal `StandardNavigation` shell:**
+```tsx
+import { StandardNavigation, Unit4Logo } from '@ripple/ui'
+import { LayoutDashboard, Settings } from 'lucide-react'
+
+export default function App() {
+  return (
+    <StandardNavigation
+      nav={{
+        logo: <Unit4Logo />,
+        productName: 'My App',
+        globalNavItems: [
+          { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} />, onClick: () => {} },
+          { id: 'settings',  label: 'Settings',  icon: <Settings size={20} />,        onClick: () => {} },
+        ],
+      }}
+    >
+      {/* PageHeader + body go here */}
+    </StandardNavigation>
+  )
+}
+```
 5. **Accessibility is the baseline.** WCAG 2.2 AA minimum. Semantic HTML, keyboard navigation, visible focus states, sufficient color contrast, screen reader labels. If it is not accessible, it is not done.
 6. **New components must align with foundations.** If a prototype introduces a component not in Ripple, it must still use Ripple tokens for all visual values, follow Ripple's spacing scale, and meet the accessibility requirements above.
 7. **Open Sans is the only UI typeface.** Do not introduce other fonts. Font tokens are defined in `src/tokens/typography.css`.
@@ -133,7 +170,16 @@ Structural scaffolds with no behavioural logic of their own.
 | Layout | Spec |
 |--------|------|
 | Index + status | `layouts/_index.md` |
+| Standard Navigation | `layouts/standard-navigation.md` |
 | Micro Navigation | `layouts/micro-navigation.md` |
+
+### App Templates
+Product-specific shells. Use when building for a specific Unit4 product.
+
+| Template | Spec |
+|----------|------|
+| Index + status | `templates/_index.md` |
+| Extension Kit Navigation | `templates/extension-kit-navigation.md` |
 
 ### Tailwind Integration
 Using Tailwind CSS alongside Ripple in a React app.
@@ -185,8 +231,7 @@ Set the theme on the root element:
 ### Import components
 ```tsx
 import { Button, TextInput, Tag, Badge, Card } from '@ripple/ui'
-import { MainNavigation } from '@ripple/ui'
-import { Footer } from '@ripple/ui'
+import { StandardNavigation, Unit4Logo } from '@ripple/ui'
 ```
 
 ### Use tokens in custom CSS

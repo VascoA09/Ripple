@@ -67,31 +67,44 @@ The `data-theme="light"` attribute on the wrapper activates Ripple's light theme
 
 ## 5. Use components
 
+Every Ripple app should use a layout component as its shell. `StandardNavigation` is the default — it provides the 72px left Navbar and sets the correct content area background (`var(--bg-app)`) automatically.
+
 ```tsx
-import { Button, Input, Tag, Badge, Card, CardHeader, CardTitle, CardContent } from '@ripple/ui'
+import { StandardNavigation, Unit4Logo, Button, Input, Tag, Badge, Card, CardHeader, CardTitle, CardContent } from '@ripple/ui'
+import { LayoutDashboard } from 'lucide-react'
 
 export default function App() {
   return (
-    <div style={{ padding: 'var(--spacing-200)' }}>
-      <Card>
-        <CardHeader>
-          <CardTitle as="h1">Ripple app</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-150)' }}>
-            <div style={{ display: 'flex', gap: 'var(--spacing-50)' }}>
-              <Button variant="fill">Save</Button>
-              <Button variant="outline">Cancel</Button>
+    <StandardNavigation
+      nav={{
+        logo: <Unit4Logo />,
+        productName: 'My App',
+        globalNavItems: [
+          { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} />, onClick: () => {} },
+        ],
+      }}
+    >
+      <div style={{ padding: 'var(--spacing-200)' }}>
+        <Card>
+          <CardHeader>
+            <CardTitle as="h1">Ripple app</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-150)' }}>
+              <div style={{ display: 'flex', gap: 'var(--spacing-50)' }}>
+                <Button variant="fill">Save</Button>
+                <Button variant="outline">Cancel</Button>
+              </div>
+              <div style={{ display: 'flex', gap: 'var(--spacing-50)', alignItems: 'center' }}>
+                <Tag color="blue">Draft</Tag>
+                <Badge color="negative">3</Badge>
+              </div>
+              <Input label="Full name" placeholder="Enter your name" />
             </div>
-            <div style={{ display: 'flex', gap: 'var(--spacing-50)', alignItems: 'center' }}>
-              <Tag color="blue">Draft</Tag>
-              <Badge color="negative">3</Badge>
-            </div>
-            <Input label="Full name" placeholder="Enter your name" />
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+          </CardContent>
+        </Card>
+      </div>
+    </StandardNavigation>
   )
 }
 ```
@@ -169,7 +182,11 @@ Each class sets font-family, font-size, line-height, font-weight, and color in o
 |------|---------------|
 | All components + status | `components/_index.md` |
 | Component props and usage | `components/{name}.md` |
-| Navigation and page shell | `patterns/main-navigation.md`, `layouts/micro-navigation.md` |
+| Navigation shell (default) | `layouts/standard-navigation.md` |
+| Multi-tab workspace shell | `layouts/micro-navigation.md` |
+| Extension Kit shell | `templates/extension-kit-navigation.md` |
+| All layouts | `layouts/_index.md` |
+| All templates | `templates/_index.md` |
 | Token system explained | `foundations/tokens-overview.md` |
 | Color tokens | `foundations/color.md` |
 | Typography tokens | `foundations/typography.md` |
