@@ -1,0 +1,29 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Ripple Storybook",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 6006
+    },
+    {
+      "name": "AI-POC-1",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "/Users/vascoantunes/Documents/VA/_Jarvis/Projects/AI-POC-1", "run", "dev"],
+      "port": 5173
+    },
+    {
+      "name": "AI-POC-2-cursor",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "/Users/vascoantunes/Documents/VA/_Jarvis/Projects/AI-POC-2-cursor", "run", "dev"],
+      "port": 5174
+    },
+    {
+      "name": "RippleTest2",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "/Users/vascoantunes/Documents/VA/_Jarvis/Projects/Test/RippleTest2", "run", "dev"],
+      "port": 5173
+    }
+  ]
+}
