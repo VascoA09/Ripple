@@ -52,44 +52,45 @@ const USER_MENU = [
 // Page content helper
 // ---------------------------------------------------------------------------
 
-interface PageContentProps {
+interface PageHeaderFixtureProps {
   title: string
   breadcrumb?: string[]
 }
 
-function PageContent({ title, breadcrumb = ['Home'] }: PageContentProps) {
+function PageHeaderFixture({ title, breadcrumb = ['Home'] }: PageHeaderFixtureProps) {
   return (
-    <>
-      <PageHeader
-        title={title}
-        showBreadcrumb
-        breadcrumbItems={[
-          ...breadcrumb.slice(0, -1).map(label => ({ label, href: '#' })),
-          { label: breadcrumb[breadcrumb.length - 1] },
-        ]}
-        mainActions={[
-          {
-            id:      'primary',
-            label:   'Create new',
-            icon:    <Plus size={14} />,
-            type:    'primary' as const,
-            onClick: () => {},
-          },
-        ]}
-      />
-      <div style={{
-        padding:    '24px',
-        fontFamily: 'var(--font-family-base)',
-        fontSize:   'var(--font-size-80)',
-        color:      'var(--text-soft)',
-      }}>
-        <p style={{ margin: 0 }}>
-          Page content for <strong style={{ color: 'var(--text)' }}>{title}</strong>.{' '}
-          The four ERPx global nav actions — Search, Global Hub, Notifications, Client — are
-          pre-configured by the template.
-        </p>
-      </div>
-    </>
+    <PageHeader
+      title={title}
+      showBreadcrumb
+      breadcrumbItems={[
+        ...breadcrumb.slice(0, -1).map(label => ({ label, href: '#' })),
+        { label: breadcrumb[breadcrumb.length - 1] },
+      ]}
+      mainActions={[
+        {
+          id:      'primary',
+          label:   'Create new',
+          icon:    <Plus size={14} />,
+          type:    'primary' as const,
+          onClick: () => {},
+        },
+      ]}
+    />
+  )
+}
+
+function PageBody({ title }: { title: string }) {
+  return (
+    <p style={{
+      margin:     0,
+      fontFamily: 'var(--font-family-base)',
+      fontSize:   'var(--font-size-80)',
+      color:      'var(--text-soft)',
+    }}>
+      Page content for <strong style={{ color: 'var(--text)' }}>{title}</strong>.{' '}
+      The four ERPx global nav actions — Search, Global Hub, Notifications, Client — are
+      pre-configured by the template.
+    </p>
   )
 }
 
@@ -246,8 +247,9 @@ export const Default: Story = {
           onTabPin:    id => setTabs(prev => prev.map(t => t.id === id ? { ...t, type: 'pinned' }   : t)),
           onTabUnpin:  id => setTabs(prev => prev.map(t => t.id === id ? { ...t, type: 'standard' } : t)),
         }}
+        header={<PageHeaderFixture title={page.title} breadcrumb={page.breadcrumb} />}
       >
-        <PageContent title={page.title} breadcrumb={page.breadcrumb} />
+        <PageBody title={page.title} />
       </ERPxMicroNavigation>
     )
   },

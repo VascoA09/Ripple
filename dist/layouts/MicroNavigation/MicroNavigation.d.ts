@@ -22,7 +22,13 @@ export interface MicroNavigationProps {
      * never covering the Navbar.
      */
     footer: FooterProps;
-    /** Page content rendered in the scrollable main area. */
+    /**
+     * Page header rendered at the top of the content column, outside the
+     * scrollable body. Accepts a PageHeader component. No padding is applied
+     * here — the PageHeader owns its own internal spacing.
+     */
+    header?: React.ReactNode;
+    /** Page content rendered in the scrollable body (24px padding). */
     children?: React.ReactNode;
     className?: string;
 }
@@ -49,4 +55,4 @@ export interface MicroNavigationProps {
  * Classified as a layout template, not a pattern, because it has no
  * behavioural logic of its own — it only arranges existing patterns.
  */
-export declare function MicroNavigation({ nav, footer, children, className, }: MicroNavigationProps): import("react/jsx-runtime").JSX.Element;
+export declare function MicroNavigation({ nav, footer, header, children, className, }: MicroNavigationProps): import("react/jsx-runtime").JSX.Element;

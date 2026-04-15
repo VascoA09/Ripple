@@ -31,7 +31,9 @@ export interface ERPxMicroNavigationProps {
     };
     /** Props forwarded to the Footer pattern. */
     footer: MicroNavigationProps['footer'];
-    /** Page content rendered in the scrollable main area. */
+    /** Page header rendered at the top of the content column, outside the scrollable body. */
+    header?: React.ReactNode;
+    /** Page content rendered in the scrollable body (24px padding). */
     children?: React.ReactNode;
     className?: string;
 }
@@ -48,4 +50,4 @@ export interface ERPxMicroNavigationProps {
  *
  * Spec: templates/erp-micro-navigation.md
  */
-export declare function ERPxMicroNavigation({ nav, footer, children, className, }: ERPxMicroNavigationProps): import("react/jsx-runtime").JSX.Element;
+export declare function ERPxMicroNavigation({ nav, footer, header, children, className, }: ERPxMicroNavigationProps): import("react/jsx-runtime").JSX.Element;

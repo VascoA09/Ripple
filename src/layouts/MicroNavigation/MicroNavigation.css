@@ -3,20 +3,73 @@
    Source: layouts/micro-navigation.md
 
    L-shaped enterprise shell: MainNavigation (left) + Footer (bottom).
-   The Footer is rendered inside MainNavigation's content column via the
-   `footer` prop — it is an in-flow flex child, not a fixed overlay.
-   No clearance overrides are required.
 
-   This file contains only the <main> wrapper rule. All visual design
-   is owned by the MainNavigation and Footer patterns respectively.
+   Internal structure of the content column:
+     .main-navigation__scroll (overflow: hidden — frame handles scroll internally)
+       └── .micro-navigation__frame (flex column, full height)
+             ├── .micro-navigation__header  — PageHeader, fixed at top, no padding
+             └── .micro-navigation__body    — scrollable content, 24px padding
+
+   The Footer lives in MainNavigation's `belowScroll` slot. Its default
+   `position: fixed` is overridden here to keep it in-flow within the
+   content column (right of Navbar, bottom of content area).
    ============================================================================= */
 
 /* =============================================================================
-   MAIN CONTENT ELEMENT
-   Wraps page content (PageHeader + body) inside the scroll region.
+   SCROLL WRAPPER OVERRIDE
+   Disable overflow on the MainNavigation scroll wrapper so the frame's
+   internal body element handles scrolling instead.
    ============================================================================= */
 
-.micro-navigation__main {
-  display: flex;
+.micro-navigation .main-navigation__scroll {
+  overflow: hidden;
+}
+
+/* =============================================================================
+   FRAME
+   Full-height flex column that contains the header and scrollable body.
+   height: 100% resolves against the scroll wrapper's concrete height
+   (established by its flex: 1 parent which has overflow: hidden).
+   ============================================================================= */
+
+.micro-navigation__frame {
+  display:        flex;
   flex-direction: column;
+  height:         100%;
+}
+
+/* =============================================================================
+   HEADER SLOT
+   Accepts a PageHeader. No padding applied — PageHeader owns its spacing.
+   flex-shrink: 0 ensures it never collapses when body content grows.
+   ============================================================================= */
+
+.micro-navigation__header {
+  flex-shrink: 0;
+}
+
+/* =============================================================================
+   SCROLLABLE BODY
+   The content area between the page header and the footer tab bar.
+   Ripple grid system lives here.
+   ============================================================================= */
+
+.micro-navigation__body {
+  flex:       1;
+  min-height: 0;           /* required: flex children need this to allow overflow */
+  overflow-y: auto;
+  padding:    var(--spacing-150); /* 24px */
+}
+
+/* =============================================================================
+   FOOTER OVERRIDE
+   The Footer's default `position: fixed` targets the viewport. Within
+   MicroNavigation it must be in-flow so it anchors to the bottom of the
+   content column without covering the Navbar.
+   ============================================================================= */
+
+.micro-navigation .footer {
+  position:    static;
+  flex-shrink: 0;
+  width:       100%;
 }

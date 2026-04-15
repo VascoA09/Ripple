@@ -5,7 +5,8 @@
       "name": "Ripple Storybook",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "port": 6006
+      "port": 6006,
+      "autoPort": false
     },
     {
       "name": "AI-POC-1",

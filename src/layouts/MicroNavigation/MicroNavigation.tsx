@@ -30,7 +30,13 @@ export interface MicroNavigationProps {
    * never covering the Navbar.
    */
   footer: FooterProps
-  /** Page content rendered in the scrollable main area. */
+  /**
+   * Page header rendered at the top of the content column, outside the
+   * scrollable body. Accepts a PageHeader component. No padding is applied
+   * here — the PageHeader owns its own internal spacing.
+   */
+  header?: React.ReactNode
+  /** Page content rendered in the scrollable body (24px padding). */
   children?: React.ReactNode
   className?: string
 }
@@ -65,6 +71,7 @@ export interface MicroNavigationProps {
 export function MicroNavigation({
   nav,
   footer,
+  header,
   children,
   className,
 }: MicroNavigationProps) {
@@ -74,9 +81,14 @@ export function MicroNavigation({
       className={['micro-navigation', nav.className, className].filter(Boolean).join(' ')}
       belowScroll={<Footer {...footer} />}
     >
-      <main className="micro-navigation__main">
-        {children}
-      </main>
+      <div className="micro-navigation__frame">
+        {header && (
+          <div className="micro-navigation__header">{header}</div>
+        )}
+        <main className="micro-navigation__body">
+          {children}
+        </main>
+      </div>
     </MainNavigation>
   )
 }

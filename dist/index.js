@@ -53163,16 +53163,20 @@ function t5({
 function qz({
   nav: e,
   footer: t,
-  children: n,
-  className: i
+  header: n,
+  children: i,
+  className: o
 }) {
   return /* @__PURE__ */ p(
     zw,
     {
       ...e,
-      className: ["micro-navigation", e.className, i].filter(Boolean).join(" "),
+      className: ["micro-navigation", e.className, o].filter(Boolean).join(" "),
       belowScroll: /* @__PURE__ */ p(Kz, { ...t }),
-      children: /* @__PURE__ */ p("main", { className: "micro-navigation__main", children: n })
+      children: /* @__PURE__ */ P("div", { className: "micro-navigation__frame", children: [
+        n && /* @__PURE__ */ p("div", { className: "micro-navigation__header", children: n }),
+        /* @__PURE__ */ p("main", { className: "micro-navigation__body", children: i })
+      ] })
     }
   );
 }
@@ -53193,59 +53197,61 @@ function n5({
 function i5({
   nav: e,
   footer: t,
-  children: n,
-  className: i
+  header: n,
+  children: i,
+  className: o
 }) {
   const {
-    searchDrawerId: o,
-    onSearch: s,
-    hubDrawerId: r,
-    onHub: a,
-    notificationsDrawerId: l,
-    onNotifications: c,
-    notificationCount: d,
-    clientDrawerId: u,
-    onClientSwitch: h,
-    clientName: g,
-    ...f
-  } = e, m = [
+    searchDrawerId: s,
+    onSearch: r,
+    hubDrawerId: a,
+    onHub: l,
+    notificationsDrawerId: c,
+    onNotifications: d,
+    notificationCount: u,
+    clientDrawerId: h,
+    onClientSwitch: g,
+    clientName: f,
+    ...m
+  } = e, C = [
     {
       id: "search",
       icon: /* @__PURE__ */ p(Jg, { size: 20 }),
       label: "Search",
-      drawerId: o,
-      onClick: s
+      drawerId: s,
+      onClick: r
     },
     {
       id: "hub",
       icon: /* @__PURE__ */ p(wb, { size: 20 }),
       label: "Global Hub",
-      drawerId: r,
-      onClick: a
+      drawerId: a,
+      onClick: l
     },
     {
       id: "notifications",
       icon: /* @__PURE__ */ p(bb, { size: 20 }),
       label: "Notifications",
-      count: d,
-      drawerId: l,
-      onClick: c
+      count: u,
+      drawerId: c,
+      onClick: d
     },
     {
       id: "client",
       icon: /* @__PURE__ */ p(yb, { size: 20 }),
-      label: g ? `Switch client — ${g}` : "Switch client",
-      drawerId: u,
-      onClick: h
+      label: f ? `Switch client — ${f}` : "Switch client",
+      drawerId: h,
+      onClick: g
     }
   ];
   return /* @__PURE__ */ p(
     qz,
     {
-      nav: { ...f, globalNavItems: m },
+      nav: { ...m, globalNavItems: C },
       footer: t,
-      className: i,
-      children: n
+      header: n,
+      className: o,
+      children: i
     }
   );
 }
