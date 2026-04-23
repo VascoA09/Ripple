@@ -72,7 +72,7 @@ none(0) -> 25(4) -> 50(8) -> 75(12) -> 100(16) -> 125(20) -> 150(24) -> 200(32) 
 | `spacing.layout.page.padding` | `spacing.150` | Page content padding | Default page-level horizontal padding |
 | `spacing.layout.page.margin` | `spacing.600` | Wide viewport margin | Page margins on large screens |
 
-> **Note**: These semantic tokens are proposals. Validate against actual component and layout usage and refine.
+> These semantic tokens are confirmed and included in `foundations/figma-variables.md`. Refine values as component usage grows.
 
 ## Component Token Mappings
 

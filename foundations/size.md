@@ -62,7 +62,7 @@ These tokens are scoped to `WIDTH_HEIGHT` and `GAP` in Figma. For layout spacing
 | `size.icon.default` | `size.150` | Default icon size (24px) | Standard UI icons alongside text |
 | `size.icon.large` | `size.200` | Large icon size (32px) | Standalone icons, empty states |
 
-> **Note**: These semantic tokens are proposals. Validate against actual component usage and refine.
+> These semantic tokens are confirmed and included in `foundations/figma-variables.md`. Refine values as component usage grows.
 
 ## Component Token Mappings
 

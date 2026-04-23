@@ -165,13 +165,26 @@ These are the tokens components consume directly.
 
 ### Border
 
-13 tokens. Figma scope: `FRAME_FILL`, `STROKE`.
+15 tokens. Figma scope: `FRAME_FILL`, `STROKE`.
+
+**Border token roles:**
+
+| Token | Role |
+|-------|------|
+| `border.default` | Passive borders on non-interactive containers: cards, panels, table rows, dividers |
+| `border.interactive` | Borders on interactive elements at rest: inputs, selects, textareas, dropdowns |
+| `border.interactive.soft` | Lighter interactive borders: secondary controls, subtle affordances |
+| `border.focus` | Keyboard focus ring. Always primary blue. Applied by the focus management layer — do not apply manually. |
+| `border.disabled` | Borders on disabled interactive elements |
+| `border.light` | Inner borders or dividers matching the lightest available surface. The name is not theme-specific: in dark mode it resolves to a dark value. |
 
 | Token | Light | Dark | Use when |
 |-------|-------|------|----------|
 | `border.primary.loud` | via `color.primary.loud` | via `color.primary.loud` | Strong brand border (active tabs, selected items) |
 | `border.primary` | via `color.primary` | via `color.primary` | Default brand border |
-| `border.default` | `color.gray.70` (#737373) | `color.gray.30` (#D8D9D9) | Default element borders (inputs, cards) |
+| `border.default` | `color.cool.gray.70` (#7C8D98) | `color.cool.gray.70` (#7C8D98) | Passive borders on non-interactive containers. Same value both modes. |
+| `border.interactive` | `color.cool.gray.80` (#4A5A64) | `color.cool.gray.30` (#DFE6EC) | Rest-state border for inputs, selects, textareas, dropdowns |
+| `border.interactive.soft` | `color.cool.gray.50` (#A6B2B9) | `color.cool.gray.60` (#909FA7) | Lighter rest-state border for secondary controls |
 | `border.focus` | via `color.primary` | via `color.primary` | Keyboard focus ring |
 | `border.negative.loud` | via `color.negative.loud` | via `color.negative.loud` | Strong error border |
 | `border.negative` | via `color.negative` | via `color.negative` | Default error border (invalid inputs) |
@@ -183,6 +196,8 @@ These are the tokens components consume directly.
 | `border.neutral` | `color.cool.gray.30` (#DFE6EC) | `color.cool.gray.70` (#7C8D98) | Default neutral border (dividers, subtle separators) |
 | `border.disabled` | `color.gray.30` (#D8D9D9) | `color.gray.70` (#737373) | Disabled border for inputs and cards. **New: not yet in Figma.** |
 | `border.light` | `color.white` (#FFFFFF) | `color.gray.100` (#252828) | Border matching the lightest surface (inner card borders) |
+
+**Why `border.default` uses the same value in both modes:** cool-gray-70 (#7C8D98) sits at a mid-point that reads as a visible separator in both themes without shifting. This is the only theme token with an identical light/dark value — it is intentional, not an oversight.
 
 ### Text
 
