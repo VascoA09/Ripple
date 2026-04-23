@@ -369,12 +369,14 @@ export const SemanticTheme: Story = {
       ]} />
 
       <SwatchGroup label="Border" swatches={[
-        { name: '--border-primary-loud', value: 'var(--border-primary-loud)' },
-        { name: '--border-primary',      value: 'var(--border-primary)' },
-        { name: '--border-default',      value: 'var(--border-default)' },
-        { name: '--border-focus',        value: 'var(--border-focus)' },
-        { name: '--border-light',        value: 'var(--border-light)' },
-        { name: '--border-disabled',     value: 'var(--border-disabled)' },
+        { name: '--border-primary-loud',      value: 'var(--border-primary-loud)' },
+        { name: '--border-primary',           value: 'var(--border-primary)' },
+        { name: '--border-default',           value: 'var(--border-default)' },
+        { name: '--border-interactive',       value: 'var(--border-interactive)' },
+        { name: '--border-interactive-soft',  value: 'var(--border-interactive-soft)' },
+        { name: '--border-focus',             value: 'var(--border-focus)' },
+        { name: '--border-light',             value: 'var(--border-light)' },
+        { name: '--border-disabled',          value: 'var(--border-disabled)' },
       ]} />
 
       <SwatchGroup label="Border — Status" swatches={[
