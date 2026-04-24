@@ -165,7 +165,7 @@ These are the tokens components consume directly.
 
 ### Border
 
-15 tokens. Figma scope: `FRAME_FILL`, `STROKE`.
+16 tokens. Figma scope: `FRAME_FILL`, `STROKE`.
 
 **Border token roles:**
 
