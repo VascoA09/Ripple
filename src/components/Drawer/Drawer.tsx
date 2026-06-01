@@ -2,7 +2,7 @@ import React, { useId, useRef, useState, useEffect, useContext, createContext } 
 import ReactDOM from 'react-dom'
 import { X, ChevronDown, MoreHorizontal } from 'lucide-react'
 import { IconButton } from '../IconButton'
-import { Counter } from '../Counter'
+
 import './Drawer.css'
 
 // ---------------------------------------------------------------------------
@@ -265,8 +265,8 @@ export function DrawerContent({ children, className }: DrawerContentProps) {
 export interface DrawerSectionProps {
   /** Uppercase section label */
   title?: string
-  /** Numeric count shown in a Counter badge beside the title */
-  count?: number
+  /** Inline element placed immediately after the title. Accepts Counter, Badge, or Tag. Only one adornment per section title. */
+  adornment?: React.ReactNode
   /** Link rendered at the trailing end of the section title row */
   link?: { label: string; onClick: () => void }
   /** Renders a 1px separator above the section */
@@ -275,8 +275,8 @@ export interface DrawerSectionProps {
   className?: string
 }
 
-export function DrawerSection({ title, count, link, divider, children, className }: DrawerSectionProps) {
-  const hasHeader = title || count !== undefined || link
+export function DrawerSection({ title, adornment, link, divider, children, className }: DrawerSectionProps) {
+  const hasHeader = title || adornment || link
 
   return (
     <div
@@ -287,9 +287,7 @@ export function DrawerSection({ title, count, link, divider, children, className
         <div className="drawer__section-header">
           <div className="drawer__section-header-start">
             {title && <span className="drawer__section-title">{title}</span>}
-            {count !== undefined && (
-              <Counter count={count} variant="outline" size="small" color="neutral" />
-            )}
+            {adornment}
           </div>
           {link && (
             <button

@@ -15,6 +15,8 @@ import { Button } from '../Button'
 import { Avatar } from '../Avatar'
 import { Chip, ChipGroup } from '../Chip'
 import { Counter } from '../Counter'
+import { Badge } from '../Badge'
+import { Tag } from '../Tag'
 
 // ---------------------------------------------------------------------------
 
@@ -126,7 +128,7 @@ export const DetailPanel: Story = {
             }
           />
           <DrawerContent>
-            <DrawerSection title="Activity" count={3}>
+            <DrawerSection title="Activity" adornment={<Counter count={3} variant="outline" size="small" color="neutral" />}>
               <DrawerListItem
                 header="Submitted Q1 performance review"
                 secondary="HR · Performance"
@@ -421,6 +423,64 @@ export const Persistent: Story = {
           </div>
         </div>
       </div>
+    )
+  },
+}
+
+// ---------------------------------------------------------------------------
+// Section adornments
+// ---------------------------------------------------------------------------
+
+export const SectionAdornments: Story = {
+  name: 'Section adornments',
+  render: () => {
+    const [open, setOpen] = useState(false)
+
+    return (
+      <>
+        <div style={{ padding: '24px' }}>
+          <Button onClick={() => setOpen(true)}>Open drawer</Button>
+        </div>
+
+        <Drawer open={open} onClose={() => setOpen(false)} side="right" size="medium">
+          <DrawerHeader
+            title="Section adornments"
+            description="Counter, Badge, and Tag after section title"
+          />
+          <DrawerContent>
+
+            {/* Counter — numeric count of items in section */}
+            <DrawerSection
+              title="Results"
+              adornment={<Counter count={12} variant="outline" size="small" color="neutral" />}
+            >
+              <DrawerListItem header="Invoice #1042" secondary="Finance · Accounts payable" timestamp="Today" before={<Avatar name="Finance" size="s" />} />
+              <DrawerListItem header="Invoice #1043" secondary="Finance · Accounts payable" timestamp="Yesterday" before={<Avatar name="Finance" size="s" />} />
+            </DrawerSection>
+
+            {/* Badge — transient status needing attention */}
+            <DrawerSection
+              title="Announcements"
+              divider
+              adornment={<Badge variant="fill" size="small" color="notice">New</Badge>}
+            >
+              <DrawerListItem header="Q2 budget review published" secondary="Finance · All teams" timestamp="1h ago" unread before={<Avatar name="Budget" size="s" />} />
+              <DrawerListItem header="Updated leave policy" secondary="HR · All employees" timestamp="3h ago" before={<Avatar name="HR" size="s" />} />
+            </DrawerSection>
+
+            {/* Tag — persistent categorical label */}
+            <DrawerSection
+              title="Modules"
+              divider
+              adornment={<Tag size="small" color="blue">Beta</Tag>}
+            >
+              <DrawerMenuItem label="AI Forecasting" icon={<BarChart2 size={14} />} onClick={() => {}} />
+              <DrawerMenuItem label="Smart Scheduling" icon={<Settings size={14} />} onClick={() => {}} />
+            </DrawerSection>
+
+          </DrawerContent>
+        </Drawer>
+      </>
     )
   },
 }
