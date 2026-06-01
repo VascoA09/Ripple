@@ -191,19 +191,26 @@ export function Drawer({
 
 export interface DrawerHeaderProps {
   title: string
+  /** Inline element placed immediately after the title. Accepts Counter, Badge, or Tag. Applies when the signal describes the subject of the drawer itself. Title truncates to one line when an adornment is present. */
+  adornment?: React.ReactNode
   description?: string
   /** Up to two action buttons rendered before the close button */
   actions?: React.ReactNode
   className?: string
 }
 
-export function DrawerHeader({ title, description, actions, className }: DrawerHeaderProps) {
+export function DrawerHeader({ title, adornment, description, actions, className }: DrawerHeaderProps) {
   const { onClose, titleId } = useDrawerContext()
 
   return (
     <div className={['drawer__header', className].filter(Boolean).join(' ')}>
       <div className="drawer__header-main">
-        <h2 id={titleId} className="drawer__title">{title}</h2>
+        <div className="drawer__title-row">
+          <h2 id={titleId} className="drawer__title">{title}</h2>
+          {adornment && (
+            <span className="drawer__title-adornment">{adornment}</span>
+          )}
+        </div>
         {description && (
           <p className="drawer__description">{description}</p>
         )}

@@ -77,10 +77,23 @@ The Drawer is composed of three fixed regions and a scrollable content area:
 
 The header is always present and fixed. It contains:
 
-- **Title** (required): Names the drawer's content clearly and concisely.
+- **Title** (required): Names the drawer's content clearly and concisely. Truncates to one line when an adornment is present.
+- **Title adornment** (optional): An inline element placed immediately after the title. See below.
 - **Description** (optional): A short subtitle below the title, truncated to one line.
 - **Header actions** (optional): Up to two buttons beside the close button. Use `ghost` or `outline` variants to maintain hierarchy.
 - **Close button** (always): An `IconButton` with `aria-label="Close drawer"`. Positioned at the far end of the header.
+
+### Header title adornment (optional)
+
+An inline element placed immediately after the header title, on the same baseline. Use only when the signal describes the subject of the drawer itself — not a content group inside it.
+
+Accepts one of three types:
+
+- **Counter** (`outline`, `neutral`) — use when the total count of items in the drawer is relevant to the user's decision before entering the content (e.g. "Pending approvals" with a count). Do not use if the count belongs to a specific section.
+- **Badge** — use when the drawer subject has a transient status that needs immediate attention: approval state, task urgency, or a system-driven condition. Choose color to match severity (`neutral`, `info`, `warning`, `critical`).
+- **Tag** — use when the drawer is scoped to a persistent category or classification context that the user needs to hold in mind while reviewing the content (e.g. a department, cost centre, or organisational unit). Do not use for status — use Badge instead.
+
+Only one adornment is allowed per header. If the signal applies to a content group rather than the drawer subject, use a section title adornment instead.
 
 ### Header sizing
 

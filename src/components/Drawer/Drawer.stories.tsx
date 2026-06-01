@@ -428,6 +428,102 @@ export const Persistent: Story = {
 }
 
 // ---------------------------------------------------------------------------
+// Header title adornments
+// ---------------------------------------------------------------------------
+
+export const HeaderAdornments: Story = {
+  name: 'Header title adornments',
+  render: () => {
+    const [open, setOpen] = useState<'counter' | 'badge' | 'tag' | null>(null)
+
+    return (
+      <>
+        <div style={{ padding: '24px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <Button onClick={() => setOpen('counter')}>
+            Counter — Pending approvals
+          </Button>
+          <Button onClick={() => setOpen('badge')} variant="outline" color="neutral">
+            Badge — Task status
+          </Button>
+          <Button onClick={() => setOpen('tag')} variant="outline" color="neutral">
+            Tag — Classification context
+          </Button>
+        </div>
+
+        {/* Counter: total count relevant before entering content */}
+        <Drawer open={open === 'counter'} onClose={() => setOpen(null)} side="right" size="medium">
+          <DrawerHeader
+            title="Pending approvals"
+            adornment={<Counter count={4} variant="outline" size="small" color="neutral" />}
+            description="Review and action items awaiting your sign-off"
+          />
+          <DrawerContent>
+            <DrawerSection>
+              {['Invoice #2041 — €12,400', 'Leave request · Sarah Johnson', 'Purchase order #887', 'Expense report · Marcus Holt'].map(label => (
+                <DrawerListItem
+                  key={label}
+                  header={label.split(' · ')[0] ?? label}
+                  secondary={label.split(' · ')[1] ?? ''}
+                  timestamp="Today"
+                  before={<Avatar name={label} size="s" />}
+                  after={<Button size="xsmall" variant="outline" color="neutral">Review</Button>}
+                />
+              ))}
+            </DrawerSection>
+          </DrawerContent>
+        </Drawer>
+
+        {/* Badge: transient status describing the drawer subject */}
+        <Drawer open={open === 'badge'} onClose={() => setOpen(null)} side="right" size="medium">
+          <DrawerHeader
+            title="Prepare Q2 forecast"
+            adornment={<Badge variant="fill" size="small" color="notice">In review</Badge>}
+            description="Assigned to you · Due 5 Jun 2026"
+          />
+          <DrawerContent>
+            <DrawerSection title="Details">
+              <DrawerMenuItem label="Assignee"    icon={<User size={14} />}         code="Vasco Antunes" />
+              <DrawerMenuItem label="Due date"    icon={<Star size={14} />}          code="5 Jun 2026" />
+              <DrawerMenuItem label="Priority"    icon={<BarChart2 size={14} />}     code="High" />
+              <DrawerMenuItem label="Department"  icon={<Users size={14} />}         code="Finance" />
+            </DrawerSection>
+            <DrawerSection title="Activity" divider
+              adornment={<Counter count={3} variant="outline" size="small" color="neutral" />}
+            >
+              <DrawerListItem header="Comment added" secondary="Alex Chen · 2h ago" timestamp="2h ago" before={<Avatar name="Alex Chen" size="s" />} />
+              <DrawerListItem header="Status changed to In review" secondary="System · Yesterday" timestamp="Yesterday" before={<Avatar name="System" size="s" />} />
+            </DrawerSection>
+          </DrawerContent>
+        </Drawer>
+
+        {/* Tag: persistent classification context */}
+        <Drawer open={open === 'tag'} onClose={() => setOpen(null)} side="right" size="medium">
+          <DrawerHeader
+            title="Q1 Operating Expenses"
+            adornment={<Tag size="small" color="blue">Finance</Tag>}
+            description="Jan – Mar 2026 · Cost centre CC-402"
+          />
+          <DrawerContent>
+            <DrawerSection title="Summary">
+              <DrawerMenuItem label="Total spend"    icon={<CreditCard size={14} />}  code="€284,100" />
+              <DrawerMenuItem label="Budget"         icon={<BarChart2 size={14} />}   code="€300,000" />
+              <DrawerMenuItem label="Variance"       icon={<Star size={14} />}        code="−5.3%" />
+            </DrawerSection>
+            <DrawerSection title="Top items" divider
+              link={{ label: 'View all', onClick: () => {} }}
+            >
+              <DrawerMenuItem label="Salaries"          icon={<Users size={14} />}    code="€190,000" />
+              <DrawerMenuItem label="Software licences" icon={<FileText size={14} />} code="€42,000" />
+              <DrawerMenuItem label="Travel & expenses" icon={<Inbox size={14} />}    code="€18,600" />
+            </DrawerSection>
+          </DrawerContent>
+        </Drawer>
+      </>
+    )
+  },
+}
+
+// ---------------------------------------------------------------------------
 // Section adornments
 // ---------------------------------------------------------------------------
 
