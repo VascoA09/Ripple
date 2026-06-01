@@ -115,12 +115,22 @@ Sections group related content within the scrollable area. Each section can incl
 
 ### Section title area (optional)
 
-| Element   | Style                                                      |
-|-----------|------------------------------------------------------------|
-| Title     | Uppercase, `var(--font-size-80)`, `var(--text-soft)`       |
-| Counter   | `Counter` component, `outline` variant, `neutral` color    |
-| Link      | Text link, `var(--text-accent)`, triggers a navigation     |
-| Padding   | `var(--spacing-75)` top, `var(--spacing-100)` horizontal, `var(--spacing-50)` bottom |
+| Element           | Style                                                      |
+|-------------------|------------------------------------------------------------|
+| Title             | Uppercase, `var(--font-size-80)`, `var(--text-soft)`       |
+| Title adornment   | See below                                                  |
+| Link              | Text link, `var(--text-accent)`, triggers a navigation     |
+| Padding           | `var(--spacing-75)` top, `var(--spacing-100)` horizontal, `var(--spacing-50)` bottom |
+
+#### Title adornment (optional)
+
+An inline element placed immediately after the section title, on the same baseline. Accepts one of three types:
+
+- **Counter** (`outline`, `neutral`) — use when the number of items is known and relevant to the user's decision (e.g. how many results are in a section). Not a status signal.
+- **Badge** — use when the section carries a transient status that needs attention: new content, unseen items, or a system-driven state. Choose color to match severity (`neutral`, `info`, `warning`, `critical`).
+- **Tag** — use when the section has a persistent categorical label that aids scanning but carries no urgency (e.g. "Beta", "Deprecated", "Required"). Tags are non-interactive in this context.
+
+Only one adornment is allowed per section title. If unsure which to use: Counter if there's a number, Badge if there's a transient status, Tag if it's a fixed category.
 
 Use `divider` on a section to render a `1px solid var(--border-neutral)` separator above it.
 
