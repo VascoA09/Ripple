@@ -318,37 +318,114 @@ Persistent drawers have no overlay. See [Persistent Drawers](#persistent-drawers
 
 ## Accessibility
 
-### ARIA
+### ARIA roles and semantics
 
-- The drawer panel has `role="dialog"` and `aria-modal="true"` (modal drawers) or `aria-modal="false"` (persistent drawers).
-- `aria-label` is derived from the `title` prop by default; override with the `aria-label` prop.
-- Menu items use `role="menuitem"`, `aria-disabled`, and `aria-current`.
-- Expandable items add `aria-haspopup="true"` and `aria-expanded`.
-- Unread indicators use `aria-label="Unread"`.
-- The close button has `aria-label="Close drawer"`.
+**Modal drawer**
+
+| Attribute | Element | Value | Notes |
+|---|---|---|---|
+| `role` | Drawer panel | `"dialog"` | |
+| `aria-modal` | Drawer panel | `"true"` | Must be supplemented with `inert` on all background DOM — `aria-modal` alone does not suppress background content in VoiceOver |
+| `aria-labelledby` | Drawer panel | Header title `id` | Preferred over `aria-label`; falls back to `aria-label` prop when no title is rendered |
+| `aria-hidden` | Overlay backdrop | `"true"` | Decorative — must not receive focus |
+
+**Persistent drawer**
+
+| Attribute | Element | Value | Notes |
+|---|---|---|---|
+| `role` | Drawer panel | `"dialog"` | |
+| `aria-modal` | Drawer panel | `"false"` | Do not apply `inert` to background content — it remains accessible |
+
+**Navigation drawers**: when the drawer's primary purpose is navigation (app-level menu, module nav), wrap the menu content in a `<nav>` element with `aria-label` matching the drawer title. The `role="navigation"` landmark coexists with the outer `role="dialog"`.
+
+**Menu items**
+
+The Drawer uses a list-based interaction model, not a true ARIA menu. Use `role="listitem"` within `role="list"` — not `role="menuitem"` within `role="menu"`. The ARIA `menu` pattern requires arrow key navigation, which conflicts with the Tab-based traversal documented here and is inappropriate for navigation drawers.
+
+| Attribute | Element | Condition |
+|---|---|---|
+| `aria-current="page"` | Active navigation item | Applied to the link for the current page |
+| `aria-disabled="true"` | Disabled item | Pair with `tabindex="-1"` to remove from tab order |
+| `aria-expanded` | Multi-level item toggle | `"true"` when expanded, `"false"` when collapsed |
+| `aria-haspopup="true"` | Multi-level item toggle | Signals nested content |
+| `aria-label="Unread"` | Unread indicator dot | Text alternative for the visual dot; placed before item content in DOM order |
+| `aria-label="Close drawer"` | Close button | Required — icon-only button has no visible label |
+
+**Dynamic content**
+
+Wrap regions that update without user action (notification feeds, live counts) in a live region:
+
+```html
+<div aria-live="polite" aria-atomic="false">
+  <!-- notification items -->
+</div>
+```
+
+Use `aria-atomic="false"` so additions are announced individually. Reserve `aria-live="assertive"` for urgent system alerts only — not notification feeds.
+
+---
 
 ### Keyboard
 
-| Key             | Action                                                   |
-|-----------------|----------------------------------------------------------|
-| `Tab`           | Move focus to the next interactive element               |
-| `Shift + Tab`   | Move focus to the previous interactive element           |
-| `Enter / Space` | Activate the focused item                                |
-| `Escape`        | Close the drawer and return focus to the trigger element |
+| Key | Action |
+|---|---|
+| `Tab` | Move focus forward through interactive elements |
+| `Shift + Tab` | Move focus backward through interactive elements |
+| `Enter` / `Space` | Activate the focused item |
+| `Enter` / `Space` | Expand or collapse a multi-level item |
+| `Escape` | Close the drawer and return focus to the trigger element |
 
-Focus is trapped inside modal drawers while they are open. Persistent drawers do not trap focus.
+Focus is trapped inside modal drawers. Persistent drawers do not trap focus — `Tab` moves freely between the drawer and main content.
+
+---
 
 ### Focus management
 
-- On open, focus moves to the first focusable element inside the drawer.
-- On close, focus returns to the element that opened the drawer.
-- All interactive elements show a `2px solid var(--border-focus)` focus ring.
+- **On open**: focus moves to the first focusable element inside the drawer. For navigational drawers with no pre-selected item, focus the close button or the first list item — not the header title (not interactive).
+- **On close**: focus returns to the element that triggered the open. Consumers manage this via the `onClose` callback — the component does not handle it internally.
+- **Focus not obscured (WCAG 2.4.11)**: the fixed header must not clip focused elements in the scrollable content area. Apply `scroll-margin-top` equal to the header height (plus tools area height when present) on all interactive elements in the scrollable region. Alternatively, call `scrollIntoView` with a scroll offset when focus enters the content area.
+- **Focus ring**: `2px solid var(--border-focus)` outline with `−2px` offset on all interactive elements. Never suppress the focus ring, including on mouse interaction.
+
+---
+
+### Screen reader behaviour
+
+- The drawer is announced as a dialog with its title as the accessible name when it opens.
+- For modal drawers, apply `inert` programmatically to all DOM siblings outside the drawer portal on open; remove on close. Do not rely on `aria-modal` alone — VoiceOver does not honour it without `inert`.
+- Unread indicators must appear before the item label in DOM order so they are announced first: "Unread, [item label]".
+- Disabled items must retain their accessible name so screen readers can announce them as disabled — do not strip labels from disabled items.
+
+---
+
+### Touch targets
+
+All interactive items must meet the Ripple internal standard of 44×44px minimum touch target. Menu item rows have a 40px minimum height, which falls short by 4px. Compensate with a transparent padding or a pseudo-element expanded hit area. If the visible height cannot be increased, document the deviation explicitly and enforce a spacing buffer between items.
+
+---
+
+### Motion
+
+The 250ms slide animation must respect `prefers-reduced-motion`. Remove the transition entirely — do not substitute a faster animation:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  .drawer {
+    transition: none;
+  }
+}
+```
+
+The overlay fade is also subject to this rule.
+
+---
 
 ### Contrast
 
-- All foreground text meets WCAG AA contrast requirements.
-- The active left-border indicator provides a non-color cue in addition to color.
-- Disabled items are excluded from contrast requirements.
+- Body text and menu labels: `--text` on `--bg-surface` — WCAG AA minimum (4.5:1 for normal text).
+- Section titles: rendered uppercase at `font-size-80` (14px). At this size, uppercase text does not qualify as "large text" under WCAG — 4.5:1 contrast is required, not 3:1. Verify that `--text-soft` passes 4.5:1 against the background surface token before using it here.
+- Active state: the `3px solid var(--color-primary-loud)` left border provides a non-colour cue — satisfies WCAG 1.4.1 (use of colour).
+- Focus ring: must meet 3:1 contrast against all adjacent colours (WCAG 1.4.11).
+- Disabled items: exempt from contrast requirements per WCAG 1.4.3. Ensure they retain a complete accessible name so screen readers can announce them as disabled.
 
 ---
 
