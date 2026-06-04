@@ -130,13 +130,21 @@ When the primary action is in a loading state, the button displays a loading ind
 
 ## Keyboard interaction
 
-| Key | Behaviour |
-|---|---|
-| **Tab** | Moves focus between the primary action button and the dropdown trigger as separate focusable elements. |
-| **Enter / Space** | Activates the focused element — executes the primary action when the button is focused, or opens the menu when the trigger is focused. |
-| **Arrow Down** | When the dropdown menu is open, moves focus to the next menu item. |
-| **Arrow Up** | When the dropdown menu is open, moves focus to the previous menu item. |
-| **Escape** | Closes the dropdown menu and returns focus to the dropdown trigger. |
+| Key | Focused element | Behaviour |
+|---|---|---|
+| **Tab** | — | Moves focus: Action → Trigger → next focusable element. Action and Trigger are two independent focusable elements; Tab is the correct way to move between them. |
+| **Enter / Space** | Action | Executes the primary action. |
+| **Enter / Space** | Trigger | Opens the dropdown menu. |
+| **Arrow Down / Up** | Open menu | Moves focus between menu items. |
+| **Home / End** | Open menu | Moves focus to the first or last menu item. |
+| **Escape** | Open menu | Closes the menu and returns focus to the Trigger. |
+| **Enter / Space** | Menu item | Selects the item, closes the menu, and returns focus to the Trigger. |
+
+### Why not Left / Right arrow keys between Action and Trigger?
+
+Left and Right arrow key navigation applies to composite widgets — `role="toolbar"`, `role="radiogroup"`, `role="tablist"` — where Tab enters and exits the group as a whole and arrows move within it. Split Button is not a composite widget: Action and Trigger are two independent, focusable buttons. Using arrow keys to move between them would contradict the ARIA Authoring Practices Guide keyboard model and break expectations for keyboard users.
+
+**Toolbar exception:** if a Split Button is placed inside a `role="toolbar"`, Left and Right arrow keys *should* navigate between Action and Trigger as part of the toolbar's roving `tabIndex` pattern. This is the toolbar's behaviour, not the Split Button's own. The Split Button itself requires no additional implementation to support this — the toolbar manages focus.
 
 ---
 
