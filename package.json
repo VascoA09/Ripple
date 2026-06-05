@@ -1,6 +1,6 @@
 {
   "name": "@ripple/ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Ripple — Unit4's design system. Foundations, tokens, components, and patterns for building consistent product UI.",
   "type": "module",
   "main": "dist/index.cjs",
