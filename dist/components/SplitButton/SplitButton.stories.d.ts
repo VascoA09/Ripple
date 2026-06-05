@@ -13,3 +13,4 @@ export declare const Loading: Story;
 export declare const Disabled: Story;
 export declare const DisabledItems: Story;
 export declare const FormSubmission: Story;
+export declare const InToolbar: Story;

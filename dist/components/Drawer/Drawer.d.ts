@@ -30,12 +30,14 @@ export interface DrawerProps {
 export declare function Drawer({ open, onClose, side, size, closeOnOverlayClick, persistent, 'aria-label': ariaLabel, children, className, overlayClassName, }: DrawerProps): import("react/jsx-runtime").JSX.Element | null;
 export interface DrawerHeaderProps {
     title: string;
+    /** Inline element placed immediately after the title. Accepts Counter, Badge, or Tag. Applies when the signal describes the subject of the drawer itself. Title truncates to one line when an adornment is present. */
+    adornment?: React.ReactNode;
     description?: string;
     /** Up to two action buttons rendered before the close button */
     actions?: React.ReactNode;
     className?: string;
 }
-export declare function DrawerHeader({ title, description, actions, className }: DrawerHeaderProps): import("react/jsx-runtime").JSX.Element;
+export declare function DrawerHeader({ title, adornment, description, actions, className }: DrawerHeaderProps): import("react/jsx-runtime").JSX.Element;
 export interface DrawerToolsProps {
     children: React.ReactNode;
     className?: string;
@@ -49,8 +51,8 @@ export declare function DrawerContent({ children, className }: DrawerContentProp
 export interface DrawerSectionProps {
     /** Uppercase section label */
     title?: string;
-    /** Numeric count shown in a Counter badge beside the title */
-    count?: number;
+    /** Inline element placed immediately after the title. Accepts Counter, Badge, or Tag. Only one adornment per section title. */
+    adornment?: React.ReactNode;
     /** Link rendered at the trailing end of the section title row */
     link?: {
         label: string;
@@ -61,7 +63,7 @@ export interface DrawerSectionProps {
     children: React.ReactNode;
     className?: string;
 }
-export declare function DrawerSection({ title, count, link, divider, children, className }: DrawerSectionProps): import("react/jsx-runtime").JSX.Element;
+export declare function DrawerSection({ title, adornment, link, divider, children, className }: DrawerSectionProps): import("react/jsx-runtime").JSX.Element;
 export interface DrawerMenuItemProps {
     label: string;
     icon?: React.ReactNode;

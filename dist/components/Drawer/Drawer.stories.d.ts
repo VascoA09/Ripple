@@ -9,4 +9,6 @@ export declare const DetailPanel: Story;
 export declare const Notifications: Story;
 export declare const FilterPanel: Story;
 export declare const Persistent: Story;
+export declare const HeaderAdornments: Story;
+export declare const SectionAdornments: Story;
 export declare const Sizes: Story;

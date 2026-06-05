@@ -17,21 +17,32 @@ export interface SplitButtonProps {
     label: string;
     /** Primary action handler */
     onClick: () => void;
-    /** Secondary actions shown in the dropdown menu */
+    /** Secondary actions shown in the FlyoutMenu */
     items: SplitButtonItem[];
-    /** Visual style. Default: 'fill' */
-    variant?: 'fill' | 'outline' | 'ghost';
+    /** Visual style. Ghost is not supported — use outline for low-emphasis. Default: 'fill' */
+    variant?: 'fill' | 'outline';
     /** Semantic color. Default: 'primary' */
     color?: 'primary' | 'neutral' | 'negative';
-    /** Height scale. Default: 'medium' */
-    size?: 'small' | 'medium' | 'large';
+    /**
+     * Height scale. Default: 'medium'.
+     * XSmall (24px) does not meet the 44×44px touch target standard —
+     * restrict to dense toolbar contexts and enforce a spacing buffer at the usage site.
+     */
+    size?: 'xsmall' | 'small' | 'medium' | 'large';
     /** Icon rendered before the primary label. Replaced by spinner during loading. */
     iconStart?: React.ReactNode;
-    /** Disables both the primary button and the dropdown trigger. */
+    /** Disables both SplitButtonAction and SplitButtonTrigger. */
     disabled?: boolean;
-    /** Shows a spinner on the primary button and prevents its interaction. The trigger remains active. */
+    /**
+     * Shows a spinner on SplitButtonAction and prevents its interaction.
+     * SplitButtonTrigger is also suppressed while loading — opening the menu
+     * during an in-flight action is undefined behaviour.
+     */
     loading?: boolean;
-    /** Accessible label for the dropdown trigger. Default: 'More options' */
+    /**
+     * Accessible label for SplitButtonTrigger (icon-only).
+     * Should follow the pattern "More [action] options", e.g. "More save options".
+     */
     triggerLabel?: string;
     className?: string;
     style?: React.CSSProperties;
