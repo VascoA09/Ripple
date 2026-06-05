@@ -1,6 +1,11 @@
 import React from 'react'
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { ChevronDown } from 'lucide-react'
+import {
+  FlyoutMenu,
+  FlyoutMenuTrigger,
+  FlyoutMenuContent,
+  FlyoutMenuItem,
+} from '../FlyoutMenu/FlyoutMenu'
 import './SplitButton.css'
 
 // ---------------------------------------------------------------------------
@@ -25,21 +30,32 @@ export interface SplitButtonProps {
   label: string
   /** Primary action handler */
   onClick: () => void
-  /** Secondary actions shown in the dropdown menu */
+  /** Secondary actions shown in the FlyoutMenu */
   items: SplitButtonItem[]
-  /** Visual style. Default: 'fill' */
-  variant?: 'fill' | 'outline' | 'ghost'
+  /** Visual style. Ghost is not supported — use outline for low-emphasis. Default: 'fill' */
+  variant?: 'fill' | 'outline'
   /** Semantic color. Default: 'primary' */
   color?: 'primary' | 'neutral' | 'negative'
-  /** Height scale. Default: 'medium' */
-  size?: 'small' | 'medium' | 'large'
+  /**
+   * Height scale. Default: 'medium'.
+   * XSmall (24px) does not meet the 44×44px touch target standard —
+   * restrict to dense toolbar contexts and enforce a spacing buffer at the usage site.
+   */
+  size?: 'xsmall' | 'small' | 'medium' | 'large'
   /** Icon rendered before the primary label. Replaced by spinner during loading. */
   iconStart?: React.ReactNode
-  /** Disables both the primary button and the dropdown trigger. */
+  /** Disables both SplitButtonAction and SplitButtonTrigger. */
   disabled?: boolean
-  /** Shows a spinner on the primary button and prevents its interaction. The trigger remains active. */
+  /**
+   * Shows a spinner on SplitButtonAction and prevents its interaction.
+   * SplitButtonTrigger is also suppressed while loading — opening the menu
+   * during an in-flight action is undefined behaviour.
+   */
   loading?: boolean
-  /** Accessible label for the dropdown trigger. Default: 'More options' */
+  /**
+   * Accessible label for SplitButtonTrigger (icon-only).
+   * Should follow the pattern "More [action] options", e.g. "More save options".
+   */
   triggerLabel?: string
   className?: string
   style?: React.CSSProperties
@@ -72,8 +88,10 @@ export function SplitButton({
   style,
 }: SplitButtonProps) {
   return (
-    <DropdownMenu.Root>
+    <FlyoutMenu>
       <div
+        role="group"
+        aria-label={label}
         className={['split-button', className].filter(Boolean).join(' ')}
         data-variant={variant}
         data-color={color}
@@ -81,9 +99,9 @@ export function SplitButton({
         data-disabled={disabled || undefined}
         style={style}
       >
-        {/* Primary action */}
+        {/* SplitButtonAction */}
         <button
-          className="split-button__primary"
+          className="split-button__action"
           onClick={onClick}
           disabled={disabled || loading}
           aria-busy={loading || undefined}
@@ -93,45 +111,34 @@ export function SplitButton({
           {label}
         </button>
 
-        {/* Divider */}
-        <span className="split-button__divider" aria-hidden="true" />
-
-        {/* Dropdown trigger */}
-        <DropdownMenu.Trigger asChild>
+        {/* SplitButtonTrigger */}
+        <FlyoutMenuTrigger asChild>
           <button
             className="split-button__trigger"
             aria-label={triggerLabel}
-            disabled={disabled}
+            disabled={disabled || loading}
           >
             <ChevronDown className="split-button__chevron" aria-hidden="true" />
           </button>
-        </DropdownMenu.Trigger>
+        </FlyoutMenuTrigger>
       </div>
 
-      <DropdownMenu.Portal>
-        <DropdownMenu.Content
-          className="split-button__menu"
-          sideOffset={4}
-          align="end"
-        >
-          {items.map(item => (
-            <DropdownMenu.Item
-              key={item.id}
-              className="split-button__menu-item"
-              disabled={item.disabled}
-              onSelect={item.disabled ? undefined : item.onSelect}
-              data-disabled={item.disabled ? '' : undefined}
-            >
-              {item.icon && (
-                <span className="split-button__menu-icon" aria-hidden="true">
-                  {item.icon}
-                </span>
-              )}
-              {item.label}
-            </DropdownMenu.Item>
-          ))}
-        </DropdownMenu.Content>
-      </DropdownMenu.Portal>
-    </DropdownMenu.Root>
+      <FlyoutMenuContent align="start" sideOffset={4}>
+        {items.map(item => (
+          <FlyoutMenuItem
+            key={item.id}
+            disabled={item.disabled}
+            onSelect={item.disabled ? undefined : item.onSelect}
+          >
+            {item.icon && (
+              <span className="split-button__menu-icon" aria-hidden="true">
+                {item.icon}
+              </span>
+            )}
+            {item.label}
+          </FlyoutMenuItem>
+        ))}
+      </FlyoutMenuContent>
+    </FlyoutMenu>
   )
 }

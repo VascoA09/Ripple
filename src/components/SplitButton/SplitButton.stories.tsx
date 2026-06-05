@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Save, Download, Send, FileText, Archive, Mail, Clock } from 'lucide-react'
 import { SplitButton } from './SplitButton'
 import type { SplitButtonProps, SplitButtonItem } from './SplitButton'
@@ -44,6 +44,7 @@ export const Default: Story = {
   render: () => (
     <SplitButton
       label="Save"
+      triggerLabel="More save options"
       onClick={() => {}}
       items={saveItems}
     />
@@ -58,24 +59,57 @@ export const Sizes: Story = {
   name: 'Sizes',
   render: () => (
     <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-      <SplitButton label="Save" size="small"  onClick={() => {}} items={saveItems} />
-      <SplitButton label="Save" size="medium" onClick={() => {}} items={saveItems} />
-      <SplitButton label="Save" size="large"  onClick={() => {}} items={saveItems} />
+      <SplitButton
+        label="Save"
+        size="xsmall"
+        triggerLabel="More save options"
+        onClick={() => {}}
+        items={saveItems}
+      />
+      <SplitButton
+        label="Save"
+        size="small"
+        triggerLabel="More save options"
+        onClick={() => {}}
+        items={saveItems}
+      />
+      <SplitButton
+        label="Save"
+        size="medium"
+        triggerLabel="More save options"
+        onClick={() => {}}
+        items={saveItems}
+      />
+      <SplitButton
+        label="Save"
+        size="large"
+        triggerLabel="More save options"
+        onClick={() => {}}
+        items={saveItems}
+      />
     </div>
   ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**XSmall (24px)** does not meet the 44×44px touch target standard. Restrict to dense toolbar contexts and enforce a spacing buffer at the usage site.',
+      },
+    },
+  },
 }
 
 // ---------------------------------------------------------------------------
 // Variants
+// Ghost is not supported — see components/split-button.md#variants.
 // ---------------------------------------------------------------------------
 
 export const Variants: Story = {
   name: 'Variants',
   render: () => (
     <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-      <SplitButton label="Save" variant="fill"    onClick={() => {}} items={saveItems} />
-      <SplitButton label="Save" variant="outline" onClick={() => {}} items={saveItems} />
-      <SplitButton label="Save" variant="ghost"   onClick={() => {}} items={saveItems} />
+      <SplitButton label="Save" variant="fill"    triggerLabel="More save options" onClick={() => {}} items={saveItems} />
+      <SplitButton label="Save" variant="outline" triggerLabel="More save options" onClick={() => {}} items={saveItems} />
     </div>
   ),
 }
@@ -90,9 +124,9 @@ export const Colors: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       {/* Fill */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-        <SplitButton label="Save"   variant="fill" color="primary"  onClick={() => {}} items={saveItems} />
-        <SplitButton label="Save"   variant="fill" color="neutral"  onClick={() => {}} items={saveItems} />
-        <SplitButton label="Delete" variant="fill" color="negative" onClick={() => {}} items={[
+        <SplitButton label="Save"   variant="fill" color="primary"  triggerLabel="More save options"   onClick={() => {}} items={saveItems} />
+        <SplitButton label="Save"   variant="fill" color="neutral"  triggerLabel="More save options"   onClick={() => {}} items={saveItems} />
+        <SplitButton label="Delete" variant="fill" color="negative" triggerLabel="More delete options" onClick={() => {}} items={[
           { id: 'delete-all',      label: 'Delete all records', onSelect: () => {} },
           { id: 'delete-selected', label: 'Delete selected',    onSelect: () => {} },
         ]} />
@@ -100,19 +134,9 @@ export const Colors: Story = {
 
       {/* Outline */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-        <SplitButton label="Save"   variant="outline" color="primary"  onClick={() => {}} items={saveItems} />
-        <SplitButton label="Save"   variant="outline" color="neutral"  onClick={() => {}} items={saveItems} />
-        <SplitButton label="Delete" variant="outline" color="negative" onClick={() => {}} items={[
-          { id: 'delete-all',      label: 'Delete all records', onSelect: () => {} },
-          { id: 'delete-selected', label: 'Delete selected',    onSelect: () => {} },
-        ]} />
-      </div>
-
-      {/* Ghost */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-        <SplitButton label="Save"   variant="ghost" color="primary"  onClick={() => {}} items={saveItems} />
-        <SplitButton label="Save"   variant="ghost" color="neutral"  onClick={() => {}} items={saveItems} />
-        <SplitButton label="Delete" variant="ghost" color="negative" onClick={() => {}} items={[
+        <SplitButton label="Save"   variant="outline" color="primary"  triggerLabel="More save options"   onClick={() => {}} items={saveItems} />
+        <SplitButton label="Save"   variant="outline" color="neutral"  triggerLabel="More save options"   onClick={() => {}} items={saveItems} />
+        <SplitButton label="Delete" variant="outline" color="negative" triggerLabel="More delete options" onClick={() => {}} items={[
           { id: 'delete-all',      label: 'Delete all records', onSelect: () => {} },
           { id: 'delete-selected', label: 'Delete selected',    onSelect: () => {} },
         ]} />
@@ -132,18 +156,21 @@ export const WithIcon: Story = {
       <SplitButton
         label="Save"
         iconStart={<Save size={16} />}
+        triggerLabel="More save options"
         onClick={() => {}}
         items={saveItems}
       />
       <SplitButton
         label="Export"
         iconStart={<Download size={16} />}
+        triggerLabel="More export options"
         onClick={() => {}}
         items={exportItems}
       />
       <SplitButton
         label="Send"
         iconStart={<Send size={16} />}
+        triggerLabel="More send options"
         onClick={() => {}}
         items={sendItems}
       />
@@ -153,6 +180,8 @@ export const WithIcon: Story = {
 
 // ---------------------------------------------------------------------------
 // Loading
+// The trigger is also suppressed while loading — opening the menu during an
+// in-flight action is undefined behaviour.
 // ---------------------------------------------------------------------------
 
 export const Loading: Story = {
@@ -170,6 +199,7 @@ export const Loading: Story = {
         <SplitButton
           label={saving ? 'Saving…' : 'Save'}
           iconStart={<Save size={16} />}
+          triggerLabel="More save options"
           onClick={handleSave}
           items={saveItems}
           loading={saving}
@@ -177,6 +207,7 @@ export const Loading: Story = {
         {/* Static snapshot of loading state for visual reference */}
         <SplitButton
           label="Saving…"
+          triggerLabel="More save options"
           onClick={() => {}}
           items={saveItems}
           loading
@@ -194,9 +225,9 @@ export const Disabled: Story = {
   name: 'Disabled',
   render: () => (
     <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-      <SplitButton label="Save"   variant="fill"    onClick={() => {}} items={saveItems} disabled />
-      <SplitButton label="Save"   variant="outline" onClick={() => {}} items={saveItems} disabled />
-      <SplitButton label="Export" variant="ghost"   onClick={() => {}} items={exportItems} disabled />
+      <SplitButton label="Save"   variant="fill"    triggerLabel="More save options"   onClick={() => {}} items={saveItems}   disabled />
+      <SplitButton label="Save"   variant="outline" triggerLabel="More save options"   onClick={() => {}} items={saveItems}   disabled />
+      <SplitButton label="Export" variant="fill"    triggerLabel="More export options" onClick={() => {}} items={exportItems} disabled />
     </div>
   ),
 }
@@ -211,6 +242,7 @@ export const DisabledItems: Story = {
     <SplitButton
       label="Export"
       iconStart={<Download size={16} />}
+      triggerLabel="More export options"
       onClick={() => {}}
       items={[
         { id: 'pdf',   label: 'Export as PDF',   icon: <FileText size={14} />, onSelect: () => {} },
@@ -235,6 +267,7 @@ export const FormSubmission: Story = {
         <SplitButton
           label="Save"
           iconStart={<Save size={16} />}
+          triggerLabel="More save options"
           onClick={() => setStatus('Saved')}
           items={[
             { id: 'save-close', label: 'Save and close', onSelect: () => setStatus('Saved and closed') },
@@ -248,5 +281,85 @@ export const FormSubmission: Story = {
         )}
       </div>
     )
+  },
+}
+
+// ---------------------------------------------------------------------------
+// In Toolbar
+// Demonstrates the roving tabIndex pattern required by role="toolbar".
+// Arrow keys move focus between all focusable buttons within the toolbar.
+// Tab moves focus out of the toolbar entirely.
+// The SplitButton itself requires no changes — the toolbar owns this behaviour.
+// ---------------------------------------------------------------------------
+
+export const InToolbar: Story = {
+  name: 'In Toolbar',
+  render: () => {
+    const toolbarRef = useRef<HTMLDivElement>(null)
+
+    function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return
+      if (!toolbarRef.current) return
+
+      const focusable = Array.from(
+        toolbarRef.current.querySelectorAll<HTMLElement>('button:not(:disabled)')
+      )
+      const current = document.activeElement as HTMLElement
+      const index = focusable.indexOf(current)
+      if (index === -1) return
+
+      e.preventDefault()
+
+      const next =
+        e.key === 'ArrowRight'
+          ? focusable[(index + 1) % focusable.length]
+          : focusable[(index - 1 + focusable.length) % focusable.length]
+
+      // Roving tabIndex: remove tabIndex from current, set on next
+      focusable.forEach(el => el.setAttribute('tabindex', '-1'))
+      next.setAttribute('tabindex', '0')
+      next.focus()
+    }
+
+    return (
+      <div
+        ref={toolbarRef}
+        role="toolbar"
+        aria-label="Document actions"
+        onKeyDown={handleKeyDown}
+        style={{
+          display:      'inline-flex',
+          alignItems:   'center',
+          gap:          '8px',
+          padding:      '8px',
+          border:       '1px solid var(--border-default)',
+          borderRadius: '8px',
+        }}
+      >
+        <SplitButton
+          label="Save"
+          iconStart={<Save size={16} />}
+          triggerLabel="More save options"
+          onClick={() => {}}
+          items={saveItems}
+        />
+        <SplitButton
+          label="Export"
+          variant="outline"
+          iconStart={<Download size={16} />}
+          triggerLabel="More export options"
+          onClick={() => {}}
+          items={exportItems}
+        />
+      </div>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Inside a `role="toolbar"`, Left and Right arrow keys move focus between all focusable buttons using the roving `tabIndex` pattern. Tab moves out of the toolbar entirely. The SplitButton requires no changes — the toolbar owns this behaviour.',
+      },
+    },
   },
 }

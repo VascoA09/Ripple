@@ -3,22 +3,19 @@
    Source: components/split-button.md
 
    Two native <button> elements joined in a single inline-flex container:
-   - Primary button: left side with rounded left corners, square right corner
-   - Trigger button: right side with square left corner, rounded right corners
-   - Divider span: 1px separator; background: var(--_color) at opacity 0.3 —
-     renders as semi-transparent white on fill, accent/text on outline/ghost
+   - SplitButtonAction: left side, rounded left corners, square right corner
+   - SplitButtonTrigger: right side, square left corner, rounded right corners
 
+   Container gap is 2px (raw value — no token at this scale).
    CSS private tokens (--_*) on the container drive size and color.
    Variant × color attribute selectors override the color tokens.
+
+   Menu styles are owned by FlyoutMenu — not duplicated here.
+   Ghost variant is not supported — see components/split-button.md#variants.
    ============================================================================= */
 
 @keyframes split-button-spin {
   to { transform: rotate(360deg); }
-}
-
-@keyframes split-button-menu-in {
-  from { opacity: 0; transform: scale(0.95); }
-  to   { opacity: 1; transform: scale(1); }
 }
 
 /* ---------------------------------------------------------------------------
@@ -28,6 +25,7 @@
 .split-button {
   display:     inline-flex;
   align-items: stretch;
+  gap:         2px;
 
   /* Size tokens — medium defaults */
   --_height:    var(--size-component-height-default);  /* 40px */
@@ -51,24 +49,33 @@
    Size modifiers
    --------------------------------------------------------------------------- */
 
+.split-button[data-size="xsmall"] {
+  --_height:    24px;                                  /* raw — no token at this scale */
+  --_padding:   var(--spacing-50);                     /* 8px  */
+  --_font-size: var(--font-size-60);                   /* 12px */
+  --_icon-size: 12px;
+  --_gap:       var(--spacing-25);                     /* 4px  */
+  --_radius:    var(--border-radius-100);              /* 4px  */
+}
+
 .split-button[data-size="small"] {
-  --_height:    var(--size-component-height-small);  /* 32px */
-  --_padding:   var(--spacing-75);                   /* 12px */
-  --_font-size: var(--font-size-80);                 /* 14px */
+  --_height:    var(--size-component-height-small);    /* 32px */
+  --_padding:   var(--spacing-75);                     /* 12px */
+  --_font-size: var(--font-size-80);                   /* 14px */
   --_icon-size: 14px;
-  --_gap:       var(--spacing-25);                   /* 4px  */
-  --_radius:    var(--border-radius-150);            /* 6px  */
+  --_gap:       var(--spacing-25);                     /* 4px  */
+  --_radius:    var(--border-radius-150);              /* 6px  */
 }
 
 /* medium: default in .split-button */
 
 .split-button[data-size="large"] {
-  --_height:    var(--size-component-height-large);  /* 48px */
-  --_padding:   var(--spacing-150);                  /* 24px */
-  --_font-size: var(--font-size-120);                /* 18px */
+  --_height:    var(--size-component-height-large);    /* 48px */
+  --_padding:   var(--spacing-150);                    /* 24px */
+  --_font-size: var(--font-size-120);                  /* 18px */
   --_icon-size: 18px;
-  --_gap:       var(--spacing-50);                   /* 8px  */
-  --_radius:    var(--border-radius-200);            /* 8px  */
+  --_gap:       var(--spacing-50);                     /* 8px  */
+  --_radius:    var(--border-radius-200);              /* 8px  */
 }
 
 /* ---------------------------------------------------------------------------
@@ -139,38 +146,6 @@
   --_shadow-hover: none;
 }
 
-/* Ghost */
-
-.split-button[data-variant="ghost"][data-color="primary"] {
-  --_bg:           transparent;
-  --_bg-hover:     var(--bg-primary-soft);
-  --_bg-active:    var(--bg-primary-loud);
-  --_color:        var(--text-accent);
-  --_color-active: var(--text-loud-inverse);
-  --_border-color: transparent;
-  --_shadow-hover: none;
-}
-
-.split-button[data-variant="ghost"][data-color="neutral"] {
-  --_bg:           transparent;
-  --_bg-hover:     var(--bg-neutral-soft);
-  --_bg-active:    var(--bg-neutral);
-  --_color:        var(--text);
-  --_color-active: var(--text-loud-inverse);
-  --_border-color: transparent;
-  --_shadow-hover: none;
-}
-
-.split-button[data-variant="ghost"][data-color="negative"] {
-  --_bg:           transparent;
-  --_bg-hover:     var(--bg-negative-softest);
-  --_bg-active:    var(--bg-negative-loud);
-  --_color:        var(--text-negative);
-  --_color-active: var(--text-loud-inverse);
-  --_border-color: transparent;
-  --_shadow-hover: none;
-}
-
 /* ---------------------------------------------------------------------------
    Disabled state
    --------------------------------------------------------------------------- */
@@ -180,10 +155,10 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Shared button base — both primary and trigger
+   Shared button base — SplitButtonAction and SplitButtonTrigger
    --------------------------------------------------------------------------- */
 
-.split-button__primary,
+.split-button__action,
 .split-button__trigger {
   display:         inline-flex;
   align-items:     center;
@@ -210,13 +185,13 @@
     transform    100ms ease;
 }
 
-.split-button__primary:hover:not(:disabled),
+.split-button__action:hover:not(:disabled),
 .split-button__trigger:hover:not(:disabled) {
   background: var(--_bg-hover);
   box-shadow: var(--_shadow-hover);
 }
 
-.split-button__primary:active:not(:disabled),
+.split-button__action:active:not(:disabled),
 .split-button__trigger:active:not(:disabled) {
   background: var(--_bg-active);
   color:      var(--_color-active);
@@ -224,7 +199,7 @@
   transform:  translateY(1px);
 }
 
-.split-button__primary:focus-visible,
+.split-button__action:focus-visible,
 .split-button__trigger:focus-visible {
   outline:        var(--border-width-focus) solid var(--border-focus);
   outline-offset: 2px;
@@ -232,29 +207,27 @@
   z-index:        1;
 }
 
-.split-button__primary:disabled,
+.split-button__action:disabled,
 .split-button__trigger:disabled {
   cursor: not-allowed;
 }
 
 /* ---------------------------------------------------------------------------
-   Primary button — geometry
+   SplitButtonAction — geometry
    --------------------------------------------------------------------------- */
 
-.split-button__primary {
+.split-button__action {
   gap:            var(--_gap);
   padding-inline: var(--_padding);
-  border-right:   none;
   border-radius:  var(--_radius) 0 0 var(--_radius);
 }
 
 /* ---------------------------------------------------------------------------
-   Trigger button — geometry
+   SplitButtonTrigger — geometry
    --------------------------------------------------------------------------- */
 
 .split-button__trigger {
   width:         var(--_height);
-  border-left:   none;
   border-radius: 0 var(--_radius) var(--_radius) 0;
 }
 
@@ -268,21 +241,6 @@
 
 .split-button__trigger[data-state="open"] .split-button__chevron {
   transform: rotate(180deg);
-}
-
-/* ---------------------------------------------------------------------------
-   Divider
-   Uses var(--_color) inherited from the container — renders as semi-transparent
-   white on fill variants, semi-transparent text color on outline/ghost.
-   --------------------------------------------------------------------------- */
-
-.split-button__divider {
-  width:       1px;
-  background:  var(--_color);
-  opacity:     0.3;
-  flex-shrink: 0;
-  align-self:  stretch;
-  pointer-events: none;
 }
 
 /* ---------------------------------------------------------------------------
@@ -304,7 +262,7 @@
    SVG icon sizing
    --------------------------------------------------------------------------- */
 
-.split-button__primary svg {
+.split-button__action svg {
   width:          var(--_icon-size);
   height:         var(--_icon-size);
   flex-shrink:    0;
@@ -312,56 +270,8 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Dropdown menu
+   FlyoutMenu icon slot (renders inside FlyoutMenuItem children)
    --------------------------------------------------------------------------- */
-
-.split-button__menu {
-  min-width:     200px;
-  padding:       var(--spacing-25);
-  background:    var(--bg-surface);
-  border:        var(--border-width-default) solid var(--border-default);
-  border-radius: var(--border-radius-150);
-  box-shadow:    var(--box-shadow-400);
-  outline:       none;
-  z-index:       1000;
-
-  animation:        split-button-menu-in 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  transform-origin: top right;
-}
-
-.split-button__menu-item {
-  display:       flex;
-  align-items:   center;
-  gap:           var(--spacing-50);
-  padding:       var(--spacing-50) var(--spacing-75);
-  border-radius: var(--border-radius-100);
-
-  font-family:   var(--font-family-base);
-  font-size:     var(--font-size-80);
-  font-weight:   var(--font-weight-regular);
-  line-height:   var(--font-line-height-body);
-  color:         var(--text);
-
-  cursor:        pointer;
-  outline:       none;
-  user-select:   none;
-  transition:    background 100ms ease;
-}
-
-.split-button__menu-item:hover,
-.split-button__menu-item[data-highlighted] {
-  background: var(--bg-app-accent);
-}
-
-.split-button__menu-item[data-disabled] {
-  color:  var(--text-disabled);
-  cursor: not-allowed;
-}
-
-.split-button__menu-item[data-disabled]:hover,
-.split-button__menu-item[data-disabled][data-highlighted] {
-  background: transparent;
-}
 
 .split-button__menu-icon {
   display:     flex;
@@ -374,7 +284,7 @@
    --------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .split-button__primary,
+  .split-button__action,
   .split-button__trigger {
     transition: none;
   }
@@ -384,10 +294,6 @@
   }
 
   .split-button__spinner {
-    animation: none;
-  }
-
-  .split-button__menu {
     animation: none;
   }
 }

@@ -37,27 +37,28 @@ Avoid using multiple split buttons in close proximity, as this can create visual
 
 The split button consists of the following structural elements:
 
-1. **Primary action button** — The main clickable area that executes the default action. It displays the action label and functions like a standard button.
-2. **Divider** — A vertical separator that visually distinguishes the primary action area from the dropdown trigger.
-3. **Dropdown trigger** — A smaller button section containing a chevron icon that opens the secondary actions menu when clicked. It does not repeat the primary action label.
-4. **Dropdown menu** — The overlay panel that appears when the trigger is activated, listing the available secondary actions as menu items.
+1. **SplitButtonAction** — The main clickable area that executes the default action. Displays the action label and functions like a standard button.
+2. **SplitButtonTrigger** — A smaller button section containing a chevron icon. Opens the FlyoutMenu when clicked. Does not repeat the primary action label.
+3. **FlyoutMenu** — The overlay menu that appears when SplitButtonTrigger is activated. Implemented using Ripple's `FlyoutMenu` component. `SplitButtonTrigger` is passed as `FlyoutMenuTrigger asChild`.
 
 ---
 
 ## Variants
 
-Split buttons follow the same visual variants as standard buttons:
+Split buttons follow the same visual variants as standard buttons, with the exception of Ghost — see below.
 
 - **Fill (Primary)** — Used for the most important action on a page or within a section. High visual emphasis.
 - **Outline (Secondary)** — Used for supporting actions that are less prominent than the primary. Medium visual emphasis.
-- **Ghost (Tertiary)** — A low-emphasis variant with a transparent background, used for tertiary or contextual actions.
+
+The Ghost variant is not supported for Split Button. A ghost-style split button does not provide sufficient visual affordance to communicate that it contains two independently clickable zones. Use Outline for low-emphasis contexts instead.
 
 ---
 
 ## Sizes
 
-Split buttons are available in three sizes to match standard button sizing:
+Split buttons are available in four sizes to match standard button sizing:
 
+- **XSmall (24px)** — For highly compact or read-only toolbar contexts where space is severely constrained. **Does not meet Ripple's 44×44px touch target standard.** Must enforce a minimum 10px spacing buffer around the hit area to compensate, and must be documented explicitly at the usage site. Do not use in forms or primary action areas.
 - **Small (32px)** — For compact layouts, toolbars, or dense interfaces.
 - **Medium (40px - default)** — The standard size suitable for most contexts.
 - **Large (48px)** — For prominent or standalone action areas where extra visual weight is appropriate.
@@ -107,16 +108,43 @@ Clicking the primary action button executes the default action immediately. It d
 
 ### Dropdown trigger
 
-Clicking the dropdown trigger opens the secondary actions menu below (or above, if space requires) the split button. It does not execute the primary action.
+Clicking SplitButtonTrigger opens the FlyoutMenu. It does not execute the primary action. The trigger is wired as `FlyoutMenuTrigger asChild`, so the FlyoutMenu root controls open/close state.
 
 ### Menu dismissal
 
-The dropdown menu closes when the user:
-- Selects an action from the menu
+FlyoutMenu handles dismissal automatically. The menu closes when the user:
+- Selects an item
 - Clicks outside the menu
 - Presses Escape
 
-Focus returns to the dropdown trigger on dismissal without selection.
+On Escape or outside-click, focus returns to SplitButtonTrigger. On item selection, the `onSelect` handler fires and the menu closes.
+
+### Menu positioning
+
+FlyoutMenu positions the panel automatically using viewport collision detection. Use `align="start"` by default. Use `align="end"` if the split button is right-aligned (e.g., in a toolbar or table row). No manual offset adjustment is needed.
+
+### Usage
+
+SplitButtonTrigger is passed as `FlyoutMenuTrigger asChild`. FlyoutMenu owns open/close state and all menu accessibility.
+
+```tsx
+<FlyoutMenu>
+  <div role="group" aria-label="Save">
+    <SplitButtonAction onClick={handleSave}>Save</SplitButtonAction>
+    <FlyoutMenuTrigger asChild>
+      <SplitButtonTrigger aria-label="More save options" />
+    </FlyoutMenuTrigger>
+  </div>
+  <FlyoutMenuContent align="start">
+    <FlyoutMenuItem onSelect={handleSaveAndClose}>Save and close</FlyoutMenuItem>
+    <FlyoutMenuItem onSelect={handleSaveAsDraft}>Save as draft</FlyoutMenuItem>
+    <FlyoutMenuSeparator />
+    <FlyoutMenuItem onSelect={handleSaveAsTemplate}>Save as template</FlyoutMenuItem>
+  </FlyoutMenuContent>
+</FlyoutMenu>
+```
+
+---
 
 ### Disabled state
 
@@ -170,33 +198,45 @@ Split buttons are typically placed in form footers, toolbars, or action bars whe
 
 ### Emphasis
 
-Use the fill variant for the most important action on a view. Use outline or ghost variants for supporting actions or when the context already provides sufficient visual hierarchy.
+Use the fill variant for the most important action on a view. Use the outline variant for supporting actions or when the context already provides sufficient visual hierarchy. Ghost is not supported — see Variants.
 
 ---
 
 ## Accessibility
 
-- The primary action button and the dropdown trigger are implemented as two separate focusable elements, allowing keyboard users to navigate to each independently.
-- The primary action button has an accessible label matching its visible text.
-- The dropdown trigger has an `aria-label` (e.g., "More actions" or "Show more options") since it contains only an icon.
-- The dropdown trigger uses `aria-haspopup="menu"` and `aria-expanded` to communicate the menu state to assistive technologies.
-- The dropdown menu uses `role="menu"` and each menu item uses `role="menuitem"`.
-- When the menu opens, focus moves to the first menu item.
-- Pressing Escape closes the menu and returns focus to the dropdown trigger.
-- The disabled state is communicated via the `disabled` attribute or `aria-disabled="true"`, ensuring screen readers announce the non-interactive state.
-- The loading state is communicated via an `aria-label` update or a live region announcement so screen reader users are informed that the action is in progress.
+The menu's accessibility foundation is provided by FlyoutMenu, which is built on `@radix-ui/react-dropdown-menu`. Radix handles `role="menu"`, `role="menuitem"`, `aria-haspopup`, `aria-expanded`, focus trapping, keyboard navigation, and focus return on close. Do not re-implement these manually.
+
+**SplitButtonAction:**
+- Has an accessible label matching its visible text. No extra ARIA needed.
+- In a disabled state, use `aria-disabled="true"` rather than the HTML `disabled` attribute to keep both buttons discoverable by screen readers.
+
+**SplitButtonTrigger:**
+- Icon-only. Must have `aria-label="More [action name] options"` (e.g., `"More save options"`).
+- Passed as `FlyoutMenuTrigger asChild` — Radix automatically applies `aria-haspopup="menu"` and `aria-expanded` to it.
+
+**Container:**
+- Wrap both buttons in `<div role="group" aria-label="[action name]">` so screen readers announce the group before reading each part.
+
+**Disabled state:**
+- Use `aria-disabled="true"` on both buttons, not the HTML `disabled` attribute. This keeps both elements reachable and announced by screen readers.
+
+**Loading state:**
+- When SplitButtonAction triggers an async operation, use `aria-busy="true"` on the button. Suppress SplitButtonTrigger (disable it) until the operation resolves — opening the menu while the primary action is in-flight is undefined behaviour.
+
+**Focus obscured (WCAG 2.4.11):**
+- If Split Button appears in a sticky toolbar or near a portal overlay, verify that the focused SplitButtonTrigger is never fully hidden behind author-created content.
+
+See [FlyoutMenu — Accessibility](./flyout-menu.md#accessibility) for full detail on menu-level requirements and consumer responsibilities.
 
 ---
 
 ## Spacing
 
 - Border radius: `var(--border-radius-150)` (6px)
-- Divider width: 1px
-- Divider opacity: 0.3
-- Menu padding: `var(--spacing-25)` (4px)
-- Menu item padding: `var(--spacing-50) var(--spacing-75)` (8px 12px)
-- Menu item gap: `var(--spacing-50)` (8px)
+- Gap between Action and Trigger: `2px` (no token; use raw value)
 - Side offset: 4px
+
+Menu spacing is inherited from FlyoutMenu — see [FlyoutMenu token reference](./flyout-menu.md#token-reference).
 
 ---
 
@@ -248,8 +288,7 @@ Use the fill variant for the most important action on a view. Use outline or gho
 ### Visual Guidelines
 
 - Use fill variant for the most important action
-- Use outline variant for secondary importance
-- Use ghost variant for low-emphasis contexts
+- Use outline variant for secondary or low-emphasis contexts
 - Add icons to provide visual context when helpful
 - Maintain consistent spacing with adjacent controls
 - Ensure adequate contrast in all states
@@ -297,5 +336,5 @@ Batch actions with scope:
 
 - **Button** — Use for single actions without alternatives
 - **Button Group** — Use when all actions are equally important
-- **Dropdown Menu** — Use for general-purpose menus
+- **FlyoutMenu** — The menu component used inside Split Button. Use standalone for general-purpose contextual menus not tied to a primary action button
 - **Combobox** — Use for selection from options, not actions
