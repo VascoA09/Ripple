@@ -170,7 +170,7 @@ export const InContext: Story = {
               justifyContent: 'space-between',
               padding: '8px 12px',
               borderRadius: '8px',
-              background: 'var(--bg-hover)',
+              background: 'var(--background-hover)',
               fontSize: '14px',
               color: 'var(--text)',
             }}

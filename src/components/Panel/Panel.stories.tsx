@@ -248,7 +248,7 @@ export const InContext: Story = {
             {['Full name', 'Email address', 'Job title', 'Location'].map(field => (
               <div key={field}>
                 <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--text)', marginBottom: '4px' }}>{field}</label>
-                <div style={{ height: '36px', background: 'var(--bg-app)', border: '1px solid var(--border-neutral)', borderRadius: '6px' }} />
+                <div style={{ height: '36px', background: 'var(--background-app)', border: '1px solid var(--border-neutral)', borderRadius: '6px' }} />
               </div>
             ))}
           </div>
@@ -265,7 +265,7 @@ export const InContext: Story = {
             {['Email notifications', 'Push notifications', 'SMS alerts', 'Weekly digest'].map(item => (
               <div key={item} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 0' }}>
                 <span style={{ fontSize: '14px', color: 'var(--text)' }}>{item}</span>
-                <div style={{ width: '36px', height: '20px', background: 'var(--bg-primary)', borderRadius: '10px', flexShrink: 0 }} />
+                <div style={{ width: '36px', height: '20px', background: 'var(--background-primary)', borderRadius: '10px', flexShrink: 0 }} />
               </div>
             ))}
           </div>

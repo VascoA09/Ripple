@@ -262,9 +262,9 @@ const parentItem = items[items.length - 2]; // Get immediate parent
 * Border Radius: var(--border-radius-200)
 
 **States:**
-* **Hover**: Background var(--bg-primary-softest), color var(--color-primary)
+* **Hover**: Background var(--background-primary-softest), color var(--color-primary)
 * **Focus**: 2px solid var(--border-focus), 2px offset
-* **Active**: Background var(--bg-primary-soft)
+* **Active**: Background var(--background-primary-soft)
 
 **Accessibility:**
 * Use semantic `<button>` or `<a>` element
@@ -405,7 +405,7 @@ Maintain consistent spacing between breadcrumb items and separators. The separat
 
 **Hover:**
 * Color: var(--color-primary)
-* Background: var(--bg-primary-softest)
+* Background: var(--background-primary-softest)
 
 **Focus-Visible:**
 * Outline: 2px solid var(--border-focus)
@@ -413,7 +413,7 @@ Maintain consistent spacing between breadcrumb items and separators. The separat
 
 **Active:**
 * Color: var(--color-primary-loud)
-* Background: var(--bg-primary-soft)
+* Background: var(--background-primary-soft)
 
 ### Overflow Button States
 
@@ -424,7 +424,7 @@ Maintain consistent spacing between breadcrumb items and separators. The separat
 
 **Hover:**
 * Color: var(--text)
-* Background: var(--bg-neutral-softest)
+* Background: var(--background-neutral-softest)
 
 **Focus-Visible:**
 * Outline: 2px solid var(--border-focus)
@@ -432,7 +432,7 @@ Maintain consistent spacing between breadcrumb items and separators. The separat
 
 **Active:**
 * Color: var(--text)
-* Background: var(--bg-neutral-soft)
+* Background: var(--background-neutral-soft)
 
 ---
 
@@ -479,19 +479,19 @@ Maintain consistent spacing between breadcrumb items and separators. The separat
 
 ### Menu Trigger
 * **Default**: var(--color-primary-loud)
-* **Hover Background**: var(--bg-primary-softest)
-* **Active Background**: var(--bg-primary-soft)
+* **Hover Background**: var(--background-primary-softest)
+* **Active Background**: var(--background-primary-soft)
 
 ### Overflow Button
 * **Default**: var(--text-soft)
-* **Hover Background**: var(--bg-neutral-softest)
+* **Hover Background**: var(--background-neutral-softest)
 
 ### Dropdown Menu
-* **Background**: var(--bg-surface)
+* **Background**: var(--background-surface)
 * **Border**: var(--border-neutral)
 * **Shadow**: var(--box-shadow-400)
-* **Item Hover**: var(--bg-primary-softest)
-* **Item Active**: var(--bg-primary)
+* **Item Hover**: var(--background-primary-softest)
+* **Item Active**: var(--background-primary)
 
 ---
 

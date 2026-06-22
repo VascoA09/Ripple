@@ -121,7 +121,7 @@ export const States: Story = {
       <p style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-soft)', marginBottom: '12px' }}>fill · primary</p>
       <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap', marginBottom: '32px' }}>
         <Button>Default</Button>
-        <Button className="button--pseudo-hover" style={{ background: 'var(--bg-primary-loud)' }}>Hover</Button>
+        <Button className="button--pseudo-hover" style={{ background: 'var(--background-primary-loud)' }}>Hover</Button>
         <Button loading>Saving</Button>
         <Button disabled>Disabled</Button>
       </div>
@@ -130,7 +130,7 @@ export const States: Story = {
       <p style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-soft)', marginBottom: '12px' }}>outline · neutral</p>
       <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap', marginBottom: '32px' }}>
         <Button variant="outline" color="neutral">Default</Button>
-        <Button variant="outline" color="neutral" style={{ background: 'var(--bg-hover)' }}>Hover</Button>
+        <Button variant="outline" color="neutral" style={{ background: 'var(--background-hover)' }}>Hover</Button>
         <Button variant="outline" color="neutral" loading>Saving</Button>
         <Button variant="outline" color="neutral" disabled>Disabled</Button>
       </div>

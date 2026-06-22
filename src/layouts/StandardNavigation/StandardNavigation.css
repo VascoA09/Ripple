@@ -3,7 +3,7 @@
    Source: layouts/standard-navigation.md
 
    Default application shell that composes MainNavigation with a content area.
-   The content area uses var(--bg-app). The Navbar retains its own background.
+   The content area uses var(--background-app). The Navbar retains its own background.
    PageHeader, Grid, and content structure are the consumer's responsibility.
 
    This file contains only the content area background and the <main> wrapper
@@ -17,7 +17,7 @@
    ============================================================================= */
 
 .standard-navigation .main-navigation__content {
-  background: var(--bg-app);
+  background: var(--background-app);
 }
 
 /* =============================================================================

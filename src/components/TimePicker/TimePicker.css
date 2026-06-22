@@ -120,7 +120,7 @@
   display:        flex;
   align-items:    center;
   height:         var(--_height);
-  background:     var(--bg-surface);
+  background:     var(--background-surface);
   border:         var(--border-width-default) solid var(--_border);
   border-radius:  var(--_radius);
   overflow:       hidden;
@@ -138,7 +138,7 @@
 }
 
 .time-picker__wrapper[data-readonly] {
-  background: var(--bg-neutral-softest);
+  background: var(--background-neutral-softest);
 }
 
 /* ---------------------------------------------------------------------------
@@ -183,7 +183,7 @@
 
 /* Focus state — keyboard focus highlight */
 .time-picker__segment:focus {
-  background: var(--bg-primary-softest);
+  background: var(--background-primary-softest);
   color:      var(--color-primary, var(--text-primary, var(--text)));
 }
 
@@ -256,7 +256,7 @@
 }
 
 .time-picker__trigger:hover {
-  background: var(--bg-neutral-soft);
+  background: var(--background-neutral-soft);
   color:      var(--text);
 }
 
@@ -266,7 +266,7 @@
 }
 
 .time-picker__trigger[aria-expanded="true"] {
-  background: var(--bg-primary-softest);
+  background: var(--background-primary-softest);
   color:      var(--text-primary);
 }
 
@@ -279,7 +279,7 @@
   top:            calc(100% + var(--spacing-25));
   left:           0;
   z-index:        200;
-  background:     var(--bg-surface);
+  background:     var(--background-surface);
   border:         var(--border-width-default) solid var(--border-neutral);
   border-radius:  var(--border-radius-200);
   box-shadow:     var(--box-shadow-400);
@@ -356,11 +356,11 @@
 }
 
 .time-picker__column-item:hover:not(.time-picker__column-item--selected) {
-  background: var(--bg-primary-softest);
+  background: var(--background-primary-softest);
 }
 
 .time-picker__column-item:active:not(.time-picker__column-item--selected) {
-  background: var(--bg-primary);
+  background: var(--background-primary);
   color:      var(--text-loud-inverse, #fff);
 }
 
@@ -370,17 +370,17 @@
 }
 
 .time-picker__column-item--selected {
-  background:  var(--bg-primary-soft, var(--bg-primary-softest));
+  background:  var(--background-primary-soft, var(--background-primary-softest));
   color:       var(--color-primary, var(--text-primary, var(--text)));
   font-weight: var(--font-weight-semibold);
 }
 
 .time-picker__column-item--selected:hover {
-  background: var(--bg-primary-soft, var(--bg-primary-softest));
+  background: var(--background-primary-soft, var(--background-primary-softest));
 }
 
 .time-picker__column-item--selected:active {
-  background: var(--bg-primary);
+  background: var(--background-primary);
   color:      var(--text-loud-inverse, #fff);
 }
 
@@ -406,7 +406,7 @@
 /* Selected state — filled primary */
 .time-picker__ampm-btn--selected.button,
 .time-picker__ampm-btn--selected.button:hover {
-  background:  var(--bg-primary);
+  background:  var(--background-primary);
   color:       var(--text-loud-inverse, #fff);
   font-weight: var(--font-weight-semibold);
 }

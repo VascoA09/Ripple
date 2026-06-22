@@ -36,7 +36,7 @@ The L-shape navigation forms the structural foundation of the template, consisti
 #### Footer (Horizontal Part of "L")
 - **Tab Bar:** Displays currently open pages as tabs
 - **Location:** Bottom of the screen, spanning full width
-- **Background:** Uses `var(--bg-nav)` for proper theme adaptation
+- **Background:** Uses `var(--background-nav)` for proper theme adaptation
 - **Behavior:** Allows users to switch between pages, organize tabs into groups, and manage workspace
 
 ### 2. Main Container
@@ -133,7 +133,7 @@ Avoid Micro Navigation when:
 - Allow the drawer to be expanded/collapsed for workspace flexibility
 - Keep related navigation items grouped in drawer sections using `DrawerSection` and `DrawerMenuItem`
 - Provide breadcrumbs in the Page Header to show current location
-- Use `var(--bg-nav)` for footer backgrounds to ensure proper theme adaptation
+- Use `var(--background-nav)` for footer backgrounds to ensure proper theme adaptation
 
 **Don't:**
 - Don't override the sticky positioning of the Page Header
@@ -315,11 +315,11 @@ All spacing uses Ripple spacing tokens:
 ## Colors
 
 All colors use Ripple color tokens:
-- **Background:** `var(--bg-app)`, `var(--bg-surface)`, `var(--bg-nav)`
+- **Background:** `var(--background-app)`, `var(--background-surface)`, `var(--background-nav)`
 - **Borders:** `var(--border-neutral)`, `var(--border-primary)`
 - **Text:** `var(--text)`, `var(--text-loud)`, `var(--text-soft)`
 - **Active states:** `var(--color-primary)`, `var(--border-primary)`
-- **Navigation background:** `var(--bg-nav)` (used for navbar, drawer, and footer)
+- **Navigation background:** `var(--background-nav)` (used for navbar, drawer, and footer)
 
 ---
 
@@ -501,4 +501,4 @@ When updating the Micro Navigation template:
 - Communicate changes to design system users
 - Ensure all drawer implementations use `DrawerSection` and `DrawerMenuItem`
 - Verify all close buttons use `IconButton variant="ghost" color="neutral"`
-- Test theme adaptation with `var(--bg-nav)` background
+- Test theme adaptation with `var(--background-nav)` background

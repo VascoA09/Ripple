@@ -125,7 +125,7 @@
   display:       flex;
   align-items:   center;
   height:        var(--_height);
-  background:    var(--bg-surface);
+  background:    var(--background-surface);
   border:        var(--border-width-default) solid var(--_border);
   border-radius: var(--_radius);
   overflow:      hidden;
@@ -143,7 +143,7 @@
 }
 
 .date-picker__wrapper[data-readonly] {
-  background: var(--bg-neutral-softest);
+  background: var(--background-neutral-softest);
 }
 
 /* ---------------------------------------------------------------------------
@@ -205,7 +205,7 @@
 }
 
 .date-picker__segment:focus {
-  background: var(--bg-primary-softest);
+  background: var(--background-primary-softest);
   color:      var(--color-primary, var(--text-primary, var(--text)));
 }
 
@@ -273,7 +273,7 @@
 }
 
 .date-picker__trigger:hover {
-  background: var(--bg-neutral-soft);
+  background: var(--background-neutral-soft);
   color:      var(--text);
 }
 
@@ -283,7 +283,7 @@
 }
 
 .date-picker__trigger[aria-expanded="true"] {
-  background: var(--bg-primary-softest);
+  background: var(--background-primary-softest);
   color:      var(--color-primary, var(--text-primary, var(--text)));
 }
 
@@ -296,7 +296,7 @@
   top:            calc(100% + var(--spacing-25));
   left:           0;
   z-index:        200;
-  background:     var(--bg-surface);
+  background:     var(--background-surface);
   border:         var(--border-width-default) solid var(--border-neutral);
   border-radius:  var(--border-radius-200);
   box-shadow:     var(--box-shadow-400);
@@ -434,12 +434,12 @@
 
 /* Default hover */
 .date-picker__day:hover:not(:disabled):not(.date-picker__day--selected):not(.date-picker__day--today) {
-  background: var(--bg-neutral-soft);
+  background: var(--background-neutral-soft);
 }
 
 /* Default pressed */
 .date-picker__day:active:not(:disabled):not(.date-picker__day--selected):not(.date-picker__day--today) {
-  background: var(--bg-neutral);
+  background: var(--background-neutral);
   color:      var(--text-loud-inverse, #fff);
 }
 
@@ -458,19 +458,19 @@
 
 /* Today hover */
 .date-picker__day--today:hover:not(:disabled):not(.date-picker__day--selected) {
-  background: var(--bg-primary-soft, var(--bg-primary-softest));
+  background: var(--background-primary-soft, var(--background-primary-softest));
 }
 
 /* Today pressed */
 .date-picker__day--today:active:not(:disabled):not(.date-picker__day--selected) {
-  background: var(--bg-primary-loud, var(--bg-primary));
+  background: var(--background-primary-loud, var(--background-primary));
   color:      var(--text-loud-inverse, #fff);
   box-shadow: none;
 }
 
 /* Selected */
 .date-picker__day--selected {
-  background:  var(--bg-primary);
+  background:  var(--background-primary);
   color:       var(--text-loud-inverse, var(--text-on-primary, #fff));
   font-weight: var(--font-weight-semibold);
   box-shadow:  none;
@@ -478,7 +478,7 @@
 
 /* Selected hover */
 .date-picker__day--selected:hover:not(:disabled) {
-  background: var(--bg-primary-loud, var(--bg-primary));
+  background: var(--background-primary-loud, var(--background-primary));
 }
 
 /* Adjacent months */
@@ -518,7 +518,7 @@
 /* Selected state — bg-neutral + white text */
 .date-picker__month-btn--selected.button,
 .date-picker__month-btn--selected.button:hover {
-  background:  var(--bg-neutral);
+  background:  var(--background-neutral);
   color:       var(--text-loud-inverse, #fff);
   font-weight: var(--font-weight-semibold);
   border-color: transparent;
@@ -549,7 +549,7 @@
 /* Selected state — bg-neutral + white text */
 .date-picker__year-btn--selected.button,
 .date-picker__year-btn--selected.button:hover {
-  background:  var(--bg-neutral);
+  background:  var(--background-neutral);
   color:       var(--text-loud-inverse, #fff);
   font-weight: var(--font-weight-semibold);
   border-color: transparent;

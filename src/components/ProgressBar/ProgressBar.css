@@ -7,7 +7,7 @@
    Types:        determinate (default) | indeterminate
 
    Token note: spec references var(--color-cool-gray-30) for track background.
-   That is a Tier 1 primitive. Replaced with var(--bg-neutral-soft) (semantic).
+   That is a Tier 1 primitive. Replaced with var(--background-neutral-soft) (semantic).
    ============================================================================= */
 
 /* ---------------------------------------------------------------------------
@@ -77,7 +77,7 @@
   position:     relative;
   width:        100%;
   height:       8px;
-  background:   var(--bg-neutral-soft); /* spec: --color-cool-gray-30 (primitive) */
+  background:   var(--background-neutral-soft); /* spec: --color-cool-gray-30 (primitive) */
   border-radius: var(--border-radius-300);  /* 12px — pill shape */
   overflow:     hidden;
 }
@@ -87,17 +87,17 @@
    --------------------------------------------------------------------------- */
 
 .progress-bar {
-  --_fill-color: var(--bg-primary);
+  --_fill-color: var(--background-primary);
   --_icon-color: var(--color-positive);
 }
 
 .progress-bar[data-state='success'] {
-  --_fill-color: var(--bg-positive);
+  --_fill-color: var(--background-positive);
   --_icon-color: var(--color-positive);
 }
 
 .progress-bar[data-state='error'] {
-  --_fill-color: var(--bg-negative);
+  --_fill-color: var(--background-negative);
   --_icon-color: var(--color-negative);
 }
 

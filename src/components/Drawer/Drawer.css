@@ -59,7 +59,7 @@
   flex-direction: column;
   overflow:       hidden;
 
-  background:     var(--bg-surface);
+  background:     var(--background-surface);
   box-shadow:     var(--box-shadow-400);
 
   /* Default: right side */
@@ -277,13 +277,13 @@
 /* Hover — matches FlyoutMenu highlighted state */
 .drawer__menu-item:hover:not([data-disabled]),
 .drawer__multi-item-trigger:hover:not([data-disabled]) {
-  --_bg: var(--bg-primary-softest);
+  --_bg: var(--background-primary-softest);
 }
 
 /* Pressed — matches FlyoutMenu active state */
 .drawer__menu-item:active:not([data-disabled]),
 .drawer__multi-item-trigger:active:not([data-disabled]) {
-  --_bg:    var(--bg-primary);
+  --_bg:    var(--background-primary);
   --_color: var(--text-loud-inverse);
 }
 
@@ -297,7 +297,7 @@
 /* Active / current page — primary-soft background, primary colour, semibold */
 .drawer__menu-item[data-active],
 .drawer__multi-item-trigger[data-active] {
-  --_bg:       var(--bg-primary-softest);
+  --_bg:       var(--background-primary-softest);
   --_color:    var(--color-primary-loud);
   font-weight: var(--font-weight-semibold);
 }
@@ -370,7 +370,7 @@
   cursor:         pointer;
 }
 
-.drawer__context-btn:hover { background: var(--bg-neutral-soft); color: var(--text); }
+.drawer__context-btn:hover { background: var(--background-neutral-soft); color: var(--text); }
 .drawer__context-btn:focus-visible {
   outline:        var(--border-width-focus) solid var(--border-focus);
   outline-offset: 1px;
@@ -441,11 +441,11 @@
 }
 
 .drawer__list-item:hover:not([data-disabled]) {
-  --_bg: var(--bg-primary-softest);
+  --_bg: var(--background-primary-softest);
 }
 
 .drawer__list-item:active:not([data-disabled]) {
-  --_bg: var(--bg-primary-soft);
+  --_bg: var(--background-primary-soft);
 }
 
 .drawer__list-item:focus-visible:not(:hover) {
@@ -454,7 +454,7 @@
 }
 
 .drawer__list-item[data-unread] {
-  --_bg: var(--bg-primary-softest);
+  --_bg: var(--background-primary-softest);
 }
 
 .drawer__list-item[data-disabled] {
@@ -570,7 +570,7 @@
 
 /* Unread — soft primary tint */
 .drawer__notification-item[data-unread] {
-  --_bg: var(--bg-primary-softest);
+  --_bg: var(--background-primary-softest);
 }
 
 /* Interactive (has onClick) */
@@ -579,11 +579,11 @@
 }
 
 .drawer__notification-item[role="button"]:hover {
-  --_bg: var(--bg-primary-softest);
+  --_bg: var(--background-primary-softest);
 }
 
 .drawer__notification-item[role="button"]:active {
-  --_bg: var(--bg-primary-soft);
+  --_bg: var(--background-primary-soft);
 }
 
 .drawer__notification-item[role="button"]:focus-visible:not(:hover) {
@@ -637,7 +637,7 @@
   flex-shrink:  0;
   padding:      var(--spacing-100); /* 16px — matches section horizontal rhythm */
   border-top:   var(--border-width-100) solid var(--border-neutral);
-  background:   var(--bg-surface);
+  background:   var(--background-surface);
 }
 
 /* =============================================================================

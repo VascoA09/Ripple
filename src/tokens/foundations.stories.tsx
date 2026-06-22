@@ -64,7 +64,7 @@ export const Spacing: Story = {
             style={{
               height: '16px',
               width: px === 0 ? '2px' : px,
-              background: px === 0 ? 'var(--border-default)' : 'var(--bg-primary-soft)',
+              background: px === 0 ? 'var(--border-default)' : 'var(--background-primary-soft)',
               borderRadius: '2px',
               flexShrink: 0,
             }}
@@ -150,7 +150,7 @@ export const Size: Story = {
               style={{
                 width: '32px',
                 height: px,
-                background: 'var(--bg-primary-soft)',
+                background: 'var(--background-primary-soft)',
                 borderRadius: '3px',
                 border: '1px solid var(--border-primary)',
               }}
@@ -177,7 +177,7 @@ export const Size: Story = {
                 style={{
                   width: '80px',
                   height: px,
-                  background: 'var(--bg-neutral-soft)',
+                  background: 'var(--background-neutral-soft)',
                   borderRadius: '4px',
                   border: '1px solid var(--border-neutral)',
                 }}
@@ -200,7 +200,7 @@ export const Size: Story = {
                 style={{
                   width: px,
                   height: px,
-                  background: 'var(--bg-primary-soft)',
+                  background: 'var(--background-primary-soft)',
                   borderRadius: '50%',
                   border: '1px solid var(--border-primary)',
                 }}
@@ -245,7 +245,7 @@ export const Border: Story = {
               style={{
                 width: '56px',
                 height: '56px',
-                background: 'var(--bg-primary-softest)',
+                background: 'var(--background-primary-softest)',
                 border: '2px solid var(--border-primary)',
                 borderRadius: radius,
               }}
@@ -270,7 +270,7 @@ export const Border: Story = {
                 style={{
                   width: '56px',
                   height: '40px',
-                  background: 'var(--bg-surface)',
+                  background: 'var(--background-surface)',
                   border: `${width} solid var(--border-primary)`,
                   borderRadius: '4px',
                 }}
@@ -295,7 +295,7 @@ export const Border: Story = {
                 style={{
                   width: '80px',
                   height: '48px',
-                  background: 'var(--bg-neutral-softest)',
+                  background: 'var(--background-neutral-softest)',
                   border: '1px solid var(--border-neutral)',
                   borderRadius: radius,
                 }}
@@ -334,7 +334,7 @@ export const Elevation: Story = {
               style={{
                 width: '100px',
                 height: '80px',
-                background: 'var(--bg-surface)',
+                background: 'var(--background-surface)',
                 borderRadius: '8px',
                 boxShadow: `var(${token})`,
               }}
@@ -363,7 +363,7 @@ export const Elevation: Story = {
                 style={{
                   width: '72px',
                   height: '56px',
-                  background: 'var(--bg-surface)',
+                  background: 'var(--background-surface)',
                   borderRadius: '4px',
                   boxShadow: `var(${token})`,
                 }}

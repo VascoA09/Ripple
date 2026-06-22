@@ -283,7 +283,7 @@ The File Viewer provides a contextual menu accessed via the More (three dots) bu
 * **Open in new tab**: Open file in new browser tab
 
 **Menu Styling**:
-* Background: var(--bg-surface)
+* Background: var(--background-surface)
 * Border: 1px solid var(--border-default)
 * Border Radius: var(--border-radius-150)
 * Box Shadow: var(--box-shadow-400)
@@ -291,7 +291,7 @@ The File Viewer provides a contextual menu accessed via the More (three dots) bu
 * Min Width: 180px
 
 **Menu Items**:
-* Hover: var(--bg-primary-softest)
+* Hover: var(--background-primary-softest)
 * Padding: var(--spacing-50) var(--spacing-75)
 * Gap: var(--spacing-50) (between icon and text)
 * Font Size: var(--font-size-80)

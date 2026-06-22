@@ -83,7 +83,7 @@
   font-weight:   var(--font-weight-regular);
   line-height:   var(--font-line-height-body);
   color:         var(--_text-color);
-  background:    var(--bg-surface);
+  background:    var(--background-surface);
   border:        var(--border-width-default) solid var(--_border);
   border-radius: var(--border-radius-200);   /* 8px */
   box-sizing:    border-box;
@@ -118,7 +118,7 @@
 
 /* Read-only */
 .textarea__field:read-only {
-  background:  var(--bg-neutral-softest);
+  background:  var(--background-neutral-softest);
   cursor:      default;
   resize:      none;
 }

@@ -53,7 +53,7 @@ export const Variants: Story = {
 
       {/* Full */}
       <p style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-soft)', marginBottom: '12px' }}>full (default)</p>
-      <div style={{ background: 'var(--bg-hover)', borderRadius: '8px', padding: '16px', marginBottom: '24px' }}>
+      <div style={{ background: 'var(--background-hover)', borderRadius: '8px', padding: '16px', marginBottom: '24px' }}>
         <div style={{ fontSize: '14px', color: 'var(--text)', marginBottom: '12px' }}>Section A</div>
         <Divider />
         <div style={{ fontSize: '14px', color: 'var(--text)', marginTop: '12px' }}>Section B</div>
@@ -61,7 +61,7 @@ export const Variants: Story = {
 
       {/* Inset */}
       <p style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-soft)', marginBottom: '12px' }}>inset</p>
-      <div style={{ background: 'var(--bg-hover)', borderRadius: '8px', padding: '16px', marginBottom: '24px' }}>
+      <div style={{ background: 'var(--background-hover)', borderRadius: '8px', padding: '16px', marginBottom: '24px' }}>
         <div style={{ fontSize: '14px', color: 'var(--text)', marginBottom: '12px' }}>Related item A</div>
         <Divider variant="inset" />
         <div style={{ fontSize: '14px', color: 'var(--text)', marginTop: '12px' }}>Related item B</div>
@@ -69,7 +69,7 @@ export const Variants: Story = {
 
       {/* Inset with text */}
       <p style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-soft)', marginBottom: '12px' }}>inset-text</p>
-      <div style={{ background: 'var(--bg-hover)', borderRadius: '8px', padding: '16px' }}>
+      <div style={{ background: 'var(--background-hover)', borderRadius: '8px', padding: '16px' }}>
         <div style={{ fontSize: '14px', color: 'var(--text)', marginBottom: '12px' }}>Yesterday</div>
         <Divider variant="inset-text">Today</Divider>
         <div style={{ fontSize: '14px', color: 'var(--text)', marginTop: '12px' }}>New messages</div>
@@ -91,7 +91,7 @@ export const Vertical: Story = {
 
       {/* Full */}
       <p style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-soft)', marginBottom: '12px' }}>full</p>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0', height: '32px', background: 'var(--bg-hover)', borderRadius: '8px', padding: '0 12px', marginBottom: '24px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0', height: '32px', background: 'var(--background-hover)', borderRadius: '8px', padding: '0 12px', marginBottom: '24px' }}>
         <span style={{ fontSize: '14px', color: 'var(--text)', padding: '0 8px' }}>Edit</span>
         <Divider orientation="vertical" />
         <span style={{ fontSize: '14px', color: 'var(--text)', padding: '0 8px' }}>Copy</span>
@@ -101,7 +101,7 @@ export const Vertical: Story = {
 
       {/* Inset */}
       <p style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-soft)', marginBottom: '12px' }}>inset</p>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0', height: '48px', background: 'var(--bg-hover)', borderRadius: '8px', padding: '0 12px', marginBottom: '24px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0', height: '48px', background: 'var(--background-hover)', borderRadius: '8px', padding: '0 12px', marginBottom: '24px' }}>
         <span style={{ fontSize: '14px', color: 'var(--text)', padding: '0 8px' }}>Files</span>
         <Divider orientation="vertical" variant="inset" />
         <span style={{ fontSize: '14px', color: 'var(--text)', padding: '0 8px' }}>Settings</span>
@@ -111,7 +111,7 @@ export const Vertical: Story = {
 
       {/* Inset with text */}
       <p style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-soft)', marginBottom: '12px' }}>inset-text</p>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0', height: '80px', background: 'var(--bg-hover)', borderRadius: '8px', padding: '0 16px', marginBottom: '24px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0', height: '80px', background: 'var(--background-hover)', borderRadius: '8px', padding: '0 16px', marginBottom: '24px' }}>
         <span style={{ fontSize: '14px', color: 'var(--text)', padding: '0 8px' }}>Q1</span>
         <Divider orientation="vertical" variant="inset-text">vs</Divider>
         <span style={{ fontSize: '14px', color: 'var(--text)', padding: '0 8px' }}>Q2</span>
@@ -155,7 +155,7 @@ export const InContext: Story = {
       {/* Notification feed — date dividers */}
       <div style={{ width: '320px' }}>
         <p style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-soft)', marginBottom: '12px' }}>notification feed</p>
-        <div style={{ background: 'var(--bg-hover)', borderRadius: '10px', overflow: 'hidden' }}>
+        <div style={{ background: 'var(--background-hover)', borderRadius: '10px', overflow: 'hidden' }}>
           {notifications.map((n, i) => {
             const isYesterdayBoundary = n.time === 'Yesterday' && notifications[i - 1]?.time !== 'Yesterday'
             return (
@@ -170,7 +170,7 @@ export const InContext: Story = {
                   padding:    '12px 16px',
                   opacity:    n.read ? 0.6 : 1,
                 }}>
-                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: n.read ? 'transparent' : 'var(--bg-primary)', marginTop: '6px', flexShrink: 0 }} />
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: n.read ? 'transparent' : 'var(--background-primary)', marginTop: '6px', flexShrink: 0 }} />
                   <div>
                     <div style={{ fontSize: '13px', color: 'var(--text)', lineHeight: '1.4', marginBottom: '2px' }}>{n.text}</div>
                     <div style={{ fontSize: '11px', color: 'var(--text-soft)' }}>{n.time}</div>
@@ -188,7 +188,7 @@ export const InContext: Story = {
       {/* Form sections — inset dividers */}
       <div style={{ width: '300px' }}>
         <p style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-soft)', marginBottom: '12px' }}>form sections</p>
-        <div style={{ background: 'var(--bg-hover)', borderRadius: '10px', padding: '0' }}>
+        <div style={{ background: 'var(--background-hover)', borderRadius: '10px', padding: '0' }}>
           {formSections.map((section, si) => (
             <div key={section.label}>
               {si > 0 && <Divider variant="inset-text">{section.label}</Divider>}
@@ -211,7 +211,7 @@ export const InContext: Story = {
       {/* Toolbar — vertical dividers */}
       <div>
         <p style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-soft)', marginBottom: '12px' }}>toolbar</p>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', height: '40px', background: 'var(--bg-hover)', borderRadius: '8px', padding: '0 8px' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', height: '40px', background: 'var(--background-hover)', borderRadius: '8px', padding: '0 8px' }}>
           {['Bold', 'Italic', 'Underline'].map((t, i) => (
             <span key={t} style={{ display: 'contents' }}>
               {i > 0 && <Divider orientation="vertical" variant="inset" />}

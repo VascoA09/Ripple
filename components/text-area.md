@@ -96,7 +96,7 @@ The height should reflect the expected length of content:
 
 * **Default**
   * Border: var(--border-default)
-  * Background: var(--bg-surface)
+  * Background: var(--background-surface)
   * The field is idle and ready for interaction
   * Displays the label and optional placeholder text
 
@@ -119,13 +119,13 @@ The height should reflect the expected length of content:
 * **Disabled**
   * Opacity: 0.3 (reduced visual prominence)
   * Border: var(--border-default)
-  * Background: var(--bg-surface)
+  * Background: var(--background-surface)
   * The field is non-interactive
   * Does not respond to clicks or keyboard input
   * Excluded from tab order
 
 * **Read-only**
-  * Background: var(--bg-neutral-softest)
+  * Background: var(--background-neutral-softest)
   * Border: var(--border-default)
   * The field displays content that cannot be edited
   * Remains focusable for content selection and copying
@@ -390,7 +390,7 @@ For `resize="auto"`:
 ## Colors
 
 **Default State:**
-* Background: var(--bg-surface)
+* Background: var(--background-surface)
 * Border: var(--border-default)
 * Text: var(--text)
 * Placeholder: var(--text-soft)
@@ -421,13 +421,13 @@ For `resize="auto"`:
 * Input text: var(--text-positive)
 
 **Disabled State:**
-* Background: var(--bg-surface)
+* Background: var(--background-surface)
 * Border: var(--border-default)
 * Opacity: 0.3 (entire field)
 * Text: var(--text-soft)
 
 **Read-only State:**
-* Background: var(--bg-neutral-softest)
+* Background: var(--background-neutral-softest)
 * Border: var(--border-default)
 * Text: var(--text)
 

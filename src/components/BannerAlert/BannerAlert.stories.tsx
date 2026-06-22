@@ -234,7 +234,7 @@ export const InContext: Story = {
         >
           The platform will be in read-only mode on Sunday 2 March from 02:00–04:00 UTC.
         </BannerAlert>
-        <div style={{ padding: '16px 24px', background: 'var(--bg-nav)', borderBottom: '1px solid var(--color-gray-30)', display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <div style={{ padding: '16px 24px', background: 'var(--background-nav)', borderBottom: '1px solid var(--color-gray-30)', display: 'flex', alignItems: 'center', gap: '16px' }}>
           <span style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-loud)' }}>Ripple</span>
           {['Components', 'Tokens', 'Guidelines', 'Releases'].map(n => (
             <span key={n} style={{ fontSize: '14px', color: 'var(--text-soft)' }}>{n}</span>
@@ -250,11 +250,11 @@ export const InContext: Story = {
             Your last save attempt failed due to a network error. Check your connection and try again. If the issue persists, contact support.
           </BannerAlert>
 
-          <div style={{ background: 'var(--bg-hover)', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div style={{ background: 'var(--background-hover)', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {['Display name', 'Email address', 'Job title'].map((field) => (
               <div key={field}>
                 <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--text)', marginBottom: '4px' }}>{field}</label>
-                <div style={{ height: '36px', background: 'var(--bg-surface)', border: '1px solid var(--color-gray-30)', borderRadius: '6px' }} />
+                <div style={{ height: '36px', background: 'var(--background-surface)', border: '1px solid var(--color-gray-30)', borderRadius: '6px' }} />
               </div>
             ))}
           </div>

@@ -88,14 +88,14 @@ export const BreakpointScale: Story = {
         <p style={{ fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-soft)', marginBottom: '16px' }}>
           Scale
         </p>
-        <div style={{ position: 'relative', height: '48px', background: 'var(--bg-neutral-soft)', borderRadius: '4px', overflow: 'hidden' }}>
+        <div style={{ position: 'relative', height: '48px', background: 'var(--background-neutral-soft)', borderRadius: '4px', overflow: 'hidden' }}>
           {[
-            { label: 'xs', left: '0%',   width: '5%',  bg: 'var(--bg-accent-soft)' },
-            { label: 's',  left: '5%',   width: '10%', bg: 'var(--bg-accent-subtle)' },
-            { label: 'm',  left: '15%',  width: '10%', bg: 'var(--bg-accent-soft)' },
-            { label: 'l',  left: '25%',  width: '20%', bg: 'var(--bg-accent-subtle)' },
-            { label: 'xl', left: '45%',  width: '27%', bg: 'var(--bg-accent-soft)' },
-            { label: 'xxl',left: '72%',  width: '28%', bg: 'var(--bg-accent-subtle)' },
+            { label: 'xs', left: '0%',   width: '5%',  bg: 'var(--background-accent-soft)' },
+            { label: 's',  left: '5%',   width: '10%', bg: 'var(--background-accent-subtle)' },
+            { label: 'm',  left: '15%',  width: '10%', bg: 'var(--background-accent-soft)' },
+            { label: 'l',  left: '25%',  width: '20%', bg: 'var(--background-accent-subtle)' },
+            { label: 'xl', left: '45%',  width: '27%', bg: 'var(--background-accent-soft)' },
+            { label: 'xxl',left: '72%',  width: '28%', bg: 'var(--background-accent-subtle)' },
           ].map(seg => (
             <div
               key={seg.label}
@@ -157,7 +157,7 @@ export const ColumnSpans: Story = {
                   key={i}
                   style={{
                     borderRadius: '2px',
-                    background: i < cols ? 'var(--bg-accent-soft)' : 'var(--bg-neutral-subtle)',
+                    background: i < cols ? 'var(--background-accent-soft)' : 'var(--background-neutral-subtle)',
                     border: `1px solid ${i < cols ? 'var(--border-accent)' : 'var(--border-neutral)'}`,
                   }}
                 />
@@ -179,7 +179,7 @@ export const Container: Story = {
   name: 'Container',
   parameters: { layout: 'fullscreen' },
   render: () => (
-    <div style={{ fontFamily: 'sans-serif', background: 'var(--bg-neutral-subtle)', minHeight: '100vh', padding: '24px 0' }}>
+    <div style={{ fontFamily: 'sans-serif', background: 'var(--background-neutral-subtle)', minHeight: '100vh', padding: '24px 0' }}>
       <div style={{ fontFamily: 'sans-serif', padding: '0 24px', marginBottom: '24px' }}>
         <p style={{ fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-soft)', marginBottom: '8px' }}>
           Container utility — resize the window to see max-width adapt
@@ -189,7 +189,7 @@ export const Container: Story = {
       <div
         className="container"
         style={{
-          background: 'var(--bg-default)',
+          background: 'var(--background-default)',
           border: '1px dashed var(--border-accent)',
           borderRadius: '6px',
           padding: '24px',
@@ -207,7 +207,7 @@ export const Container: Story = {
             <div
               key={i}
               style={{
-                background: 'var(--bg-accent-soft)',
+                background: 'var(--background-accent-soft)',
                 border: '1px solid var(--border-accent)',
                 borderRadius: '4px',
                 height: '40px',

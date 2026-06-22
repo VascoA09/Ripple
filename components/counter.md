@@ -79,23 +79,23 @@ Default color is `primary`.
 
 | Color     | Background              | Text                    |
 |------------|-------------------------|-------------------------|
-| `primary`  | `--bg-primary`          | `--text-loud-inverse`   |
-| `notice`   | `--bg-notice`           | `--text-loud-inverse`   |
-| `negative` | `--bg-negative`         | `--text-loud-inverse`   |
-| `positive` | `--bg-positive-loud`    | `--text-loud-inverse`   |
-| `neutral`  | `--bg-neutral`          | `--text-loud-inverse`   |
+| `primary`  | `--background-primary`          | `--text-loud-inverse`   |
+| `notice`   | `--background-notice`           | `--text-loud-inverse`   |
+| `negative` | `--background-negative`         | `--text-loud-inverse`   |
+| `positive` | `--background-positive-loud`    | `--text-loud-inverse`   |
+| `neutral`  | `--background-neutral`          | `--text-loud-inverse`   |
 
-`positive` uses `--bg-positive-loud` (`#2D6100`) rather than `--bg-positive` (`#3C8000`) — the standard shade gives only 4.9:1 with white, which is borderline at the smallest sizes.
+`positive` uses `--background-positive-loud` (`#2D6100`) rather than `--background-positive` (`#3C8000`) — the standard shade gives only 4.9:1 with white, which is borderline at the smallest sizes.
 
 ### Outline variant
 
 | Color     | Background                | Border                  | Text              |
 |------------|---------------------------|-------------------------|-------------------|
-| `primary`  | `--bg-primary-softest`    | `--border-primary`      | `--text-accent`   |
-| `notice`   | `--bg-notice-softest`     | `--border-notice`       | `--text-notice`   |
-| `negative` | `--bg-negative-softest`   | `--border-negative`     | `--text-negative` |
-| `positive` | `--bg-positive-softest`   | `--border-positive`     | `--text-positive` |
-| `neutral`  | `--bg-neutral-softest`    | `--border-neutral-loud` | `--text`          |
+| `primary`  | `--background-primary-softest`    | `--border-primary`      | `--text-accent`   |
+| `notice`   | `--background-notice-softest`     | `--border-notice`       | `--text-notice`   |
+| `negative` | `--background-negative-softest`   | `--border-negative`     | `--text-negative` |
+| `positive` | `--background-positive-softest`   | `--border-positive`     | `--text-positive` |
+| `neutral`  | `--background-neutral-softest`    | `--border-neutral-loud` | `--text`          |
 
 ### Structure
 
@@ -123,6 +123,6 @@ Default color is `primary`.
 - [ ] Counter is not interactive (no click handlers, no `tabindex`)
 - [ ] Adjacent label or `aria-label` provides context
 - [ ] Color matches semantic intent
-- [ ] Fill positive uses `--bg-positive-loud` for adequate contrast at small sizes
+- [ ] Fill positive uses `--background-positive-loud` for adequate contrast at small sizes
 - [ ] Values above 99 display as "99+"
 - [ ] Counter updates in real time when the count changes

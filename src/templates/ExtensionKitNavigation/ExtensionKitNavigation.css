@@ -52,7 +52,7 @@
   justify-content: space-between;
   padding:         0 var(--spacing-150);
 
-  background:      var(--bg-nav);
+  background:      var(--background-nav);
   border-bottom:   2px solid var(--ek-accent);
 }
 
@@ -92,5 +92,5 @@
   flex:       1;
   min-width:  0;
   overflow-y: auto;
-  background: var(--bg-app);
+  background: var(--background-app);
 }

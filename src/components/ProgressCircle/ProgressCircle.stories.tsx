@@ -278,7 +278,7 @@ function MetricCard({
         padding:       '24px 20px',
         border:        '1px solid var(--border-neutral)',
         borderRadius:  '12px',
-        background:    'var(--bg-surface)',
+        background:    'var(--background-surface)',
         width:         '160px',
         fontFamily:    'var(--font-family-base)',
         textAlign:     'center',

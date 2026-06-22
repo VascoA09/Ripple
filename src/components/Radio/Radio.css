@@ -76,7 +76,7 @@
   inset:         0;
   border-radius: 50%;
   border:        1px solid var(--border-default);
-  background:    var(--bg-surface);
+  background:    var(--background-surface);
   transition:    border-color 120ms ease, background 120ms ease;
   pointer-events: none;
 
@@ -91,7 +91,7 @@
   width:         8px;
   height:        8px;
   border-radius: 50%;
-  background:    var(--bg-surface);
+  background:    var(--background-surface);
   opacity:       0;
   transition:    opacity 120ms ease;
   flex-shrink:   0;
@@ -103,7 +103,7 @@
 
 .radio__input:checked ~ .radio__circle {
   border-color: var(--border-primary);
-  background:   var(--bg-primary);
+  background:   var(--background-primary);
 }
 
 .radio__input:checked ~ .radio__circle::after {
@@ -117,7 +117,7 @@
 /* Unselected hover */
 .radio:not([data-disabled]):hover .radio__circle {
   border-color: var(--border-primary);
-  background:   var(--bg-primary-soft);
+  background:   var(--background-primary-soft);
 }
 
 /* Unselected hover — keep dot hidden */
@@ -127,7 +127,7 @@
 
 /* Selected hover */
 .radio:not([data-disabled]):hover .radio__input:checked ~ .radio__circle {
-  background: var(--bg-primary-loud);
+  background: var(--background-primary-loud);
 }
 
 /* Selected hover — keep dot visible */

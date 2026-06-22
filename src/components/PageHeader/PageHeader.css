@@ -28,7 +28,7 @@
    --------------------------------------------------------------------------- */
 
 .rpl-page-header {
-  background:    var(--bg-app);
+  background:    var(--background-app);
   width:         100%;
   box-sizing:    border-box;
   border-bottom: var(--border-width-default) solid var(--border-neutral);

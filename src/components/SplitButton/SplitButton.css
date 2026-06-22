@@ -36,9 +36,9 @@
   --_radius:    var(--border-radius-200);              /* 8px  */
 
   /* Color tokens — overridden per variant × color */
-  --_bg:           var(--bg-primary);
-  --_bg-hover:     var(--bg-primary-loud);
-  --_bg-active:    var(--bg-neutral);
+  --_bg:           var(--background-primary);
+  --_bg-hover:     var(--background-primary-loud);
+  --_bg-active:    var(--background-neutral);
   --_color:        var(--text-loud-inverse);
   --_color-active: var(--text-loud-inverse);
   --_border-color: transparent;
@@ -85,9 +85,9 @@
 /* Fill */
 
 .split-button[data-variant="fill"][data-color="primary"] {
-  --_bg:           var(--bg-primary);
-  --_bg-hover:     var(--bg-primary-loud);
-  --_bg-active:    var(--bg-neutral);
+  --_bg:           var(--background-primary);
+  --_bg-hover:     var(--background-primary-loud);
+  --_bg-active:    var(--background-neutral);
   --_color:        var(--text-loud-inverse);
   --_color-active: var(--text-loud-inverse);
   --_border-color: transparent;
@@ -95,9 +95,9 @@
 }
 
 .split-button[data-variant="fill"][data-color="neutral"] {
-  --_bg:           var(--bg-neutral);
-  --_bg-hover:     var(--bg-neutral-loud);
-  --_bg-active:    var(--bg-neutral-soft);
+  --_bg:           var(--background-neutral);
+  --_bg-hover:     var(--background-neutral-loud);
+  --_bg-active:    var(--background-neutral-soft);
   --_color:        var(--text-loud-inverse);
   --_color-active: var(--color-neutral);
   --_border-color: transparent;
@@ -105,9 +105,9 @@
 }
 
 .split-button[data-variant="fill"][data-color="negative"] {
-  --_bg:           var(--bg-negative);
-  --_bg-hover:     var(--bg-negative-loud);
-  --_bg-active:    var(--bg-neutral);
+  --_bg:           var(--background-negative);
+  --_bg-hover:     var(--background-negative-loud);
+  --_bg-active:    var(--background-neutral);
   --_color:        var(--text-loud-inverse);
   --_color-active: var(--text-loud-inverse);
   --_border-color: transparent;
@@ -117,9 +117,9 @@
 /* Outline */
 
 .split-button[data-variant="outline"][data-color="primary"] {
-  --_bg:           var(--bg-nav);
-  --_bg-hover:     var(--bg-primary-soft);
-  --_bg-active:    var(--bg-primary-loud);
+  --_bg:           var(--background-nav);
+  --_bg-hover:     var(--background-primary-soft);
+  --_bg-active:    var(--background-primary-loud);
   --_color:        var(--text-accent);
   --_color-active: var(--text-loud-inverse);
   --_border-color: var(--border-primary);
@@ -127,9 +127,9 @@
 }
 
 .split-button[data-variant="outline"][data-color="neutral"] {
-  --_bg:           var(--bg-nav);
-  --_bg-hover:     var(--bg-neutral-soft);
-  --_bg-active:    var(--bg-neutral);
+  --_bg:           var(--background-nav);
+  --_bg-hover:     var(--background-neutral-soft);
+  --_bg-active:    var(--background-neutral);
   --_color:        var(--text);
   --_color-active: var(--text-loud-inverse);
   --_border-color: var(--border-neutral-loud);
@@ -137,9 +137,9 @@
 }
 
 .split-button[data-variant="outline"][data-color="negative"] {
-  --_bg:           var(--bg-nav);
-  --_bg-hover:     var(--bg-negative-softest);
-  --_bg-active:    var(--bg-negative-loud);
+  --_bg:           var(--background-nav);
+  --_bg-hover:     var(--background-negative-softest);
+  --_bg-active:    var(--background-negative-loud);
   --_color:        var(--text-negative);
   --_color-active: var(--text-loud-inverse);
   --_border-color: var(--border-negative);

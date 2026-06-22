@@ -103,7 +103,7 @@ The interactive control element that opens the dropdown panel. It displays the c
 
 The floating container that appears when the trigger is activated. It holds the list of selectable options.
 
-* Background: `var(--bg-surface)`
+* Background: `var(--background-surface)`
 * Border: None
 * Border radius: `var(--border-radius-200)` (8px)
 * Box shadow: `var(--box-shadow-400)`
@@ -127,10 +127,10 @@ An individual selectable entry within the dropdown panel.
 * Minimum height varies by size (32px small, 40px medium, 48px large)
 
 **States:**
-* Default: `var(--bg-surface)` background
-* Hover: `var(--bg-primary-softest)` background
+* Default: `var(--background-surface)` background
+* Hover: `var(--background-primary-softest)` background
 * Focus: 2px primary border, inset with 8px border radius
-* Selected: `var(--bg-primary-soft)` background with checkmark
+* Selected: `var(--background-primary-soft)` background with checkmark
 * Pressed: `var(--color-primary-loud)` background with white text
 * Disabled: 30% opacity, not-allowed cursor
 
@@ -755,9 +755,9 @@ All keyboard interactions must be fully supported:
 * `var(--text-notice)` - Notice messages
 * `var(--text-positive)` - Success messages
 * `var(--text-loud-inverse)` - Pressed state text
-* `var(--bg-surface)` - Trigger and panel background
-* `var(--bg-primary-softest)` - Hover option background
-* `var(--bg-primary-soft)` - Selected option background
+* `var(--background-surface)` - Trigger and panel background
+* `var(--background-primary-softest)` - Hover option background
+* `var(--background-primary-soft)` - Selected option background
 * `var(--color-primary-loud)` - Pressed state, checkmark, focus border
 * `var(--border-default)` - Default border
 * `var(--border-primary)` - Hover border

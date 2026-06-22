@@ -104,12 +104,12 @@ Icon size scales with input size: 14px (small), 16px (medium), 18px (large).
 
 | State | Visual |
 |-------|--------|
-| Default | `var(--border-default)` border, `var(--bg-surface)` background |
+| Default | `var(--border-default)` border, `var(--background-surface)` background |
 | Hover | Border shifts to `var(--border-primary)` (not applied when focused, disabled, or read-only) |
 | Focus | `var(--border-focus)` border + 2px solid outline with 2px offset |
 | Filled | Placeholder replaced by user input |
-| Disabled | `opacity: 0.5`, `pointer-events: none`; background `var(--bg-neutral-soft)` |
-| Read-only | Background `var(--bg-neutral-softest)`; value visible but not editable; remains focusable |
+| Disabled | `opacity: 0.5`, `pointer-events: none`; background `var(--background-neutral-soft)` |
+| Read-only | Background `var(--background-neutral-softest)`; value visible but not editable; remains focusable |
 | Error (`negative`) | `var(--border-negative)` border, `var(--text-negative)` input text and message; XCircle icon (14px) |
 | Notice | `var(--border-notice)` border, `var(--text-notice)` input text and message; AlertCircle icon (14px) |
 | Success (`positive`) | `var(--border-positive)` border, `var(--text-positive)` input text and message; CheckCircle icon (14px) |
@@ -213,10 +213,10 @@ Non-editable content attached at the wrapper boundary, visually distinct from th
 
 | State | Background | Border |
 |-------|-----------|--------|
-| Default | `var(--bg-neutral-softest)` | `var(--border-default)` |
-| `negative` | `var(--bg-negative-softest)` | `var(--border-negative)` |
-| `notice` | `var(--bg-notice-softest)` | `var(--border-notice)` |
-| `positive` | `var(--bg-positive-softest)` | `var(--border-positive)` |
+| Default | `var(--background-neutral-softest)` | `var(--border-default)` |
+| `negative` | `var(--background-negative-softest)` | `var(--border-negative)` |
+| `notice` | `var(--background-notice-softest)` | `var(--border-notice)` |
+| `positive` | `var(--background-positive-softest)` | `var(--border-positive)` |
 
 Both prefix and suffix are `aria-hidden="true"`. Any context they provide must also appear in the label or hint.
 

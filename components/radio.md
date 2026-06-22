@@ -97,20 +97,20 @@ The Radio component has a single fixed size:
 
 * **Default (Unselected)**
   * Outer circle: 1px border, var(--border-default)
-  * Background: var(--bg-surface)
+  * Background: var(--background-surface)
   * Inner dot: Not visible
   * Label: var(--text)
 
 * **Hover (Unselected)**
   * Outer circle: 1px border, var(--border-primary)
-  * Background: var(--bg-primary-soft)
+  * Background: var(--background-primary-soft)
   * Inner dot: Not visible
   * Label: var(--text)
   * Cursor: pointer
 
 * **Focus (Unselected)**
   * Outer circle: 1px border, var(--border-primary)
-  * Background: var(--bg-surface)
+  * Background: var(--background-surface)
   * Focus ring: 2px solid var(--border-focus) with 2px offset
   * Inner dot: Not visible
   * Label: var(--text)
@@ -119,29 +119,29 @@ The Radio component has a single fixed size:
 
 * **Default (Selected)**
   * Outer circle: 1px border, var(--border-primary)
-  * Background: var(--bg-primary)
-  * Inner dot: 8×8px, visible, var(--bg-surface)
+  * Background: var(--background-primary)
+  * Inner dot: 8×8px, visible, var(--background-surface)
   * Label: var(--text)
 
 * **Hover (Selected)**
   * Outer circle: 1px border, var(--border-primary)
-  * Background: var(--bg-primary-loud)
-  * Inner dot: 8×8px, visible, var(--bg-surface)
+  * Background: var(--background-primary-loud)
+  * Inner dot: 8×8px, visible, var(--background-surface)
   * Label: var(--text)
   * Cursor: pointer
 
 * **Focus (Selected)**
   * Outer circle: 1px border, var(--border-primary)
-  * Background: var(--bg-primary)
+  * Background: var(--background-primary)
   * Focus ring: 2px solid var(--border-focus) with 2px offset
-  * Inner dot: 8×8px, visible, var(--bg-surface)
+  * Inner dot: 8×8px, visible, var(--background-surface)
   * Label: var(--text)
 
 ### Disabled States
 
 * **Disabled (Unselected)**
   * Outer circle: 1px border, var(--border-default)
-  * Background: var(--bg-surface)
+  * Background: var(--background-surface)
   * Inner dot: Not visible
   * Label: var(--text-soft)
   * Opacity: 0.3
@@ -149,8 +149,8 @@ The Radio component has a single fixed size:
 
 * **Disabled (Selected)**
   * Outer circle: 1px border, var(--border-primary)
-  * Background: var(--bg-primary)
-  * Inner dot: 8×8px, visible, var(--bg-surface)
+  * Background: var(--background-primary)
+  * Inner dot: 8×8px, visible, var(--background-surface)
   * Label: var(--text-soft)
   * Opacity: 0.3
   * Cursor: not-allowed
@@ -325,43 +325,43 @@ Use Ripple spacing tokens for all spacing:
 
 **Unselected Default:**
 * Outer circle border: var(--border-default)
-* Background: var(--bg-surface)
+* Background: var(--background-surface)
 * Label: var(--text)
 
 **Unselected Hover:**
 * Outer circle border: var(--border-primary)
-* Background: var(--bg-primary-soft)
+* Background: var(--background-primary-soft)
 * Label: var(--text)
 
 **Unselected Focus:**
 * Outer circle border: var(--border-primary)
-* Background: var(--bg-surface)
+* Background: var(--background-surface)
 * Focus ring: var(--border-focus)
 * Label: var(--text)
 
 **Selected Default:**
 * Outer circle border: var(--border-primary)
-* Background: var(--bg-primary)
-* Inner dot: var(--bg-surface)
+* Background: var(--background-primary)
+* Inner dot: var(--background-surface)
 * Label: var(--text)
 
 **Selected Hover:**
 * Outer circle border: var(--border-primary)
-* Background: var(--bg-primary-loud)
-* Inner dot: var(--bg-surface)
+* Background: var(--background-primary-loud)
+* Inner dot: var(--background-surface)
 * Label: var(--text)
 
 **Selected Focus:**
 * Outer circle border: var(--border-primary)
-* Background: var(--bg-primary)
+* Background: var(--background-primary)
 * Focus ring: var(--border-focus)
-* Inner dot: var(--bg-surface)
+* Inner dot: var(--background-surface)
 * Label: var(--text)
 
 **Disabled:**
 * Outer circle border: 1px var(--border-default) or var(--border-primary) (if selected)
-* Background: var(--bg-surface) or var(--bg-primary) (if selected)
-* Inner dot: var(--bg-surface) (if selected)
+* Background: var(--background-surface) or var(--background-primary) (if selected)
+* Inner dot: var(--background-surface) (if selected)
 * Label: var(--text-soft)
 * Opacity: 0.3
 

@@ -112,31 +112,31 @@
    ============================================================================= */
 
 .badge[data-variant="fill"][data-color="primary"] {
-  --_bg:           var(--bg-primary);
+  --_bg:           var(--background-primary);
   --_color:        var(--text-loud-inverse);
   --_border-color: transparent;
 }
 
 .badge[data-variant="fill"][data-color="notice"] {
-  --_bg:           var(--bg-notice);
+  --_bg:           var(--background-notice);
   --_color:        var(--text-loud-inverse);
   --_border-color: transparent;
 }
 
 .badge[data-variant="fill"][data-color="negative"] {
-  --_bg:           var(--bg-negative);
+  --_bg:           var(--background-negative);
   --_color:        var(--text-loud-inverse);
   --_border-color: transparent;
 }
 
 .badge[data-variant="fill"][data-color="positive"] {
-  --_bg:           var(--bg-positive-loud); /* --bg-positive (#3C8000) gives only 4.9:1 with white — too close at small sizes */
+  --_bg:           var(--background-positive-loud); /* --background-positive (#3C8000) gives only 4.9:1 with white — too close at small sizes */
   --_color:        var(--text-loud-inverse);
   --_border-color: transparent;
 }
 
 .badge[data-variant="fill"][data-color="neutral"] {
-  --_bg:           var(--bg-neutral);
+  --_bg:           var(--background-neutral);
   --_color:        var(--text-loud-inverse);
   --_border-color: transparent;
 }
@@ -147,31 +147,31 @@
    ============================================================================= */
 
 .badge[data-variant="outline"][data-color="primary"] {
-  --_bg:           var(--bg-primary-softest);
+  --_bg:           var(--background-primary-softest);
   --_color:        var(--text-accent);
   --_border-color: var(--border-primary);
 }
 
 .badge[data-variant="outline"][data-color="notice"] {
-  --_bg:           var(--bg-notice-softest);
+  --_bg:           var(--background-notice-softest);
   --_color:        var(--text-notice);
   --_border-color: var(--border-notice);
 }
 
 .badge[data-variant="outline"][data-color="negative"] {
-  --_bg:           var(--bg-negative-softest);
+  --_bg:           var(--background-negative-softest);
   --_color:        var(--text-negative);
   --_border-color: var(--border-negative);
 }
 
 .badge[data-variant="outline"][data-color="positive"] {
-  --_bg:           var(--bg-positive-softest);
+  --_bg:           var(--background-positive-softest);
   --_color:        var(--text-positive);
   --_border-color: var(--border-positive);
 }
 
 .badge[data-variant="outline"][data-color="neutral"] {
-  --_bg:           var(--bg-neutral-softest);
+  --_bg:           var(--background-neutral-softest);
   --_color:        var(--text);
   --_border-color: var(--border-neutral-loud);
 }

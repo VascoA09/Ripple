@@ -223,8 +223,8 @@ The menu repositions automatically if it would overflow the viewport. No manual 
 | State | Visual |
 |-------|--------|
 | Default | Transparent background |
-| Highlighted (hover/focus) | `--bg-primary-softest` background |
-| Active/pressed | `--bg-primary-soft` background |
+| Highlighted (hover/focus) | `--background-primary-softest` background |
+| Active/pressed | `--background-primary-soft` background |
 | Disabled | 50% opacity, `not-allowed` cursor, skipped by keyboard |
 | Checked (checkbox/radio) | Checkmark icon visible in indicator slot |
 
@@ -245,13 +245,13 @@ The menu repositions automatically if it would overflow the viewport. No manual 
 
 | Property | Token | Value |
 |----------|-------|-------|
-| Panel background | `--bg-surface` | `#FFF` / dark-adapted |
+| Panel background | `--background-surface` | `#FFF` / dark-adapted |
 | Panel border | `--border-default` | `#737373` / dark-adapted |
 | Panel shadow | `--elevation-dropdown` | `var(--box-shadow-300)` |
 | Panel radius | `--border-radius-overlay-default` | 12px |
 | Item radius | `--border-radius-component-default` | 4px |
-| Item hover bg | `--bg-primary-softest` | — |
-| Item active bg | `--bg-primary-soft` | — |
+| Item hover bg | `--background-primary-softest` | — |
+| Item active bg | `--background-primary-soft` | — |
 | Item min-height | `--size-component-height-default` | 40px |
 | Item text | `--text` | — |
 | Label / shortcut text | `--text-soft` | — |

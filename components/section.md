@@ -31,8 +31,8 @@ Layout element that groups related content into a semantically meaningful region
 
 | Variant | Background | Border | Shadow | Padding |
 |---|---|---|---|---|
-| `flat` (default) | `--bg-surface` | `--border-neutral` | none | `--spacing-125` (20px) |
-| `elevated` | `--bg-surface` | none | `--box-shadow-200` | `--spacing-125` (20px) |
+| `flat` (default) | `--background-surface` | `--border-neutral` | none | `--spacing-125` (20px) |
+| `elevated` | `--background-surface` | none | `--box-shadow-200` | `--spacing-125` (20px) |
 | `no-padding` | none | none | none | none |
 
 Use `elevated` sparingly — competing elevations on one screen create visual noise.

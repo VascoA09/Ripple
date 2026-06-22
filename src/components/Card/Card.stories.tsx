@@ -75,7 +75,7 @@ export const Default: Story = {
 
 export const Variants: Story = {
   render: () => (
-    <div style={{ fontFamily: 'sans-serif', padding: '24px', display: 'flex', gap: '24px', flexWrap: 'wrap', alignItems: 'flex-start', background: 'var(--bg-app)', minHeight: '200px' }}>
+    <div style={{ fontFamily: 'sans-serif', padding: '24px', display: 'flex', gap: '24px', flexWrap: 'wrap', alignItems: 'flex-start', background: 'var(--background-app)', minHeight: '200px' }}>
       <p style={{ width: '100%', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-soft)', margin: '0 0 8px' }}>Variants</p>
 
       {/* Elevated */}
@@ -126,7 +126,7 @@ export const Variants: Story = {
 
 export const Interactive: Story = {
   render: () => (
-    <div style={{ fontFamily: 'sans-serif', padding: '24px', background: 'var(--bg-app)' }}>
+    <div style={{ fontFamily: 'sans-serif', padding: '24px', background: 'var(--background-app)' }}>
       <p style={{ fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-soft)', marginBottom: '16px' }}>Interactive</p>
       <p style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-soft)', marginBottom: '12px' }}>hover, focus (tab), active states</p>
 
@@ -204,7 +204,7 @@ export const InContext: Story = {
   name: 'In Context',
   parameters: { layout: 'padded' },
   render: () => (
-    <div style={{ fontFamily: 'sans-serif', padding: '24px', maxWidth: '720px', background: 'var(--bg-app)', minHeight: '100vh' }}>
+    <div style={{ fontFamily: 'sans-serif', padding: '24px', maxWidth: '720px', background: 'var(--background-app)', minHeight: '100vh' }}>
 
       {/* Metric cards */}
       <p style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-soft)', marginBottom: '12px' }}>metric cards</p>

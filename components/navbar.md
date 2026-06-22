@@ -132,10 +132,10 @@ Nav buttons are the primary interactive element within both the Global and Conte
 | State | Background | Color | Notes |
 |-------|-----------|-------|-------|
 | Default | transparent | `var(--text)` | Resting state |
-| Hover | `var(--bg-neutral-softest)` | `var(--text)` | Pointer interaction |
-| Active (pressed) | `var(--bg-neutral-soft)` | `var(--text)` | Mouse down |
+| Hover | `var(--background-neutral-softest)` | `var(--text)` | Pointer interaction |
+| Active (pressed) | `var(--background-neutral-soft)` | `var(--text)` | Mouse down |
 | Focus | transparent + 2 px focus ring | `var(--text)` | Keyboard focus |
-| Selected | `var(--bg-neutral)` | `var(--text-loud-inverse)` | Drawer is open — dark background, white icon |
+| Selected | `var(--background-neutral)` | `var(--text-loud-inverse)` | Drawer is open — dark background, white icon |
 | Disabled | transparent, opacity 0.4 | `var(--text-disabled)` | Not interactive |
 
 * Focus ring: `2px solid var(--border-focus)` with `2px offset`
@@ -185,12 +185,12 @@ Every nav button shows a Tooltip on the right side (`side="right"`, `sideOffset=
 
 | Element | Token |
 |---------|-------|
-| Background | `var(--bg-surface)` |
+| Background | `var(--background-surface)` |
 | Border (right edge) | `var(--border-neutral)` |
-| Nav button selected bg | `var(--bg-neutral)` |
+| Nav button selected bg | `var(--background-neutral)` |
 | Nav button selected icon | `var(--text-loud-inverse)` |
-| Nav button hover bg | `var(--bg-neutral-softest)` |
-| Nav button pressed bg | `var(--bg-neutral-soft)` |
+| Nav button hover bg | `var(--background-neutral-softest)` |
+| Nav button pressed bg | `var(--background-neutral-soft)` |
 | Focus ring | `var(--border-focus)` |
 | Divider | `var(--border-neutral)` |
 | Logo icon | `var(--color-primary)` |

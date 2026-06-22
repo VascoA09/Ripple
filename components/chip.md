@@ -95,12 +95,12 @@ For accessibility reasons, all Chips must have at least a 48px touch target area
 ### Selectable Chip States
 
 **Default (Unselected)**
-* Background: var(--bg-neutral-softest)
+* Background: var(--background-neutral-softest)
 * Color: var(--text)
 * Border color: var(--color-cool-gray-80)
 
 **Hover (Unselected)**
-* Background: var(--bg-neutral-soft)
+* Background: var(--background-neutral-soft)
 * Color: var(--text)
 * Border color: var(--border-neutral-loud)
 
@@ -108,13 +108,13 @@ For accessibility reasons, all Chips must have at least a 48px touch target area
 * Focus ring: 2px solid var(--border-focus) with 2px offset
 
 **Default (Selected)**
-* Background: var(--bg-primary-softest)
+* Background: var(--background-primary-softest)
 * Color: var(--color-primary-loud)
 * Border color: var(--border-primary-loud)
 * Shows checkmark icon
 
 **Hover (Selected)**
-* Background: var(--bg-primary-soft)
+* Background: var(--background-primary-soft)
 * Color: var(--color-primary-loud)
 * Border color: var(--border-primary-loud)
 

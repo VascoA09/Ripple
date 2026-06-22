@@ -111,7 +111,7 @@ List Items can be interactive or static:
 ### Non-Interactive (Default)
 
 * **Default**
-  * Background: var(--bg-surface)
+  * Background: var(--background-surface)
   * Cursor: default
   * No hover or active states
 
@@ -120,23 +120,23 @@ List Items can be interactive or static:
 Set `interactive={true}`, provide `onClick`, or use `href` to make items interactive.
 
 * **Default**
-  * Background: var(--bg-surface)
+  * Background: var(--background-surface)
   * Cursor: pointer
   * Ready for interaction
 
 * **Hover**
-  * Background: var(--bg-neutral-softest)
+  * Background: var(--background-neutral-softest)
   * Smooth transition
   * Indicates interactivity
 
 * **Focus**
-  * Background: var(--bg-surface)
+  * Background: var(--background-surface)
   * Outline: 2px solid var(--border-focus)
   * Outline offset: 2px
   * Keyboard navigation indicator
 
 * **Active (Pressed)**
-  * Background: var(--bg-primary)
+  * Background: var(--background-primary)
   * Text color: var(--text-loud-inverse)
   * Description color: var(--text-loud-inverse)
   * Icon color: var(--text-loud-inverse)
@@ -278,31 +278,31 @@ Use Ripple spacing tokens for all spacing:
 ## Colors
 
 **Non-Interactive:**
-* Background: var(--bg-surface)
+* Background: var(--background-surface)
 * Header: var(--text-loud)
 * Description: var(--text-soft)
 * Icons: var(--text)
 
 **Interactive Default:**
-* Background: var(--bg-surface)
+* Background: var(--background-surface)
 * Header: var(--text-loud)
 * Description: var(--text-soft)
 * Icons: var(--text)
 
 **Interactive Hover:**
-* Background: var(--bg-neutral-softest)
+* Background: var(--background-neutral-softest)
 * Header: var(--text-loud)
 * Description: var(--text-soft)
 * Icons: var(--text)
 
 **Interactive Focus:**
-* Background: var(--bg-surface)
+* Background: var(--background-surface)
 * Outline: 2px solid var(--border-focus)
 * Header: var(--text-loud)
 * Description: var(--text-soft)
 
 **Interactive Active:**
-* Background: var(--bg-primary)
+* Background: var(--background-primary)
 * Header: var(--text-loud-inverse)
 * Description: var(--text-loud-inverse)
 * Icons: var(--text-loud-inverse)

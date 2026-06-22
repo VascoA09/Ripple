@@ -21,10 +21,10 @@ Not for decisions requiring user input (use Dialog). Not for brief, transient fe
 
 | Variant | Background | Border | Icon | Role | When |
 |---------|------------|--------|------|------|------|
-| `informative` (default) | `--bg-primary-softest` | `--border-primary` | Info circle | `status` | System updates, new features, process info |
-| `positive` | `--bg-positive-soft` | `--border-positive` | Check circle | `status` | Confirmed actions, completed tasks |
-| `notice` | `--bg-notice-soft` | `--border-notice` | Alert triangle | `alert` | Time-sensitive warnings, deadlines, deprecations |
-| `negative` | `--bg-negative-soft` | `--border-negative` | X circle | `alert` | Errors, failures, critical issues |
+| `informative` (default) | `--background-primary-softest` | `--border-primary` | Info circle | `status` | System updates, new features, process info |
+| `positive` | `--background-positive-soft` | `--border-positive` | Check circle | `status` | Confirmed actions, completed tasks |
+| `notice` | `--background-notice-soft` | `--border-notice` | Alert triangle | `alert` | Time-sensitive warnings, deadlines, deprecations |
+| `negative` | `--background-negative-soft` | `--border-negative` | X circle | `alert` | Errors, failures, critical issues |
 
 Icons are fixed per variant — cannot be overridden.
 

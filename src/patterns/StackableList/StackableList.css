@@ -28,7 +28,7 @@
   border:         var(--border-width-default) solid var(--border-neutral);
   border-radius:  var(--border-radius-200);
   overflow:       hidden;
-  background:     var(--bg-surface);
+  background:     var(--background-surface);
 }
 
 /* =============================================================================
@@ -38,7 +38,7 @@
 .stackable-list__header {
   display:          flex;
   align-items:      stretch;
-  background:       var(--bg-neutral-softest);
+  background:       var(--background-neutral-softest);
   border-bottom:    var(--border-width-default) solid var(--border-neutral);
   position:         sticky;
   top:              0;
@@ -170,12 +170,12 @@
 
 /* Hover — interactive items only */
 .stackable-list__item[data-interactive]:hover {
-  --_bg: var(--bg-primary-softest);
+  --_bg: var(--background-primary-softest);
   cursor: pointer;
 }
 
 .stackable-list__item[data-interactive]:active {
-  --_bg: var(--bg-primary-soft);
+  --_bg: var(--background-primary-soft);
 }
 
 /* Focus ring — keyboard only */
@@ -186,11 +186,11 @@
 
 /* Selected */
 .stackable-list__item[data-selected] {
-  --_bg: var(--bg-primary-soft);
+  --_bg: var(--background-primary-soft);
 }
 
 .stackable-list__item[data-selected]:hover {
-  --_bg: var(--bg-primary-soft);
+  --_bg: var(--background-primary-soft);
 }
 
 /* Disabled */

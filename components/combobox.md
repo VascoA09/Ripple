@@ -403,10 +403,10 @@ Avoid using the Combobox when:
 --border-notice: Warning state
 
 /* Backgrounds */
---bg-surface: Input background
---bg-neutral-soft: Disabled background
---bg-primary-softest: Selected/focused option background
---bg-primary-soft: Selected tag background
+--background-surface: Input background
+--background-neutral-soft: Disabled background
+--background-primary-softest: Selected/focused option background
+--background-primary-soft: Selected tag background
 
 /* Text */
 --text: Primary text

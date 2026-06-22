@@ -43,7 +43,7 @@ The top bar carries the Unit4 wordmark and Extension Kit application name. The s
 │            │  ──────────────────── 2px #7eb843 ─────── │
 │  [user]    ├───────────────────────────────────────────┤
 │  [tenant]  │                                           │
-│            │  Content area  (var(--bg-app))            │
+│            │  Content area  (var(--background-app))            │
 │  [nav]     │  Consumer owns PageHeader + body          │
 │  [nav]     │                                           │
 │  [nav]     │                                           │
@@ -76,7 +76,7 @@ Note: identity section (user + tenant) and entire footer section (logout, versio
 
 ### 1. Sidebar
 
-Persistent and collapsible. Pushes the main area — never overlaps it. Background: `var(--bg-nav)`.
+Persistent and collapsible. Pushes the main area — never overlaps it. Background: `var(--background-nav)`.
 
 #### Toggle button
 - Fixed at the top of the sidebar
@@ -97,8 +97,8 @@ Persistent and collapsible. Pushes the main area — never overlaps it. Backgrou
 | State | Background | Left border |
 |-------|-----------|-------------|
 | Default | transparent | 3px transparent (reserves space, prevents layout shift) |
-| Hover | `var(--bg-primary-softest)` | — |
-| Selected | `var(--bg-primary-soft)` | 3px solid `var(--border-primary)` |
+| Hover | `var(--background-primary-softest)` | — |
+| Selected | `var(--background-primary-soft)` | 3px solid `var(--border-primary)` |
 
 #### Bottom section — Metadata
 - Log out button (`Button`, `variant="fill"`, `color="primary"`, `size="small"`)
@@ -122,7 +122,7 @@ Persistent and collapsible. Pushes the main area — never overlaps it. Backgrou
 - **Left**: `<Unit4Wordmark height={24} />` + Extension Kit application name
 - **Right**: empty by default; in some views contains a search icon button and a filters icon button
 - **Bottom border**: `2px solid #7eb843`
-- **Background**: `var(--bg-nav)`
+- **Background**: `var(--background-nav)`
 
 ---
 
@@ -131,7 +131,7 @@ Persistent and collapsible. Pushes the main area — never overlaps it. Backgrou
 - Below the top bar, to the right of the sidebar
 - Scrollable
 - Consumer owns PageHeader, body content, and Grid layout
-- **Background**: `var(--bg-app)`
+- **Background**: `var(--background-app)`
 
 ---
 
@@ -206,8 +206,8 @@ Before moving to `review`:
 1. ~~Confirm sidebar expanded and collapsed widths~~ — **360px / 56px** ✓
 2. ~~Confirm whether user avatar is shown in collapsed state or hidden~~ — **Hidden entirely** ✓
 3. Confirm responsive breakpoint where layout switches to a mobile alternative
-4. ~~Confirm background token for top bar and sidebar~~ — **`var(--bg-nav)` both** ✓
-5. ~~Confirm background token for content area~~ — **`var(--bg-app)`** ✓
+4. ~~Confirm background token for top bar and sidebar~~ — **`var(--background-nav)` both** ✓
+5. ~~Confirm background token for content area~~ — **`var(--background-app)`** ✓
 6. ~~Confirm exact top bar content~~ — **`<Unit4Wordmark height={24} />` + application name** ✓
 
 ---

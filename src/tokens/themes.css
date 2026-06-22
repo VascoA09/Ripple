@@ -59,44 +59,44 @@
      --------------------------------------------------------------------------- */
 
   /* Layout surfaces */
-  --bg-app:        var(--color-gray-10);
-  --bg-app-accent: var(--color-cool-gray-20);
-  --bg-surface:    var(--color-white);
-  --bg-nav:        var(--color-white);
-  --bg-disabled:   var(--color-gray-10);
-  --bg-overlay:    rgba(0, 0, 0, 0.5); /* intentional exception: alpha-modified value */
-  --bg-hover:      var(--color-gray-20);
-  --bg-pressed:    var(--color-gray-30);
+  --background-app:        var(--color-gray-10);
+  --background-app-accent: var(--color-cool-gray-20);
+  --background-surface:    var(--color-white);
+  --background-nav:        var(--color-white);
+  --background-disabled:   var(--color-gray-10);
+  --background-overlay:    rgba(0, 0, 0, 0.5); /* intentional exception: alpha-modified value */
+  --background-hover:      var(--color-gray-20);
+  --background-pressed:    var(--color-gray-30);
 
   /* Primary */
-  --bg-primary-loud:    var(--color-primary-loud);
-  --bg-primary:         var(--color-primary);
-  --bg-primary-soft:    var(--color-primary-soft);
-  --bg-primary-softest: var(--color-primary-softest);
+  --background-primary-loud:    var(--color-primary-loud);
+  --background-primary:         var(--color-primary);
+  --background-primary-soft:    var(--color-primary-soft);
+  --background-primary-softest: var(--color-primary-softest);
 
   /* Negative */
-  --bg-negative-loud:    var(--color-negative-loud);
-  --bg-negative:         var(--color-negative);
-  --bg-negative-soft:    var(--color-negative-soft);
-  --bg-negative-softest: var(--color-negative-softest);
+  --background-negative-loud:    var(--color-negative-loud);
+  --background-negative:         var(--color-negative);
+  --background-negative-soft:    var(--color-negative-soft);
+  --background-negative-softest: var(--color-negative-softest);
 
   /* Notice */
-  --bg-notice-loud:    var(--color-notice-loud);
-  --bg-notice:         var(--color-notice);
-  --bg-notice-soft:    var(--color-notice-soft);
-  --bg-notice-softest: var(--color-notice-softest);
+  --background-notice-loud:    var(--color-notice-loud);
+  --background-notice:         var(--color-notice);
+  --background-notice-soft:    var(--color-notice-soft);
+  --background-notice-softest: var(--color-notice-softest);
 
   /* Positive */
-  --bg-positive-loud:    var(--color-positive-loud);
-  --bg-positive:         var(--color-positive);
-  --bg-positive-soft:    var(--color-positive-soft);
-  --bg-positive-softest: var(--color-positive-softest);
+  --background-positive-loud:    var(--color-positive-loud);
+  --background-positive:         var(--color-positive);
+  --background-positive-soft:    var(--color-positive-soft);
+  --background-positive-softest: var(--color-positive-softest);
 
   /* Neutral */
-  --bg-neutral-loud:    var(--color-neutral-loud);
-  --bg-neutral:         var(--color-neutral);
-  --bg-neutral-soft:    var(--color-neutral-soft);
-  --bg-neutral-softest: var(--color-neutral-softest);
+  --background-neutral-loud:    var(--color-neutral-loud);
+  --background-neutral:         var(--color-neutral);
+  --background-neutral-soft:    var(--color-neutral-soft);
+  --background-neutral-softest: var(--color-neutral-softest);
 
   /* ---------------------------------------------------------------------------
      BORDER
@@ -270,14 +270,14 @@
   /* ---------------------------------------------------------------------------
      BACKGROUND: Layout surfaces (dark)
      --------------------------------------------------------------------------- */
-  --bg-app:        var(--color-gray-100);
-  --bg-app-accent: var(--color-cool-gray-100);
-  --bg-surface:    var(--color-gray-90);
-  --bg-nav:        var(--color-gray-90);
-  --bg-disabled:   var(--color-gray-90);
-  --bg-overlay:    rgba(0, 0, 0, 0.6); /* intentional exception: alpha-modified value */
-  --bg-hover:      var(--color-gray-80);
-  --bg-pressed:    var(--color-gray-70);
+  --background-app:        var(--color-gray-100);
+  --background-app-accent: var(--color-cool-gray-100);
+  --background-surface:    var(--color-gray-90);
+  --background-nav:        var(--color-gray-90);
+  --background-disabled:   var(--color-gray-90);
+  --background-overlay:    rgba(0, 0, 0, 0.6); /* intentional exception: alpha-modified value */
+  --background-hover:      var(--color-gray-80);
+  --background-pressed:    var(--color-gray-70);
 
   /* Primary, status bg tokens inherit from updated intermediates — no changes needed */
 

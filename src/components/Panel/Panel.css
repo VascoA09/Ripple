@@ -16,7 +16,7 @@
 
 .panel {
   width:         100%;
-  background:    var(--bg-surface);
+  background:    var(--background-surface);
   border:        var(--border-width-100) solid var(--border-neutral);
   border-radius: var(--border-radius-200);  /* 8px */
   box-sizing:    border-box;

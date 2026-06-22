@@ -398,9 +398,9 @@ Drawers can be closed by:
 
 | Element | Token |
 |---------|-------|
-| Navbar | `var(--bg-surface)` |
-| Drawer | `var(--bg-surface)` |
-| Content area | `var(--bg-canvas)` |
+| Navbar | `var(--background-surface)` |
+| Drawer | `var(--background-surface)` |
+| Content area | `var(--background-canvas)` |
 
 ### Borders and Shadows
 

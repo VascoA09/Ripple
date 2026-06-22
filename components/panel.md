@@ -66,13 +66,13 @@ Versatile container for organising content into structured sections with optiona
 
 | Element | Token |
 |---|---|
-| Panel background | `--bg-surface` |
+| Panel background | `--background-surface` |
 | Panel border | `--border-neutral` |
 | Title | `--text-loud` |
 | Subtitle | `--text` |
 | Collapse icon | `--text` |
-| Collapse hover bg | `--bg-neutral-soft` |
-| Collapse active bg | `--bg-neutral` |
+| Collapse hover bg | `--background-neutral-soft` |
+| Collapse active bg | `--background-neutral` |
 | Collapse focus outline | `--border-focus` |
 | Active tab indicator | `--border-primary` |
 | Active tab label | `--text-loud` |

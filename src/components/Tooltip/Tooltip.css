@@ -19,7 +19,7 @@
 
 .tooltip-content {
   /* --- Private tokens ------------------------------------------------------- */
-  --_bg:     var(--bg-neutral-loud);
+  --_bg:     var(--background-neutral-loud);
   --_color:  var(--text-loud-inverse);
   --_shadow: var(--elevation-dropdown);
 
@@ -88,5 +88,5 @@
    ============================================================================= */
 
 .tooltip-arrow {
-  fill: var(--bg-neutral-loud);
+  fill: var(--background-neutral-loud);
 }

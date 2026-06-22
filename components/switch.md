@@ -66,12 +66,12 @@ Switch is an on/off control for settings that take immediate effect. It wraps a 
 
 | State    | Track bg             | Handle border          |
 |----------|----------------------|------------------------|
-| Default  | `--bg-primary`       | `--border-primary`     |
-| Hover    | `--bg-primary-loud`  | `--border-primary-loud`|
-| Active   | `--bg-primary-loud`  | `--border-primary-loud`|
+| Default  | `--background-primary`       | `--border-primary`     |
+| Hover    | `--background-primary-loud`  | `--border-primary-loud`|
+| Active   | `--background-primary-loud`  | `--border-primary-loud`|
 | Disabled | Default + `opacity: 0.4` | Default + `opacity: 0.4` |
 
-Handle background is always `--bg-surface` (white). Focus ring: `--border-width-focus` outline at `--border-focus` with 2px offset, applied to the track (input is visually hidden).
+Handle background is always `--background-surface` (white). Focus ring: `--border-width-focus` outline at `--border-focus` with 2px offset, applied to the track (input is visually hidden).
 
 ---
 

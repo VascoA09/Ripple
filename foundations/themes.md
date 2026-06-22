@@ -36,7 +36,7 @@ Primitives (color.md)
 The theme uses **two-level aliasing**:
 - **Primary colors** and **Status** groups define intermediate semantic mappings from primitives
 - **Background**, **Border**, and **Text** groups reference those intermediates (not primitives directly)
-- Some tokens (bg.app, bg.surface, border.default, text.loud, etc.) reference primitives directly when no intermediate grouping applies
+- Some tokens (background.app, background.surface, border.default, text.loud, etc.) reference primitives directly when no intermediate grouping applies
 
 ---
 
@@ -109,59 +109,59 @@ These are the tokens components consume directly.
 
 | Token | Light | Dark | Use when |
 |-------|-------|------|----------|
-| `bg.app` | `color.gray.10` (#F9F9F9) | `color.gray.100` (#252828) | Application shell background |
-| `bg.app.accent` | `color.cool.gray.20` (#EBF0F4) | `color.cool.gray.100` (#2F3B42) | Sidebar, accent areas, secondary shell |
-| `bg.surface` | `color.white` (#FFFFFF) | `color.gray.90` (#373939) | Cards, panels, modals, dialogs |
-| `bg.nav` | `color.white` (#FFFFFF) | `color.gray.90` (#373939) | Navigation bar, top bar |
-| `bg.disabled` | `color.gray.10` (#F9F9F9) | `color.gray.90` (#373939) | Disabled inputs, buttons, cards. **New: not yet in Figma.** |
-| `bg.overlay` | `color.black` at 50% alpha | `color.black` at 60% alpha | Modal/drawer scrim. Requires color variable with alpha. **New: not yet in Figma.** |
-| `bg.hover` | `color.gray.20` (#EAEAEA) | `color.gray.80` (#424747) | Generic hover surface for list items, rows, cards. **New: not yet in Figma.** |
-| `bg.pressed` | `color.gray.30` (#D8D9D9) | `color.gray.70` (#737373) | Generic active/pressed surface. **New: not yet in Figma.** |
+| `background.app` | `color.gray.10` (#F9F9F9) | `color.gray.100` (#252828) | Application shell background |
+| `background.app.accent` | `color.cool.gray.20` (#EBF0F4) | `color.cool.gray.100` (#2F3B42) | Sidebar, accent areas, secondary shell |
+| `background.surface` | `color.white` (#FFFFFF) | `color.gray.90` (#373939) | Cards, panels, modals, dialogs |
+| `background.nav` | `color.white` (#FFFFFF) | `color.gray.90` (#373939) | Navigation bar, top bar |
+| `background.disabled` | `color.gray.10` (#F9F9F9) | `color.gray.90` (#373939) | Disabled inputs, buttons, cards. **New: not yet in Figma.** |
+| `background.overlay` | `color.black` at 50% alpha | `color.black` at 60% alpha | Modal/drawer scrim. Requires color variable with alpha. **New: not yet in Figma.** |
+| `background.hover` | `color.gray.20` (#EAEAEA) | `color.gray.80` (#424747) | Generic hover surface for list items, rows, cards. **New: not yet in Figma.** |
+| `background.pressed` | `color.gray.30` (#D8D9D9) | `color.gray.70` (#737373) | Generic active/pressed surface. **New: not yet in Figma.** |
 
 #### Primary Backgrounds
 
 | Token | Light | Dark | Use when |
 |-------|-------|------|----------|
-| `bg.primary.loud` | via `color.primary.loud` | via `color.primary.loud` | Strongest brand surface (filled buttons, badges) |
-| `bg.primary` | via `color.primary` | via `color.primary` | Default brand surface |
-| `bg.primary.soft` | via `color.primary.soft` | via `color.primary.soft` | Subtle brand surface (selected states, highlights) |
-| `bg.primary.softest` | via `color.primary.softest` | via `color.primary.softest` | Faintest brand tint (hover hints, banners) |
+| `background.primary.loud` | via `color.primary.loud` | via `color.primary.loud` | Strongest brand surface (filled buttons, badges) |
+| `background.primary` | via `color.primary` | via `color.primary` | Default brand surface |
+| `background.primary.soft` | via `color.primary.soft` | via `color.primary.soft` | Subtle brand surface (selected states, highlights) |
+| `background.primary.softest` | via `color.primary.softest` | via `color.primary.softest` | Faintest brand tint (hover hints, banners) |
 
 #### Negative (Error) Backgrounds
 
 | Token | Light | Dark | Use when |
 |-------|-------|------|----------|
-| `bg.negative.loud` | via `color.negative.loud` | via `color.negative.loud` | Strong error surface (filled error badges) |
-| `bg.negative` | via `color.negative` | via `color.negative` | Default error surface |
-| `bg.negative.soft` | via `color.negative.soft` | via `color.negative.soft` | Subtle error surface (inline validation bg) |
-| `bg.negative.softest` | via `color.negative.softest` | via `color.negative.softest` | Faint error tint (error banners, field bg) |
+| `background.negative.loud` | via `color.negative.loud` | via `color.negative.loud` | Strong error surface (filled error badges) |
+| `background.negative` | via `color.negative` | via `color.negative` | Default error surface |
+| `background.negative.soft` | via `color.negative.soft` | via `color.negative.soft` | Subtle error surface (inline validation bg) |
+| `background.negative.softest` | via `color.negative.softest` | via `color.negative.softest` | Faint error tint (error banners, field bg) |
 
 #### Notice (Warning) Backgrounds
 
 | Token | Light | Dark | Use when |
 |-------|-------|------|----------|
-| `bg.notice.loud` | via `color.notice.loud` | via `color.notice.loud` | Strong warning surface |
-| `bg.notice` | via `color.notice` | via `color.notice` | Default warning surface |
-| `bg.notice.soft` | via `color.notice.soft` | via `color.notice.soft` | Subtle warning surface |
-| `bg.notice.softest` | via `color.notice.softest` | via `color.notice.softest` | Faint warning tint (warning banners) |
+| `background.notice.loud` | via `color.notice.loud` | via `color.notice.loud` | Strong warning surface |
+| `background.notice` | via `color.notice` | via `color.notice` | Default warning surface |
+| `background.notice.soft` | via `color.notice.soft` | via `color.notice.soft` | Subtle warning surface |
+| `background.notice.softest` | via `color.notice.softest` | via `color.notice.softest` | Faint warning tint (warning banners) |
 
 #### Positive (Success) Backgrounds
 
 | Token | Light | Dark | Use when |
 |-------|-------|------|----------|
-| `bg.positive.loud` | via `color.positive.loud` | via `color.positive.loud` | Strong success surface |
-| `bg.positive` | via `color.positive` | via `color.positive` | Default success surface |
-| `bg.positive.soft` | via `color.positive.soft` | via `color.positive.soft` | Subtle success surface |
-| `bg.positive.softest` | via `color.positive.softest` | via `color.positive.softest` | Faint success tint (success banners) |
+| `background.positive.loud` | via `color.positive.loud` | via `color.positive.loud` | Strong success surface |
+| `background.positive` | via `color.positive` | via `color.positive` | Default success surface |
+| `background.positive.soft` | via `color.positive.soft` | via `color.positive.soft` | Subtle success surface |
+| `background.positive.softest` | via `color.positive.softest` | via `color.positive.softest` | Faint success tint (success banners) |
 
 #### Neutral (Informational) Backgrounds
 
 | Token | Light | Dark | Use when |
 |-------|-------|------|----------|
-| `bg.neutral.loud` | via `color.neutral.loud` | via `color.neutral.loud` | Strong neutral surface |
-| `bg.neutral` | via `color.neutral` | via `color.neutral` | Default neutral surface |
-| `bg.neutral.soft` | via `color.neutral.soft` | via `color.neutral.soft` | Subtle neutral surface |
-| `bg.neutral.softest` | via `color.neutral.softest` | via `color.neutral.softest` | Faint neutral tint (info banners) |
+| `background.neutral.loud` | via `color.neutral.loud` | via `color.neutral.loud` | Strong neutral surface |
+| `background.neutral` | via `color.neutral` | via `color.neutral` | Default neutral surface |
+| `background.neutral.soft` | via `color.neutral.soft` | via `color.neutral.soft` | Subtle neutral surface |
+| `background.neutral.softest` | via `color.neutral.softest` | via `color.neutral.softest` | Faint neutral tint (info banners) |
 
 ### Border
 
@@ -260,7 +260,7 @@ These are the tokens components consume directly.
 
 - **Primary inversion is correct.** `loud` shifts from blue.100 (dark navy) to blue.10 (light tint). The full 4-step scale mirrors cleanly.
 - **Status inversion is consistent.** All four statuses (negative, notice, positive, neutral) follow the same inversion pattern. No one-offs or exceptions.
-- **Layout surfaces use appropriate grays.** bg.app = gray.100 (#252828), bg.surface = gray.90 (#373939). The app shell is darker than cards, creating the right depth hierarchy.
+- **Layout surfaces use appropriate grays.** background.app = gray.100 (#252828), background.surface = gray.90 (#373939). The app shell is darker than cards, creating the right depth hierarchy.
 - **Text hierarchy inverts cleanly.** loud = white, default = gray.10, soft = gray.30. Descending contrast matches the light mode pattern.
 - **Inverse tokens swap correctly.** text.loud.inverse becomes black in dark mode (for use on light surfaces within dark UI). This is coherent.
 - **Link visited shifts appropriately.** purple.90 to purple.30 maintains distinct visited state recognition.
@@ -268,7 +268,7 @@ These are the tokens components consume directly.
 
 ### Contrast Validation
 
-Calculated using the WCAG relative luminance formula (linearised sRGB). All ratios are against `bg.surface` (#373939, L=0.040), the most common component background in dark mode.
+Calculated using the WCAG relative luminance formula (linearised sRGB). All ratios are against `background.surface` (#373939, L=0.040), the most common component background in dark mode.
 
 | Token | Dark value | Ratio | AA (4.5:1) | AAA (7:1) |
 |-------|-----------|-------|-----------|-----------|
@@ -284,11 +284,11 @@ Calculated using the WCAG relative luminance formula (linearised sRGB). All rati
 | `text.link.visited` | #D8D6FE (purple.30) | 8.35:1 | Pass | Pass |
 | `border.default` | #D8D9D9 (gray.30) | 8.24:1 | n/a | 3:1 UI component: Pass |
 
-On `bg.app` (#252828, L=0.021) all ratios are higher. The lowest is `text.soft` at 10.47:1.
+On `background.app` (#252828, L=0.021) all ratios are higher. The lowest is `text.soft` at 10.47:1.
 
 **Result**: all current dark theme tokens pass WCAG AAA on both surfaces.
 
-**Note on color differentiation**: status text tokens (red.10, orange.10, green.10) are so light they appear near-white, making them hard to distinguish from default `text` (#F9F9F9) at a glance. This is not a compliance issue. Color differentiation for status messages comes from the accompanying icon and status background tint, not from text alone. Revisit during component development if this proves visually insufficient. If needed, bumping to hue.20 maintains AAA compliance (red.20 = 8.51:1, orange.20 = 9.35:1, green.20 = 9.70:1 on bg.surface).
+**Note on color differentiation**: status text tokens (red.10, orange.10, green.10) are so light they appear near-white, making them hard to distinguish from default `text` (#F9F9F9) at a glance. This is not a compliance issue. Color differentiation for status messages comes from the accompanying icon and status background tint, not from text alone. Revisit during component development if this proves visually insufficient. If needed, bumping to hue.20 maintains AAA compliance (red.20 = 8.51:1, orange.20 = 9.35:1, green.20 = 9.70:1 on background.surface).
 
 ### Tokens Awaiting Figma Creation
 
@@ -297,12 +297,12 @@ The following tokens are documented in the tables above (marked **New: not yet i
 | Token | Group | Priority |
 |-------|-------|----------|
 | `text.disabled` | Text | P1 |
-| `bg.disabled` | Background | P1 |
-| `bg.overlay` | Background | P1 |
+| `background.disabled` | Background | P1 |
+| `background.overlay` | Background | P1 |
 | `icon.default` | Icon | P1 |
 | `icon.soft` | Icon | P1 |
-| `bg.hover` | Background | P2 |
-| `bg.pressed` | Background | P2 |
+| `background.hover` | Background | P2 |
+| `background.pressed` | Background | P2 |
 | `border.disabled` | Border | P2 |
 | `icon.disabled` | Icon | P3 |
 | `icon.inverse` | Icon | P3 |
@@ -394,9 +394,9 @@ After creation, check that each variable's scoping restricts it to the correct F
 ## Usage Rules
 
 - Always use theme tokens in component styles. Never reference the intermediate Primary colors or Status groups directly. Those exist only as a shared reference layer.
-- Use `bg.*` tokens for surface fills. Use `text.*` tokens for text color. Use `border.*` tokens for strokes.
+- Use `background.*` tokens for surface fills. Use `text.*` tokens for text color. Use `border.*` tokens for strokes.
 - The `inverse` text tokens are for text on dark or brand-colored surfaces within light mode (and vice versa in dark mode). They do not mean "dark mode text."
-- When pairing text on a status background (e.g., text on `bg.negative.softest`), validate contrast in both themes.
+- When pairing text on a status background (e.g., text on `background.negative.softest`), validate contrast in both themes.
 - `border.light` is for inner borders or dividers that match the lightest available surface. Its name is not theme-specific; in dark mode it resolves to a dark value.
 
 ## Component Token Mappings
@@ -415,7 +415,7 @@ This section grows as components are built.
 - [x] Dark theme contrast validated (all tokens pass AAA on both surfaces)
 - [x] Missing token gaps catalogued with priority and Figma setup guide
 - [x] Status text color differentiation assessed (keep hue.10, revisit during component builds)
-- [ ] P1 tokens created in Figma (text.disabled, bg.disabled, bg.overlay, icon.default, icon.soft)
-- [ ] P2 tokens created in Figma (bg.hover, bg.pressed, border.disabled)
+- [ ] P1 tokens created in Figma (text.disabled, background.disabled, background.overlay, icon.default, icon.soft)
+- [ ] P2 tokens created in Figma (background.hover, background.pressed, border.disabled)
 - [ ] P3 tokens created in Figma (remaining icon variants)
 - [ ] All new tokens tested in both modes in Figma

@@ -35,7 +35,7 @@
   gap:         var(--spacing-25);    /* 4px between chrome elements */
   padding:     0 var(--spacing-100); /* 0 16px */
 
-  background:  var(--bg-surface);
+  background:  var(--background-surface);
   border-top:  1px solid var(--border-neutral);
   z-index:     200;
 }
@@ -186,7 +186,7 @@
 }
 
 .footer-group__label:hover {
-  background: var(--bg-neutral-softest);
+  background: var(--background-neutral-softest);
 }
 
 .footer-group__label:focus-visible {

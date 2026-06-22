@@ -93,15 +93,15 @@ A Button is composed of:
 
 | Variant | Color | Background | Background (hover/active) | Text | Border |
 |---------|--------|------------|---------------------------|------|--------|
-| Fill | Primary | `--bg-primary` | `--bg-primary-loud` | `--text-loud-inverse` | — |
-| Fill | Neutral | `--bg-neutral` | `--bg-neutral-loud` | `--text-loud-inverse` | — |
-| Fill | Negative | `--bg-negative` | `--bg-negative-loud` | `--text-loud-inverse` | — |
-| Outline | Primary | Transparent | `--bg-primary-softest` / `--bg-primary-soft` | `--text-accent` | `--border-primary` |
-| Outline | Neutral | Transparent | `--bg-hover` / `--bg-pressed` | `--text` | `--border-default` |
-| Outline | Negative | Transparent | `--bg-negative-softest` / `--bg-negative-soft` | `--text-negative` | `--border-negative` |
-| Ghost | Primary | Transparent | `--bg-primary-softest` / `--bg-primary-soft` | `--text-accent` | — |
-| Ghost | Neutral | Transparent | `--bg-hover` / `--bg-pressed` | `--text` | — |
-| Ghost | Negative | Transparent | `--bg-negative-softest` / `--bg-negative-soft` | `--text-negative` | — |
+| Fill | Primary | `--background-primary` | `--background-primary-loud` | `--text-loud-inverse` | — |
+| Fill | Neutral | `--background-neutral` | `--background-neutral-loud` | `--text-loud-inverse` | — |
+| Fill | Negative | `--background-negative` | `--background-negative-loud` | `--text-loud-inverse` | — |
+| Outline | Primary | Transparent | `--background-primary-softest` / `--background-primary-soft` | `--text-accent` | `--border-primary` |
+| Outline | Neutral | Transparent | `--background-hover` / `--background-pressed` | `--text` | `--border-default` |
+| Outline | Negative | Transparent | `--background-negative-softest` / `--background-negative-soft` | `--text-negative` | `--border-negative` |
+| Ghost | Primary | Transparent | `--background-primary-softest` / `--background-primary-soft` | `--text-accent` | — |
+| Ghost | Neutral | Transparent | `--background-hover` / `--background-pressed` | `--text` | — |
+| Ghost | Negative | Transparent | `--background-negative-softest` / `--background-negative-soft` | `--text-negative` | — |
 
 ---
 

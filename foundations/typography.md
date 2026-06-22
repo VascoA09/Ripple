@@ -108,7 +108,7 @@ Typography always references color tokens from `foundations/themes.md`. Never ha
 | `text.inverse` | Body text on dark surfaces. |
 | `text.soft.inverse` | Secondary text on dark surfaces. |
 
-> The `color.neutral.loud` reference in the source design file does not belong to the text color group. It is a surface/border color used in informational components. Reference it via `bg.neutral.loud` or `border.neutral.loud` — not as a text color.
+> The `color.neutral.loud` reference in the source design file does not belong to the text color group. It is a surface/border color used in informational components. Reference it via `background.neutral.loud` or `border.neutral.loud` — not as a text color.
 
 ---
 

@@ -16,7 +16,7 @@ tags: [navigation, layout]
 
 **Type: Layout** — not a pattern.
 
-Standard Navigation is a stateless structural scaffold. It composes `MainNavigation` into a complete application shell with a content area using `var(--bg-app)`. It has no behavioural logic of its own — all state (drawers, nav selection) is owned by the consuming application.
+Standard Navigation is a stateless structural scaffold. It composes `MainNavigation` into a complete application shell with a content area using `var(--background-app)`. It has no behavioural logic of its own — all state (drawers, nav selection) is owned by the consuming application.
 
 This is the default layout for Ripple applications. When building a new app with Ripple and no other layout is specified, use Standard Navigation.
 
@@ -26,7 +26,7 @@ Source: `src/layouts/StandardNavigation/`
 
 ## Description
 
-Standard Navigation provides the baseline enterprise application shell: a fixed 72 px vertical Navbar on the left and a scrollable content area on the right. The content area uses `var(--bg-app)` as its background.
+Standard Navigation provides the baseline enterprise application shell: a fixed 72 px vertical Navbar on the left and a scrollable content area on the right. The content area uses `var(--background-app)` as its background.
 
 Both overlay and persistent drawer variants are supported. PageHeader, Grid, and content structure are the consumer's responsibility — this layout provides the shell only.
 
@@ -39,7 +39,7 @@ Both overlay and persistent drawer variants are supported. PageHeader, Grid, and
 ```
 ┌──────────┬──────────────────────────────────────────────┐
 │          │                                              │
-│  72 px   │  Content area (var(--bg-app))                │
+│  72 px   │  Content area (var(--background-app))                │
 │  Navbar  │                                              │
 │          │  Consumer owns:                              │
 │          │  - Page Header (sticky)                      │
@@ -54,7 +54,7 @@ With a persistent drawer open:
 ```
 ┌──────────┬──────────────┬───────────────────────────────┐
 │          │              │                               │
-│  72 px   │  Persistent  │  Content area (var(--bg-app)) │
+│  72 px   │  Persistent  │  Content area (var(--background-app)) │
 │  Navbar  │  panel       │                               │
 │          │  (280–400px) │                               │
 └──────────┴──────────────┴───────────────────────────────┘
@@ -82,7 +82,7 @@ Both variants are configured via `nav.drawers`. Set `persistent: true` on a draw
 |---|---|---|
 | **Footer tab bar** | No | Yes |
 | **Multi-page workspace** | No | Yes |
-| **Content background** | `var(--bg-app)` | `var(--bg-app)` |
+| **Content background** | `var(--background-app)` | `var(--background-app)` |
 | **Drawer variants** | Overlay and persistent | Overlay only |
 | **Default for new apps** | Yes | No |
 
@@ -166,7 +166,7 @@ Do not use Standard Navigation. Use alternative mobile navigation patterns.
 
 | Area | Token |
 |------|-------|
-| Content area background | `var(--bg-app)` |
+| Content area background | `var(--background-app)` |
 | Navbar background | Owned by MainNavigation |
 | Persistent panel background | Owned by MainNavigation |
 

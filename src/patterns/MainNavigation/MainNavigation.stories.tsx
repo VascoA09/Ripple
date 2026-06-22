@@ -71,7 +71,7 @@ function PageContent({ title }: { title: string }) {
         top:          0,
         zIndex:       10,
         padding:      '16px 32px',
-        background:   'var(--bg-canvas)',
+        background:   'var(--background-canvas)',
         borderBottom: '1px solid var(--border-neutral)',
         fontFamily:   'var(--font-family-base)',
       }}>
@@ -95,7 +95,7 @@ function PageContent({ title }: { title: string }) {
               fontSize:  'var(--font-size-80)',
               color:     'var(--text-soft)',
               padding:   '12px 16px',
-              background: i % 2 === 0 ? 'var(--bg-surface)' : 'transparent',
+              background: i % 2 === 0 ? 'var(--background-surface)' : 'transparent',
               borderRadius: 'var(--border-radius-100)',
             }}
           >

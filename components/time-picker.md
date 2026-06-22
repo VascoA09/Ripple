@@ -264,11 +264,11 @@ Match the user's locale and product context. ERPx defaults to 24h in most market
 
 | Token | Used for |
 |-------|----------|
-| `--bg-surface` | Field background |
-| `--bg-neutral-softest` | Read-only background |
-| `--bg-primary-softest` | Focused segment, column item hover, active clock trigger |
-| `--bg-primary-soft` | Selected column item background |
-| `--bg-primary` | Column item pressed, AM/PM selected fill |
+| `--background-surface` | Field background |
+| `--background-neutral-softest` | Read-only background |
+| `--background-primary-softest` | Focused segment, column item hover, active clock trigger |
+| `--background-primary-soft` | Selected column item background |
+| `--background-primary` | Column item pressed, AM/PM selected fill |
 | `--border-default` | Default field border |
 | `--border-focus` | Focus ring |
 | `--border-primary` | Hover field border |

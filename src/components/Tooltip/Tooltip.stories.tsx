@@ -116,7 +116,7 @@ export const IconButtonToolbar: Story = {
         Icon Button Toolbar
       </p>
 
-      <div style={{ display: 'inline-flex', gap: '4px', padding: '4px', background: 'var(--bg-surface)', border: '1px solid var(--border-default)', borderRadius: '8px' }}>
+      <div style={{ display: 'inline-flex', gap: '4px', padding: '4px', background: 'var(--background-surface)', border: '1px solid var(--border-default)', borderRadius: '8px' }}>
         <Tooltip content="Edit"><IconButton icon={<Edit size={16} />} aria-label="Edit" variant="ghost" /></Tooltip>
         <Tooltip content="Copy"><IconButton icon={<Copy size={16} />} aria-label="Copy" variant="ghost" /></Tooltip>
         <Tooltip content="Preview"><IconButton icon={<Eye size={16} />} aria-label="Preview" variant="ghost" /></Tooltip>

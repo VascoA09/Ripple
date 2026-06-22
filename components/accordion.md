@@ -91,7 +91,7 @@ Accordions come in three sizes that affect the header height and spacing:
 * **Collapsed (Closed)**
   * Content is hidden
   * Chevron points down (0°)
-  * Header background: `var(--bg-surface)`
+  * Header background: `var(--background-surface)`
   * Border: `border-top: 1px solid var(--border-neutral)`
 
 * **Expanded (Open)**
@@ -101,7 +101,7 @@ Accordions come in three sizes that affect the header height and spacing:
   * Content slides down/up
 
 * **Hover**
-  * Header background: `var(--bg-primary-softest)`
+  * Header background: `var(--background-primary-softest)`
   * Smooth 150ms transition
   * Only applies when cursor is over the header
 
@@ -111,13 +111,13 @@ Accordions come in three sizes that affect the header height and spacing:
   * Clear keyboard focus indicator
 
 * **Active (Pressed)**
-  * Header background: `var(--bg-primary)`
+  * Header background: `var(--background-primary)`
   * Title text: `var(--text-loud-inverse)`
   * Before element / chevron: `var(--icon-inverse)`
   * Strong visual feedback during click
 
 * **Disabled**
-  * Header background: `var(--bg-surface)`
+  * Header background: `var(--background-surface)`
   * Text: `var(--text-soft)`
   * Chevron: `var(--text-soft)`
   * Opacity: 0.6
@@ -254,13 +254,13 @@ Use Ripple spacing tokens for all spacing:
 ## Colors
 
 **Collapsed / Expanded State:**
-* Header background: `var(--bg-surface)`
+* Header background: `var(--background-surface)`
 * Header text: `var(--text-loud)`
 * Chevron: `var(--text)`
 * Border: `border-top: 1px solid var(--border-neutral)`
 
 **Hover State:**
-* Header background: `var(--bg-primary-softest)`
+* Header background: `var(--background-primary-softest)`
 * Header text: `var(--text-loud)`
 * Chevron: `var(--text)`
 
@@ -269,13 +269,13 @@ Use Ripple spacing tokens for all spacing:
 * Outline offset: `-2px` (inset)
 
 **Active (Pressed) State:**
-* Header background: `var(--bg-primary)`
+* Header background: `var(--background-primary)`
 * Header text: `var(--text-loud-inverse)`
 * Before element: `var(--icon-inverse)`
 * Chevron: `var(--icon-inverse)`
 
 **Disabled State:**
-* Header background: `var(--bg-surface)`
+* Header background: `var(--background-surface)`
 * Header text: `var(--text-soft)`
 * Chevron: `var(--text-soft)`
 * Opacity: 0.6

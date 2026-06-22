@@ -70,10 +70,10 @@ Step type communicates the status of a step independently of whether it is activ
 
 | Type      | Indicator bg            | Indicator border       | Icon       | Title color     |
 |-----------|-------------------------|------------------------|------------|------------------|
-| `default` | `--bg-surface`          | `--border-default`     | —          | `--text`         |
-| `checked` | `--bg-primary-softest`  | `--border-primary`     | Check      | `--text`         |
-| `notice`  | `--bg-notice-softest`   | `--border-notice`      | AlertCircle| `--text-notice`  |
-| `error`   | `--bg-negative-softest` | `--border-negative`    | XCircle    | `--text-negative`|
+| `default` | `--background-surface`          | `--border-default`     | —          | `--text`         |
+| `checked` | `--background-primary-softest`  | `--border-primary`     | Check      | `--text`         |
+| `notice`  | `--background-notice-softest`   | `--border-notice`      | AlertCircle| `--text-notice`  |
+| `error`   | `--background-negative-softest` | `--border-negative`    | XCircle    | `--text-negative`|
 
 Connector after a `checked` step is colored `--border-primary`. All other connectors use `--border-default`.
 
@@ -94,9 +94,9 @@ Active steps show a filled indicator and a halo ring — a 4px circular outline 
 
 | Type                | Active bg       | Active border       | Halo (`box-shadow`)                         |
 |---------------------|-----------------|---------------------|---------------------------------------------|
-| `default`/`checked` | `--bg-primary`  | `--border-primary`  | `--bg-primary` at 20% opacity               |
-| `notice`            | `--bg-notice`   | `--border-notice`   | `--bg-notice` at 20% opacity                |
-| `error`             | `--bg-negative` | `--border-negative` | `--bg-negative` at 20% opacity              |
+| `default`/`checked` | `--background-primary`  | `--border-primary`  | `--background-primary` at 20% opacity               |
+| `notice`            | `--background-notice`   | `--border-notice`   | `--background-notice` at 20% opacity                |
+| `error`             | `--background-negative` | `--border-negative` | `--background-negative` at 20% opacity              |
 
 The halo is implemented as `box-shadow: 0 0 0 4px color-mix(in srgb, <token> 20%, transparent)`. It has no layout impact and transitions with the other active state properties.
 

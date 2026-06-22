@@ -21,7 +21,7 @@ type Story = StoryObj<FooterProps>
 
 function AppShell({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg-canvas)', paddingBottom: '56px' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--background-canvas)', paddingBottom: '56px' }}>
       {/* Fake content area */}
       <div style={{
         padding: '32px',

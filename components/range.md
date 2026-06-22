@@ -60,9 +60,9 @@ The range component consists of the following structural elements:
 * **Default**
   * The range is idle and ready for interaction
   * The handle sits at the current value position on the track
-  * Track: var(--bg-neutral-soft)
+  * Track: var(--background-neutral-soft)
   * Filled track: var(--color-primary)
-  * Handle: var(--bg-surface) with var(--border-primary) border
+  * Handle: var(--background-surface) with var(--border-primary) border
 
 * **Hover**
   * The handle changes appearance when the user hovers over it
@@ -183,7 +183,7 @@ When the user interacts with the handle, a tooltip appears above it displaying t
 * Handle loses keyboard focus
 
 **Visual appearance:**
-* Background: var(--bg-inverse)
+* Background: var(--background-inverse)
 * Text color: var(--text-loud)
 * Font size: var(--font-size-80)
 * Padding: var(--spacing-25) var(--spacing-50)
@@ -366,9 +366,9 @@ Validation can be applied to ensure the selected value meets specific requiremen
 ## Colors
 
 **Default State:**
-* Track background: var(--bg-neutral-soft)
+* Track background: var(--background-neutral-soft)
 * Filled track: var(--color-primary)
-* Handle background: var(--bg-surface)
+* Handle background: var(--background-surface)
 * Handle border: 2px solid var(--border-primary)
 * Label: var(--text)
 * Min/max labels: var(--text-soft)
@@ -377,7 +377,7 @@ Validation can be applied to ensure the selected value meets specific requiremen
 
 **Focus State:**
 * Focus ring: 2px solid var(--border-focus) with 4px offset
-* Tooltip background: var(--bg-inverse)
+* Tooltip background: var(--background-inverse)
 * Tooltip text: var(--text-loud)
 
 **Active State:**
@@ -491,7 +491,7 @@ Validation can be applied to ensure the selected value meets specific requiremen
 ## Technical Notes
 
 * The label is rendered via Ripple's `FieldLabel` component. Pass `id` to `FieldLabel` and reference it on the input via `aria-labelledby` — this preserves the accessible association without using `htmlFor`. Do not hardcode label typography or color in Range styles; `FieldLabel` owns them.
-* The tooltip uses `var(--bg-inverse)` for its background and `var(--text-loud)` for its text. This keeps the tooltip legible in both light and dark themes without relying on inverse text tokens.
+* The tooltip uses `var(--background-inverse)` for its background and `var(--text-loud)` for its text. This keeps the tooltip legible in both light and dark themes without relying on inverse text tokens.
 * For dual-handle ranges, both native `<input type="range">` elements are stacked with `pointer-events: none` at the input level; only `::webkit-slider-thumb` and `::moz-range-thumb` receive `pointer-events: all`. A custom `<div>` renders the fill between the two handle positions.
 * The `--_fill-pct` CSS custom property on the single-handle input drives the linear-gradient fill trick — no JavaScript DOM writes required.
 

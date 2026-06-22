@@ -152,7 +152,7 @@ Tooltips must appear above all other UI elements, including modals and overlays.
 ## Colors
 
 ### Light Mode
-- Background: `var(--bg-neutral-loud)` (dark gray)
+- Background: `var(--background-neutral-loud)` (dark gray)
 - Text: `var(--text-loud-inverse)` (white)
 - Shadow: `var(--box-shadow-200)`
 

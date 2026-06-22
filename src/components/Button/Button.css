@@ -200,10 +200,10 @@
    ============================================================================= */
 
 .button[data-variant="fill"][data-color="primary"] {
-  --_bg:           var(--bg-primary);
-  --_bg-hover:     var(--bg-primary-loud);
-  --_bg-active:    var(--bg-neutral);
-  --_bg-focus:     var(--bg-primary);
+  --_bg:           var(--background-primary);
+  --_bg-hover:     var(--background-primary-loud);
+  --_bg-active:    var(--background-neutral);
+  --_bg-focus:     var(--background-primary);
   --_color:        var(--text-loud-inverse);
   --_color-active: var(--text-loud-inverse);
   --_border-color: transparent;
@@ -211,10 +211,10 @@
 }
 
 .button[data-variant="fill"][data-color="neutral"] {
-  --_bg:           var(--bg-neutral);
-  --_bg-hover:     var(--bg-neutral-loud);
-  --_bg-active:    var(--bg-neutral-soft);
-  --_bg-focus:     var(--bg-neutral);
+  --_bg:           var(--background-neutral);
+  --_bg-hover:     var(--background-neutral-loud);
+  --_bg-active:    var(--background-neutral-soft);
+  --_bg-focus:     var(--background-neutral);
   --_color:        var(--text-loud-inverse);
   --_color-active: var(--color-neutral);
   --_border-color: transparent;
@@ -222,10 +222,10 @@
 }
 
 .button[data-variant="fill"][data-color="negative"] {
-  --_bg:           var(--bg-negative);
-  --_bg-hover:     var(--bg-negative-loud);
-  --_bg-active:    var(--bg-neutral);
-  --_bg-focus:     var(--bg-negative);
+  --_bg:           var(--background-negative);
+  --_bg-hover:     var(--background-negative-loud);
+  --_bg-active:    var(--background-neutral);
+  --_bg-focus:     var(--background-negative);
   --_color:        var(--text-loud-inverse);
   --_color-active: var(--text-loud-inverse);
   --_border-color: transparent;
@@ -239,27 +239,27 @@
    ============================================================================= */
 
 .button[data-variant="outline"][data-color="primary"] {
-  --_bg:           var(--bg-nav);
-  --_bg-hover:     var(--bg-primary-soft);
-  --_bg-active:    var(--bg-primary-loud);
+  --_bg:           var(--background-nav);
+  --_bg-hover:     var(--background-primary-soft);
+  --_bg-active:    var(--background-primary-loud);
   --_color:        var(--text-accent);
   --_color-active: var(--text-loud-inverse);
   --_border-color: var(--border-primary);
 }
 
 .button[data-variant="outline"][data-color="neutral"] {
-  --_bg:           var(--bg-nav);
-  --_bg-hover:     var(--bg-neutral-soft);
-  --_bg-active:    var(--bg-neutral);
+  --_bg:           var(--background-nav);
+  --_bg-hover:     var(--background-neutral-soft);
+  --_bg-active:    var(--background-neutral);
   --_color:        var(--text);
   --_color-active: var(--text-loud-inverse);
   --_border-color: var(--border-neutral-loud);
 }
 
 .button[data-variant="outline"][data-color="negative"] {
-  --_bg:           var(--bg-nav);
-  --_bg-hover:     var(--bg-negative-softest);
-  --_bg-active:    var(--bg-negative-loud);
+  --_bg:           var(--background-nav);
+  --_bg-hover:     var(--background-negative-softest);
+  --_bg-active:    var(--background-negative-loud);
   --_color:        var(--text-negative);
   --_color-active: var(--text-loud-inverse);
   --_border-color: var(--border-negative);
@@ -272,9 +272,9 @@
 
 .button[data-variant="ghost"][data-color="primary"] {
   --_bg:           transparent;
-  --_bg-hover:     var(--bg-primary-soft);
-  --_bg-active:    var(--bg-primary-loud);
-  --_bg-focus:     var(--bg-primary-softest);
+  --_bg-hover:     var(--background-primary-soft);
+  --_bg-active:    var(--background-primary-loud);
+  --_bg-focus:     var(--background-primary-softest);
   --_color:        var(--text-accent);
   --_color-active: var(--text-loud-inverse);
   --_border-color: transparent;
@@ -282,9 +282,9 @@
 
 .button[data-variant="ghost"][data-color="neutral"] {
   --_bg:           transparent;
-  --_bg-hover:     var(--bg-neutral-soft);
-  --_bg-active:    var(--bg-neutral);
-  --_bg-focus:     var(--bg-neutral-softest);
+  --_bg-hover:     var(--background-neutral-soft);
+  --_bg-active:    var(--background-neutral);
+  --_bg-focus:     var(--background-neutral-softest);
   --_color:        var(--text);
   --_color-active: var(--text-loud-inverse);
   --_border-color: transparent;
@@ -292,9 +292,9 @@
 
 .button[data-variant="ghost"][data-color="negative"] {
   --_bg:           transparent;
-  --_bg-hover:     var(--bg-negative-softest);
-  --_bg-active:    var(--bg-negative-loud);
-  --_bg-focus:     var(--bg-negative-softest);
+  --_bg-hover:     var(--background-negative-softest);
+  --_bg-active:    var(--background-negative-loud);
+  --_bg-focus:     var(--background-negative-softest);
   --_color:        var(--text-negative);
   --_color-active: var(--text-loud-inverse);
   --_border-color: transparent;

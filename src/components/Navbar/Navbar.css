@@ -17,7 +17,7 @@
   width:            72px;
   min-height:       100vh;
   padding:          var(--spacing-100) var(--spacing-50) var(--spacing-50); /* 16px top, 8px right/left, 8px bottom */
-  background:       var(--bg-surface);
+  background:       var(--background-surface);
   border-right:     1px solid var(--border-neutral);
   box-sizing:       border-box;
   flex-shrink:      0;
@@ -137,12 +137,12 @@
 .navbar .navbar__nav-btn.button[data-selected],
 .navbar .navbar__nav-btn.button[data-selected]:hover:not(:disabled),
 .navbar .navbar__nav-btn.button[data-selected]:active:not(:disabled) {
-  --_bg:           var(--bg-neutral);
-  --_bg-hover:     var(--bg-neutral);
-  --_bg-active:    var(--bg-neutral);
+  --_bg:           var(--background-neutral);
+  --_bg-hover:     var(--background-neutral);
+  --_bg-active:    var(--background-neutral);
   --_color:        var(--text-loud-inverse);
   --_color-active: var(--text-loud-inverse);
-  background:      var(--bg-neutral);
+  background:      var(--background-neutral);
   color:           var(--text-loud-inverse);
 }
 

@@ -29,7 +29,7 @@
   display:          flex;
   align-items:      center;
   justify-content:  center;
-  background:       color-mix(in srgb, var(--bg-surface) 80%, transparent);
+  background:       color-mix(in srgb, var(--background-surface) 80%, transparent);
   border-radius:    var(--border-radius-200);
   pointer-events:   none;
 }
@@ -100,12 +100,12 @@
 }
 
 .data-grid .ag-floating-filter-button button:hover {
-  background: var(--bg-neutral-soft);
+  background: var(--background-neutral-soft);
   box-shadow: none;
 }
 
 .data-grid .ag-floating-filter-button button:active {
-  background: var(--bg-neutral);
+  background: var(--background-neutral);
   box-shadow: none;
   color:      var(--text-loud-inverse);
 }
@@ -113,7 +113,7 @@
 .data-grid .ag-floating-filter-button button:focus-visible {
   outline:        2px solid var(--border-focus);
   outline-offset: 2px;
-  background:     var(--bg-neutral-softest);
+  background:     var(--background-neutral-softest);
   box-shadow:     none;
 }
 
@@ -141,7 +141,7 @@
   border:          1px solid var(--border-neutral);
   border-top:      none;
   border-radius:   0 0 var(--border-radius-200) var(--border-radius-200);
-  background:      var(--bg-neutral-softest);
+  background:      var(--background-neutral-softest);
   font-family:     var(--font-family-base);
   font-size:       var(--font-size-80);
   color:           var(--text-soft);
@@ -200,7 +200,7 @@
    --------------------------------------------------------------------------- */
 
 .data-grid .ag-floating-filter {
-  background: var(--bg-neutral-softest);
+  background: var(--background-neutral-softest);
 }
 
 /* AG Grid's floating filter body is a flex child alongside the filter button.
@@ -256,7 +256,7 @@
 
 .data-grid .ag-filter,
 .data-grid .ag-column-menu {
-  background:    var(--bg-surface);
+  background:    var(--background-surface);
   border:        1px solid var(--border-default);
   border-radius: var(--border-radius-100);
   box-shadow:    var(--box-shadow-300);

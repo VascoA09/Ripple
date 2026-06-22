@@ -14,7 +14,7 @@
    ============================================================================= */
 
 .card {
-  --_bg:     var(--bg-surface);                    /* white / dark: gray.90    */
+  --_bg:     var(--background-surface);                    /* white / dark: gray.90    */
   --_shadow: var(--elevation-card);                /* 0 2px 4px                */
   --_radius: var(--border-radius-container-default); /* 8px                    */
 
@@ -31,7 +31,7 @@
 /* --- Flat variant ---------------------------------------------------------- */
 
 .card[data-variant="flat"] {
-  --_bg:     var(--bg-app);   /* gray.10 / dark: gray.100 */
+  --_bg:     var(--background-app);   /* gray.10 / dark: gray.100 */
   --_shadow: none;
 }
 
@@ -56,7 +56,7 @@
 }
 
 .card[data-variant="elevated"][data-interactive]:active {
-  --_bg:     var(--bg-app);  /* subtle background shift */
+  --_bg:     var(--background-app);  /* subtle background shift */
   --_shadow: none;
   transform: translateY(1px);
 }

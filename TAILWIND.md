@@ -60,7 +60,7 @@ Create `src/ripple-theme.css`. This file maps Ripple's CSS custom properties to 
 /* src/ripple-theme.css
    Maps Ripple semantic tokens → Tailwind utilities.
    Never reference Ripple primitives (--color-blue-*, --color-gray-*) here.
-   Always reference semantic tokens (--bg-*, --text-*, --border-*).
+   Always reference semantic tokens (--background-*, --text-*, --border-*).
 */
 
 @theme {
@@ -85,53 +85,53 @@ Create `src/ripple-theme.css`. This file maps Ripple's CSS custom properties to 
 
   /* -------------------------------------------------------------------------
      COLORS
-     Ripple splits colors by purpose: bg / border / text / icon.
+     Ripple splits colors by purpose: background / border / text / icon.
      Tailwind uses a single --color-* namespace → bg-*, text-*, border-* utilities.
      We use descriptive names that indicate purpose.
      ------------------------------------------------------------------------- */
 
   /* Layout surfaces
      Usage: bg-app, bg-surface, bg-nav, bg-hover, bg-pressed, bg-disabled */
-  --color-app:         var(--bg-app);
-  --color-app-accent:  var(--bg-app-accent);
-  --color-surface:     var(--bg-surface);
-  --color-nav:         var(--bg-nav);
-  --color-hover:       var(--bg-hover);
-  --color-pressed:     var(--bg-pressed);
-  --color-disabled:    var(--bg-disabled);
-  --color-overlay:     var(--bg-overlay);
+  --color-app:         var(--background-app);
+  --color-app-accent:  var(--background-app-accent);
+  --color-surface:     var(--background-surface);
+  --color-nav:         var(--background-nav);
+  --color-hover:       var(--background-hover);
+  --color-pressed:     var(--background-pressed);
+  --color-disabled:    var(--background-disabled);
+  --color-overlay:     var(--background-overlay);
 
   /* Primary brand
      Usage: bg-primary, bg-primary-soft, bg-primary-softest, bg-primary-loud */
-  --color-primary-loud:    var(--bg-primary-loud);
-  --color-primary:         var(--bg-primary);
-  --color-primary-soft:    var(--bg-primary-soft);
-  --color-primary-softest: var(--bg-primary-softest);
+  --color-primary-loud:    var(--background-primary-loud);
+  --color-primary:         var(--background-primary);
+  --color-primary-soft:    var(--background-primary-soft);
+  --color-primary-softest: var(--background-primary-softest);
 
   /* Status: Negative (error)
      Usage: bg-negative-softest, text-negative, border-negative */
-  --color-negative-loud:    var(--bg-negative-loud);
-  --color-negative:         var(--bg-negative);
-  --color-negative-soft:    var(--bg-negative-soft);
-  --color-negative-softest: var(--bg-negative-softest);
+  --color-negative-loud:    var(--background-negative-loud);
+  --color-negative:         var(--background-negative);
+  --color-negative-soft:    var(--background-negative-soft);
+  --color-negative-softest: var(--background-negative-softest);
 
   /* Status: Notice (warning) */
-  --color-notice-loud:    var(--bg-notice-loud);
-  --color-notice:         var(--bg-notice);
-  --color-notice-soft:    var(--bg-notice-soft);
-  --color-notice-softest: var(--bg-notice-softest);
+  --color-notice-loud:    var(--background-notice-loud);
+  --color-notice:         var(--background-notice);
+  --color-notice-soft:    var(--background-notice-soft);
+  --color-notice-softest: var(--background-notice-softest);
 
   /* Status: Positive (success) */
-  --color-positive-loud:    var(--bg-positive-loud);
-  --color-positive:         var(--bg-positive);
-  --color-positive-soft:    var(--bg-positive-soft);
-  --color-positive-softest: var(--bg-positive-softest);
+  --color-positive-loud:    var(--background-positive-loud);
+  --color-positive:         var(--background-positive);
+  --color-positive-soft:    var(--background-positive-soft);
+  --color-positive-softest: var(--background-positive-softest);
 
   /* Status: Neutral (informational) */
-  --color-neutral-loud:    var(--bg-neutral-loud);
-  --color-neutral:         var(--bg-neutral);
-  --color-neutral-soft:    var(--bg-neutral-soft);
-  --color-neutral-softest: var(--bg-neutral-softest);
+  --color-neutral-loud:    var(--background-neutral-loud);
+  --color-neutral:         var(--background-neutral);
+  --color-neutral-soft:    var(--background-neutral-soft);
+  --color-neutral-softest: var(--background-neutral-softest);
 
   /* Text colors
      Usage: text-text-loud, text-text, text-text-soft, text-text-accent, etc. */
@@ -306,7 +306,7 @@ export default function FormPage() {
 2. **No arbitrary values for colors.** `bg-[#F9F9F9]` is banned. If the color you need exists in Ripple's token system, map it. If it does not, question whether the color decision is valid.
 3. **Arbitrary values for layout are acceptable.** `max-w-[720px]`, `w-[calc(100%-32px)]` are fine — these are structural constraints, not visual design tokens.
 4. **Spacing arbitrary values are a smell.** If you need `p-[13px]`, you are off the Ripple scale. Review the design.
-5. **Do not add Ripple primitive tokens to `ripple-theme.css`.** Only semantic tokens (`--bg-*`, `--text-*`, `--border-*`, etc.). Never `--color-blue-80` or `--color-gray-30`.
+5. **Do not add Ripple primitive tokens to `ripple-theme.css`.** Only semantic tokens (`--background-*`, `--text-*`, `--border-*`, etc.). Never `--color-blue-80` or `--color-gray-30`.
 
 ---
 
@@ -335,25 +335,25 @@ export default {
       },
       colors: {
         // Surfaces
-        app:          'var(--bg-app)',
-        'app-accent': 'var(--bg-app-accent)',
-        surface:      'var(--bg-surface)',
-        nav:          'var(--bg-nav)',
-        hover:        'var(--bg-hover)',
-        pressed:      'var(--bg-pressed)',
-        disabled:     'var(--bg-disabled)',
+        app:          'var(--background-app)',
+        'app-accent': 'var(--background-app-accent)',
+        surface:      'var(--background-surface)',
+        nav:          'var(--background-nav)',
+        hover:        'var(--background-hover)',
+        pressed:      'var(--background-pressed)',
+        disabled:     'var(--background-disabled)',
         // Primary
-        'primary-loud':    'var(--bg-primary-loud)',
-        primary:           'var(--bg-primary)',
-        'primary-soft':    'var(--bg-primary-soft)',
-        'primary-softest': 'var(--bg-primary-softest)',
+        'primary-loud':    'var(--background-primary-loud)',
+        primary:           'var(--background-primary)',
+        'primary-soft':    'var(--background-primary-soft)',
+        'primary-softest': 'var(--background-primary-softest)',
         // Status (softest for backgrounds, loud for text)
-        'negative-softest': 'var(--bg-negative-softest)',
-        'negative-soft':    'var(--bg-negative-soft)',
-        negative:           'var(--bg-negative)',
-        'notice-softest':   'var(--bg-notice-softest)',
-        'positive-softest': 'var(--bg-positive-softest)',
-        'neutral-softest':  'var(--bg-neutral-softest)',
+        'negative-softest': 'var(--background-negative-softest)',
+        'negative-soft':    'var(--background-negative-soft)',
+        negative:           'var(--background-negative)',
+        'notice-softest':   'var(--background-notice-softest)',
+        'positive-softest': 'var(--background-positive-softest)',
+        'neutral-softest':  'var(--background-neutral-softest)',
         // Text
         'text-loud':         'var(--text-loud)',
         'text':              'var(--text)',

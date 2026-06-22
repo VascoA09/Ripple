@@ -110,7 +110,7 @@ A ghost neutral icon button that appears on the left when actions exceed the vis
 Dropdown menu containing actions that don't fit in the visible toolbar.
 
 * **Position**: Dropdown below trigger, left-aligned
-* **Background**: var(--bg-surface)
+* **Background**: var(--background-surface)
 * **Border**: 1px solid var(--border-neutral)
 * **Border radius**: var(--border-radius-150)
 * **Shadow**: var(--box-shadow-400)
@@ -280,7 +280,7 @@ When actions exceed the visible limit for a given variant, they are collapsed in
 * Z-index: 1000 (above page content)
 
 **Styling:**
-* Background: var(--bg-surface)
+* Background: var(--background-surface)
 * Border: 1px solid var(--border-neutral)
 * Border radius: var(--border-radius-150)
 * Shadow: var(--box-shadow-400)
@@ -298,7 +298,7 @@ When actions exceed the visible limit for a given variant, they are collapsed in
 
 **States:**
 * Default: Transparent background
-* Hover: var(--bg-primary-softest)
+* Hover: var(--background-primary-softest)
 * Focus: 2px outline var(--border-focus)
 * Disabled: var(--text-disabled), cursor not-allowed
 
@@ -519,18 +519,18 @@ Maintain consistent button positioning across pages to build user muscle memory.
 * **Background**: Transparent
 * **Border**: 1px solid var(--border-neutral-loud)
 * **Text**: var(--text)
-* **Hover background**: var(--bg-neutral-softest)
+* **Hover background**: var(--background-neutral-softest)
 * **Focus outline**: var(--border-focus)
-* **Active background**: var(--bg-neutral-soft)
+* **Active background**: var(--background-neutral-soft)
 
 ### Tertiary Actions (Ghost Buttons)
 
 * **Background**: Transparent
 * **Border**: None
 * **Text**: var(--text)
-* **Hover background**: var(--bg-neutral-softest)
+* **Hover background**: var(--background-neutral-softest)
 * **Focus outline**: var(--border-focus)
-* **Active background**: var(--bg-neutral-soft)
+* **Active background**: var(--background-neutral-soft)
 
 ### Overflow Menu
 
@@ -539,13 +539,13 @@ Maintain consistent button positioning across pages to build user muscle memory.
 * Icon color: var(--text-soft)
 
 **Menu container:**
-* **Background**: var(--bg-surface)
+* **Background**: var(--background-surface)
 * **Border**: var(--border-neutral)
 * **Shadow**: var(--box-shadow-400)
 
 **Menu items:**
 * **Text**: var(--text)
-* **Hover background**: var(--bg-primary-softest)
+* **Hover background**: var(--background-primary-softest)
 * **Focus outline**: var(--border-focus)
 * **Disabled text**: var(--text-disabled)
 

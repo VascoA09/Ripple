@@ -32,7 +32,7 @@ export interface StandardNavigationProps {
  * Layout:
  *   [Navbar 72px] [Persistent panel (optional)] [Content area (flex: 1)]
  *
- * The content area uses `var(--bg-app)`. The Navbar retains its own background.
+ * The content area uses `var(--background-app)`. The Navbar retains its own background.
  * PageHeader, Grid, and content structure are the consumer's responsibility.
  *
  * Use MicroNavigation instead when a Footer tab bar is required.

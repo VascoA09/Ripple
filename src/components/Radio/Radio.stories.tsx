@@ -293,7 +293,7 @@ export const FormExample: Story = {
           style={{
             alignSelf:    'flex-start',
             padding:      '10px 20px',
-            background:   'var(--bg-primary)',
+            background:   'var(--background-primary)',
             color:        'var(--text-on-fill)',
             border:       'none',
             borderRadius: '8px',

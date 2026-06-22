@@ -46,7 +46,7 @@ export const Default: Story = {
           fontFamily:   'var(--font-family-base)',
           fontSize:     'var(--font-size-100)',
           color:        'var(--text)',
-          background:   'var(--bg-surface)',
+          background:   'var(--background-surface)',
           outline:      'none',
         }}
       />
@@ -276,7 +276,7 @@ function MockInput({
         fontFamily:   'var(--font-family-base)',
         fontSize:     'var(--font-size-100)',
         color:        'var(--text)',
-        background:   'var(--bg-surface)',
+        background:   'var(--background-surface)',
         outline:      'none',
         ...style,
       }}

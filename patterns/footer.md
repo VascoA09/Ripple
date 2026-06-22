@@ -97,7 +97,7 @@ The Footer is composed of several key elements that work together to provide tab
 ### 4. Footer Container
 
 * **Height**: 52 px (box-sizing: border-box)
-* **Background**: `var(--bg-surface)`
+* **Background**: `var(--background-surface)`
 * **Border**: 1 px solid `var(--border-neutral)` on top edge only
 * **Padding**: 0 `var(--spacing-100)` (0 16 px)
 * **Position**: Fixed to bottom of viewport
@@ -181,7 +181,7 @@ Keeps the page accessible with a pin indicator.
 | State | Visual treatment | Trigger |
 |-------|-----------------|---------|
 | **Default** | Transparent background | No interaction |
-| **Hover** | `var(--bg-primary-softest)` background + 4 px right padding | Pointer over tab |
+| **Hover** | `var(--background-primary-softest)` background + 4 px right padding | Pointer over tab |
 | **Selected** | 2 px `var(--border-primary)` bottom indicator + 4 px right padding | Tab represents current page |
 | **Focus** | Inset box-shadow focus ring | Keyboard focus |
 
@@ -411,10 +411,10 @@ Tabs are typically opened through:
 
 | Element | Token |
 |---------|-------|
-| Footer background | `var(--bg-surface)` |
+| Footer background | `var(--background-surface)` |
 | Footer top border | `var(--border-neutral)` |
 | Tab background (default) | transparent |
-| Tab background (hover) | `var(--bg-primary-softest)` |
+| Tab background (hover) | `var(--background-primary-softest)` |
 | Tab background (selected) | transparent (indicator only) |
 | Tab selected indicator | `var(--border-primary)` |
 | Tab text (default) | `var(--text-soft)` |

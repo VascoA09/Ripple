@@ -68,7 +68,7 @@ Choose one variant per flow and use it consistently throughout. Do not mix varia
 **Elements:**
 
 - **Step counter** — "Step N of Total" label above the bar. Communicates absolute position.
-- **Progress bar** — Full-width track; filled portion represents completed + current steps. Uses `--color-primary` fill on `--bg-neutral-soft` track.
+- **Progress bar** — Full-width track; filled portion represents completed + current steps. Uses `--color-primary` fill on `--background-neutral-soft` track.
 - **Title** — Current step name. Semibold.
 - **Description** (optional) — Supporting text for the current step.
 

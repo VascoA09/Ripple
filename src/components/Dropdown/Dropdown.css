@@ -101,7 +101,7 @@
   line-height:    normal;
   color:          var(--text);
 
-  background:     var(--bg-surface);
+  background:     var(--background-surface);
   border:         var(--border-width-100) solid var(--_border-color);
   border-radius:  var(--border-radius-200);
   cursor:         pointer;
@@ -196,7 +196,7 @@
   padding:    var(--spacing-50); /* 8px all sides */
   list-style: none;
 
-  background:     var(--bg-surface);
+  background:     var(--background-surface);
   border:         var(--border-width-100) solid var(--border-neutral);
   border-radius:  var(--border-radius-200);
   box-shadow:     var(--box-shadow-400);
@@ -249,15 +249,15 @@
 
 .dropdown__option:hover,
 .dropdown__option[data-active] {
-  background: var(--bg-primary-softest);
+  background: var(--background-primary-softest);
 }
 
 .dropdown__option[data-selected] {
-  background: var(--bg-primary-softest);
+  background: var(--background-primary-softest);
 }
 
 .dropdown__option[data-selected][data-active] {
-  background: var(--bg-primary-soft);
+  background: var(--background-primary-soft);
 }
 
 /* Keyboard-only focus ring — suppressed on mouse hover */

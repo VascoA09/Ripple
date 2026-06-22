@@ -315,14 +315,14 @@ Day cells are 40×40px. They are inset within flex cells that stretch to fill th
 
 | Token | Used for |
 |-------|----------|
-| `--bg-surface` | Field and panel background |
-| `--bg-neutral-softest` | Read-only background |
-| `--bg-neutral-soft` | Day cell hover |
-| `--bg-neutral` | Day cell pressed, selected month/year fill |
-| `--bg-primary-softest` | Focused segment, active trigger |
-| `--bg-primary-soft` | Today cell hover |
-| `--bg-primary` | Selected day fill |
-| `--bg-primary-loud` | Today cell pressed, selected day hover |
+| `--background-surface` | Field and panel background |
+| `--background-neutral-softest` | Read-only background |
+| `--background-neutral-soft` | Day cell hover |
+| `--background-neutral` | Day cell pressed, selected month/year fill |
+| `--background-primary-softest` | Focused segment, active trigger |
+| `--background-primary-soft` | Today cell hover |
+| `--background-primary` | Selected day fill |
+| `--background-primary-loud` | Today cell pressed, selected day hover |
 | `--border-default` | Default field border |
 | `--border-focus` | Focus ring |
 | `--border-primary` | Hover field border, today ring |

@@ -11,10 +11,10 @@
 
    Token notes:
    - Primary track: spec uses --color-cool-gray-30 (Tier 1 primitive).
-     Replaced with var(--bg-neutral-soft) (semantic).
+     Replaced with var(--background-neutral-soft) (semantic).
    - Positive/Notice/Negative tracks: spec uses --color-{name}-soft.
      Using CSS custom property defined in each variant block; falls back to
-     --bg-{name}-soft if --color-{name}-soft is undefined.
+     --background-{name}-soft if --color-{name}-soft is undefined.
    ============================================================================= */
 
 /* ---------------------------------------------------------------------------
@@ -29,7 +29,7 @@
 
   /* Default (primary) variant tokens */
   --_progress-color: var(--color-primary);
-  --_track-color:    var(--bg-neutral-soft); /* spec: --color-cool-gray-30 */
+  --_track-color:    var(--background-neutral-soft); /* spec: --color-cool-gray-30 */
 }
 
 /* ---------------------------------------------------------------------------
@@ -38,17 +38,17 @@
 
 .progress-circle[data-variant='positive'] {
   --_progress-color: var(--color-positive);
-  --_track-color:    var(--color-positive-soft, var(--bg-positive-soft));
+  --_track-color:    var(--color-positive-soft, var(--background-positive-soft));
 }
 
 .progress-circle[data-variant='notice'] {
   --_progress-color: var(--color-notice);
-  --_track-color:    var(--color-notice-soft, var(--bg-notice-soft));
+  --_track-color:    var(--color-notice-soft, var(--background-notice-soft));
 }
 
 .progress-circle[data-variant='negative'] {
   --_progress-color: var(--color-negative);
-  --_track-color:    var(--color-negative-soft, var(--bg-negative-soft));
+  --_track-color:    var(--color-negative-soft, var(--background-negative-soft));
 }
 
 /* ---------------------------------------------------------------------------

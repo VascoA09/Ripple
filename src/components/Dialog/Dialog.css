@@ -48,7 +48,7 @@
    ============================================================================= */
 
 .dialog {
-  background:     var(--bg-surface);
+  background:     var(--background-surface);
   border-radius:  var(--border-radius-overlay-default);  /* 12px */
   box-shadow:     var(--elevation-overlay);              /* box-shadow-800 */
   display:        flex;

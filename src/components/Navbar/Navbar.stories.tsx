@@ -32,7 +32,7 @@ const meta: Meta<NavbarProps> = {
   },
   decorators: [
     Story => (
-      <div style={{ display: 'flex', height: '100vh', background: 'var(--bg-canvas, #f5f5f5)' }}>
+      <div style={{ display: 'flex', height: '100vh', background: 'var(--background-canvas, #f5f5f5)' }}>
         <Story />
         <div style={{ flex: 1, padding: '32px', fontFamily: 'var(--font-family-base)' }}>
           <p style={{ color: 'var(--text-soft)', fontSize: '14px' }}>Page content area</p>

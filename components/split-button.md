@@ -243,14 +243,14 @@ Menu spacing is inherited from FlyoutMenu — see [FlyoutMenu token reference](.
 ## Colors
 
 ### Light Mode
-- Menu background: `var(--bg-surface)` (white)
+- Menu background: `var(--background-surface)` (white)
 - Menu border: `var(--border-default)`
 - Menu item text: `var(--text)`
-- Menu item hover: `var(--bg-app-accent)`
+- Menu item hover: `var(--background-app-accent)`
 - Divider: Semi-transparent white (fill), currentColor (outline/ghost)
 
 ### Dark Mode
-- Menu background: `var(--bg-surface)`
+- Menu background: `var(--background-surface)`
 - Menu border: `var(--border-default)`
 - Enhanced shadow for visibility
 

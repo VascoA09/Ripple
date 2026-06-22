@@ -22,14 +22,14 @@
 
 .section[data-variant="flat"] {
   padding:       var(--spacing-125);           /* 20px */
-  background:    var(--bg-surface);
+  background:    var(--background-surface);
   border:        var(--border-width-100) solid var(--border-neutral);
   border-radius: var(--border-radius-200);     /* 8px */
 }
 
 .section[data-variant="elevated"] {
   padding:       var(--spacing-125);           /* 20px */
-  background:    var(--bg-surface);
+  background:    var(--background-surface);
   border-radius: var(--border-radius-200);     /* 8px */
   box-shadow:    var(--box-shadow-200);
 }

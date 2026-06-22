@@ -30,7 +30,7 @@
   min-width:      300px;
   border:         var(--border-width-100) solid var(--border-neutral);
   border-radius:  var(--border-radius-200);
-  background:     var(--bg-surface);
+  background:     var(--background-surface);
   overflow:       hidden;
 }
 
@@ -46,7 +46,7 @@
   padding:         0 var(--spacing-100);
   height:          var(--size-250); /* 40px */
   border-bottom:   var(--border-width-100) solid var(--border-neutral);
-  background:      var(--bg-surface);
+  background:      var(--background-surface);
   flex-shrink:     0;
 }
 
@@ -96,7 +96,7 @@
 .file-viewer__preview {
   flex:       1;
   overflow:   auto;
-  background: var(--bg-neutral-softest);
+  background: var(--background-neutral-softest);
   position:   relative;
   display:    flex;
   align-items: center;
@@ -175,7 +175,7 @@
   font-size:    var(--font-size-80);
   color:        var(--text-soft);
   flex-shrink:  0;
-  background:   var(--bg-surface);
+  background:   var(--background-surface);
 }
 
 .file-viewer__text {
@@ -189,7 +189,7 @@
   color:       var(--text);
   white-space: pre-wrap;
   word-break:  break-all;
-  background:  var(--bg-neutral-softest);
+  background:  var(--background-neutral-softest);
 }
 
 /* =============================================================================
@@ -211,7 +211,7 @@
 
 .file-viewer__th {
   padding:          var(--spacing-50) var(--spacing-75);
-  background:       var(--bg-neutral-soft);
+  background:       var(--background-neutral-soft);
   border-bottom:    var(--border-width-100) solid var(--border-neutral);
   text-align:       left;
   font-weight:      var(--font-weight-semibold);
@@ -223,11 +223,11 @@
 }
 
 .file-viewer__tr:nth-child(even) {
-  background: var(--bg-neutral-softest);
+  background: var(--background-neutral-softest);
 }
 
 .file-viewer__tr:hover {
-  background: var(--bg-primary-softest);
+  background: var(--background-primary-softest);
 }
 
 .file-viewer__td {
@@ -250,7 +250,7 @@
   display:         flex;
   align-items:     center;
   justify-content: center;
-  background:      var(--bg-neutral-softest);
+  background:      var(--background-neutral-softest);
 }
 
 /* =============================================================================
@@ -307,7 +307,7 @@
 }
 
 .file-viewer__empty-action:hover {
-  background: var(--bg-neutral-softest);
+  background: var(--background-neutral-softest);
 }
 
 .file-viewer__empty-action:focus-visible {
@@ -326,7 +326,7 @@
   padding:         0 var(--spacing-75);
   height:          40px;
   border-top:      var(--border-width-100) solid var(--border-neutral);
-  background:      var(--bg-surface);
+  background:      var(--background-surface);
   flex-shrink:     0;
 }
 

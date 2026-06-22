@@ -202,12 +202,12 @@ The Ripple theme is defined using `themeQuartz.withParams()`. All visual values 
 
 | Visual property | Ripple token |
 |----------------|-------------|
-| Row background | `--bg-surface` |
-| Odd row background | `--bg-surface` (no stripe) |
-| Header / chrome background | `--bg-neutral-softest` |
-| Row hover | `--bg-primary-softest` |
-| Selected row | `--bg-primary-soft` |
-| Header cell hover | `--bg-neutral-softest` |
+| Row background | `--background-surface` |
+| Odd row background | `--background-surface` (no stripe) |
+| Header / chrome background | `--background-neutral-softest` |
+| Row hover | `--background-primary-softest` |
+| Selected row | `--background-primary-soft` |
+| Header cell hover | `--background-neutral-softest` |
 | Border | `--border-neutral` |
 | Body text | `--text` |
 | Font family | `--font-family-base` |

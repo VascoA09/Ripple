@@ -36,7 +36,7 @@
   --_thumb-size:     20px;
   --_fill-color:     var(--color-primary);
   --_thumb-border:   var(--border-primary);
-  --_track-color:    var(--bg-neutral-soft);
+  --_track-color:    var(--background-neutral-soft);
 }
 
 .range--small {
@@ -170,7 +170,7 @@
   width:              var(--_thumb-size);
   height:             var(--_thumb-size);
   border-radius:      50%;
-  background:         var(--bg-surface);
+  background:         var(--background-surface);
   border:             2px solid var(--_thumb-border);
   cursor:             grab;
   box-shadow:         none;
@@ -180,7 +180,7 @@
 }
 
 .range__input::-webkit-slider-thumb:hover {
-  box-shadow: 0 0 0 4px var(--bg-primary-soft);
+  box-shadow: 0 0 0 4px var(--background-primary-soft);
 }
 
 .range__input:active::-webkit-slider-thumb {
@@ -198,7 +198,7 @@
   width:        var(--_thumb-size);
   height:       var(--_thumb-size);
   border-radius: 50%;
-  background:   var(--bg-surface);
+  background:   var(--background-surface);
   border:       2px solid var(--_thumb-border);
   cursor:       grab;
   box-sizing:   border-box;
@@ -296,7 +296,7 @@
   font-weight:    var(--font-weight-medium);
   white-space:    nowrap;
   color:          var(--text-loud);
-  background:     var(--bg-inverse);
+  background:     var(--background-inverse);
   padding:        var(--spacing-25) var(--spacing-50);   /* 4px 8px */
   border-radius:  var(--border-radius-100);
 
@@ -315,7 +315,7 @@
   left:           50%;
   transform:      translateX(-50%);
   border:         4px solid transparent;
-  border-top-color: var(--bg-inverse);
+  border-top-color: var(--background-inverse);
 }
 
 .range__tooltip[data-visible] {

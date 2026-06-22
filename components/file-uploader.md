@@ -100,24 +100,24 @@ The File Uploader adapts to container width:
 
 * **Default**
   * Border: 2px dashed var(--border-default)
-  * Background: var(--bg-surface)
+  * Background: var(--background-surface)
   * Text: var(--text)
   * The drop zone is idle and ready for interaction
 
 * **Hover**
   * Border: 2px dashed var(--border-primary)
-  * Background: var(--bg-primary-softest)
+  * Background: var(--background-primary-softest)
   * Cursor: pointer
   * Indicates interactivity
 
 * **Dragging**
   * Border: 2px solid var(--border-primary)
-  * Background: var(--bg-primary-softest)
+  * Background: var(--background-primary-softest)
   * Visual feedback during drag over
 
 * **Disabled**
   * Border: 2px dashed var(--border-default)
-  * Background: var(--bg-neutral-soft)
+  * Background: var(--background-neutral-soft)
   * Opacity: 0.6
   * Cursor: not-allowed
   * Non-interactive state
@@ -278,18 +278,18 @@ Use Ripple spacing tokens for all spacing:
 ## Colors
 
 **Drop Zone Default State:**
-* Background: var(--bg-surface)
+* Background: var(--background-surface)
 * Border: 2px dashed var(--border-default)
 * Text: var(--text)
 * Icon: var(--text-soft)
 
 **Drop Zone Hover/Dragging State:**
-* Background: var(--bg-primary-softest)
+* Background: var(--background-primary-softest)
 * Border: 2px solid var(--border-primary)
 * Text: var(--text)
 
 **Drop Zone Disabled State:**
-* Background: var(--bg-neutral-soft)
+* Background: var(--background-neutral-soft)
 * Border: 2px dashed var(--border-default)
 * Text: var(--text-soft)
 * Opacity: 0.6
@@ -299,7 +299,7 @@ Use Ripple spacing tokens for all spacing:
 * Error text: var(--text-negative)
 
 **File List Items:**
-* Background: var(--bg-surface)
+* Background: var(--background-surface)
 * Border: 1px solid var(--border-default)
 * Text: var(--text)
 * File size: var(--text-soft)

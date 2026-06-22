@@ -463,7 +463,7 @@ interface ToolbarAction {
 | Date | `var(--text-soft)` |
 | Description | `var(--text)` |
 | Last update | `var(--text-soft)` |
-| Background | `var(--bg-app)` |
+| Background | `var(--background-app)` |
 | Bottom border | `var(--border-neutral)` |
 | Divider | `var(--border-neutral)` |
 

@@ -323,49 +323,49 @@ export const SemanticTheme: Story = {
       </p>
 
       <SwatchGroup label="Background — Layout" swatches={[
-        { name: '--bg-app',        value: 'var(--bg-app)' },
-        { name: '--bg-app-accent', value: 'var(--bg-app-accent)' },
-        { name: '--bg-surface',    value: 'var(--bg-surface)' },
-        { name: '--bg-nav',        value: 'var(--bg-nav)' },
-        { name: '--bg-hover',      value: 'var(--bg-hover)' },
-        { name: '--bg-pressed',    value: 'var(--bg-pressed)' },
-        { name: '--bg-disabled',   value: 'var(--bg-disabled)' },
-        { name: '--bg-overlay',    value: 'var(--bg-overlay)' },
+        { name: '--background-app',        value: 'var(--background-app)' },
+        { name: '--background-app-accent', value: 'var(--background-app-accent)' },
+        { name: '--background-surface',    value: 'var(--background-surface)' },
+        { name: '--background-nav',        value: 'var(--background-nav)' },
+        { name: '--background-hover',      value: 'var(--background-hover)' },
+        { name: '--background-pressed',    value: 'var(--background-pressed)' },
+        { name: '--background-disabled',   value: 'var(--background-disabled)' },
+        { name: '--background-overlay',    value: 'var(--background-overlay)' },
       ]} />
 
       <SwatchGroup label="Background — Primary" swatches={[
-        { name: '--bg-primary-loud',    value: 'var(--bg-primary-loud)' },
-        { name: '--bg-primary',         value: 'var(--bg-primary)' },
-        { name: '--bg-primary-soft',    value: 'var(--bg-primary-soft)' },
-        { name: '--bg-primary-softest', value: 'var(--bg-primary-softest)' },
+        { name: '--background-primary-loud',    value: 'var(--background-primary-loud)' },
+        { name: '--background-primary',         value: 'var(--background-primary)' },
+        { name: '--background-primary-soft',    value: 'var(--background-primary-soft)' },
+        { name: '--background-primary-softest', value: 'var(--background-primary-softest)' },
       ]} />
 
       <SwatchGroup label="Background — Negative" swatches={[
-        { name: '--bg-negative-loud',    value: 'var(--bg-negative-loud)' },
-        { name: '--bg-negative',         value: 'var(--bg-negative)' },
-        { name: '--bg-negative-soft',    value: 'var(--bg-negative-soft)' },
-        { name: '--bg-negative-softest', value: 'var(--bg-negative-softest)' },
+        { name: '--background-negative-loud',    value: 'var(--background-negative-loud)' },
+        { name: '--background-negative',         value: 'var(--background-negative)' },
+        { name: '--background-negative-soft',    value: 'var(--background-negative-soft)' },
+        { name: '--background-negative-softest', value: 'var(--background-negative-softest)' },
       ]} />
 
       <SwatchGroup label="Background — Notice" swatches={[
-        { name: '--bg-notice-loud',    value: 'var(--bg-notice-loud)' },
-        { name: '--bg-notice',         value: 'var(--bg-notice)' },
-        { name: '--bg-notice-soft',    value: 'var(--bg-notice-soft)' },
-        { name: '--bg-notice-softest', value: 'var(--bg-notice-softest)' },
+        { name: '--background-notice-loud',    value: 'var(--background-notice-loud)' },
+        { name: '--background-notice',         value: 'var(--background-notice)' },
+        { name: '--background-notice-soft',    value: 'var(--background-notice-soft)' },
+        { name: '--background-notice-softest', value: 'var(--background-notice-softest)' },
       ]} />
 
       <SwatchGroup label="Background — Positive" swatches={[
-        { name: '--bg-positive-loud',    value: 'var(--bg-positive-loud)' },
-        { name: '--bg-positive',         value: 'var(--bg-positive)' },
-        { name: '--bg-positive-soft',    value: 'var(--bg-positive-soft)' },
-        { name: '--bg-positive-softest', value: 'var(--bg-positive-softest)' },
+        { name: '--background-positive-loud',    value: 'var(--background-positive-loud)' },
+        { name: '--background-positive',         value: 'var(--background-positive)' },
+        { name: '--background-positive-soft',    value: 'var(--background-positive-soft)' },
+        { name: '--background-positive-softest', value: 'var(--background-positive-softest)' },
       ]} />
 
       <SwatchGroup label="Background — Neutral" swatches={[
-        { name: '--bg-neutral-loud',    value: 'var(--bg-neutral-loud)' },
-        { name: '--bg-neutral',         value: 'var(--bg-neutral)' },
-        { name: '--bg-neutral-soft',    value: 'var(--bg-neutral-soft)' },
-        { name: '--bg-neutral-softest', value: 'var(--bg-neutral-softest)' },
+        { name: '--background-neutral-loud',    value: 'var(--background-neutral-loud)' },
+        { name: '--background-neutral',         value: 'var(--background-neutral)' },
+        { name: '--background-neutral-soft',    value: 'var(--background-neutral-soft)' },
+        { name: '--background-neutral-softest', value: 'var(--background-neutral-softest)' },
       ]} />
 
       <SwatchGroup label="Border" swatches={[

@@ -365,7 +365,7 @@ export const InContext: Story = {
               gap:            '12px',
               padding:        '8px 12px',
               borderRadius:   '8px',
-              background:     'var(--bg-hover)',
+              background:     'var(--background-hover)',
               fontSize:       '14px',
               color:          'var(--text)',
             }}
@@ -383,7 +383,7 @@ export const InContext: Story = {
 
       {/* Assigned users */}
       <p style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-soft)', marginBottom: '12px' }}>assigned users</p>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px', borderRadius: '8px', background: 'var(--bg-hover)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px', borderRadius: '8px', background: 'var(--background-hover)' }}>
         <span style={{ fontSize: '14px', color: 'var(--text-soft)' }}>Assignees</span>
         <AvatarGroup max={3} size="s">
           {teamMembers.map(m => (

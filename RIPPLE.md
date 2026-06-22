@@ -217,7 +217,7 @@ Clear any template CSS (e.g. Vite's default `src/index.css` and `src/App.css`) �
 ```css
 /* src/index.css */
 *, *::before, *::after { box-sizing: border-box; }
-body { margin: 0; font-family: var(--font-family-base); color: var(--text); background: var(--bg-app); }
+body { margin: 0; font-family: var(--font-family-base); color: var(--text); background: var(--background-app); }
 #root { min-height: 100svh; }
 ```
 
@@ -238,7 +238,7 @@ import { StandardNavigation, Unit4Logo } from '@ripple/ui'
 ```css
 .my-custom-element {
   color: var(--text);
-  background: var(--bg-surface);
+  background: var(--background-surface);
   padding: var(--spacing-150);
   border-radius: var(--border-radius-200);
   font-size: var(--font-size-100);
@@ -263,9 +263,9 @@ Common semantic tokens:
 | `--text-loud` | High-emphasis text, headings |
 | `--text-soft` | Secondary / muted text |
 | `--text-accent` | Primary brand color text |
-| `--bg-app` | Page / app shell background |
-| `--bg-surface` | Card / panel surface |
-| `--bg-primary` | Primary action background |
+| `--background-app` | Page / app shell background |
+| `--background-surface` | Card / panel surface |
+| `--background-primary` | Primary action background |
 | `--border-neutral` | Default border |
 | `--border-primary` | Primary accent border |
 | `--spacing-50` | 8px |
@@ -292,7 +292,7 @@ Full token reference: `src/tokens/themes.css` (semantic), `src/tokens/primitives
 Ripple uses a three-tier token system:
 
 - **Tier 1 — Primitives**: raw values, named by value. `--color-blue-90`, `--spacing-100`. Defined in `src/tokens/primitives.css`. Never use directly in components or custom UI.
-- **Tier 2 — Semantic**: purpose-driven aliases. `--text`, `--bg-surface`, `--border-neutral`, `--bg-primary`. Defined in `src/tokens/themes.css`. Use these in all custom UI.
+- **Tier 2 — Semantic**: purpose-driven aliases. `--text`, `--background-surface`, `--border-neutral`, `--background-primary`. Defined in `src/tokens/themes.css`. Use these in all custom UI.
 - **Tier 3 — Component**: scoped to a specific component, prefixed with `--_`. Defined in each component's CSS file. Do not reference these outside their component.
 
 All token names use kebab-case with dot-notation expressed as hyphens. No abbreviations. No numbers in semantic or component token names.

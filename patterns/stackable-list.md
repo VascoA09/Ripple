@@ -79,7 +79,7 @@ Set `unread` on `StackableListItem` to indicate the row has not been seen. Rende
 
 ## Selection
 
-Set `selected` and `onClick` on `StackableListItem` to make a row selectable. The row highlights with `var(--bg-primary-soft)` when selected.
+Set `selected` and `onClick` on `StackableListItem` to make a row selectable. The row highlights with `var(--background-primary-soft)` when selected.
 
 For single-select, manage state in the parent:
 

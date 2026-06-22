@@ -70,19 +70,19 @@ export const Variants: Story = {
       </p>
       <div style={{ display: 'flex', alignItems: 'center', gap: '48px', flexWrap: 'wrap' }}>
         {/* Primary — light background */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', padding: '24px', background: 'var(--bg-surface)', borderRadius: '8px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', padding: '24px', background: 'var(--background-surface)', borderRadius: '8px' }}>
           <Spinner size="m" variant="primary" />
           <span style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-soft)' }}>primary</span>
         </div>
 
         {/* Neutral — accent background */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', padding: '24px', background: 'var(--bg-app-accent)', borderRadius: '8px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', padding: '24px', background: 'var(--background-app-accent)', borderRadius: '8px' }}>
           <Spinner size="m" variant="neutral" />
           <span style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-soft)' }}>neutral</span>
         </div>
 
         {/* Inverse — dark background */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', padding: '24px', background: 'var(--bg-neutral)', borderRadius: '8px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', padding: '24px', background: 'var(--background-neutral)', borderRadius: '8px' }}>
           <Spinner size="m" variant="inverse" />
           <span style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-loud-inverse)' }}>inverse</span>
         </div>
@@ -140,7 +140,7 @@ export const FullReference: Story = {
                 gap: '32px',
                 padding: '24px',
                 borderRadius: '8px',
-                background: v === 'inverse' ? 'var(--bg-neutral)' : v === 'neutral' ? 'var(--bg-app-accent)' : 'var(--bg-surface)',
+                background: v === 'inverse' ? 'var(--background-neutral)' : v === 'neutral' ? 'var(--background-app-accent)' : 'var(--background-surface)',
               }}
             >
               {sizes.map(s => (

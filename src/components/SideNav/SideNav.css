@@ -24,7 +24,7 @@
   height:          100%;
   overflow:        hidden;
 
-  background:    var(--bg-nav);
+  background:    var(--background-nav);
   border-right:  1px solid var(--border-neutral);
   transition:    width 200ms ease;
 }
@@ -66,7 +66,7 @@
 }
 
 .side-nav__toggle-btn:hover {
-  background: var(--bg-surface-hover);
+  background: var(--background-surface-hover);
   color:      var(--text);
 }
 
@@ -153,11 +153,11 @@
 }
 
 .side-nav__item:hover {
-  background: var(--bg-primary-softest);
+  background: var(--background-primary-softest);
 }
 
 .side-nav__item[aria-current="page"] {
-  background:        var(--bg-primary-soft);
+  background:        var(--background-primary-soft);
   border-left-color: var(--border-primary);
   color:             var(--text-loud);
   font-weight:       var(--font-weight-semibold);

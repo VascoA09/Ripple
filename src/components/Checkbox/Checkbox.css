@@ -18,7 +18,7 @@
 .checkbox {
   /* Private tokens — defaults for unselected state */
   --_border-color:    var(--border-default);
-  --_bg-color:        var(--bg-surface);
+  --_bg-color:        var(--background-surface);
   --_icon-color:      var(--text-loud-inverse);
 
   display:     inline-flex;
@@ -94,13 +94,13 @@
 
 .checkbox:hover:not([data-disabled]) {
   --_border-color: var(--border-primary);
-  --_bg-color:     var(--bg-primary-soft);
+  --_bg-color:     var(--background-primary-soft);
 }
 
 /* Hover + checked/indeterminate */
 .checkbox:hover:not([data-disabled]) .checkbox__input:checked ~ .checkbox__box,
 .checkbox:hover:not([data-disabled]) .checkbox__input:indeterminate ~ .checkbox__box {
-  --_bg-color:     var(--bg-primary-loud);
+  --_bg-color:     var(--background-primary-loud);
   --_border-color: var(--border-primary-loud);
 }
 
@@ -111,7 +111,7 @@
 .checkbox__input:checked ~ .checkbox__box,
 .checkbox__input:indeterminate ~ .checkbox__box {
   --_border-color: var(--border-primary);
-  --_bg-color:     var(--bg-primary);
+  --_bg-color:     var(--background-primary);
 }
 
 /* =============================================================================
@@ -174,17 +174,17 @@
 .checkbox[data-validation="positive"] .checkbox__input:checked ~ .checkbox__box,
 .checkbox[data-validation="positive"] .checkbox__input:indeterminate ~ .checkbox__box {
   --_border-color: var(--border-positive);
-  --_bg-color:     var(--bg-positive);
+  --_bg-color:     var(--background-positive);
 }
 .checkbox[data-validation="notice"] .checkbox__input:checked ~ .checkbox__box,
 .checkbox[data-validation="notice"] .checkbox__input:indeterminate ~ .checkbox__box {
   --_border-color: var(--border-notice);
-  --_bg-color:     var(--bg-notice);
+  --_bg-color:     var(--background-notice);
 }
 .checkbox[data-validation="negative"] .checkbox__input:checked ~ .checkbox__box,
 .checkbox[data-validation="negative"] .checkbox__input:indeterminate ~ .checkbox__box {
   --_border-color: var(--border-negative);
-  --_bg-color:     var(--bg-negative);
+  --_bg-color:     var(--background-negative);
 }
 
 /* =============================================================================

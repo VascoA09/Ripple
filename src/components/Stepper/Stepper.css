@@ -52,7 +52,7 @@
 
 .stepper-step__indicator {
   --_indicator-size:         var(--size-200);           /* 32px */
-  --_indicator-bg:           var(--bg-surface);
+  --_indicator-bg:           var(--background-surface);
   --_indicator-border-color: var(--border-default);
   --_indicator-border-width: var(--border-width-default);
   --_indicator-color:        var(--text-soft);
@@ -208,7 +208,7 @@
    ============================================================================= */
 
 .stepper-step[data-type="checked"] .stepper-step__indicator {
-  --_indicator-bg:           var(--bg-primary-softest);
+  --_indicator-bg:           var(--background-primary-softest);
   --_indicator-border-color: var(--border-primary);
   --_indicator-color:        var(--text-accent);
 }
@@ -223,7 +223,7 @@
    ============================================================================= */
 
 .stepper-step[data-type="notice"] .stepper-step__indicator {
-  --_indicator-bg:           var(--bg-notice-softest);
+  --_indicator-bg:           var(--background-notice-softest);
   --_indicator-border-color: var(--border-notice);
   --_indicator-color:        var(--text-notice);
 }
@@ -237,7 +237,7 @@
    ============================================================================= */
 
 .stepper-step[data-type="error"] .stepper-step__indicator {
-  --_indicator-bg:           var(--bg-negative-softest);
+  --_indicator-bg:           var(--background-negative-softest);
   --_indicator-border-color: var(--border-negative);
   --_indicator-color:        var(--text-negative);
 }
@@ -256,27 +256,27 @@
 
 /* default and checked share primary as the "current step" fill */
 .stepper-step[data-active]:not([data-type="notice"]):not([data-type="error"]) .stepper-step__indicator {
-  --_indicator-bg:           var(--bg-primary);
+  --_indicator-bg:           var(--background-primary);
   --_indicator-border-color: var(--border-primary);
   --_indicator-border-width: var(--border-width-200);
   --_indicator-color:        var(--text-loud-inverse);
-  --_halo-color:             color-mix(in srgb, var(--bg-primary) 20%, transparent);
+  --_halo-color:             color-mix(in srgb, var(--background-primary) 20%, transparent);
 }
 
 .stepper-step[data-active][data-type="notice"] .stepper-step__indicator {
-  --_indicator-bg:           var(--bg-notice);
+  --_indicator-bg:           var(--background-notice);
   --_indicator-border-color: var(--border-notice);
   --_indicator-border-width: var(--border-width-200);
   --_indicator-color:        var(--text-loud-inverse);
-  --_halo-color:             color-mix(in srgb, var(--bg-notice) 20%, transparent);
+  --_halo-color:             color-mix(in srgb, var(--background-notice) 20%, transparent);
 }
 
 .stepper-step[data-active][data-type="error"] .stepper-step__indicator {
-  --_indicator-bg:           var(--bg-negative);
+  --_indicator-bg:           var(--background-negative);
   --_indicator-border-color: var(--border-negative);
   --_indicator-border-width: var(--border-width-200);
   --_indicator-color:        var(--text-loud-inverse);
-  --_halo-color:             color-mix(in srgb, var(--bg-negative) 20%, transparent);
+  --_halo-color:             color-mix(in srgb, var(--background-negative) 20%, transparent);
 }
 
 /* Active title: semibold → bold */

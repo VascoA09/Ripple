@@ -86,7 +86,7 @@ export const Sizes: Story = {
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
             <p style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-soft)', margin: 0 }}>{s}</p>
             {s === 'small' && (
-              <span style={{ fontFamily: 'monospace', fontSize: '10px', background: 'var(--bg-notice-softest)', color: 'var(--text-notice)', padding: '2px 6px', borderRadius: '4px' }}>
+              <span style={{ fontFamily: 'monospace', fontSize: '10px', background: 'var(--background-notice-softest)', color: 'var(--text-notice)', padding: '2px 6px', borderRadius: '4px' }}>
                 desktop only — 32px header is below the 44px touch target minimum
               </span>
             )}

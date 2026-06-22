@@ -75,21 +75,21 @@ Default color is `primary`.
 
 | Color     | Background         | Text                    | Border      |
 |------------|--------------------|-------------------------|-------------|
-| `primary`  | `--bg-primary`     | `--text-loud-inverse`   | transparent |
-| `notice`   | `--bg-notice`      | `--text-loud-inverse`   | transparent |
-| `negative` | `--bg-negative`    | `--text-loud-inverse`   | transparent |
-| `positive` | `--bg-positive`    | `--text-loud-inverse`   | transparent |
-| `neutral`  | `--bg-neutral`     | `--text-loud-inverse`   | transparent |
+| `primary`  | `--background-primary`     | `--text-loud-inverse`   | transparent |
+| `notice`   | `--background-notice`      | `--text-loud-inverse`   | transparent |
+| `negative` | `--background-negative`    | `--text-loud-inverse`   | transparent |
+| `positive` | `--background-positive`    | `--text-loud-inverse`   | transparent |
+| `neutral`  | `--background-neutral`     | `--text-loud-inverse`   | transparent |
 
 ### Outline variant
 
 | Color     | Background                | Border                  | Text              |
 |------------|---------------------------|-------------------------|-------------------|
-| `primary`  | `--bg-primary-softest`    | `--border-primary`      | `--text-accent`   |
-| `notice`   | `--bg-notice-softest`     | `--border-notice`       | `--text-notice`   |
-| `negative` | `--bg-negative-softest`   | `--border-negative`     | `--text-negative` |
-| `positive` | `--bg-positive-softest`   | `--border-positive`     | `--text-positive` |
-| `neutral`  | `--bg-neutral-softest`    | `--border-neutral-loud` | `--text`          |
+| `primary`  | `--background-primary-softest`    | `--border-primary`      | `--text-accent`   |
+| `notice`   | `--background-notice-softest`     | `--border-notice`       | `--text-notice`   |
+| `negative` | `--background-negative-softest`   | `--border-negative`     | `--text-negative` |
+| `positive` | `--background-positive-softest`   | `--border-positive`     | `--text-positive` |
+| `neutral`  | `--background-neutral-softest`    | `--border-neutral-loud` | `--text`          |
 
 ### Structure
 

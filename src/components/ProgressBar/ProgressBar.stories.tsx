@@ -322,7 +322,7 @@ export const SessionTimeout: Story = {
             type="button"
             style={{
               padding: '8px 16px', borderRadius: '8px', border: 'none',
-              background: 'var(--bg-primary)', color: 'var(--text-on-fill)',
+              background: 'var(--background-primary)', color: 'var(--text-on-fill)',
               cursor: 'pointer', fontSize: '14px', fontFamily: 'inherit',
             }}
           >

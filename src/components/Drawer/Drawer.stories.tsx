@@ -323,7 +323,7 @@ export const Persistent: Story = {
         display:  'flex',
         height:   '100vh',
         overflow: 'hidden',
-        background: 'var(--bg-neutral-softest)',
+        background: 'var(--background-neutral-softest)',
       }}>
         {/* Persistent nav drawer */}
         <Drawer
@@ -372,7 +372,7 @@ export const Persistent: Story = {
             gap:          '12px',
             padding:      '0 24px',
             height:       '56px',
-            background:   'var(--bg-surface)',
+            background:   'var(--background-surface)',
             borderBottom: '1px solid var(--border-neutral)',
             flexShrink:   0,
           }}>

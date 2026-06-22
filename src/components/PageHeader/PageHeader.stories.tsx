@@ -205,7 +205,7 @@ export const Sticky: Story = {
   name: 'Sticky',
   decorators: [
     Story => (
-      <div style={{ height: '200vh', background: 'var(--bg-canvas, #f5f5f5)', paddingTop: '0' }}>
+      <div style={{ height: '200vh', background: 'var(--background-canvas, #f5f5f5)', paddingTop: '0' }}>
         <Story />
         <div style={{ padding: '32px 48px', fontFamily: 'var(--font-family-base)', color: 'var(--text-soft)', fontSize: '14px' }}>
           Scroll down — header stays fixed at the top.

@@ -33,7 +33,7 @@ Vite scaffolds `src/index.css` and `src/App.css` with default styles that confli
 **`src/index.css`** — replace entire contents with:
 ```css
 *, *::before, *::after { box-sizing: border-box; }
-body { margin: 0; font-family: var(--font-family-base); color: var(--text); background: var(--bg-canvas); -webkit-font-smoothing: antialiased; }
+body { margin: 0; font-family: var(--font-family-base); color: var(--text); background: var(--background-canvas); -webkit-font-smoothing: antialiased; }
 #root { min-height: 100svh; }
 ```
 
@@ -67,7 +67,7 @@ The `data-theme="light"` attribute on the wrapper activates Ripple's light theme
 
 ## 5. Use components
 
-Every Ripple app should use a layout component as its shell. `StandardNavigation` is the default — it provides the 72px left Navbar and sets the correct content area background (`var(--bg-app)`) automatically.
+Every Ripple app should use a layout component as its shell. `StandardNavigation` is the default — it provides the 72px left Navbar and sets the correct content area background (`var(--background-app)`) automatically.
 
 ```tsx
 import { StandardNavigation, Unit4Logo, Button, Input, Tag, Badge, Card, CardHeader, CardTitle, CardContent } from '@ripple/ui'
@@ -119,7 +119,7 @@ Always use Ripple tokens — never hardcoded values.
 
 ```css
 .my-card {
-  background: var(--bg-surface);
+  background: var(--background-surface);
   border: 1px solid var(--border-neutral);
   border-radius: var(--border-radius-200);
   padding: var(--spacing-150);
@@ -134,8 +134,8 @@ Common tokens:
 | `--text` | — | Default body text |
 | `--text-loud` | — | Headings, emphasis |
 | `--text-soft` | — | Secondary / muted text |
-| `--bg-canvas` | — | Page background |
-| `--bg-surface` | — | Cards, panels |
+| `--background-canvas` | — | Page background |
+| `--background-surface` | — | Cards, panels |
 | `--border-neutral` | — | Default borders |
 | `--spacing-50` | 8px | Tight gaps |
 | `--spacing-100` | 16px | Default padding |

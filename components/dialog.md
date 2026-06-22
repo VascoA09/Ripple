@@ -76,10 +76,10 @@ All sub-components forward `ref` and spread remaining HTML attributes onto their
 
 | Element | Property | Token |
 |---------|----------|-------|
-| Dialog container | background | `--bg-surface` |
+| Dialog container | background | `--background-surface` |
 | Dialog container | border-radius | `--border-radius-overlay-default` (12px) |
 | Dialog container | box-shadow | `--elevation-overlay` → `--box-shadow-800` |
-| Backdrop | background | `rgba(0,0,0,0.3)` — component-level value (lighter than `--bg-overlay`) |
+| Backdrop | background | `rgba(0,0,0,0.3)` — component-level value (lighter than `--background-overlay`) |
 | Header / footer | padding | `--spacing-125` (20px) × `--spacing-150` (24px) |
 | Header gap | gap | `--spacing-100` (16px) |
 | Header icon | color | `--icon-default` |
@@ -108,7 +108,7 @@ All sub-components forward `ref` and spread remaining HTML attributes onto their
 - **Screen reader**: Announced as "dialog" with the title as its accessible name. The backdrop is `aria-hidden`.
 - **Scroll lock**: `overflow: hidden` applied to `document.body` while the dialog is open. Restored on close.
 - **Focus restoration**: Consumers should restore focus to the triggering element after close (e.g. the button that opened the dialog). Not handled internally — manage via `onClose` callback.
-- **Contrast**: Title (`--text-loud` on `--bg-surface`) passes WCAG AAA. Body (`--text` on `--bg-surface`) passes WCAG AA.
+- **Contrast**: Title (`--text-loud` on `--background-surface`) passes WCAG AAA. Body (`--text` on `--background-surface`) passes WCAG AA.
 
 ### Usage Guidelines
 

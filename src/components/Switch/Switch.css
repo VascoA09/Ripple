@@ -112,7 +112,7 @@
   width:         var(--_handle-size);
   height:        var(--_handle-size);
   border-radius: 50%;
-  background:    var(--bg-surface);
+  background:    var(--background-surface);
   border:        var(--border-width-default) solid var(--_handle-border-color);
   box-shadow:    var(--elevation-card);
   transition:    transform 150ms ease, border-color 150ms ease;
@@ -124,7 +124,7 @@
    ============================================================================= */
 
 .switch__input:checked + .switch__track {
-  --_track-bg: var(--bg-primary);
+  --_track-bg: var(--background-primary);
 }
 
 .switch__input:checked + .switch__track .switch__handle {
@@ -154,7 +154,7 @@
 }
 
 .switch:hover .switch__input:checked:not(:disabled) + .switch__track {
-  --_track-bg: var(--bg-primary-loud);
+  --_track-bg: var(--background-primary-loud);
 }
 
 /* =============================================================================
@@ -166,7 +166,7 @@
 }
 
 .switch:active .switch__input:checked:not(:disabled) + .switch__track {
-  --_track-bg: var(--bg-primary-loud);
+  --_track-bg: var(--background-primary-loud);
 }
 
 /* =============================================================================

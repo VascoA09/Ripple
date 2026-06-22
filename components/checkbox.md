@@ -176,31 +176,31 @@ When grouping checkboxes:
 ### Colors
 
 **Unselected (Default):**
-* Background: var(--bg-surface)
+* Background: var(--background-surface)
 * Border: var(--border-default)
 * Label color: var(--text)
 
 **Selected (Default):**
-* Background: var(--bg-primary)
+* Background: var(--background-primary)
 * Border: var(--border-primary)
 * Icon color: var(--text-loud-inverse)
 
 **Indeterminate (Default):**
-* Background: var(--bg-primary)
+* Background: var(--background-primary)
 * Border: var(--border-primary)
 * Icon color: var(--text-loud-inverse)
 
 **Validation - Positive:**
 * Border: var(--border-positive)
-* Background (when checked): var(--bg-positive)
+* Background (when checked): var(--background-positive)
 
 **Validation - Notice:**
 * Border: var(--border-notice)
-* Background (when checked): var(--bg-notice)
+* Background (when checked): var(--background-notice)
 
 **Validation - Negative:**
 * Border: var(--border-negative)
-* Background (when checked): var(--bg-negative)
+* Background (when checked): var(--background-negative)
 
 **Validation message (group):**
 * Positive message colour: var(--text-positive)
@@ -210,7 +210,7 @@ When grouping checkboxes:
 
 **Hover State:**
 * Unselected border: var(--border-primary)
-* Selected background: var(--bg-primary-loud)
+* Selected background: var(--background-primary-loud)
 * Selected border: var(--border-primary-loud)
 
 **Focus State:**

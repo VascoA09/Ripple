@@ -203,7 +203,7 @@ Adapted list rows for notification content:
 | Action button     | Optional `Button`, `outline` / `xsmall`              |
 | Divider           | `1px solid var(--border-neutral)`, hidden on last    |
 
-Unread items have `var(--bg-primary-softest)` background tint.
+Unread items have `var(--background-primary-softest)` background tint.
 
 ---
 
@@ -214,10 +214,10 @@ Every interactive item follows the same state pattern:
 | State    | Background                    | Notes                                     |
 |----------|-------------------------------|-------------------------------------------|
 | Default  | `transparent`                 | Resting state                             |
-| Hover    | `var(--bg-neutral-softest)`   | Applied when cursor enters the item       |
-| Active   | `var(--bg-primary-softest)` + `3px solid var(--color-primary-loud)` left border | Selected item |
+| Hover    | `var(--background-neutral-softest)`   | Applied when cursor enters the item       |
+| Active   | `var(--background-primary-softest)` + `3px solid var(--color-primary-loud)` left border | Selected item |
 | Focus    | `2px solid var(--border-focus)` outline, `−2px` offset | Keyboard focus ring |
-| Pressed  | `var(--bg-neutral-soft)`      | Mouse-down on item                        |
+| Pressed  | `var(--background-neutral-soft)`      | Mouse-down on item                        |
 | Disabled | 45 % opacity, `not-allowed` cursor, no pointer events | Non-interactive state |
 
 ---
@@ -421,7 +421,7 @@ The overlay fade is also subject to this rule.
 
 ### Contrast
 
-- Body text and menu labels: `--text` on `--bg-surface` — WCAG AA minimum (4.5:1 for normal text).
+- Body text and menu labels: `--text` on `--background-surface` — WCAG AA minimum (4.5:1 for normal text).
 - Section titles: rendered uppercase at `font-size-80` (14px). At this size, uppercase text does not qualify as "large text" under WCAG — 4.5:1 contrast is required, not 3:1. Verify that `--text-soft` passes 4.5:1 against the background surface token before using it here.
 - Active state: the `3px solid var(--color-primary-loud)` left border provides a non-colour cue — satisfies WCAG 1.4.1 (use of colour).
 - Focus ring: must meet 3:1 contrast against all adjacent colours (WCAG 1.4.11).

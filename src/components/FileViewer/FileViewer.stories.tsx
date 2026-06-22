@@ -295,7 +295,7 @@ export const InSidePanel: Story = {
       border: '1px solid var(--border-neutral)',
       borderRadius: '8px',
       overflow: 'hidden',
-      background: 'var(--bg-surface)',
+      background: 'var(--background-surface)',
     }}>
       {/* Fake file list pane */}
       <div style={{
@@ -314,7 +314,7 @@ export const InSidePanel: Story = {
             fontFamily: 'var(--font-family-base)',
             fontSize: '13px',
             color: i === 0 ? 'var(--color-primary)' : 'var(--text)',
-            background: i === 0 ? 'var(--bg-primary-softest)' : 'transparent',
+            background: i === 0 ? 'var(--background-primary-softest)' : 'transparent',
             cursor: 'pointer',
             overflow: 'hidden',
             textOverflow: 'ellipsis',

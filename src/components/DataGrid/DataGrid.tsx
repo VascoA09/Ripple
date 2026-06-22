@@ -31,12 +31,12 @@ ModuleRegistry.registerModules([AllCommunityModule])
 
 const rippleTheme = themeQuartz.withParams({
   // Backgrounds
-  backgroundColor:                'var(--bg-surface)',
-  chromeBackgroundColor:          'var(--bg-neutral-softest)',
-  oddRowBackgroundColor:          'var(--bg-surface)',
-  rowHoverColor:                  'var(--bg-primary-softest)',
-  selectedRowBackgroundColor:     'var(--bg-primary-soft)',
-  headerCellHoverBackgroundColor: 'var(--bg-neutral-softest)',
+  backgroundColor:                'var(--background-surface)',
+  chromeBackgroundColor:          'var(--background-neutral-softest)',
+  oddRowBackgroundColor:          'var(--background-surface)',
+  rowHoverColor:                  'var(--background-primary-softest)',
+  selectedRowBackgroundColor:     'var(--background-primary-soft)',
+  headerCellHoverBackgroundColor: 'var(--background-neutral-softest)',
 
   // Borders
   borderColor:         'var(--border-neutral)',

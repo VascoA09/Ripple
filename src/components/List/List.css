@@ -35,7 +35,7 @@
   width:         100%;
   box-sizing:    border-box;
   border-radius: var(--border-radius-container-default); /* 8px */
-  background:    var(--bg-surface);
+  background:    var(--background-surface);
   overflow:      hidden;                                 /* clips item hover/active bg at rounded corners */
 }
 
@@ -108,12 +108,12 @@
 
 /* Hover */
 .list-item[data-interactive]:not([data-disabled]):hover {
-  background: var(--bg-primary-softest);
+  background: var(--background-primary-softest);
 }
 
 /* Active — targets .list-item__inner (button/a) only, excludes checkbox clicks */
 .list-item[data-interactive]:not([data-disabled]):has(.list-item__inner:active) {
-  background:       var(--bg-primary);
+  background:       var(--background-primary);
   --_header-color:  var(--text-loud-inverse);
   --_desc-color:    var(--text-loud-inverse);
   --_before-color:  var(--text-loud-inverse);   /* icons → white */

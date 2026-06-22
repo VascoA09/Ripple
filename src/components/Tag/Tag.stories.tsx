@@ -216,7 +216,7 @@ export const InContext: Story = {
             style={{
               padding:      '12px 16px',
               borderRadius: '8px',
-              background:   'var(--bg-hover)',
+              background:   'var(--background-hover)',
             }}
           >
             <div style={{ fontWeight: 600, fontSize: '14px', color: 'var(--text)', marginBottom: '4px' }}>{title}</div>

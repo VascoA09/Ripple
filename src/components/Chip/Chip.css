@@ -70,7 +70,7 @@
 .chip[data-variant="selectable"] {
   /* Reset button */
   border:      var(--border-width-100) solid var(--border-interactive);
-  background:  var(--bg-neutral-softest);
+  background:  var(--background-neutral-softest);
   color:       var(--text);
   cursor:      pointer;
   transition:  background 150ms ease, border-color 150ms ease, color 150ms ease;
@@ -78,7 +78,7 @@
 
 /* Hover — unselected */
 .chip[data-variant="selectable"]:hover:not(:disabled) {
-  background:   var(--bg-neutral-soft);
+  background:   var(--background-neutral-soft);
   border-color: var(--border-neutral-loud);
 }
 
@@ -90,7 +90,7 @@
 
 /* Selected */
 .chip[data-variant="selectable"][aria-pressed="true"] {
-  background:   var(--bg-primary-softest);
+  background:   var(--background-primary-softest);
   border-color: var(--border-primary-loud);
   color:        var(--color-primary-loud);
   font-weight:  var(--font-weight-semibold);
@@ -98,7 +98,7 @@
 
 /* Hover — selected */
 .chip[data-variant="selectable"][aria-pressed="true"]:hover:not(:disabled) {
-  background:   var(--bg-primary-soft);
+  background:   var(--background-primary-soft);
   border-color: var(--border-primary-loud);
 }
 
@@ -114,7 +114,7 @@
 
 .chip[data-variant="removable"] {
   border:     var(--border-width-100) solid var(--border-interactive-soft);
-  background: var(--bg-neutral-softest);
+  background: var(--background-neutral-softest);
   color:      var(--text);
   /* span — no cursor change on container itself */
 }
@@ -178,7 +178,7 @@
 }
 
 .chip__remove:hover:not(:disabled) {
-  background: var(--bg-neutral-soft);
+  background: var(--background-neutral-soft);
   color:      var(--text);
 }
 
@@ -188,7 +188,7 @@
 }
 
 .chip__remove:active:not(:disabled) {
-  background: var(--bg-neutral-softest);
+  background: var(--background-neutral-softest);
 }
 
 .chip__remove:disabled {

@@ -43,7 +43,7 @@
   --_border:    var(--border-default);
   --_text:      var(--text);
   --_msg-color: var(--text-soft);
-  --_affix-bg:  var(--bg-neutral-softest);
+  --_affix-bg:  var(--background-neutral-softest);
 }
 
 /* ---------------------------------------------------------------------------
@@ -74,21 +74,21 @@
   --_border:    var(--border-negative);
   --_text:      var(--text-negative);
   --_msg-color: var(--text-negative);
-  --_affix-bg:  var(--bg-negative-softest);
+  --_affix-bg:  var(--background-negative-softest);
 }
 
 .input[data-validation="notice"] {
   --_border:    var(--border-notice);
   --_text:      var(--text-notice);
   --_msg-color: var(--text-notice);
-  --_affix-bg:  var(--bg-notice-softest);
+  --_affix-bg:  var(--background-notice-softest);
 }
 
 .input[data-validation="positive"] {
   --_border:    var(--border-positive);
   --_text:      var(--text-positive);
   --_msg-color: var(--text-positive);
-  --_affix-bg:  var(--bg-positive-softest);
+  --_affix-bg:  var(--background-positive-softest);
 }
 
 /* ---------------------------------------------------------------------------
@@ -125,7 +125,7 @@
   display:       flex;
   align-items:   stretch;
   height:        var(--_height);
-  background:    var(--bg-surface);
+  background:    var(--background-surface);
   border:        var(--border-width-default) solid var(--_border);
   border-radius: var(--_radius);
   overflow:      hidden;
@@ -148,12 +148,12 @@
 
 /* Read-only background */
 .input__wrapper[data-readonly] {
-  background: var(--bg-neutral-softest);
+  background: var(--background-neutral-softest);
 }
 
 /* Disabled background */
 .input__wrapper[data-disabled] {
-  background: var(--bg-neutral-soft);
+  background: var(--background-neutral-soft);
 }
 
 /* ---------------------------------------------------------------------------

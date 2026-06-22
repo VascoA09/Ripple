@@ -82,7 +82,7 @@
 }
 
 .tab-item:hover:not([data-disabled]) {
-  background: var(--bg-primary-softest);
+  background: var(--background-primary-softest);
 }
 
 .tab-item[data-disabled] {

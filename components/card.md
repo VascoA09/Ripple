@@ -19,8 +19,8 @@ Flexible surface container. Groups related content and actions into a distinct v
 
 | Variant | Background | Shadow | Use |
 |---------|------------|--------|-----|
-| `elevated` (default) | `--bg-surface` (white / dark-gray.90) | `--elevation-card` | Primary cards on page background |
-| `flat` | `--bg-app` (gray.10) | None | Nested inside elevated cards only |
+| `elevated` (default) | `--background-surface` (white / dark-gray.90) | `--elevation-card` | Primary cards on page background |
+| `flat` | `--background-app` (gray.10) | None | Nested inside elevated cards only |
 
 Do not nest elevated inside elevated. Flat inside elevated = one valid nesting level.
 
@@ -47,7 +47,7 @@ Keyboard: Enter and Space trigger `onClick` on the `<div role="button">` variant
 | Default | `--elevation-card` shadow |
 | Hover | `--elevation-raised` shadow |
 | Focus-visible | `2px solid var(--border-focus)`, `outline-offset: 0` |
-| Active | Background → `--bg-app`, shadow → `none`, `translateY(1px)` |
+| Active | Background → `--background-app`, shadow → `none`, `translateY(1px)` |
 
 ---
 
@@ -71,8 +71,8 @@ All sections have default padding `--spacing-100` (16px). Pass a `padding` prop 
 
 | Token | Value | Purpose |
 |-------|-------|---------|
-| `--bg-surface` | `#FFFFFF` / dark: `#373939` | Elevated card background |
-| `--bg-app` | `#F9F9F9` / dark: `#252828` | Flat card bg; pressed bg |
+| `--background-surface` | `#FFFFFF` / dark: `#373939` | Elevated card background |
+| `--background-app` | `#F9F9F9` / dark: `#252828` | Flat card bg; pressed bg |
 | `--elevation-card` | `0 2px 4px rgba(...)` | Default shadow |
 | `--elevation-raised` | `0 4px 8px rgba(...)` | Hover shadow |
 | `--border-focus` | `var(--color-primary)` | Focus outline |

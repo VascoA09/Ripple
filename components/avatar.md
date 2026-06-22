@@ -132,7 +132,7 @@ When `src` is provided but the image fails to load, the component automatically 
 
 In overlap mode (`overlap={true}`), each avatar overlaps the previous by `8px` via `margin-left: -8px`. Later avatars in the DOM sit on top (higher stacking order). On hover, the hovered avatar lifts with `translateY(-2px)` and a z-index bump.
 
-All avatars in an overlapping group receive a `2px solid var(--bg-nav)` border to visually separate adjacent circles — this adapts correctly in dark mode.
+All avatars in an overlapping group receive a `2px solid var(--background-nav)` border to visually separate adjacent circles — this adapts correctly in dark mode.
 
 ---
 
@@ -147,7 +147,7 @@ All avatars in an overlapping group receive a `2px solid var(--bg-nav)` border t
 | `2xl`| 14px |
 | `3xl`| 16px |
 
-The dot border (`2px solid var(--bg-nav)`) creates separation between the dot and the avatar edge, and adapts to dark mode automatically.
+The dot border (`2px solid var(--background-nav)`) creates separation between the dot and the avatar edge, and adapts to dark mode automatically.
 
 ---
 
@@ -155,10 +155,10 @@ The dot border (`2px solid var(--bg-nav)`) creates separation between the dot an
 
 | Status | Color token |
 |--------|-------------|
-| `active` | `--bg-positive` |
-| `away` | `--bg-notice` |
-| `busy` | `--bg-negative` |
-| `offline` | `--bg-neutral` |
+| `active` | `--background-positive` |
+| `away` | `--background-notice` |
+| `busy` | `--background-negative` |
+| `offline` | `--background-neutral` |
 
 ---
 
@@ -168,7 +168,7 @@ The dot border (`2px solid var(--bg-nav)`) creates separation between the dot an
 - The `<img>` inside the avatar uses `alt=""` (decorative) — the label is on the outer element.
 - The status dot uses `role="img"` with an `aria-label` matching the status ("Active", "Away", "Busy", "Offline").
 - Interactive avatars support keyboard navigation (Tab, Enter/Space) via native element semantics.
-- All sizes exceed WCAG AA contrast for the default initials color: `--color-primary-loud` on `--bg-primary-softest`.
+- All sizes exceed WCAG AA contrast for the default initials color: `--color-primary-loud` on `--background-primary-softest`.
 
 ### Touch target note (WCAG 2.2 AA, 2.5.8)
 
