@@ -168,29 +168,6 @@
   --icon-neutral:   var(--color-neutral-loud);
 
   /* ---------------------------------------------------------------------------
-     SPACING: Semantic aliases
-     Moved from primitives.css — Tier 2, not Tier 1.
-     --------------------------------------------------------------------------- */
-
-  /* Component padding */
-  --spacing-component-padding-tight:   var(--spacing-50);
-  --spacing-component-padding-default: var(--spacing-100);
-  --spacing-component-padding-relaxed: var(--spacing-150);
-
-  /* Component gaps */
-  --spacing-component-gap-inline:  var(--spacing-25);
-  --spacing-component-gap-tight:   var(--spacing-50);
-  --spacing-component-gap-default: var(--spacing-100);
-  --spacing-component-gap-relaxed: var(--spacing-150);
-
-  /* Layout spacing */
-  --spacing-layout-section-small:   var(--spacing-200);
-  --spacing-layout-section-default: var(--spacing-250);
-  --spacing-layout-section-large:   var(--spacing-400);
-  --spacing-layout-page-padding:    var(--spacing-150);
-  --spacing-layout-page-margin:     var(--spacing-600);
-
-  /* ---------------------------------------------------------------------------
      SIZE: Semantic aliases
      Moved from primitives.css — Tier 2, not Tier 1.
      --------------------------------------------------------------------------- */
