@@ -82,7 +82,7 @@
 .card-title {
   margin:      0;
   font-family: var(--font-family-base);
-  font-size:   var(--font-size-120);         /* 18px */
+  font-size:   var(--font-size-120);         /* 18px — Heading/S */
   font-weight: var(--font-weight-semibold);
   line-height: var(--font-line-height-heading);
   color:       var(--text-loud);
