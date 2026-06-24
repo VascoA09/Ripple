@@ -95,7 +95,7 @@ Default color is `primary`.
 
 | Property         | Token                    | Value |
 |------------------|--------------------------|-------|
-| Border radius    | `--border-radius-100`    | 4px   |
+| Border radius    | `--border-radius-pill`   | 999px |
 | Border width     | `--border-width-default` | 1px   |
 | Max width        | `200px`                  | —     |
 | Icon gap         | `--spacing-25`           | 4px   |
