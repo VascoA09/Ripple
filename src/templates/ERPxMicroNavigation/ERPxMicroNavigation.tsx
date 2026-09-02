@@ -1,5 +1,5 @@
 import React from 'react'
-import { Bell, Building2, Grid3X3, Search } from 'lucide-react'
+import { Bell, Building2, Grid3X3, Search } from '../../icons'
 import { MicroNavigation } from '../../layouts/MicroNavigation'
 import type { MicroNavigationProps } from '../../layouts/MicroNavigation'
 import type { MainNavItem } from '../../patterns/MainNavigation'

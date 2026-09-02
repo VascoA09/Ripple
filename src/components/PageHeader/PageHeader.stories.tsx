@@ -8,7 +8,7 @@ import {
   Eye,
   Settings,
   Sparkles,
-} from 'lucide-react'
+} from '../../icons'
 import { Badge } from '../Badge'
 import { Button } from '../Button'
 import { IconButton } from '../IconButton'

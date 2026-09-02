@@ -1,5 +1,5 @@
 import React, { useId, useEffect, useRef, useImperativeHandle } from 'react'
-import { XCircle, AlertCircle, CheckCircle } from 'lucide-react'
+import { XCircle, AlertCircle, CheckCircle } from '../../icons'
 import { FieldLabel } from '../FieldLabel'
 import { Hint } from '../Hint'
 import './Checkbox.css'

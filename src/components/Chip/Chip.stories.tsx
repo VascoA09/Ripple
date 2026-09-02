@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
-import { Tag, Globe, Star, Zap, Filter, User } from 'lucide-react'
+import { Tag, Globe, Star, Zap, Filter, User } from '../../icons'
 import { Chip, ChipGroup } from './Chip'
 import type { ChipProps } from './Chip'
 

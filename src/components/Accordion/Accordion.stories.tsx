@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Settings, Lock, User, CreditCard, Bell, HelpCircle } from 'lucide-react'
+import { Settings, Lock, User, CreditCard, Bell, HelpCircle } from '../../icons'
 import { Accordion } from './Accordion'
 import type { AccordionProps } from './Accordion'
 import { Avatar } from '../Avatar'

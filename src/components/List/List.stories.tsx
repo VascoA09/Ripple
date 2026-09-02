@@ -17,7 +17,7 @@ import {
   Shield,
   User,
   ChevronRight,
-} from 'lucide-react'
+} from '../../icons'
 
 // ---------------------------------------------------------------------------
 

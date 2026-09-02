@@ -10,7 +10,7 @@ import {
   Upload,
   Filter,
   Eye,
-} from 'lucide-react'
+} from '../../icons'
 import { ButtonsToolbar } from './ButtonsToolbar'
 import type { ButtonsToolbarProps, ToolbarAction } from './ButtonsToolbar'
 

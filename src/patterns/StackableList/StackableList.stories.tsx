@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { MoreHorizontal } from 'lucide-react'
+import { MoreHorizontal } from '../../icons'
 import {
   StackableList,
   StackableListHeader,

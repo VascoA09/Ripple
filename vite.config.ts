@@ -16,12 +16,11 @@ export default defineConfig({
       fileName: (format) => `index.${format === 'es' ? 'js' : 'cjs'}`,
     },
     rollupOptions: {
-      external: ['react', 'react/jsx-runtime', 'react/jsx-dev-runtime', 'react-dom', 'lucide-react'],
+      external: ['react', 'react/jsx-runtime', 'react/jsx-dev-runtime', 'react-dom'],
       output: {
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
-          'lucide-react': 'LucideReact',
         },
       },
     },

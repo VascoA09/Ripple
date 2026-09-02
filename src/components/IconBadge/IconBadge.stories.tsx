@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Bell, Inbox, MessageSquare, Settings, User } from 'lucide-react'
+import { Bell, Inbox, MessageSquare, Settings, User } from '../../icons'
 import { IconBadge } from './IconBadge'
 import type { IconBadgeProps } from './IconBadge'
 import { Button } from '../Button'

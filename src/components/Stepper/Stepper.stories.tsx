@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Calendar, CreditCard, Package, User } from 'lucide-react'
+import { Calendar, CreditCard, Package, User } from '../../icons'
 import { Stepper, StepperStep } from './Stepper'
 import type { StepperProps } from './Stepper'
 

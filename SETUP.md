@@ -70,8 +70,7 @@ The `data-theme="light"` attribute on the wrapper activates Ripple's light theme
 Every Ripple app should use a layout component as its shell. `StandardNavigation` is the default — it provides the 72px left Navbar and sets the correct content area background (`var(--background-app)`) automatically.
 
 ```tsx
-import { StandardNavigation, Unit4Logo, Button, Input, Tag, Badge, Card, CardHeader, CardTitle, CardContent } from '@ripple/ui'
-import { LayoutDashboard } from 'lucide-react'
+import { StandardNavigation, Unit4Logo, Button, Input, Tag, Badge, Card, CardHeader, CardTitle, CardContent, Grid3X3 } from '@ripple/ui'
 
 export default function App() {
   return (
@@ -80,7 +79,7 @@ export default function App() {
         logo: <Unit4Logo />,
         productName: 'My App',
         globalNavItems: [
-          { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} />, onClick: () => {} },
+          { id: 'dashboard', label: 'Dashboard', icon: <Grid3X3 size={20} />, onClick: () => {} },
         ],
       }}
     >

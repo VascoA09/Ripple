@@ -1,5 +1,5 @@
 import React from 'react'
-import { Check, AlertCircle, XCircle } from 'lucide-react'
+import { Check, AlertCircle, XCircle } from '../../icons'
 import './Stepper.css'
 
 // =============================================================================

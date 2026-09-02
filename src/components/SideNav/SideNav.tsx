@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ChevronLeft, ChevronRight, LogOut } from 'lucide-react'
+import { ChevronLeft, ChevronRight, LogOut } from '../../icons'
 import { Avatar } from '../Avatar'
 import { Button } from '../Button'
 import { Tooltip } from '../Tooltip'

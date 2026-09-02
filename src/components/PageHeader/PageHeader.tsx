@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
 } from 'react'
-import { ChevronLeft, MoreVertical } from 'lucide-react'
+import { ChevronLeft, MoreVertical } from '../../icons'
 import { Breadcrumbs } from '../Breadcrumbs'
 import type { BreadcrumbItem } from '../Breadcrumbs'
 import { ButtonsToolbar } from '../ButtonsToolbar'

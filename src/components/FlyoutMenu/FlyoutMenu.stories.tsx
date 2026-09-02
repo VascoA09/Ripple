@@ -11,7 +11,7 @@ import {
   Share2,
   Trash2,
   Upload,
-} from 'lucide-react'
+} from '../../icons'
 import {
   FlyoutMenu,
   FlyoutMenuTrigger,

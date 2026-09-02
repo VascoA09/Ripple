@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react'
-import { MoreHorizontal } from 'lucide-react'
+import { MoreHorizontal } from '../../icons'
 import { Unit4Logo } from '../../assets/Unit4Logo'
 import { Avatar } from '../Avatar'
 import { Badge } from '../Badge'

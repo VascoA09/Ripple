@@ -10,8 +10,9 @@ Unit4's design system for product UI. Foundations, tokens, components, and patte
 
 ```bash
 npm install github:VascoA09/Ripple --legacy-peer-deps
-npm install lucide-react --legacy-peer-deps
 ```
+
+Icons ship bundled with Ripple (Font Awesome Pro, Regular style, self-hosted as SVG components) — no separate icon package to install.
 
 ## Setup
 

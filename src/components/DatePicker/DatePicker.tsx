@@ -2,7 +2,7 @@ import React, { useId, useRef, useState, useEffect } from 'react'
 import {
   Calendar, ChevronLeft, ChevronRight,
   X, XCircle, AlertCircle, CheckCircle,
-} from 'lucide-react'
+} from '../../icons'
 import { FieldLabel } from '../FieldLabel'
 import { Hint } from '../Hint'
 import { Button } from '../Button'

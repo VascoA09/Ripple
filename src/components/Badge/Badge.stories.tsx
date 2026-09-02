@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { AlertCircle, Archive, CheckCircle, Clock, Info, XCircle, Zap } from 'lucide-react'
+import { AlertCircle, Archive, CheckCircle, Clock, Info, XCircle, Zap } from '../../icons'
 import { Badge } from './Badge'
 import type { BadgeProps } from './Badge'
 

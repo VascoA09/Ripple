@@ -1,5 +1,5 @@
 import React from 'react'
-import { MoreHorizontal, ChevronRight } from 'lucide-react'
+import { MoreHorizontal, ChevronRight } from '../../icons'
 import {
   FlyoutMenu,
   FlyoutMenuTrigger,

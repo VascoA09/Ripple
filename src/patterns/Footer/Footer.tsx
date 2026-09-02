@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ChevronLeft, ChevronRight, Lock, MoreHorizontal, Pin, X } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Lock, MoreHorizontal, Pin, X } from '../../icons'
 import type { TagColor } from '../../components/Tag'
 import {
   FlyoutMenu,

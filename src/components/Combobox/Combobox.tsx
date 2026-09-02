@@ -7,7 +7,7 @@ import React, {
   useCallback,
   useMemo,
 } from 'react'
-import { ChevronDown, Check } from 'lucide-react'
+import { ChevronDown, Check } from '../../icons'
 import './Combobox.css'
 import { Button } from '../Button'
 import { Chip } from '../Chip'

@@ -5,7 +5,7 @@ Ripple is Unit4's design system for product UI. This file is the entry point for
 **Stack**: React 19, TypeScript, CSS custom properties
 **Package**: `@ripple/ui`
 **Install**: `npm install github:VascoA09/Ripple --legacy-peer-deps`
-**Peer deps**: `npm install lucide-react --legacy-peer-deps` (required, not bundled)
+**Icons**: Font Awesome Pro, Regular style — bundled with Ripple, no separate install. Import from `@ripple/ui` (e.g. `import { Search } from '@ripple/ui'`). Note: the `Tag` icon is exported as `TagIcon` to avoid colliding with the `Tag` component.
 **Typeface**: Open Sans (via `@fontsource-variable/open-sans`)
 **Scope**: B2B enterprise software, people-centric service organisations
 
@@ -36,8 +36,7 @@ Never apply `background` or `padding` to a wrapper that includes a PageHeader. L
 
 **Minimal `StandardNavigation` shell:**
 ```tsx
-import { StandardNavigation, Unit4Logo } from '@ripple/ui'
-import { LayoutDashboard, Settings } from 'lucide-react'
+import { StandardNavigation, Unit4Logo, Grid3X3, Settings } from '@ripple/ui'
 
 export default function App() {
   return (
@@ -46,7 +45,7 @@ export default function App() {
         logo: <Unit4Logo />,
         productName: 'My App',
         globalNavItems: [
-          { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} />, onClick: () => {} },
+          { id: 'dashboard', label: 'Dashboard', icon: <Grid3X3 size={20} />, onClick: () => {} },
           { id: 'settings',  label: 'Settings',  icon: <Settings size={20} />,        onClick: () => {} },
         ],
       }}

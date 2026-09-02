@@ -1,4 +1,4 @@
-import { AlertCircle, CheckCircle2, XCircle } from 'lucide-react'
+import { AlertCircle, CheckCircle2, XCircle } from '../../icons'
 import './ValidationMessage.css'
 
 // =============================================================================

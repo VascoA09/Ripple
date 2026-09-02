@@ -4,7 +4,7 @@ import {
   Download, ExternalLink, ScanSearch,
   FileX, EyeOff, FileText, FileSpreadsheet,
   ChevronLeft, ChevronRight,
-} from 'lucide-react'
+} from '../../icons'
 import { IconButton } from '../IconButton'
 import { Spinner } from '../Spinner'
 import {

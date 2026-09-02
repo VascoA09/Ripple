@@ -12,7 +12,7 @@ import {
   FileText,
   Bell,
   CreditCard,
-} from 'lucide-react'
+} from '../../icons'
 
 // ---------------------------------------------------------------------------
 

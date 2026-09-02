@@ -206,7 +206,7 @@ When grouping checkboxes:
 * Positive message colour: var(--text-positive)
 * Notice message colour: var(--text-notice)
 * Negative message colour: var(--text-negative)
-* Icon: 14px — CheckCircle / AlertCircle / XCircle (lucide-react), `margin-top: 3px` for optical alignment
+* Icon: 14px — CheckCircle / AlertCircle / XCircle (Font Awesome Pro, Regular style), `margin-top: 3px` for optical alignment
 
 **Hover State:**
 * Unselected border: var(--border-primary)

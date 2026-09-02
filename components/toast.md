@@ -330,7 +330,7 @@ function MyComponent() {
 ### With Custom Icon (Neutral only)
 
 ```tsx
-import { Mail } from 'lucide-react';
+import { Mail } from '@ripple/ui'; // Font Awesome Pro, Regular style — bundled with Ripple
 
 addToast({
   variant: 'neutral',

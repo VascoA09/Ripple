@@ -2,7 +2,7 @@ import React, {
   createContext, useContext, useState, useEffect, useRef, useCallback,
 } from 'react'
 import { createPortal } from 'react-dom'
-import { Info, CheckCircle, CircleAlert, XCircle, X } from 'lucide-react'
+import { Info, CheckCircle, CircleAlert, XCircle, X } from '../../icons'
 import './Toast.css'
 
 // ---------------------------------------------------------------------------

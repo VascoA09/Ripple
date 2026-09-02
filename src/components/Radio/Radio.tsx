@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useId } from 'react'
-import { CheckCircle, AlertCircle, XCircle } from 'lucide-react'
+import { CheckCircle, AlertCircle, XCircle } from '../../icons'
 import { FieldLabel } from '../FieldLabel'
 import { Hint } from '../Hint'
 import './Radio.css'

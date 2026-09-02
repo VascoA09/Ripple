@@ -10,7 +10,7 @@ import {
   AlertCircle,
   BarChart2,
   Bookmark,
-} from 'lucide-react'
+} from '../../icons'
 import { Tag } from '../Tag'
 import { Badge } from '../Badge'
 import { Avatar } from '../Avatar'

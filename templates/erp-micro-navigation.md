@@ -49,23 +49,23 @@ Teams building ERPx screens should use this template as their starting point, th
 ## Navbar Global Actions — ERPx Conventions
 
 ### Search
-- Icon: `Search` (Lucide)
+- Icon: `Search` (Font Awesome Pro, Regular style)
 - Behaviour: opens global search (application-managed)
 - `aria-label`: "Search"
 
 ### Global Hub
-- Icon: `Grid3X3` or equivalent grid/hub icon
+- Icon: `Grid3X3` or equivalent grid/hub icon (Font Awesome Pro, Regular style)
 - Behaviour: opens the ERPx Global Hub drawer (application-managed)
 - `aria-label`: "Global Hub"
 
 ### Notifications
-- Icon: `Bell` (Lucide)
+- Icon: `Bell` (Font Awesome Pro, Regular style)
 - Behaviour: opens notifications panel (application-managed)
 - `aria-label`: "Notifications"
 - May include a badge for unread count — application-managed
 
 ### Client
-- Icon: `Building2` or equivalent (Lucide)
+- Icon: `Building2` or equivalent (Font Awesome Pro, Regular style)
 - Behaviour: opens client/environment switcher (application-managed)
 - `aria-label`: "Switch client"
 - Displays currently active client name where space permits
@@ -97,7 +97,7 @@ Identical to Micro Navigation. See [micro-navigation.md](../layouts/micro-naviga
 ```tsx
 import { MicroNavigation } from '@ripple/ui'
 import { Navbar } from '@ripple/ui'
-import { Search, Grid3X3, Bell, Building2 } from 'lucide-react'
+import { Search, Grid3X3, Bell, Building2 } from '@ripple/ui' // Font Awesome Pro, Regular style — bundled with Ripple
 import { IconButton } from '@ripple/ui'
 
 // ERPx MicroNavigation starting point

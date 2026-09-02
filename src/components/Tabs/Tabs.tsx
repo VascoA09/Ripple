@@ -1,5 +1,5 @@
 import React from 'react'
-import { X, EllipsisVertical } from 'lucide-react'
+import { X, EllipsisVertical } from '../../icons'
 import { Button } from '../Button'
 import './Tabs.css'
 
@@ -122,7 +122,7 @@ export interface TabProps {
   value: string
   /**
    * Decorative icon rendered before the label.
-   * Use a Lucide icon — the component constrains it to 16px.
+   * Use a Font Awesome Pro icon (Regular style) — the component constrains it to 16px.
    * Use consistently across all tabs in a list, or not at all.
    */
   icon?: React.ReactNode

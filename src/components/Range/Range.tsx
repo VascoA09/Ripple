@@ -1,5 +1,5 @@
 import React, { useId, useMemo, useRef, useState } from 'react'
-import { XCircle } from 'lucide-react'
+import { XCircle } from '../../icons'
 import { FieldLabel } from '../FieldLabel'
 import './Range.css'
 

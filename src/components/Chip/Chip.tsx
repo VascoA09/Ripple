@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { X, Check } from 'lucide-react'
+import { X, Check } from '../../icons'
 import { Counter } from '../Counter'
 import './Chip.css'
 

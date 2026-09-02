@@ -17,7 +17,7 @@ import {
   ShoppingCart,
   User,
   Users,
-} from 'lucide-react'
+} from '../../icons'
 import { MainNavigation } from './MainNavigation'
 import type { MainNavigationProps } from './MainNavigation'
 import {

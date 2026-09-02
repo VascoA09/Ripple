@@ -11,7 +11,7 @@ import {
   Search,
   Settings,
   Users,
-} from 'lucide-react'
+} from '../../icons'
 // Note: DollarSign, Users, BarChart2, Settings are imported for the commented
 // contextualNavItems example — keep them so the example compiles when uncommented.
 import { MicroNavigation } from './MicroNavigation'

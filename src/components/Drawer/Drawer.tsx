@@ -1,6 +1,6 @@
 import React, { useId, useRef, useState, useEffect, useContext, createContext } from 'react'
 import ReactDOM from 'react-dom'
-import { X, ChevronDown, MoreHorizontal } from 'lucide-react'
+import { X, ChevronDown, MoreHorizontal } from '../../icons'
 import { IconButton } from '../IconButton'
 
 import './Drawer.css'

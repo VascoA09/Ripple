@@ -7,7 +7,7 @@ import { Input } from '../Input'
 import { TextArea } from '../TextArea'
 import { Combobox } from '../Combobox'
 import { BannerAlert } from '../BannerAlert'
-import { AlertTriangle, Trash2, Info } from 'lucide-react'
+import { AlertTriangle, Trash2, Info } from '../../icons'
 
 // ---------------------------------------------------------------------------
 

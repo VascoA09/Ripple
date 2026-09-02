@@ -17,7 +17,7 @@ import {
   Inbox,
   Layout,
   Grid,
-} from 'lucide-react'
+} from '../../icons'
 import { Navbar } from './Navbar'
 import type { NavbarProps, NavItem, UserMenuItem } from './Navbar'
 import { Unit4Logo } from '../../assets/Unit4Logo'

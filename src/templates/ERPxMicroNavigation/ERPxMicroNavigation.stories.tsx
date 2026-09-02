@@ -11,7 +11,7 @@ import {
   Search,
   Settings,
   Users,
-} from 'lucide-react'
+} from '../../icons'
 import { ERPxMicroNavigation } from './ERPxMicroNavigation'
 import type { ERPxMicroNavigationProps } from './ERPxMicroNavigation'
 import type { FooterTab } from '../../patterns/Footer'

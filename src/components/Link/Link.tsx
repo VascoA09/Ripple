@@ -1,5 +1,5 @@
 import React from 'react'
-import { ExternalLink } from 'lucide-react'
+import { ExternalLink } from '../../icons'
 import './Link.css'
 
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {

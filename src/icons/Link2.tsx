@@ -1,0 +1,24 @@
+import React from 'react'
+import type { IconProps } from './types'
+
+/**
+ * Link2 icon.
+ * Source: Font Awesome Pro 6, Regular style ("link-simple").
+ */
+export const Link2 = React.forwardRef<SVGSVGElement, IconProps>(
+  function Link2({ size = 24, color = 'currentColor', ...rest }, ref) {
+    return (
+      <svg
+        ref={ref}
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 576 512"
+        width={size}
+        height={size}
+        fill={color}
+        {...rest}
+      >
+        <path d="M0 256C0 167.6 71.6 96 160 96l72 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-72 0C98.1 144 48 194.1 48 256s50.1 112 112 112l72 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-72 0C71.6 416 0 344.4 0 256zm576 0c0 88.4-71.6 160-160 160l-72 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l72 0c61.9 0 112-50.1 112-112s-50.1-112-112-112l-72 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l72 0c88.4 0 160 71.6 160 160zM184 232l208 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-208 0c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/>
+      </svg>
+    )
+  },
+)

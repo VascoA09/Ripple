@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
-import { Mail, User, Lock, DollarSign, Globe } from 'lucide-react'
+import { Mail, User, Lock, DollarSign, Globe } from '../../icons'
 import { Input } from './Input'
 import type { InputProps } from './Input'
 

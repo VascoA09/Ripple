@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { X } from 'lucide-react'
+import { X } from '../../icons'
 import { Button } from '../Button'
 import './Dialog.css'
 
@@ -184,7 +184,7 @@ Dialog.displayName = 'Dialog'
 export interface DialogHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Icon rendered to the left of the title.
-   * Use a Lucide icon at 20px. Always decorative — meaning comes from the title text.
+   * Use a Font Awesome Pro icon (Regular style) at 20px. Always decorative — meaning comes from the title text.
    */
   icon?: React.ReactNode
   children: React.ReactNode

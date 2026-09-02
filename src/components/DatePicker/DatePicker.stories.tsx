@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { Plane, Hotel } from 'lucide-react'
+import { Plane, Hotel } from '../../icons'
 import { DatePicker } from './DatePicker'
 import type { DatePickerProps } from './DatePicker'
 

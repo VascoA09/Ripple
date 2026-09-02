@@ -3,7 +3,7 @@ import { useState } from 'react'
 import {
   Globe, Tag, Users, BarChart2, Clock, Star,
   CheckCircle, AlertCircle, Pause,
-} from 'lucide-react'
+} from '../../icons'
 import { Dropdown } from './Dropdown'
 import type { DropdownProps, DropdownOption } from './Dropdown'
 

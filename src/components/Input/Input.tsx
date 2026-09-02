@@ -4,7 +4,7 @@ import React, {
 import {
   Search, Eye, EyeOff, X,
   XCircle, AlertCircle, CheckCircle,
-} from 'lucide-react'
+} from '../../icons'
 import { FieldLabel } from '../FieldLabel'
 import { Hint } from '../Hint'
 import './Input.css'

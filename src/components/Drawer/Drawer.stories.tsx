@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, FileText, Settings, Bell,
   BarChart2, Inbox, Star, CreditCard, HelpCircle,
   Filter, User,
-} from 'lucide-react'
+} from '../../icons'
 import {
   Drawer, DrawerHeader, DrawerTools, DrawerContent, DrawerFooter,
   DrawerSection, DrawerMenuItem, DrawerMultiLevelItem,

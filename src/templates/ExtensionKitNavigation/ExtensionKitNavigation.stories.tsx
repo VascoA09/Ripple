@@ -14,7 +14,7 @@ import {
   SlidersHorizontal,
   Table2,
   Users,
-} from 'lucide-react'
+} from '../../icons'
 import { IconButton } from '../../components/IconButton'
 import { ExtensionKitNavigation } from './ExtensionKitNavigation'
 import type { ExtensionKitNavigationProps } from './ExtensionKitNavigation'

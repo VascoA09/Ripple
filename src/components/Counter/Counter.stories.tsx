@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Bell, Inbox, MessageSquare } from 'lucide-react'
+import { Bell, Inbox, MessageSquare } from '../../icons'
 import { Counter } from './Counter'
 import type { CounterProps } from './Counter'
 

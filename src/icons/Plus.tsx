@@ -1,0 +1,24 @@
+import React from 'react'
+import type { IconProps } from './types'
+
+/**
+ * Plus icon.
+ * Source: Font Awesome Pro 6, Regular style ("plus").
+ */
+export const Plus = React.forwardRef<SVGSVGElement, IconProps>(
+  function Plus({ size = 24, color = 'currentColor', ...rest }, ref) {
+    return (
+      <svg
+        ref={ref}
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 448 512"
+        width={size}
+        height={size}
+        fill={color}
+        {...rest}
+      >
+        <path d="M248 72c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 160L40 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l160 0 0 160c0 13.3 10.7 24 24 24s24-10.7 24-24l0-160 160 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-160 0 0-160z"/>
+      </svg>
+    )
+  },
+)

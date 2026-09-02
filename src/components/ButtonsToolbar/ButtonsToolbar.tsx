@@ -1,5 +1,5 @@
 import React from 'react'
-import { MoreVertical } from 'lucide-react'
+import { MoreVertical } from '../../icons'
 import { Button } from '../Button'
 import { IconButton } from '../IconButton'
 import {

@@ -24,7 +24,7 @@ An inline navigational element that renders an `<a>` tag. Supports two visual va
 ```
 
 - **Label**: The link text content
-- **External icon**: ExternalLink icon (lucide-react), auto-rendered when `target="_blank"`. Never render it manually.
+- **External icon**: ExternalLink icon (Font Awesome Pro, Regular style, bundled with Ripple), auto-rendered when `target="_blank"`. Never render it manually.
 
 ---
 
@@ -93,7 +93,7 @@ Gap between label and icon: `--spacing-25` (4px)
 
 When `target="_blank"` is set:
 1. `rel="noopener noreferrer"` is applied automatically — never needs manual setting
-2. An `ExternalLink` icon (from lucide-react) appended after the label text
+2. An `ExternalLink` icon (Font Awesome Pro, Regular style, bundled with Ripple) appended after the label text
 3. Icon is `aria-hidden` — the `aria-label` or surrounding context must communicate externality to screen readers when needed
 
 ```tsx

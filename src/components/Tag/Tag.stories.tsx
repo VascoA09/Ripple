@@ -11,7 +11,7 @@ import {
   Sun,
   Layers,
   Tag as TagIcon,
-} from 'lucide-react'
+} from '../../icons'
 import { Tag } from './Tag'
 import type { TagProps, TagColor } from './Tag'
 

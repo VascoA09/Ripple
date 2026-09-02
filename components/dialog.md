@@ -39,7 +39,7 @@ Dialog interrupts the user with a focused task or decision that must be resolved
 
 | Prop | Type | Default | Required | Description |
 |------|------|---------|----------|-------------|
-| `icon` | `ReactNode` | — | No | Decorative icon left of the title. Use a Lucide icon at 20px. |
+| `icon` | `ReactNode` | — | No | Decorative icon left of the title. Use a Font Awesome Pro icon (Regular style) at 20px — Ripple bundles this set, import from `@ripple/ui`. |
 | `children` | `ReactNode` | — | Yes | Title text. Rendered as `<h2>` and wired to `aria-labelledby`. |
 
 #### DialogBody

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Info, CheckCircle2, AlertTriangle, XCircle, X } from 'lucide-react'
+import { Info, CheckCircle2, AlertTriangle, XCircle, X } from '../../icons'
 import { Button } from '../Button'
 import './BannerAlert.css'
 

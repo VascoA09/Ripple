@@ -1,6 +1,6 @@
 import React from 'react'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import { Check, ChevronRight } from 'lucide-react'
+import { Check, ChevronRight } from '../../icons'
 import { Divider } from '../Divider'
 import './FlyoutMenu.css'
 

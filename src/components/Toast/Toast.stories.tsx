@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
-import { Mail, Download, RefreshCw } from 'lucide-react'
+import { Mail, Download, RefreshCw } from '../../icons'
 import { ToastProvider, useToast } from './Toast'
 import type { ToastPosition } from './Toast'
 

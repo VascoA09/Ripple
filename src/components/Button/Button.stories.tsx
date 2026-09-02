@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { ArrowRight, Plus, Trash2 } from 'lucide-react'
+import { ArrowRight, Plus, Trash2 } from '../../icons'
 import { Button } from './Button'
 import type { ButtonProps } from './Button'
 

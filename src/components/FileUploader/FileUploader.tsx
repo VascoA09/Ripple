@@ -2,7 +2,7 @@ import React, { useId, useRef, useState, useCallback } from 'react'
 import {
   UploadCloud, File as FileIcon, FileText, Image as ImageIcon,
   Archive, X, Check, AlertCircle, Upload,
-} from 'lucide-react'
+} from '../../icons'
 import { Button } from '../Button'
 import { IconButton } from '../IconButton'
 import { Spinner } from '../Spinner'

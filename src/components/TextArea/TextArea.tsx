@@ -1,7 +1,7 @@
 import React, {
   useId, useRef, useState, useLayoutEffect, useImperativeHandle,
 } from 'react'
-import { XCircle, AlertCircle, CheckCircle } from 'lucide-react'
+import { XCircle, AlertCircle, CheckCircle } from '../../icons'
 import './TextArea.css'
 
 // ---------------------------------------------------------------------------

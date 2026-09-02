@@ -363,7 +363,7 @@ import {
 } from '@ripple/ui'
 import { PageHeader } from '@ripple/ui'
 import { Unit4Logo } from '@ripple/ui'
-import { BarChart2, DollarSign, FileText, LayoutDashboard, Search, Users } from 'lucide-react'
+import { BarChart2, DollarSign, FileText, Search, Users } from '@ripple/ui'
 
 const USER_MENU = [
   { id: 'profile', label: 'My profile',    icon: <User size={14} /> },

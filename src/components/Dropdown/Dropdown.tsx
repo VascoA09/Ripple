@@ -1,5 +1,5 @@
 import React, { useId, useRef, useState, useEffect } from 'react'
-import { ChevronDown, Check } from 'lucide-react'
+import { ChevronDown, Check } from '../../icons'
 import { Hint } from '../Hint'
 import { ValidationMessage } from '../ValidationMessage'
 import './Dropdown.css'

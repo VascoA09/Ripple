@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
-import { Tag, MapPin, Briefcase, Clock } from 'lucide-react'
+import { Tag, MapPin, Briefcase, Clock } from '../../icons'
 import { Combobox } from './Combobox'
 import type { ComboboxProps, ComboboxOption } from './Combobox'
 import { Avatar } from '../Avatar'

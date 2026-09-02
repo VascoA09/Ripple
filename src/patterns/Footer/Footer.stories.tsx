@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { BarChart2, FileText, Settings, Users } from 'lucide-react'
+import { BarChart2, FileText, Settings, Users } from '../../icons'
 import { Footer } from './Footer'
 import type { FooterProps, FooterTab, FooterGroup } from './Footer'
 

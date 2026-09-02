@@ -12,7 +12,7 @@ import {
   type SelectionChangedEvent,
   type RowSelectionOptions,
 } from 'ag-grid-community'
-import { ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from 'lucide-react'
+import { ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from '../../icons'
 import { Spinner } from '../Spinner'
 import { Dropdown } from '../Dropdown'
 import { IconButton } from '../IconButton'

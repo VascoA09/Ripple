@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState, useRef } from 'react'
-import { Save, Download, Send, FileText, Archive, Mail, Clock } from 'lucide-react'
+import { Save, Download, Send, FileText, Archive, Mail, Clock } from '../../icons'
 import { SplitButton } from './SplitButton'
 import type { SplitButtonProps, SplitButtonItem } from './SplitButton'
 

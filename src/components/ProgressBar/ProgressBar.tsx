@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
 import { useId } from 'react'
-import { Check, X } from 'lucide-react'
+import { Check, X } from '../../icons'
 import './ProgressBar.css'
 
 // ---------------------------------------------------------------------------

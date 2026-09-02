@@ -61,7 +61,7 @@ The Field Label component consists of the following elements:
     * Font weight: `var(--font-weight-regular)`
 
 * **Help Icon** (optional)
-  * `HelpCircle` icon (14px) from lucide-react
+  * `HelpCircle` icon (14px), Font Awesome Pro (Regular style), bundled with Ripple
   * Appears after the label and indicators
   * Shows tooltip with help text on hover/focus
   * Color: `var(--text-soft)` (hover: `var(--color-primary)`)
