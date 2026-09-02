@@ -38,7 +38,7 @@ export interface ExtensionKitNavigationProps {
  *   │  360/56px│  ─────────────── 2px #7eb843 ─────── │
  *   │          ├──────────────────────────────────────┤
  *   │  (user)  │                                      │
- *   │  (nav)   │  Content area (var(--bg-app))        │
+ *   │  (nav)   │  Content area (var(--background-app))        │
  *   │  (meta)  │  Consumer owns PageHeader + body     │
  *   └──────────┴──────────────────────────────────────┘
  *

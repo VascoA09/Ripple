@@ -22,7 +22,7 @@ export declare namespace Dialog {
 export interface DialogHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
     /**
      * Icon rendered to the left of the title.
-     * Use a Lucide icon at 20px. Always decorative — meaning comes from the title text.
+     * Use a Font Awesome Pro icon (Regular style) at 20px. Always decorative — meaning comes from the title text.
      */
     icon?: React.ReactNode;
     children: React.ReactNode;

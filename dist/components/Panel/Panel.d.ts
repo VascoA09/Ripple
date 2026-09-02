@@ -16,7 +16,7 @@ export declare const Panel: React.ForwardRefExoticComponent<PanelProps & React.R
 export interface PanelHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
     /**
      * Icon rendered to the left of the title.
-     * Use a Lucide icon at 20px. Always decorative — do not put meaning here
+     * Use a Font Awesome Pro icon (Regular style) at 20px. Always decorative — do not put meaning here
      * that isn't also communicated by the title text.
      */
     icon?: React.ReactNode;

@@ -23,7 +23,7 @@ export interface ListItemProps {
     description?: string;
     /**
      * Leading content slot.
-     * Common use: Avatar (user lists), Lucide icon (setting lists), custom.
+     * Common use: Avatar (user lists), Font Awesome Pro icon (setting lists), custom.
      */
     contentBefore?: React.ReactNode;
     /**
