@@ -171,7 +171,7 @@ These are the tokens components consume directly.
 
 | Token | Role |
 |-------|------|
-| `border.default` | Passive borders on non-interactive containers: cards, panels, table rows, dividers |
+| `border.default` | Default rest-state border on interactive form fields: inputs, textareas, selects, dropdowns, radios, checkboxes |
 | `border.interactive` | Borders on interactive elements at rest: inputs, selects, textareas, dropdowns |
 | `border.interactive.soft` | Lighter interactive borders: secondary controls, subtle affordances |
 | `border.focus` | Keyboard focus ring. Always primary blue. Applied by the focus management layer — do not apply manually. |
@@ -181,7 +181,7 @@ These are the tokens components consume directly.
 |-------|-------|------|----------|
 | `border.primary.loud` | via `color.primary.loud` | via `color.primary.loud` | Strong brand border (active tabs, selected items) |
 | `border.primary` | via `color.primary` | via `color.primary` | Default brand border |
-| `border.default` | `color.cool.gray.70` (#7C8D98) | `color.cool.gray.70` (#7C8D98) | Passive borders on non-interactive containers. Same value both modes. |
+| `border.default` | `color.cool.gray.70` (#7C8D98) | `color.cool.gray.70` (#7C8D98) | Default rest-state border for form fields (inputs, textareas, selects, dropdowns). Same value both modes. |
 | `border.interactive` | `color.cool.gray.80` (#4A5A64) | `color.cool.gray.30` (#DFE6EC) | Rest-state border for inputs, selects, textareas, dropdowns |
 | `border.interactive.soft` | `color.cool.gray.50` (#A6B2B9) | `color.cool.gray.60` (#909FA7) | Lighter rest-state border for secondary controls |
 | `border.focus` | via `color.primary` | via `color.primary` | Keyboard focus ring |
