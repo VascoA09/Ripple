@@ -167,7 +167,6 @@ export const Size: Story = {
         <p style={{ ...meta2, marginBottom: '12px', color: 'var(--text-soft)' }}>Component heights</p>
         <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-end', marginBottom: '24px' }}>
           {[
-            { token: '--size-component-height-compact', label: 'compact', value: '16px', px: 16 },
             { token: '--size-component-height-small',   label: 'small',   value: '32px', px: 32 },
             { token: '--size-component-height-default', label: 'default', value: '40px', px: 40 },
             { token: '--size-component-height-large',   label: 'large',   value: '48px', px: 48 },
@@ -191,9 +190,7 @@ export const Size: Story = {
         <p style={{ ...meta2, marginBottom: '12px', color: 'var(--text-soft)' }}>Icons</p>
         <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-end' }}>
           {[
-            { label: 'small',   value: '16px', px: 16 },
-            { label: 'default', value: '24px', px: 24 },
-            { label: 'large',   value: '32px', px: 32 },
+            { label: 'small', value: '16px', px: 16 },
           ].map(({ label: l, value, px }) => (
             <div key={l} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
               <div

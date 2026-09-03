@@ -49,7 +49,6 @@ These tokens are scoped to `WIDTH_HEIGHT` and `GAP` in Figma. For layout spacing
 
 | Token | References | Description | Use when |
 |-------|-----------|-------------|----------|
-| `size.component.height.compact` | `size.100` | Compact component height | Dense UI: small buttons, badges, tags |
 | `size.component.height.small` | `size.200` | Small component height | Compact inputs, small form elements |
 | `size.component.height.default` | `size.250` | Default component height | Standard buttons, inputs, selects |
 | `size.component.height.large` | `size.300` | Large component height | Large buttons, search bars |
@@ -59,10 +58,12 @@ These tokens are scoped to `WIDTH_HEIGHT` and `GAP` in Figma. For layout spacing
 | Token | References | Description | Use when |
 |-------|-----------|-------------|----------|
 | `size.icon.small` | `size.100` | Small icon size (16px) | Inline icons, status indicators |
-| `size.icon.default` | `size.150` | Default icon size (24px) | Standard UI icons alongside text |
-| `size.icon.large` | `size.200` | Large icon size (32px) | Standalone icons, empty states |
 
 > These semantic tokens are confirmed and included in `foundations/figma-variables.md`. Refine values as component usage grows.
+>
+> **Removed 2026-09-03**: `size.component.height.compact`, `size.icon.default`, `size.icon.large` — audited with zero component usage. `compact`'s own "dense UI: small buttons, badges, tags" description didn't match any real component either: Badge runs 24–32px and Tag runs 20–32px, never 16px. `icon.default`/`icon.large` were unused because Button and Dropdown — the components that most need icon sizing — hardcode raw pixel icon sizes instead of using any size token. See the flag below.
+>
+> **Flag: Button and Dropdown icon sizing bypasses tokens entirely.** `Button.css` (`--_icon-size: 12px` / `14px` / `16px` / `18px` across size variants) and `Dropdown.css` (`16px` / `14px` / `18px`) hardcode icon dimensions rather than referencing any size token — a direct violation of the "tokens, not magic numbers" rule. Two of those values (`14px`, `18px`) don't exist on the primitive size scale at all (nearest neighbors are `size.100`=16px and `size.125`=20px), and the smallest (`12px`) is below `size.100`, the smallest primitive defined. Fixing this requires a real decision — extend the scale, or conform the components — that has been deliberately deferred, not resolved. Do not treat this note as closing the gap.
 
 ## Component Token Mappings
 
@@ -84,6 +85,7 @@ This section grows as components are built.
 
 - [x] All primitives have a description
 - [x] Naming follows dot notation convention
-- [ ] No duplicate semantic intent
+- [x] Semantic size tier audited 2026-09-03: `component.height.{small,default,large}` and `icon.small` are real and adopted; `component.height.compact`, `icon.default`, `icon.large` removed for zero usage
+- [ ] Button/Dropdown hardcoded icon-size values (12/14/16/18px) flagged — not resolved, needs a scale-vs-component decision
 - [ ] `size.525` usage validated (breaks naming pattern, needs justification)
 - [ ] Touch target compliance validated for all interactive component heights

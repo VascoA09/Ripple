@@ -168,15 +168,12 @@
      --------------------------------------------------------------------------- */
 
   /* Component heights */
-  --size-component-height-compact: var(--size-100);
   --size-component-height-small:   var(--size-200);
   --size-component-height-default: var(--size-250);
   --size-component-height-large:   var(--size-300);
 
   /* Icons */
   --size-icon-small:   var(--size-100);
-  --size-icon-default: var(--size-150);
-  --size-icon-large:   var(--size-200);
 
   /* ---------------------------------------------------------------------------
      BORDER RADIUS: Semantic aliases
