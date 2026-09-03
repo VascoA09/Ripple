@@ -155,8 +155,6 @@
   --icon-soft:         var(--color-gray-60);
   --icon-disabled:     var(--color-gray-40);
   --icon-inverse:      var(--color-white);
-  --icon-loud-inverse: var(--color-black);
-  --icon-soft-inverse: var(--color-gray-30);
 
   --icon-accent:    var(--color-primary);
   --icon-negative:  var(--color-negative-loud);
@@ -281,8 +279,6 @@
   --icon-soft:         var(--color-gray-30);
   --icon-disabled:     var(--color-gray-70);
   --icon-inverse:      var(--color-black);
-  --icon-loud-inverse: var(--color-white);
-  --icon-soft-inverse: var(--color-gray-70);
 
   /* ---------------------------------------------------------------------------
      ELEVATION (dark)

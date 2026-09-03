@@ -415,8 +415,6 @@ export const SemanticTheme: Story = {
         { name: '--icon-soft',         value: 'var(--icon-soft)' },
         { name: '--icon-disabled',     value: 'var(--icon-disabled)' },
         { name: '--icon-inverse',      value: 'var(--icon-inverse)' },
-        { name: '--icon-loud-inverse', value: 'var(--icon-loud-inverse)' },
-        { name: '--icon-soft-inverse', value: 'var(--icon-soft-inverse)' },
         { name: '--icon-accent',       value: 'var(--icon-accent)' },
         { name: '--icon-negative',     value: 'var(--icon-negative)' },
         { name: '--icon-notice',       value: 'var(--icon-notice)' },

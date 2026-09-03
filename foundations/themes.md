@@ -218,7 +218,7 @@ These are the tokens components consume directly.
 
 ### Icon
 
-11 tokens. Figma scope: `ALL_FILLS`. **New group: not yet in Figma.**
+9 tokens. Figma scope: `ALL_FILLS`. **New group: not yet in Figma.**
 
 | Token | Light | Dark | Use when |
 |-------|-------|------|----------|
@@ -231,8 +231,6 @@ These are the tokens components consume directly.
 | `icon.notice` | via `color.notice.loud` | via `color.notice.loud` | Warning icons |
 | `icon.positive` | via `color.positive.loud` | via `color.positive.loud` | Success icons |
 | `icon.neutral` | via `color.neutral.loud` | via `color.neutral.loud` | Informational icons |
-| `icon.loud.inverse` | `color.black` (#000000) | `color.white` (#FFFFFF) | High-emphasis icons on inverted surfaces |
-| `icon.soft.inverse` | `color.gray.30` (#D8D9D9) | `color.gray.70` (#737373) | Secondary icons on inverted surfaces |
 
 ---
 
@@ -306,8 +304,6 @@ The following tokens are documented in the tables above (marked **New: not yet i
 | `icon.notice` | Icon | P3 |
 | `icon.positive` | Icon | P3 |
 | `icon.neutral` | Icon | P3 |
-| `icon.loud.inverse` | Icon | P3 |
-| `icon.soft.inverse` | Icon | P3 |
 
 ### Figma Variable Setup Guide
 
@@ -342,8 +338,6 @@ For each token in the "Tokens Awaiting Figma Creation" list:
 | `icon-soft` | Color | `Gray/color-gray-60` | `Gray/color-gray-30` | ALL_FILLS |
 | `icon-disabled` | Color | `Gray/color-gray-40` | `Gray/color-gray-70` | ALL_FILLS |
 | `icon-inverse` | Color | `Black and white/color-white` | `Black and white/color-black` | ALL_FILLS |
-| `icon-loud-inverse` | Color | `Black and white/color-black` | `Black and white/color-white` | ALL_FILLS |
-| `icon-soft-inverse` | Color | `Gray/color-gray-30` | `Gray/color-gray-70` | ALL_FILLS |
 
 **Variables that reference intermediates (alias within Theme collection):**
 
