@@ -165,7 +165,7 @@ These are the tokens components consume directly.
 
 ### Border
 
-16 tokens. Figma scope: `FRAME_FILL`, `STROKE`.
+15 tokens. Figma scope: `FRAME_FILL`, `STROKE`.
 
 **Border token roles:**
 
@@ -176,7 +176,6 @@ These are the tokens components consume directly.
 | `border.interactive.soft` | Lighter interactive borders: secondary controls, subtle affordances |
 | `border.focus` | Keyboard focus ring. Always primary blue. Applied by the focus management layer — do not apply manually. |
 | `border.disabled` | Borders on disabled interactive elements |
-| `border.light` | Inner borders or dividers matching the lightest available surface. The name is not theme-specific: in dark mode it resolves to a dark value. |
 
 | Token | Light | Dark | Use when |
 |-------|-------|------|----------|
@@ -195,7 +194,6 @@ These are the tokens components consume directly.
 | `border.neutral.loud` | `color.cool.gray.100` (#2F3B42) | `color.cool.gray.10` (#F5F8FA) | Strong neutral border |
 | `border.neutral` | `color.cool.gray.30` (#DFE6EC) | `color.cool.gray.70` (#7C8D98) | Default neutral border (dividers, subtle separators) |
 | `border.disabled` | `color.gray.30` (#D8D9D9) | `color.gray.70` (#737373) | Disabled border for inputs and cards. **New: not yet in Figma.** |
-| `border.light` | `color.white` (#FFFFFF) | `color.gray.100` (#252828) | Border matching the lightest surface (inner card borders) |
 
 **Why `border.default` uses the same value in both modes:** cool-gray-70 (#7C8D98) sits at a mid-point that reads as a visible separator in both themes without shifting. This is the only theme token with an identical light/dark value — it is intentional, not an oversight.
 
@@ -250,7 +248,6 @@ These are the tokens components consume directly.
 | Border | `FRAME_FILL`, `STROKE` |
 | Text | `TEXT_FILL` |
 | Icon | `ALL_FILLS` |
-| `border.light` (exception) | `ALL_SCOPES` |
 
 ---
 
@@ -397,7 +394,6 @@ After creation, check that each variable's scoping restricts it to the correct F
 - Use `background.*` tokens for surface fills. Use `text.*` tokens for text color. Use `border.*` tokens for strokes.
 - The `inverse` text tokens are for text on dark or brand-colored surfaces within light mode (and vice versa in dark mode). They do not mean "dark mode text."
 - When pairing text on a status background (e.g., text on `background.negative.softest`), validate contrast in both themes.
-- `border.light` is for inner borders or dividers that match the lightest available surface. Its name is not theme-specific; in dark mode it resolves to a dark value.
 
 ## Component Token Mappings
 

@@ -105,7 +105,6 @@
   --border-primary:      var(--color-primary);
   --border-default:      var(--color-cool-gray-70);
   --border-focus:        var(--color-primary);
-  --border-light:        var(--color-white);
   --border-disabled:     var(--color-gray-30);
 
   --border-negative-loud: var(--color-negative-loud);
@@ -262,7 +261,6 @@
      BORDER (dark)
      --------------------------------------------------------------------------- */
   --border-default:      var(--color-cool-gray-70);
-  --border-light:        var(--color-gray-100);
   --border-disabled:     var(--color-gray-70);
   --border-neutral-loud:     var(--color-cool-gray-10);
   --border-neutral:          var(--color-cool-gray-70);

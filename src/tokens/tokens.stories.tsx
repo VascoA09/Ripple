@@ -375,7 +375,6 @@ export const SemanticTheme: Story = {
         { name: '--border-interactive',       value: 'var(--border-interactive)' },
         { name: '--border-interactive-soft',  value: 'var(--border-interactive-soft)' },
         { name: '--border-focus',             value: 'var(--border-focus)' },
-        { name: '--border-light',             value: 'var(--border-light)' },
         { name: '--border-disabled',          value: 'var(--border-disabled)' },
       ]} />
 

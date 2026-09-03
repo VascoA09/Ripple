@@ -158,7 +158,6 @@ Create `src/ripple-theme.css`. This file maps Ripple's CSS custom properties to 
   --color-border-neutral:      var(--border-neutral);
   --color-border-neutral-loud: var(--border-neutral-loud);
   --color-border-disabled:     var(--border-disabled);
-  --color-border-light:        var(--border-light);
 
   /* Icon colors
      Usage: text-icon, text-icon-soft, text-icon-accent, etc. */
