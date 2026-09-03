@@ -40,13 +40,15 @@ These will be defined as components are built. Semantic border tokens map intent
 
 | Token | References | Description | Use when |
 |-------|-----------|-------------|----------|
-| `border.radius.component.default` | `border.radius.100` | Default component rounding | Standard interactive elements (buttons, inputs, selects) |
+| `border.radius.component.default` | `border.radius.100` | Compact-size interactive element rounding | The smallest/xsmall size step of buttons, inputs, and selects only — not the category generally |
 | `border.radius.container.default` | `border.radius.200` | Default container rounding | Cards, panels, content areas |
 | `border.radius.overlay.default` | `border.radius.300` | Default overlay rounding | Modals, popovers, dropdowns |
 | `border.width.default` | `border.width.100` | Standard border | Default bordered elements |
 | `border.width.focus` | `border.width.200` | Focus indicator border | Keyboard focus states |
 
 > **Note**: These semantic tokens are initial proposals based on common patterns. Refine as components are specced and reviewed.
+>
+> **Correction, 2026-09-03**: `component.default` does not describe "buttons, inputs, selects" as a category. Real components scale radius by size variant rather than resolving to one fixed value: Button's default (medium) size ships at 8px (`Button.css` line 36) — the same number as `container.default`, not `component.default`'s 4px — and only its `xsmall` variant (`Button.css` line 126) actually resolves to 4px. Input follows the same pattern (`Input.css` lines 40, 58, 66). Only 4 of ~105 border-radius token references in the codebase use these three semantic aliases directly (`Card.css`, `List.css`, `Dialog.css`, `FlyoutMenu.css`); every size-variant control goes straight to the primitive scale instead, because a single semantic value per category can't express a value that changes by size. Treat `component.default` as correct only for a component's compact/xsmall state — do not cite it as the general radius for buttons, inputs, or selects.
 
 ## Component Token Mappings
 
@@ -79,5 +81,5 @@ The width scale is deliberately sparse. Most UI needs only two states: bordered 
 - [x] All primitives have a description
 - [x] All semantic tokens reference a primitive (no orphans)
 - [x] Naming follows dot notation convention
-- [ ] No duplicate semantic intent (two tokens meaning the same thing)
+- [x] No duplicate semantic intent audited 2026-09-03: `border.width.default`/`focus` are correct and near-universally adopted; `border.radius.component.default`'s description overclaimed (Button/Input's actual default size resolves to `container.default`'s value, not its own) — corrected above, tokens kept
 - [x] Accessibility requirements met (focus indicator width meets WCAG)
