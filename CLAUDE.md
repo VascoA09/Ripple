@@ -93,12 +93,12 @@ Raw values. Named by their literal value.
 Purpose-driven aliases that reference primitives.
 - `color.text.primary` -> `color.neutral.900`
 - `color.surface.error` -> `color.red.50`
-- `spacing.component.gap` -> `spacing.8`
+- `border.interactive` -> `color.cool.gray.80`
 
 ### Tier 3: Component tokens
 Scoped to a specific component. Reference semantic tokens.
 - `button.color.background.primary` -> `color.action.primary`
-- `input.spacing.padding.horizontal` -> `spacing.component.padding`
+- `input.border.color.default` -> `color.border.default`
 
 **Rules:**
 - Components must only reference semantic or component tokens. Never primitives directly.

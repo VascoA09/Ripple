@@ -45,6 +45,8 @@ none(0) -> 25(4) -> 50(8) -> 75(12) -> 100(16) -> 125(20) -> 150(24) -> 200(32) 
 
 ## Semantic Tokens
 
+> **Status: proposed, not implemented.** No `--spacing-component-*` or `--spacing-layout-*` custom property exists in `src/tokens/`, and no shipped component consumes one — every component references the primitive scale above directly (377 references across 56 component files, audited 2026-09-03). Unlike color tokens, spacing values do not change between light and dark themes, so this tier isn't required for theming to work; it exists only to carry naming intent, and in practice the primitive descriptions above already carry that intent. Treat the tables below as a naming convention under consideration, not an available API, until a component actually implements and consumes it.
+
 ### Component Padding
 
 | Token | References | Description | Use when |
@@ -72,7 +74,7 @@ none(0) -> 25(4) -> 50(8) -> 75(12) -> 100(16) -> 125(20) -> 150(24) -> 200(32) 
 | `spacing.layout.page.padding` | `spacing.150` | Page content padding | Default page-level horizontal padding |
 | `spacing.layout.page.margin` | `spacing.600` | Wide viewport margin | Page margins on large screens |
 
-> These semantic tokens are confirmed and included in `foundations/figma-variables.md`. Refine values as component usage grows.
+> Correction: these semantic tokens are **not** in `foundations/figma-variables.md` — only the primitive spacing scale is documented there. Do not create them in Figma until this tier is implemented in code and adopted by a component.
 
 ## Component Token Mappings
 
@@ -96,7 +98,7 @@ Both share the same base unit (4px) and are compatible. A `spacing.100` (16px) a
 ## Usage Rules
 
 - Use spacing tokens for all whitespace properties (padding, margin, gap). No hardcoded pixel values.
-- Prefer semantic tokens over primitives. Use `spacing.component.padding.default` rather than `spacing.100`.
+- Reference primitives directly (e.g. `spacing.100`) — this is the adopted convention for spacing, unlike color, and matches every shipped component. The semantic spacing tier above is not implemented; do not cite it in new component specs.
 - The 4px base unit is the foundation. If you need a value not on the scale, question the design decision.
 - Use the lower end of the scale (25-150) for component internals. Use the upper end (200-800) for layout.
 - `spacing.none` is explicit "no space." Prefer it over omitting the property entirely, so the intention is clear.
@@ -106,6 +108,6 @@ Both share the same base unit (4px) and are compatible. A `spacing.100` (16px) a
 
 - [x] All primitives have a description
 - [x] Naming follows dot notation convention
-- [ ] No duplicate semantic intent
+- [x] Semantic spacing tier audited: unimplemented and unused (0 of 377 component spacing references), marked proposed-only 2026-09-03
 - [ ] Responsive spacing adjustments documented (smaller spacing on mobile?)
 - [ ] Missing `spacing.300` (48px) validated as intentional

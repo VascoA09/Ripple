@@ -48,8 +48,7 @@ Examples:
 - `color.surface.error` -> `color.red.50`
 - `color.action.primary` -> `color.blue.600`
 - `color.border.default` -> `color.neutral.200`
-- `spacing.component.gap` -> `spacing.8`
-- `spacing.component.padding` -> `spacing.16`
+- `color.border.interactive` -> `color.neutral.400`
 - `font.body.default` -> `font.size.14`
 
 **Rules:**
@@ -67,7 +66,6 @@ Examples:
 - `button.background.color.primary` -> `color.action.primary`
 - `button.background.color.secondary` -> `color.surface.default`
 - `button.text.color.primary` -> `color.text.inverse`
-- `button.padding.horizontal` -> `spacing.component.padding`
 - `input.border.color.default` -> `color.border.default`
 - `input.border.color.error` -> `color.border.error`
 

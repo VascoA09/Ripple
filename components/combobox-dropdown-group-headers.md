@@ -57,6 +57,6 @@ Do not use groups when:
 | Label color | `color.text.subtle` |
 | Label size | `typography.label.small` |
 | Label weight | `typography.weight.medium` |
-| Padding top | `spacing.component.gap` |
-| Padding bottom | `spacing.4` |
+| Padding top | `spacing.25` |
+| Padding bottom | `spacing.25` |
 | Padding horizontal | Matches option horizontal padding |
