@@ -199,7 +199,7 @@ These are the tokens components consume directly.
 
 ### Text
 
-13 tokens. Figma scope: `TEXT_FILL`.
+11 tokens. Figma scope: `TEXT_FILL`.
 
 | Token | Light | Dark | Use when |
 |-------|-------|------|----------|
@@ -212,8 +212,6 @@ These are the tokens components consume directly.
 | `text.notice` | via `color.notice.loud` | via `color.notice.loud` | Warning text |
 | `text.positive` | via `color.positive.loud` | via `color.positive.loud` | Success text (confirmation messages) |
 | `text.loud.inverse` | `color.white` (#FFFFFF) | `color.black` (#000000) | Text on dark/brand surfaces in light mode; text on light surfaces in dark mode |
-| `text.inverse` | `color.gray.20` (#EAEAEA) | `color.gray.80` (#424747) | Secondary text on inverted surfaces |
-| `text.soft.inverse` | `color.gray.30` (#D8D9D9) | `color.gray.70` (#737373) | Tertiary text on inverted surfaces |
 | `text.link` | via `color.primary` | via `color.primary` | Hyperlink text |
 | `text.link.active` | via `color.primary.loud` | via `color.primary.loud` | Active/pressed link |
 | `text.link.visited` | `color.purple.90` (#5B55B5) | `color.purple.30` (#D8D6FE) | Visited link |

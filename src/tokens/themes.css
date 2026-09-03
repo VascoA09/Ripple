@@ -132,8 +132,6 @@
   --text-positive:  var(--color-positive-loud);
 
   --text-loud-inverse: var(--color-white);
-  --text-inverse:      var(--color-gray-20);
-  --text-soft-inverse: var(--color-gray-30);
 
   --text-link:         var(--color-primary);
   --text-link-active:  var(--color-primary-loud);
@@ -274,8 +272,6 @@
   --text:              var(--color-gray-10);
   --text-soft:         var(--color-gray-30);
   --text-loud-inverse: var(--color-black);
-  --text-inverse:      var(--color-gray-80);
-  --text-soft-inverse: var(--color-gray-70);
   --text-link-visited: var(--color-purple-30);
 
   /* ---------------------------------------------------------------------------

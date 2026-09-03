@@ -509,7 +509,7 @@ Maintain consistent button positioning across pages to build user muscle memory.
 ### Primary Action (Fill Button)
 
 * **Background**: var(--color-primary)
-* **Text**: var(--text-inverse)
+* **Text**: var(--text-loud-inverse)
 * **Hover background**: var(--color-primary-loud)
 * **Focus outline**: var(--border-focus)
 * **Active background**: Darken var(--color-primary)

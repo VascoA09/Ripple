@@ -402,8 +402,6 @@ export const SemanticTheme: Story = {
 
       <SwatchGroup label="Text — Inverse" swatches={[
         { name: '--text-loud-inverse', value: 'var(--text-loud-inverse)' },
-        { name: '--text-inverse',      value: 'var(--text-inverse)' },
-        { name: '--text-soft-inverse', value: 'var(--text-soft-inverse)' },
       ]} />
 
       <SwatchGroup label="Text — Links" swatches={[

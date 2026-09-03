@@ -143,7 +143,6 @@ Create `src/ripple-theme.css`. This file maps Ripple's CSS custom properties to 
   --color-text-negative:     var(--text-negative);
   --color-text-notice:       var(--text-notice);
   --color-text-positive:     var(--text-positive);
-  --color-text-inverse:      var(--text-inverse);
   --color-text-loud-inverse: var(--text-loud-inverse);
 
   /* Border colors
@@ -362,7 +361,6 @@ export default {
         'text-negative':     'var(--text-negative)',
         'text-notice':       'var(--text-notice)',
         'text-positive':     'var(--text-positive)',
-        'text-inverse':      'var(--text-inverse)',
         'text-loud-inverse': 'var(--text-loud-inverse)',
         // Borders
         border:              'var(--border-default)',
