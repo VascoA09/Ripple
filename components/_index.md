@@ -10,7 +10,7 @@ last_updated: 2026-03-31
 |-----------|--------|---------|--------------|-------|-------|------|
 | [Accordion](accordion.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | disclosure, navigation |
 | [Data Grid](data-grid.md) | stable | 1.0.0 | 2026-04-02 | Vasco Antunes | TBD | data, table, display |
-| [Avatar](avatar.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | display, identity |
+| [Avatar](avatar.md) | draft | 0.1.0 | 2026-09-14 | Vasco Antunes | [Ripple UI Kit](https://www.figma.com/design/27P4iW2jvpQMmTps5dZFYE/Ripple-UI-Kit?node-id=21219-80) | display, identity |
 | [Badge](badge.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | display, status |
 | [Banner Alert](banner-alert.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | feedback, status |
 | [Breadcrumbs](breadcrumbs.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | navigation |

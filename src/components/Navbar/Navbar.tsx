@@ -154,7 +154,7 @@ export function Navbar({
         {logo ?? <Unit4Logo height={21} width={37} />}
       </span>
       {productName && (
-        <span className="navbar__product-name" aria-hidden="true">
+        <span className="navbar__product-name">
           {productName}
         </span>
       )}

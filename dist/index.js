@@ -53771,7 +53771,7 @@ function __({
 }) {
   const f = o.slice(0, 5), m = s.slice(0, 4), C = s.slice(4), v = s.length > 0, w = C.length > 0, y = /* @__PURE__ */ E(it, { children: [
     /* @__PURE__ */ g("span", { className: "navbar__logo-icon", "aria-hidden": "true", children: e ?? /* @__PURE__ */ g(N_, { height: 21, width: 37 }) }),
-    t && /* @__PURE__ */ g("span", { className: "navbar__product-name", "aria-hidden": "true", children: t })
+    t && /* @__PURE__ */ g("span", { className: "navbar__product-name", children: t })
   ] });
   return /* @__PURE__ */ E(
     "nav",
