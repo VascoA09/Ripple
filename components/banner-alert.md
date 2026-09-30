@@ -30,6 +30,19 @@ Icons are fixed per variant — cannot be overridden.
 
 ---
 
+## Icon color tokens
+
+| Variant | Token | Resolves to |
+|---------|-------|-------------|
+| `informative` (default) | `--icon-accent` | `--color-primary` |
+| `positive` | `--icon-positive` | `--color-positive-loud` |
+| `notice` | `--icon-notice` | `--color-notice-loud` |
+| `negative` | `--icon-negative` | `--color-negative-loud` |
+
+Set via the component-scoped `--_icon-color` custom property, switched per `data-variant`. This is the reference pattern for any status-driven icon: map to the semantic `--icon-*` token per variant, not to a raw `--color-*` primitive or a `--text-*` token.
+
+---
+
 ## Anatomy
 
 ```

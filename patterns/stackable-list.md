@@ -172,6 +172,15 @@ Multi-select is not built into the pattern. Add a `Checkbox` as the first `Stack
 
 ---
 
+## Colors
+
+| Element | Token |
+|---------|-------|
+| Header cell icon (`iconBefore` / `iconAfter`) | `var(--icon-soft)` |
+| Header cell description | `var(--text-soft)` |
+
+---
+
 ## Accessibility
 
 - The root uses `role="table"`. Header uses `role="row"`, header cells use `role="columnheader"`, body uses `role="rowgroup"`, items use `role="row"`, cells use `role="cell"`.

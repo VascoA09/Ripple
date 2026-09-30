@@ -421,6 +421,7 @@ Tabs are typically opened through:
 | Tab text (hover / selected) | `var(--text)` |
 | Group bottom border | `--_group-color` (group color token) |
 | Group label border + text | `--_group-color` |
+| Tab type indicator icon (lock / pin) | `var(--icon-soft)` |
 
 ### Typography
 

@@ -261,6 +261,9 @@ The menu repositions automatically if it would overflow the viewport. No manual 
 | Item font size | `--font-size-80` | 14px |
 | Label font size | `--font-size-60` | 12px |
 | Separator margin | `--spacing-25` | 4px |
+| Item icon | `currentColor` | inherits the item's text colour (`--text` default, `--text-loud-inverse` pressed, `--text-soft` disabled) so icon and label always match |
+| Submenu chevron (default) | `--icon-soft` | — |
+| Submenu chevron (highlighted) | `--icon-default` | — |
 
 ---
 

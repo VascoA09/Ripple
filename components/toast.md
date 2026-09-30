@@ -395,6 +395,15 @@ function App() {
 
 ---
 
+## Icon color tokens
+
+| Element | Token | Notes |
+|---------|-------|-------|
+| Close button | `--icon-default` | Matches other neutral chrome icons across the system |
+| Variant icon (`.toast__icon`) | `--color-neutral` / `--color-positive` / `--color-notice` / `--color-negative` | **Inconsistent** — bypasses the semantic `--icon-*` tokens. BannerAlert solves the identical problem (a status icon per variant) with `--icon-accent` / `--icon-positive` / `--icon-notice` / `--icon-negative`, which resolve to the `-loud` primitives (e.g. `--color-positive-loud`). Toast's raw `--color-positive` etc. are a *different, darker* shade than `--color-positive-loud`, so the same semantic status renders a different icon colour in Toast than in BannerAlert or in any `--text-positive`/`--icon-positive` usage elsewhere. Recommend switching `.toast[data-variant]` to set `--_icon-color` from the `--icon-*` tokens to match BannerAlert's pattern — a CSS fix, not just a doc fix. |
+
+---
+
 ## Spacing and Dimensions
 
 * **Toast width**: 400px (fixed)

@@ -766,6 +766,7 @@ All keyboard interactions must be fully supported:
 * `var(--border-notice)` - Notice border
 * `var(--border-positive)` - Success border
 * `var(--color-cool-gray-30)` - Group divider
+* `var(--icon-default)` - Leading icon in trigger, option icons
 
 **Spacing:**
 * `var(--spacing-25)` - 4px (label gap, helper gap)

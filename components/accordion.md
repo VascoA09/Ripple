@@ -256,13 +256,15 @@ Use Ripple spacing tokens for all spacing:
 **Collapsed / Expanded State:**
 * Header background: `var(--background-surface)`
 * Header text: `var(--text-loud)`
-* Chevron: `var(--text)`
+* Chevron: `var(--text)` (inherited via `currentColor`, not an icon token)
+* Before element: `var(--icon-default)`
 * Border: `border-top: 1px solid var(--border-neutral)`
 
 **Hover State:**
 * Header background: `var(--background-primary-softest)`
 * Header text: `var(--text-loud)`
-* Chevron: `var(--text)`
+* Chevron: `var(--text)` (inherited via `currentColor`, not an icon token)
+* Before element: `var(--icon-default)`
 
 **Focus State:**
 * Outline: `2px solid var(--border-focus)`
@@ -278,6 +280,7 @@ Use Ripple spacing tokens for all spacing:
 * Header background: `var(--background-surface)`
 * Header text: `var(--text-soft)`
 * Chevron: `var(--text-soft)`
+* Before element: `var(--text-soft)` — not `--icon-disabled`. A semantic `--icon-disabled` token exists in the system; the component doesn't use it here. Flagged for a token-consistency fix, not corrected in this doc pass.
 * Opacity: 0.6
 
 ---

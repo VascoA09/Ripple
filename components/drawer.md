@@ -161,7 +161,7 @@ A flat single-level item. Elements:
 
 | Element         | Description                                        |
 |-----------------|----------------------------------------------------|
-| Left icon       | Optional, 14 × 14 px, `var(--text-soft)` color    |
+| Left icon       | Optional, 14 × 14 px, `var(--icon-soft)` color    |
 | Label           | Required, `var(--font-size-80)`, single-line truncated |
 | Code            | Optional, `var(--font-size-60)`, right-aligned     |
 | Context button  | Optional ⋯ button, visible on hover                |

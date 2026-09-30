@@ -281,7 +281,7 @@ Use Ripple spacing tokens for all spacing:
 * Background: var(--background-surface)
 * Border: 2px dashed var(--border-default)
 * Text: var(--text)
-* Icon: var(--text-soft)
+* Icon: var(--icon-default)
 
 **Drop Zone Hover/Dragging State:**
 * Background: var(--background-primary-softest)

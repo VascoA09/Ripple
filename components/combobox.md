@@ -413,6 +413,10 @@ Avoid using the Combobox when:
 --text-loud: Labels
 --text-soft: Helper text, placeholders
 --text-softest: Subtle placeholders
+
+/* Icons */
+--icon-default: Field leading icon (avatar/flag/icon), option icons
+--icon-inverse: Option icon and checkmark on pressed/active background
 ```
 
 ### Spacing

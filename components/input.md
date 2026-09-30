@@ -116,6 +116,8 @@ Icon size scales with input size: 14px (small), 16px (medium), 18px (large).
 
 In all validation states, prefix and suffix backgrounds and borders adopt the matching validation colour.
 
+`iconStart`, `iconEnd`, and the password/search action buttons use `--icon-default` by default. In validation states they switch to the matching validation text colour (`--text-negative` / `--text-notice` / `--text-positive`) instead of an icon token, so the icon stays in sync with the message colour.
+
 ---
 
 ## Behaviour
