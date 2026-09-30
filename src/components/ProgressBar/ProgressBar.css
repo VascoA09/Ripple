@@ -88,17 +88,17 @@
 
 .progress-bar {
   --_fill-color: var(--background-primary);
-  --_icon-color: var(--color-positive);
+  --_icon-color: var(--icon-positive);
 }
 
 .progress-bar[data-state='success'] {
   --_fill-color: var(--background-positive);
-  --_icon-color: var(--color-positive);
+  --_icon-color: var(--icon-positive);
 }
 
 .progress-bar[data-state='error'] {
   --_fill-color: var(--background-negative);
-  --_icon-color: var(--color-negative);
+  --_icon-color: var(--icon-negative);
 }
 
 .progress-bar__fill {
