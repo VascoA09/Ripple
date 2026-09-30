@@ -144,7 +144,7 @@
 }
 
 .accordion__trigger[data-disabled] .accordion__before {
-  color: var(--text-soft);
+  color: var(--icon-disabled);
 }
 
 /* =============================================================================

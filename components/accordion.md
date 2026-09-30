@@ -280,7 +280,7 @@ Use Ripple spacing tokens for all spacing:
 * Header background: `var(--background-surface)`
 * Header text: `var(--text-soft)`
 * Chevron: `var(--text-soft)`
-* Before element: `var(--text-soft)` — not `--icon-disabled`. A semantic `--icon-disabled` token exists in the system; the component doesn't use it here. Flagged for a token-consistency fix, not corrected in this doc pass.
+* Before element: `var(--icon-disabled)`
 * Opacity: 0.6
 
 ---

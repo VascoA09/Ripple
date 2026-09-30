@@ -60,19 +60,19 @@
    --------------------------------------------------------------------------- */
 
 .toast {
-  --_icon-color: var(--color-neutral);
+  --_icon-color: var(--icon-neutral);
 }
 
 .toast[data-variant="positive"] {
-  --_icon-color: var(--color-positive);
+  --_icon-color: var(--icon-positive);
 }
 
 .toast[data-variant="notice"] {
-  --_icon-color: var(--color-notice);
+  --_icon-color: var(--icon-notice);
 }
 
 .toast[data-variant="negative"] {
-  --_icon-color: var(--color-negative);
+  --_icon-color: var(--icon-negative);
 }
 
 /* ---------------------------------------------------------------------------
