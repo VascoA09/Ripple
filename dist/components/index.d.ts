@@ -74,8 +74,6 @@ export { Radio, RadioGroup } from './Radio';
 export type { RadioProps, RadioGroupProps, RadioValidation } from './Radio';
 export { Range } from './Range';
 export type { RangeProps, SingleRangeProps, DualRangeProps, RangeSize, RangeIndicator } from './Range';
-export { Navbar } from './Navbar';
-export type { NavbarProps, NavItem, UserMenuItem } from './Navbar';
 export { SplitButton } from './SplitButton';
 export type { SplitButtonProps, SplitButtonItem } from './SplitButton';
 export { TextArea } from './TextArea';

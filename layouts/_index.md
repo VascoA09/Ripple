@@ -1,7 +1,7 @@
 ---
 type: registry
 scope: layouts
-last_updated: 2026-03-31
+last_updated: 2026-10-29
 ---
 
 # Layout Registry
@@ -11,15 +11,15 @@ They contain no behavioural logic — all state is owned by the patterns they ar
 
 | Layout | Status | Version | Last Updated | Owner | Patterns Used | Product |
 |--------|--------|---------|--------------|-------|---------------|---------|
-| [Micro Navigation](micro-navigation.md) | draft | 0.1.0 | 2026-03-20 | Vasco Antunes | MainNavigation, Footer | Any |
-| [Standard Navigation](standard-navigation.md) | draft | 0.1.0 | 2026-04-06 | Vasco Antunes | MainNavigation | Any |
+| [Micro Navigation](micro-navigation.md) | review | 0.2.0 | 2026-10-29 | Vasco Antunes | Navbar, Footer | Any |
+| [Standard Navigation](standard-navigation.md) | review | 0.2.0 | 2026-10-29 | Vasco Antunes | Navbar | Any |
 
 ## Status Summary
 
 | Status | Count |
 |--------|-------|
-| Draft | 2 |
-| Review | 0 |
+| Draft | 0 |
+| Review | 2 |
 | Stable | 0 |
 | Deprecated | 0 |
 
@@ -31,7 +31,7 @@ They contain no behavioural logic — all state is owned by the patterns they ar
 | **Has internal state?** | Often | Never |
 | **Individually tested?** | Yes | No (covered by composed patterns) |
 | **Versioned independently?** | Yes | Yes, but rarely breaking |
-| **Examples** | Footer, MainNavigation | MicroNavigation, StandardNavigation |
+| **Examples** | Footer, Navbar | MicroNavigation, StandardNavigation |
 
 ## Layouts vs App Templates
 

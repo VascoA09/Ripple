@@ -2,18 +2,18 @@
    RIPPLE DESIGN SYSTEM — STANDARD NAVIGATION LAYOUT
    Source: layouts/standard-navigation.md
 
-   Default application shell that composes MainNavigation with a content area.
+   Application shell that composes the Navbar pattern with a content area (no Footer).
+   Shared shell rules (.main-navigation*) live in ../app-shell.css.
    The content area uses var(--background-app). The Navbar retains its own background.
    PageHeader, Grid, and content structure are the consumer's responsibility.
 
    This file contains only the content area background and the <main> wrapper
-   rule. All structural layout is owned by the MainNavigation pattern.
+   rule. Structural layout is in ../app-shell.css.
    ============================================================================= */
 
 /* =============================================================================
    CONTENT AREA BACKGROUND
-   Scoped to .standard-navigation so it does not affect MainNavigation
-   when used standalone or in other layout contexts.
+   Scoped to .standard-navigation so it does not affect other layouts.
    ============================================================================= */
 
 .standard-navigation .main-navigation__content {

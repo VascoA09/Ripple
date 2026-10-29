@@ -1,9 +1,9 @@
 ---
 name: Standard Navigation
 type: layout
-status: draft
-version: 0.1.0
-last_updated: 2026-04-06
+status: review
+version: 0.2.0
+last_updated: 2026-10-29
 owner: Vasco Antunes
 figma: TBD
 storybook: TBD
@@ -16,9 +16,9 @@ tags: [navigation, layout]
 
 **Type: Layout** — not a pattern.
 
-Standard Navigation is a stateless structural scaffold. It composes `MainNavigation` into a complete application shell with a content area using `var(--background-app)`. It has no behavioural logic of its own — all state (drawers, nav selection) is owned by the consuming application.
+Standard Navigation is a stateless structural scaffold. It composes the [Navbar](../patterns/navbar.md) pattern into a complete application shell with a content area using `var(--background-app)`. It has no behavioural logic of its own — all state (drawers, nav selection) is owned by the consuming application.
 
-This is the default layout for Ripple applications. When building a new app with Ripple and no other layout is specified, use Standard Navigation.
+Micro Navigation is the default layout for Ripple applications. Use Standard Navigation when the product works one page at a time and needs no Footer tab bar, or needs a persistent navigation drawer.
 
 Source: `src/layouts/StandardNavigation/`
 
@@ -84,7 +84,7 @@ Both variants are configured via `nav.drawers`. Set `persistent: true` on a draw
 | **Multi-page workspace** | No | Yes |
 | **Content background** | `var(--background-app)` | `var(--background-app)` |
 | **Drawer variants** | Overlay and persistent | Overlay only |
-| **Default for new apps** | Yes | No |
+| **Default for new apps** | No | Yes |
 
 Use Standard Navigation when users work in a single context at a time. Use Micro Navigation when users manage multiple open pages simultaneously via a tab bar.
 
@@ -92,7 +92,6 @@ Use Standard Navigation when users work in a single context at a time. Use Micro
 
 ## When to Use
 
-- Building a new Ripple app with no other layout specified
 - The application has module-level navigation without a multi-tab workspace
 - Users work in a single context before navigating elsewhere
 - A persistent navigation panel is needed alongside content
@@ -110,11 +109,10 @@ Use Standard Navigation when users work in a single context at a time. Use Micro
 ```ts
 interface StandardNavigationProps {
   /**
-   * Forwarded to MainNavigation. Both overlay and persistent drawers are
-   * supported. `belowScroll` is excluded — use MicroNavigation if a bottom
-   * slot is needed.
+   * Forwarded to the Navbar pattern. Both overlay and persistent drawers are
+   * supported. Use MicroNavigation if a Footer tab bar is needed.
    */
-  nav: Omit<MainNavigationProps, 'children' | 'belowScroll'>
+  nav: NavbarProps
   /** Page content rendered in the scrollable main area. */
   children?: React.ReactNode
   className?: string
@@ -127,7 +125,7 @@ interface StandardNavigationProps {
 
 ### Required
 
-- **MainNavigation** — Navbar, drawer management, and the left-side layout shell
+- **[Navbar](../patterns/navbar.md)**: navigation column, drawer wiring, current page and user menu
 
 ### Consumer responsibility
 
@@ -139,7 +137,7 @@ interface StandardNavigationProps {
 
 ## Accessibility
 
-Inherits all accessibility requirements from MainNavigation. Key points:
+Inherits all accessibility requirements from the Navbar pattern. Key points:
 
 - The Navbar renders as `<nav aria-label="Application navigation">`
 - The content area uses `<main>` via the `standard-navigation__main` wrapper
@@ -167,12 +165,22 @@ Do not use Standard Navigation. Use alternative mobile navigation patterns.
 | Area | Token |
 |------|-------|
 | Content area background | `var(--background-app)` |
-| Navbar background | Owned by MainNavigation |
-| Persistent panel background | Owned by MainNavigation |
+| Navbar width | `navbar.width` (proposed, 72 px), owned by Navbar |
+| Navbar background | Owned by Navbar |
+| Persistent panel background | Owned by Drawer |
 
 ---
 
 ## Related
 
-- [Main Navigation](../patterns/main-navigation.md) — the pattern this layout composes
+- [Navbar](../patterns/navbar.md): the pattern this layout composes (replaces Main Navigation, deprecated)
 - [Micro Navigation](micro-navigation.md) — adds a Footer tab bar for multi-page workspaces
+
+---
+
+## Changelog
+
+| Version | Date | Change |
+|---------|------|--------|
+| 0.2.0 | 2026-10-29 | Composes the Navbar pattern instead of Main Navigation (deprecated); `nav` prop typed as `NavbarProps`. Remains the only layout for persistent navigation drawers. Micro Navigation is now the default layout, not Standard Navigation. Source: `Research/Navigation` exploration. |
+| 0.1.0 | 2026-04-06 | Initial draft. |

@@ -134,7 +134,6 @@ All component specs are in `components/`. All implementations are in `src/compon
 | IconButton | `components/icon-button.md` | `src/components/IconButton/` |
 | Link | `components/link.md` | `src/components/Link/` |
 | List | `components/list.md` | `src/components/List/` |
-| Navbar | `components/navbar.md` | `src/components/Navbar/` |
 | PageHeader | `components/page-header.md` | `src/components/PageHeader/` |
 | Panel | `components/panel.md` | `src/components/Panel/` |
 | ProgressBar | `components/progress-bar.md` | `src/components/ProgressBar/` |
@@ -161,7 +160,8 @@ Compositions of multiple components with defined behaviour.
 |---------|------|
 | Index + status | `patterns/_index.md` |
 | Footer | `patterns/footer.md` |
-| Main Navigation | `patterns/main-navigation.md` |
+| Navbar | `patterns/navbar.md` |
+| Main Navigation (deprecated, use Navbar) | `patterns/main-navigation.md` |
 
 ### Layouts
 Structural scaffolds with no behavioural logic of their own.
@@ -193,6 +193,8 @@ Use these when creating new Ripple content.
 | Template | File |
 |----------|------|
 | Component spec | `templates/component-spec.md` |
+| Pattern spec | `templates/pattern-spec.md` |
+| Layout spec | `templates/layout-spec.md` |
 | Component review checklist | `templates/component-review-checklist.md` |
 | Token definition | `templates/token-definition.md` |
 | Changelog entry | `templates/changelog-entry.md` |

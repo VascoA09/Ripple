@@ -1,6 +1,7 @@
 import React from 'react'
-import { MainNavigation } from '../../patterns/MainNavigation'
-import type { MainNavigationProps } from '../../patterns/MainNavigation'
+import { Navbar } from '../../patterns/Navbar'
+import type { NavbarProps } from '../../patterns/Navbar'
+import '../app-shell.css'
 import './StandardNavigation.css'
 
 // =============================================================================
@@ -9,36 +10,28 @@ import './StandardNavigation.css'
 
 export interface StandardNavigationProps {
   /**
-   * Props forwarded to the MainNavigation pattern.
-   * Both overlay (modal) and persistent drawers are supported.
-   * `belowScroll` is intentionally excluded — use MicroNavigation if a
-   * bottom slot is needed.
+   * Props forwarded to the Navbar pattern (spec: patterns/navbar.md).
+   * Overlay and persistent drawers are both supported.
+   * Use MicroNavigation when a Footer tab bar is needed.
    */
-  nav: Omit<MainNavigationProps, 'children' | 'belowScroll'>
+  nav: NavbarProps
   /** Page content rendered in the scrollable main area. */
   children?: React.ReactNode
   className?: string
 }
 
 // =============================================================================
-// STANDARD NAVIGATION
+// STANDARD NAVIGATION. Spec: layouts/standard-navigation.md (0.2.0)
 // =============================================================================
 
 /**
- * StandardNavigation is the default full-page layout for Ripple applications.
- * It composes MainNavigation into an application shell with a content area
- * styled with the app canvas background.
+ * Navbar plus a content area, no Footer. For products that work one page at a
+ * time, and the only layout for persistent navigation drawers.
  *
- * Layout:
- *   [Navbar 72px] [Persistent panel (optional)] [Content area (flex: 1)]
+ *   [Navbar 72px] [Persistent drawer (optional)] [Content area (flex: 1)]
  *
- * The content area uses `var(--background-app)`. The Navbar retains its own background.
- * PageHeader, Grid, and content structure are the consumer's responsibility.
- *
- * Use MicroNavigation instead when a Footer tab bar is required.
- *
- * Classified as a layout, not a pattern — it has no behavioural logic of its
- * own. It only arranges MainNavigation with the correct content area styling.
+ * The content area uses var(--background-app). PageHeader, Grid and content
+ * structure are the consumer's responsibility. No behaviour of its own.
  */
 export function StandardNavigation({
   nav,
@@ -46,13 +39,13 @@ export function StandardNavigation({
   className,
 }: StandardNavigationProps) {
   return (
-    <MainNavigation
-      {...nav}
-      className={['standard-navigation', nav.className, className].filter(Boolean).join(' ')}
-    >
-      <main className="standard-navigation__main">
-        {children}
-      </main>
-    </MainNavigation>
+    <div className={['main-navigation', 'standard-navigation', className].filter(Boolean).join(' ')}>
+      <Navbar {...nav} />
+      <div className="main-navigation__content">
+        <div className="main-navigation__scroll">
+          <main className="standard-navigation__main">{children}</main>
+        </div>
+      </div>
+    </div>
   )
 }

@@ -26,7 +26,6 @@ import {
 } from '../../components/Drawer'
 import { PageHeader } from '../../components/PageHeader'
 import { Input } from '../../components/Input'
-import { Unit4Logo } from '../../assets/Unit4Logo'
 
 // ---------------------------------------------------------------------------
 
@@ -172,7 +171,6 @@ export const Default: Story = {
     return (
       <MicroNavigation
         nav={{
-          logo:            <Unit4Logo />,
           productName:     'ERPx',
           globalNavItems: [
             { id: 'search', icon: <Search size={20} />, label: 'Search', drawerId: 'search' },
@@ -181,7 +179,7 @@ export const Default: Story = {
           // Consuming applications add module-specific items here.
           // Example:
           //   contextualNavItems: [
-          //     { id: 'finance',  icon: <DollarSign size={20} />, label: 'Finance', selected: true },
+          //     { id: 'finance',  icon: <DollarSign size={20} />, label: 'Finance', current: true },
           //     { id: 'people',   icon: <Users size={20} />,      label: 'People' },
           //   ],
           //   showContextualDivider: true,

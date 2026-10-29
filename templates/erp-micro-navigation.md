@@ -173,5 +173,5 @@ After adopting this template, the consuming application is responsible for:
 
 - [Micro Navigation layout](../layouts/micro-navigation.md) — the generic scaffold this template configures
 - [Standard Navigation layout](../layouts/standard-navigation.md) — ERPx layout without the footer tab bar
-- [Main Navigation pattern](../patterns/main-navigation.md) — the Navbar + Drawer pattern
+- [Navbar pattern](../patterns/navbar.md): the Navbar with drawer wiring (replaces Main Navigation, deprecated)
 - [Footer pattern](../patterns/footer.md) — the tab bar pattern

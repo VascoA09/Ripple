@@ -1,7 +1,7 @@
 ---
 type: registry
 scope: templates
-last_updated: 2026-03-31
+last_updated: 2026-10-29
 ---
 
 # Templates
@@ -17,6 +17,8 @@ Markdown templates for documenting Ripple content. These are authoring aids, not
 | File | Purpose |
 |------|---------|
 | `component-spec.md` | Template for writing a new component specification |
+| `pattern-spec.md` | Template for writing a new pattern specification (stateful composition of components) |
+| `layout-spec.md` | Template for writing a new layout specification (stateless scaffold that places patterns) |
 | `token-definition.md` | Template for defining a new token |
 | `component-review-checklist.md` | Checklist for reviewing a component before status promotion |
 | `changelog-entry.md` | Template for writing a changelog entry |

@@ -2,7 +2,8 @@
    RIPPLE DESIGN SYSTEM — MICRO NAVIGATION LAYOUT
    Source: layouts/micro-navigation.md
 
-   L-shaped enterprise shell: MainNavigation (left) + Footer (bottom).
+   L-shaped enterprise shell: Navbar pattern (left) + Footer (bottom).
+   Shared shell rules (.main-navigation*) live in ../app-shell.css.
 
    Internal structure of the content column:
      .main-navigation__scroll (overflow: hidden — frame handles scroll internally)
@@ -10,14 +11,14 @@
              ├── .micro-navigation__header  — PageHeader, fixed at top, no padding
              └── .micro-navigation__body    — scrollable content, 24px padding
 
-   The Footer lives in MainNavigation's `belowScroll` slot. Its default
+   The Footer is the last child of the content column. Its default
    `position: fixed` is overridden here to keep it in-flow within the
    content column (right of Navbar, bottom of content area).
    ============================================================================= */
 
 /* =============================================================================
    SCROLL WRAPPER OVERRIDE
-   Disable overflow on the MainNavigation scroll wrapper so the frame's
+   Disable overflow on the shell scroll wrapper so the frame's
    internal body element handles scrolling instead.
    ============================================================================= */
 

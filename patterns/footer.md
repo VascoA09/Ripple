@@ -575,5 +575,5 @@ Tab membership to a group is set via `groupId` on each `FooterTab`. The componen
 
 * **[Tabs](/guidelines/components/tabs.md)** — Shared CSS classes (`.tab-item`, `.tab`); alternative pattern for fewer items
 * **[FlyoutMenu](/guidelines/components/flyout-menu.md)** — Used for all contextual menus
-* **[Main Navigation](/guidelines/patterns/main-navigation.md)** — Works alongside Footer for a complete navigation shell
+* **[Navbar](/guidelines/patterns/navbar.md)**: works alongside Footer in the Micro Navigation layout
 * **[Button](/guidelines/components/button.md)** — Used for scroll, close, and menu action buttons

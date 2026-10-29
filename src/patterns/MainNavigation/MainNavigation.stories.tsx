@@ -38,7 +38,7 @@ import { Unit4Logo } from '../../assets/Unit4Logo'
 // ---------------------------------------------------------------------------
 
 const meta: Meta<MainNavigationProps> = {
-  title: 'Patterns/MainNavigation',
+  title: 'Patterns/MainNavigation (deprecated)',
   component: MainNavigation,
   parameters: { layout: 'fullscreen' },
 }

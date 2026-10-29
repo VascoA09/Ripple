@@ -31,7 +31,6 @@ import { Input } from '../../components/Input'
 import { Avatar } from '../../components/Avatar'
 import { Button } from '../../components/Button'
 import { Chip, ChipGroup } from '../../components/Chip'
-import { Unit4Logo } from '../../assets/Unit4Logo'
 
 // ---------------------------------------------------------------------------
 
@@ -272,18 +271,17 @@ export const Default: Story = {
     return (
       <StandardNavigation
         nav={{
-          logo:        <Unit4Logo />,
           productName: 'ERPx',
           globalNavItems: [
             { id: 'search',        icon: <Search size={20} />, label: 'Search',        drawerId: 'search' },
             { id: 'notifications', icon: <Bell size={20} />,   label: 'Notifications', drawerId: 'notifications', count: 2 },
           ],
           contextualNavItems: [
-            { id: 'dashboard', icon: <LayoutDashboard size={20} />, label: 'Dashboard', selected: page === 'dashboard', onClick: () => setPage('dashboard') },
-            { id: 'people',    icon: <Users size={20} />,           label: 'People',    selected: page === 'people',    onClick: () => setPage('people') },
-            { id: 'finance',   icon: <DollarSign size={20} />,      label: 'Finance',   selected: page === 'finance',   onClick: () => setPage('finance') },
-            { id: 'reports',   icon: <BarChart2 size={20} />,       label: 'Reports',   selected: page === 'reports',   onClick: () => setPage('reports') },
-            { id: 'settings',  icon: <Settings size={20} />,        label: 'Settings',  selected: page === 'settings',  onClick: () => setPage('settings') },
+            { id: 'dashboard', icon: <LayoutDashboard size={20} />, label: 'Dashboard', current: page === 'dashboard', onClick: () => setPage('dashboard') },
+            { id: 'people',    icon: <Users size={20} />,           label: 'People',    current: page === 'people',    onClick: () => setPage('people') },
+            { id: 'finance',   icon: <DollarSign size={20} />,      label: 'Finance',   current: page === 'finance',   onClick: () => setPage('finance') },
+            { id: 'reports',   icon: <BarChart2 size={20} />,       label: 'Reports',   current: page === 'reports',   onClick: () => setPage('reports') },
+            { id: 'settings',  icon: <Settings size={20} />,        label: 'Settings',  current: page === 'settings',  onClick: () => setPage('settings') },
           ],
           showContextualDivider: true,
           userName:        'Vasco Antunes',
@@ -316,7 +314,6 @@ export const Persistent: Story = {
     return (
       <StandardNavigation
         nav={{
-          logo:        <Unit4Logo />,
           productName: 'ERPx',
           globalNavItems: [
             { id: 'nav', icon: <Grid size={20} />, label: 'Finance navigation', drawerId: 'nav' },

@@ -1,0 +1,37 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM — APP SHELL (shared by layouts)
+   Sources: layouts/micro-navigation.md, layouts/standard-navigation.md
+
+   The flex row every navigation layout uses:
+
+     .main-navigation
+       ├── Navbar pattern  (nav.navbar + optional persistent .navbar__panel)
+       └── .main-navigation__content  (flex: 1)
+             ├── .main-navigation__scroll  (flex: 1, overflow-y: auto)
+             └── bottom slot, e.g. Footer  (flex-shrink: 0)
+
+   Class names are kept from the Main Navigation pattern so existing markup
+   (ripple-studio shells, prototypes) keeps working.
+   ============================================================================= */
+
+.main-navigation {
+  display:        flex;
+  flex-direction: row;
+  height:         100vh;
+  overflow:       hidden;
+}
+
+.main-navigation__content {
+  flex:           1;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  overflow:       hidden;
+}
+
+/* Page content lives here. Use position: sticky on a Page Header inside. */
+.main-navigation__scroll {
+  flex:       1;
+  min-width:  0;
+  overflow-y: auto;
+}

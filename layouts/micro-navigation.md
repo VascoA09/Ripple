@@ -1,9 +1,9 @@
 ---
 name: Micro Navigation
 type: layout
-status: draft
-version: 0.1.0
-last_updated: 2026-04-06
+status: review
+version: 0.2.0
+last_updated: 2026-10-29
 owner: Vasco Antunes
 figma: TBD
 storybook: TBD
@@ -16,7 +16,7 @@ tags: [navigation, layout]
 
 **Type: Layout template** — not a pattern.
 
-Micro Navigation has no behavioural logic of its own. It arranges two existing patterns — MainNavigation and Footer — into an L-shaped shell. All state (drawers, tabs, groups) is owned by those patterns and managed by the consuming application.
+Micro Navigation has no behavioural logic of its own. It arranges two existing patterns, Navbar and Footer, into an L-shaped shell. All state (drawers, tabs, groups) is owned by those patterns and managed by the consuming application.
 
 This distinction matters for maintenance:
 - **Patterns** own behaviour and are individually tested
@@ -28,9 +28,9 @@ Source: `src/layouts/MicroNavigation/`
 
 ## Description
 
-Micro Navigation composes MainNavigation and Footer into a persistent L-shaped application shell for enterprise products. Users can navigate between modules (left panel) and manage open pages (bottom tab bar) simultaneously, without interrupting their current context.
+Micro Navigation is the default layout for Ripple applications. It composes the [Navbar](../patterns/navbar.md) and [Footer](../patterns/footer.md) patterns into a persistent L-shaped application shell for enterprise products. Users can navigate between modules (left panel) and manage open pages (bottom tab bar) simultaneously, without interrupting their current context.
 
-> **Device scope:** Desktop and tablet only. The layout requires enough horizontal space for the Navbar (64px), optional navigation panel, and meaningful content area. Do not use on mobile.
+> **Device scope:** Desktop and tablet only. The layout requires enough horizontal space for the Navbar (72 px, `navbar.width`), an overlay drawer, and a meaningful content area. Do not use on mobile.
 
 ---
 
@@ -42,17 +42,19 @@ The Micro navigation template consists of four main elements that work together 
 
 The L-shape navigation forms the structural foundation of the template, consisting of:
 
-#### Main Navigation (Vertical Part of "L")
-- **Navbar:** The top section providing product branding, global actions, and user menu
-- **Drawer:** The expandable sidebar below the navbar containing hierarchical navigation items
-- **Location:** Left side of the screen, spanning full height
-- **Behavior:** Can be expanded or collapsed to adjust workspace size
+#### Navbar (Vertical Part of "L")
+- **Navbar pattern:** product identity, global and contextual buttons, user menu. See [patterns/navbar.md](../patterns/navbar.md)
+- **Location:** Left edge, full height, 72 px
+- **Global buttons open drawers.** In this layout every global button opens an overlay drawer (for example Search, Global Hub, Notifications, Client). Why: global utilities sit beside open pages without replacing them, so the Footer tabs keep their meaning. Contextual buttons may navigate to a page
+- **Overlay drawers only.** Persistent drawers are not allowed here; use [Standard Navigation](standard-navigation.md) for a persistent navigation tree. Why: a persistent panel plus the Footer leaves too little content width on tablet
+- **Everything else is the consumer's:** drawer contents, routing, page actions and tab management
 
 > **Contextual navigation is not shown by default.** The Navbar supports two groups of nav items: global items (always present — Search, Hub, Notifications, Client) and contextual items (module-specific, e.g. Finance, People, Reports). Contextual items are omitted from the layout default because they are product and team specific. Consuming applications add them via `contextualNavItems` and set `showContextualDivider: true` to visually separate the two groups.
 
 #### Footer (Horizontal Part of "L")
 - **Tab Bar:** Displays currently open pages as tabs
-- **Location:** Bottom of the screen, spanning full width
+- **Required.** Micro Navigation always has the Footer; a product that works one page at a time uses Standard Navigation instead
+- **Location:** Bottom of the content column, to the right of the Navbar. It never covers the Navbar
 - **Background:** Uses `var(--background-nav)` for proper theme adaptation
 - **Behavior:** Allows users to switch between pages, organize tabs into groups, and manage workspace
 
@@ -303,7 +305,7 @@ Micro Navigation uses the following Ripple components:
 
 ### Required Components
 - **Navbar:** Product branding and global actions
-- **RippleDrawer:** Hierarchical navigation menu container
+- **Drawer:** Overlay panels opened by global Navbar buttons
 - **DrawerSection:** Organizes navigation items into labeled groups
 - **DrawerMenuItem:** Individual navigation items within sections
 - **Footer:** Tab bar for workspace management
@@ -494,7 +496,8 @@ The Quick Access drawer is a specialized drawer component that provides users wi
 
 ## Related Patterns
 
-- **Main Navigation:** The combination of Navbar and Drawer
+- **[Navbar](../patterns/navbar.md):** Navigation column with drawer wiring (replaces Main Navigation, deprecated)
+- **[Standard Navigation](standard-navigation.md):** Same Navbar without the Footer
 - **Footer:** Tab bar for workspace management
 - **Page Header:** Context and actions for current page
 - **Grid:** Content organization system
@@ -512,3 +515,12 @@ When updating the Micro Navigation template:
 - Ensure all drawer implementations use `DrawerSection` and `DrawerMenuItem`
 - Verify all close buttons use `IconButton variant="ghost" color="neutral"`
 - Test theme adaptation with `var(--background-nav)` background
+
+---
+
+## Changelog
+
+| Version | Date | Change |
+|---------|------|--------|
+| 0.2.0 | 2026-10-29 | Composes the Navbar pattern instead of Main Navigation (deprecated); `nav` prop typed from `NavbarProps`. Becomes the default layout. States the rules: Footer required, global buttons open overlay drawers, no persistent drawers. Fixes the Navbar width (72 px, was 64 px). Source: `Research/Navigation` exploration. |
+| 0.1.0 | 2026-04-06 | Reclassified from pattern to layout. |

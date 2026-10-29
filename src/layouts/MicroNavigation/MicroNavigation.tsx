@@ -1,72 +1,63 @@
 import React from 'react'
 import { Footer } from '../../patterns/Footer'
 import type { FooterProps } from '../../patterns/Footer'
-import { MainNavigation } from '../../patterns/MainNavigation'
-import type { MainNavigationProps, MainNavDrawerDef } from '../../patterns/MainNavigation'
+import { Navbar } from '../../patterns/Navbar'
+import type { NavbarProps, NavbarDrawer } from '../../patterns/Navbar'
+import '../app-shell.css'
 import './MicroNavigation.css'
 
 // =============================================================================
 // TYPES
 // =============================================================================
 
-/** Overlay drawer definition — `persistent` is not allowed in MicroNavigation. */
-export type MicroNavDrawerDef = Omit<MainNavDrawerDef, 'persistent'>
+/** Overlay drawer definition. `persistent` is not allowed in MicroNavigation. */
+export type MicroNavDrawerDef = Omit<NavbarDrawer, 'persistent'>
+
+/** Navbar props for MicroNavigation: overlay drawers only. */
+export type MicroNavigationNavProps = Omit<NavbarProps, 'drawers'> & {
+  drawers?: MicroNavDrawerDef[]
+}
 
 export interface MicroNavigationProps {
   /**
-   * Props forwarded to the MainNavigation pattern.
-   * Provides the Navbar, drawer management, and left-side layout.
-   * Do not pass `children` or `belowScroll` here — use the top-level props instead.
-   *
-   * Only overlay (modal) drawers are supported. Persistent panels belong to
-   * the Persistent Navigation layout, not MicroNavigation.
+   * Props forwarded to the Navbar pattern (spec: patterns/navbar.md).
+   * Every global item should open an overlay drawer (`drawerId`).
+   * Persistent drawers belong to StandardNavigation.
    */
-  nav: Omit<MainNavigationProps, 'children' | 'belowScroll' | 'drawers'> & {
-    drawers?: MicroNavDrawerDef[]
-  }
+  nav: MicroNavigationNavProps
   /**
-   * Props forwarded to the Footer pattern. Placed in MainNavigation's
-   * `belowScroll` slot — anchored to the bottom of the content column,
-   * never covering the Navbar.
+   * Props forwarded to the Footer pattern. Required: Micro Navigation always
+   * has the tab bar. Use StandardNavigation for products without it.
    */
   footer: FooterProps
-  /**
-   * Page header rendered at the top of the content column, outside the
-   * scrollable body. Accepts a PageHeader component. No padding is applied
-   * here — the PageHeader owns its own internal spacing.
-   */
+  /** Page header at the top of the content column, outside the scrollable body. */
   header?: React.ReactNode
   /** Page content rendered in the scrollable body (24px padding). */
   children?: React.ReactNode
   className?: string
 }
 
+// Development-only warnings. Bundlers replace process.env.NODE_ENV; the try/catch
+// keeps unbundled ESM in a browser (no `process`) from throwing.
+let isDev = false
+try { isDev = process.env.NODE_ENV !== 'production' } catch { isDev = false }
+let warnedGlobal = false
+
 // =============================================================================
-// MICRO NAVIGATION
+// MICRO NAVIGATION (default layout). Spec: layouts/micro-navigation.md (0.2.0)
 // =============================================================================
 
 /**
- * MicroNavigation is a full-page layout template that composes
- * MainNavigation and Footer into an L-shaped enterprise application shell.
+ * L-shaped application shell: Navbar on the left, Footer tab bar along the
+ * bottom of the content column. No behaviour of its own; all state belongs to
+ * the Navbar and Footer patterns and the consuming application.
  *
- * Layout:
  *   ┌─────────┬─────────────────────────────────────────┐
- *   │         │  Page content (scrollable)              │
- *   │  Main   │                                         │
- *   │  Nav    │                                         │
+ *   │         │  Header                                 │
+ *   │ Navbar  │  Page content (scrollable)              │
  *   │         ├─────────────────────────────────────────┤
- *   │         │  Footer (tab bar, in-flow)               │
+ *   │         │  Footer (tab bar, in-flow)              │
  *   └─────────┴─────────────────────────────────────────┘
- *
- * The Footer is placed in MainNavigation's `belowScroll` slot so it renders
- * inside the content column — anchored to the bottom of the content area,
- * not the viewport. It never covers the Navbar.
- *
- * All state (open tabs, active tab, groups, open drawers) is managed by
- * the consuming application and passed through `nav` and `footer` props.
- *
- * Classified as a layout template, not a pattern, because it has no
- * behavioural logic of its own — it only arranges existing patterns.
  */
 export function MicroNavigation({
   nav,
@@ -75,20 +66,25 @@ export function MicroNavigation({
   children,
   className,
 }: MicroNavigationProps) {
+  if (isDev && !warnedGlobal && (nav.globalNavItems ?? []).some(i => !i.drawerId)) {
+    warnedGlobal = true
+    console.warn('[Ripple MicroNavigation] Every global Navbar item should open a drawer (set `drawerId`). See layouts/micro-navigation.md.')
+  }
+
+  const { className: navClassName, ...navRest } = nav
+
   return (
-    <MainNavigation
-      {...nav}
-      className={['micro-navigation', nav.className, className].filter(Boolean).join(' ')}
-      belowScroll={<Footer {...footer} />}
-    >
-      <div className="micro-navigation__frame">
-        {header && (
-          <div className="micro-navigation__header">{header}</div>
-        )}
-        <main className="micro-navigation__body">
-          {children}
-        </main>
+    <div className={['main-navigation', 'micro-navigation', className].filter(Boolean).join(' ')}>
+      <Navbar {...navRest} className={navClassName} />
+      <div className="main-navigation__content">
+        <div className="main-navigation__scroll">
+          <div className="micro-navigation__frame">
+            {header && <div className="micro-navigation__header">{header}</div>}
+            <main className="micro-navigation__body">{children}</main>
+          </div>
+        </div>
+        <Footer {...footer} />
       </div>
-    </MainNavigation>
+    </div>
   )
 }

@@ -24,7 +24,6 @@ import {
 } from '../../components/Drawer'
 import { PageHeader } from '../../components/PageHeader'
 import { Input } from '../../components/Input'
-import { Unit4Logo } from '../../assets/Unit4Logo'
 
 // ---------------------------------------------------------------------------
 
@@ -204,7 +203,6 @@ export const Default: Story = {
       <ERPxMicroNavigation
         nav={{
           // ── Identity ──────────────────────────────────────────────────────
-          logo:            <Unit4Logo />,
           productName:     'ERPx',
           userName:        'Vasco Antunes',
           userRole:        'Finance Manager',
@@ -221,7 +219,7 @@ export const Default: Story = {
 
           // ── Contextual nav ────────────────────────────────────────────────
           contextualNavItems: [
-            { id: 'finance',  icon: <DollarSign size={20} />, label: 'Finance',  selected: true },
+            { id: 'finance',  icon: <DollarSign size={20} />, label: 'Finance',  current: true },
             { id: 'people',   icon: <Users size={20} />,      label: 'People' },
             { id: 'reports',  icon: <BarChart2 size={20} />,  label: 'Reports' },
             { id: 'settings', icon: <Settings size={20} />,   label: 'Settings' },

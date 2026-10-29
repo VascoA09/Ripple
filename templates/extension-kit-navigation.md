@@ -150,7 +150,7 @@ Persistent and collapsible. Pushes the main area — never overlaps it. Backgrou
 | | Extension Kit Navigation | Standard Navigation | Micro Navigation |
 |---|---|---|---|
 | **Top bar** | Horizontal, in main area, product-branded | Left vertical Navbar | Left vertical Navbar |
-| **Sidebar** | Left, collapsible, user + nav + metadata | MainNavigation drawers | MainNavigation drawers |
+| **Sidebar** | Left, collapsible, user + nav + metadata | Navbar drawers | Navbar drawers |
 | **Footer tab bar** | No | No | Yes |
 | **Identity location** | Sidebar (user + tenant) | Navbar (user only) | Navbar (user only) |
 | **Product scope** | Extension Kit | Any | Any |

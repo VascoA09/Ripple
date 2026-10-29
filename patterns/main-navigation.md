@@ -1,15 +1,34 @@
 ---
 name: Main Navigation
-status: draft
-version: 0.2.0
-last_updated: 2026-03-31
+status: deprecated
+version: 0.2.1
+last_updated: 2026-10-29
 owner: Vasco Antunes
 figma: TBD
 storybook: TBD
+replaced_by: patterns/navbar.md
+removal_target: Navbar 0.4.0
 tags: [navigation, layout]
 ---
 
 # Main Navigation — Ripple Design System
+
+> **Deprecated (2026-10-29).** Replaced by the [Navbar pattern](navbar.md) 0.3.0, which absorbs drawer wiring and single selection. `MainNavigation` stays for one release as an alias that composes `Navbar` with the old content area, and is removed in Navbar 0.4.0. Do not use it in new work: use the [Micro Navigation](../layouts/micro-navigation.md) or [Standard Navigation](../layouts/standard-navigation.md) layout. Why: one shell was described by two names in two tiers. Source: `Research/Navigation/brief.md`.
+>
+> Known errors in this spec, fixed in the Navbar pattern: drawer sizes here (280 / 320 / 400 px) do not match Drawer (320 / 480 / 640 px); the current page disappears from the Navbar while a drawer is open.
+
+## Migration
+
+| Before | After |
+|--------|-------|
+| `<MainNavigation …>{page}</MainNavigation>` | `<StandardNavigation nav={…}>{page}</StandardNavigation>` |
+| `belowScroll={<Footer …/>}` | `<MicroNavigation nav={…} footer={…}>` |
+| `MainNavItem`, `MainNavDrawerDef` | `NavItem`, `NavbarDrawer` |
+| `selected` on page items | `current` |
+
+Full steps: [Navbar pattern, Migration](navbar.md#migration-from-main-navigation-and-navbar-020).
+
+---
 
 ## Overview
 
@@ -505,3 +524,13 @@ The Navbar renders as `<nav aria-label="Application navigation">`. Drawers use `
 * **[Counter](/guidelines/components/counter.md)** — Notification counts on nav buttons
 * **[FlyoutMenu](/guidelines/components/flyout-menu.md)** — User menu and overflow menu
 * **[Micro Navigation](/guidelines/layouts/micro-navigation.md)** — Layout that assembles Main Navigation and Footer into a full-page shell
+
+---
+
+## Changelog
+
+| Version | Date | Change |
+|---------|------|--------|
+| 0.2.1 | 2026-10-29 | Deprecated. Replaced by the Navbar pattern 0.3.0; `MainNavigation` kept as an alias for one release, removed in Navbar 0.4.0. |
+| 0.2.0 | 2026-03-31 | Declarative `drawers` API, overlay and persistent drawers. |
+| 0.1.0 | 2026-03-20 | Initial draft. |

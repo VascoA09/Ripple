@@ -2,7 +2,7 @@ import React from 'react'
 import { Bell, Building2, Grid3X3, Search } from '../../icons'
 import { MicroNavigation } from '../../layouts/MicroNavigation'
 import type { MicroNavigationProps } from '../../layouts/MicroNavigation'
-import type { MainNavItem } from '../../patterns/MainNavigation'
+import type { NavItem } from '../../patterns/Navbar'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -90,7 +90,7 @@ export function ERPxMicroNavigation({
     ...navRest
   } = nav
 
-  const globalNavItems: MainNavItem[] = [
+  const globalNavItems: NavItem[] = [
     {
       id:       'search',
       icon:     <Search size={20} />,

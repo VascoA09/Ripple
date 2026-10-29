@@ -1,58 +1,41 @@
 import { default as React } from 'react';
 import { FooterProps } from '../../patterns/Footer';
-import { MainNavigationProps, MainNavDrawerDef } from '../../patterns/MainNavigation';
+import { NavbarProps, NavbarDrawer } from '../../patterns/Navbar';
 
-/** Overlay drawer definition — `persistent` is not allowed in MicroNavigation. */
-export type MicroNavDrawerDef = Omit<MainNavDrawerDef, 'persistent'>;
+/** Overlay drawer definition. `persistent` is not allowed in MicroNavigation. */
+export type MicroNavDrawerDef = Omit<NavbarDrawer, 'persistent'>;
+/** Navbar props for MicroNavigation: overlay drawers only. */
+export type MicroNavigationNavProps = Omit<NavbarProps, 'drawers'> & {
+    drawers?: MicroNavDrawerDef[];
+};
 export interface MicroNavigationProps {
     /**
-     * Props forwarded to the MainNavigation pattern.
-     * Provides the Navbar, drawer management, and left-side layout.
-     * Do not pass `children` or `belowScroll` here — use the top-level props instead.
-     *
-     * Only overlay (modal) drawers are supported. Persistent panels belong to
-     * the Persistent Navigation layout, not MicroNavigation.
+     * Props forwarded to the Navbar pattern (spec: patterns/navbar.md).
+     * Every global item should open an overlay drawer (`drawerId`).
+     * Persistent drawers belong to StandardNavigation.
      */
-    nav: Omit<MainNavigationProps, 'children' | 'belowScroll' | 'drawers'> & {
-        drawers?: MicroNavDrawerDef[];
-    };
+    nav: MicroNavigationNavProps;
     /**
-     * Props forwarded to the Footer pattern. Placed in MainNavigation's
-     * `belowScroll` slot — anchored to the bottom of the content column,
-     * never covering the Navbar.
+     * Props forwarded to the Footer pattern. Required: Micro Navigation always
+     * has the tab bar. Use StandardNavigation for products without it.
      */
     footer: FooterProps;
-    /**
-     * Page header rendered at the top of the content column, outside the
-     * scrollable body. Accepts a PageHeader component. No padding is applied
-     * here — the PageHeader owns its own internal spacing.
-     */
+    /** Page header at the top of the content column, outside the scrollable body. */
     header?: React.ReactNode;
     /** Page content rendered in the scrollable body (24px padding). */
     children?: React.ReactNode;
     className?: string;
 }
 /**
- * MicroNavigation is a full-page layout template that composes
- * MainNavigation and Footer into an L-shaped enterprise application shell.
+ * L-shaped application shell: Navbar on the left, Footer tab bar along the
+ * bottom of the content column. No behaviour of its own; all state belongs to
+ * the Navbar and Footer patterns and the consuming application.
  *
- * Layout:
  *   ┌─────────┬─────────────────────────────────────────┐
- *   │         │  Page content (scrollable)              │
- *   │  Main   │                                         │
- *   │  Nav    │                                         │
+ *   │         │  Header                                 │
+ *   │ Navbar  │  Page content (scrollable)              │
  *   │         ├─────────────────────────────────────────┤
- *   │         │  Footer (tab bar, in-flow)               │
+ *   │         │  Footer (tab bar, in-flow)              │
  *   └─────────┴─────────────────────────────────────────┘
- *
- * The Footer is placed in MainNavigation's `belowScroll` slot so it renders
- * inside the content column — anchored to the bottom of the content area,
- * not the viewport. It never covers the Navbar.
- *
- * All state (open tabs, active tab, groups, open drawers) is managed by
- * the consuming application and passed through `nav` and `footer` props.
- *
- * Classified as a layout template, not a pattern, because it has no
- * behavioural logic of its own — it only arranges existing patterns.
  */
 export declare function MicroNavigation({ nav, footer, header, children, className, }: MicroNavigationProps): import("react/jsx-runtime").JSX.Element;

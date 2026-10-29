@@ -1,7 +1,7 @@
 ---
 type: registry
 scope: components
-last_updated: 2026-03-31
+last_updated: 2026-10-29
 ---
 
 # Component Registry
@@ -34,7 +34,7 @@ last_updated: 2026-03-31
 | [Icon Button](icon-button.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | action |
 | [Link](link.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | navigation, action |
 | [List](list.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | display, layout |
-| [Navbar](navbar.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | navigation, layout |
+| [Navbar](navbar.md) | deprecated (moved to [patterns/navbar.md](../patterns/navbar.md)) | 0.2.0 | 2026-10-29 | Vasco Antunes | TBD | navigation, layout |
 | [Page Header](page-header.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | layout |
 | [Panel](panel.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | layout |
 | [Progress Bar](progress-bar.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | feedback, status |
@@ -58,10 +58,10 @@ last_updated: 2026-03-31
 
 | Status | Count |
 |--------|-------|
-| Draft | 43 |
+| Draft | 42 |
 | Review | 0 |
 | Stable | 1 |
-| Deprecated | 0 |
+| Deprecated | 1 |
 
 ## Build Coverage
 

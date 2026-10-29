@@ -33,7 +33,27 @@ Activate the theme on your root element:
 
 ```tsx
 import { Button, TextInput, Tag, Card } from '@ripple/ui'
-import { MainNavigation, Footer } from '@ripple/ui'
+```
+
+Build application shells with a layout, never by wiring the Navbar yourself:
+
+```tsx
+import { MicroNavigation } from '@ripple/ui'      // default: Navbar + Footer tab bar
+import { StandardNavigation } from '@ripple/ui'   // Navbar only, no Footer
+
+<MicroNavigation
+  nav={{
+    productName: 'ERPx',
+    productFullName: 'Unit4 ERPx',
+    globalNavItems: [{ id: 'search', label: 'Search', icon: <Search size={20} />, drawerId: 'search' }],
+    drawers: [{ id: 'search', size: 'small', content: <SearchDrawer /> }],
+    userName: 'Sam Rivera',
+    userMenuItems,
+  }}
+  footer={footerProps}
+>
+  {page}
+</MicroNavigation>
 ```
 
 ---
@@ -44,8 +64,8 @@ import { MainNavigation, Footer } from '@ripple/ui'
 |-----------|----------|
 | `foundations/` | Color, typography, spacing, grid, themes, accessibility |
 | `components/` | Specs for all 44 components |
-| `patterns/` | Composed UI patterns (Footer, Main Navigation) |
-| `layouts/` | Structural layout scaffolds (Micro Navigation) |
+| `patterns/` | Composed UI patterns (Navbar, Footer). Main Navigation is deprecated: use Navbar |
+| `layouts/` | Structural layout scaffolds (Micro Navigation, the default; Standard Navigation) |
 | `templates/` | Authoring templates for new specs |
 | `governance/` | Contribution model |
 | `src/` | React/TypeScript implementation |
