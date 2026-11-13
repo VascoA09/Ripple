@@ -2,9 +2,9 @@
 name: Field Label
 status: draft
 version: 0.1.0
-last_updated: 2026-03-19
+last_updated: 2026-11-09
 owner: Vasco Antunes
-figma: TBD
+figma: https://www.figma.com/design/27P4iW2jvpQMmTps5dZFYE/Ripple-UI-Kit?node-id=21415-83
 storybook: TBD
 tags: [form]
 ---

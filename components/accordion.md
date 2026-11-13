@@ -4,7 +4,7 @@ status: draft
 version: 0.2.0
 last_updated: 2026-03-27
 owner: Vasco Antunes
-figma: TBD
+figma: https://www.figma.com/design/27P4iW2jvpQMmTps5dZFYE/Ripple-UI-Kit?node-id=21373-433
 storybook: TBD
 tags: [disclosure, navigation]
 ---

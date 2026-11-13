@@ -22,7 +22,7 @@ last_updated: 2026-10-29
 | [Combobox](combobox.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | form, input |
 | [Counter](counter.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | display, data |
 | [Dialog](dialog.md) | draft | 0.1.0 | 2026-02-24 | Vasco Antunes | N/A | overlay, modal, feedback, interaction |
-| [Divider](divider.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | layout |
+| [Divider](divider.md) | draft | 0.1.1 | 2026-11-09 | Vasco Antunes | [Figma](https://www.figma.com/design/27P4iW2jvpQMmTps5dZFYE/Ripple-UI-Kit?node-id=21407-28) | layout |
 | [Drawer](drawer.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | overlay, navigation |
 | [Dropdown](dropdown.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | form, input |
 | [Field Label](field-label.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | form |

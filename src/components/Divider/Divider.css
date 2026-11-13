@@ -15,7 +15,7 @@
    ============================================================================= */
 
 .divider {
-  --_color: var(--color-gray-30);   /* #D8D9D9 */
+  --_color: var(--border-neutral);
 
   box-sizing:  border-box;
   flex-shrink: 0;

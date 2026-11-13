@@ -1,10 +1,10 @@
 ---
 name: Divider
 status: draft
-version: 0.1.0
-last_updated: 2026-03-19
+version: 0.1.1
+last_updated: 2026-11-09
 owner: Vasco Antunes
-figma: TBD
+figma: https://www.figma.com/design/27P4iW2jvpQMmTps5dZFYE/Ripple-UI-Kit?node-id=21407-28
 storybook: TBD
 tags: [layout]
 ---
@@ -58,7 +58,7 @@ Dividers have no size prop. Line thickness is always 1px.
 
 | Property | Token | Value |
 |----------|-------|-------|
-| Line color | `--color-gray-30` | `#D8D9D9` |
+| Line color | `--border-neutral` | cool-gray/30 `#DFE6EC` (light) / cool-gray/70 (dark) |
 | Label font-size | `--font-size-60` | 12px |
 | Label font-family | `--font-family-base` | Open Sans |
 | Label font-weight | `--font-weight-regular` | 400 |
@@ -97,5 +97,14 @@ Dividers have no size prop. Line thickness is always 1px.
 
 - For `inset-text`, pass a plain string — it doubles as the visual label and `aria-label`
 - `inset-text` on a vertical divider: text remains horizontal (not rotated), centred between two vertical line segments
-- Do not add color overrides — `--color-gray-30` is the only correct line color in the system
+- Do not add color overrides — `--border-neutral` is the only correct line color in the system
 - Never add click, hover, or focus states; Divider is permanently non-interactive
+
+---
+
+## Changelog
+
+| Version | Date | Change |
+|---------|------|--------|
+| 0.1.0 | 2026-03-19 | Initial draft: horizontal and vertical orientations, full, inset and inset-text variants |
+| 0.1.1 | 2026-11-09 | Line color token changed from primitive `--color-gray-30` to semantic `--border-neutral`, so the line follows the theme in dark mode and matches separators in Drawer, Date Picker and StackableList. Visible change: light-mode line shifts from #D8D9D9 to #DFE6EC. Not breaking |
