@@ -19,7 +19,7 @@
   --toggle-button-color-background-selected-hover: var(--background-neutral-loud);
   --toggle-button-color-text:                      var(--text);
   --toggle-button-color-text-selected:             var(--text-loud-inverse);
-  --toggle-button-opacity-disabled:                var(--opacity-40);
+  --toggle-button-opacity-disabled:                var(--opacity-30);
   --toggle-button-border-focus:                    var(--border-focus);
   --toggle-button-border-width-focus:              var(--border-width-focus);
 
@@ -71,7 +71,9 @@
 }
 
 /* --- Disabled: current state stays visible, interaction blocked ------------- */
-.toggle-button[data-disabled] {
+.toggle-button[data-disabled],
+.toggle-button:has(.toggle-button__input:disabled) {
+  /* Also covers inputs disabled by an ancestor <fieldset disabled> (Button Group). */
   opacity:        var(--toggle-button-opacity-disabled);
   cursor:         not-allowed;
   pointer-events: none;

@@ -123,7 +123,7 @@ Selection and interaction are independent. Hover, pressed and focus layer on top
 | Hover | `--background-neutral-soft` | `--background-neutral-loud` | Selected hover borrows the Button fill neutral hover so a hovered selected toggle still reads as selected |
 | Pressed | `--background-neutral`, `--text-loud-inverse`, 1px downward shift | Same, 1px shift | Button behaviour. The selected state itself has no shift, so selected toggles stay aligned with their neighbours |
 | Focus | Focus ring | Focus ring | Applied to the container when the input matches `:focus-visible` |
-| Disabled | `--opacity-40`, not interactive | `--opacity-40`, not interactive | The current state stays visible so users know what is locked |
+| Disabled | `--opacity-30`, not interactive | `--opacity-30`, not interactive | The current state stays visible so users know what is locked |
 | Loading | N/A | N/A | Toggling is instant and local. Async consequences show their own loading state in the affected content |
 | Error | N/A | N/A | A toggle cannot be invalid. Validation belongs to the form, not the control |
 
@@ -133,7 +133,7 @@ Selection and interaction are independent. Hover, pressed and focus layer on top
 
 ## Toggle group
 
-A Toggle group is a set of Toggle Buttons inside a Button Group (draft 0.2.0, not yet in the Ripple repo). The group owns selection; individual toggles never coordinate with each other.
+A Toggle group is a set of Toggle Buttons inside a [Button Group](button-group.md). The group owns selection and the selected value; individual toggles never coordinate with each other. Button Group passes `selection`, `name`, `size`, `value` and `onToggle` through `ToggleButtonGroupContext`; a toggle inside a group is checked when its `value` matches the group value. Inside a group, set selection on the group (`value` / `defaultValue`); the child's `selected` and `defaultSelected` are ignored.
 
 | Group `selection` | Input rendered | Behaviour | Use when |
 |---|---|---|---|
@@ -160,7 +160,7 @@ Component tokens alias the Button ghost neutral values so the two components can
 | Container | Background (selected hover) | `toggle-button.color.background.selected.hover` | `--background-neutral-loud` |
 | Label, icon | Color (unselected) | `toggle-button.color.text` | `--text` |
 | Label, icon | Color (pressed, selected) | `toggle-button.color.text.selected` | `--text-loud-inverse` |
-| Container | Opacity (disabled) | `toggle-button.opacity.disabled` | `--opacity-40` |
+| Container | Opacity (disabled) | `toggle-button.opacity.disabled` | `--opacity-30` (same as Button.css) |
 | Focus ring | Color | `toggle-button.border.focus` | `--border-focus` |
 | Focus ring | Width | `toggle-button.border.width.focus` | `--border-width-focus` |
 | Container | Height, padding, gap, radius, font | inherited from Button size | Button size tokens |
@@ -264,14 +264,14 @@ Class names are proposals for the build; the selected state is driven by `:has(.
 | `ri-toggle-button--selected` class | `:has(:checked)` | None for React consumers; HTML consumers drop the class |
 | `aria-checked` on the input | Removed | None |
 | Private `--toggle-button-*` variables from `--color-*` | `toggle-button.*` component tokens aliasing Button | Move any overrides to the component tokens |
-| White resting background, disabled opacity 0.3 | Transparent, `--opacity-40` | None (visual only) |
+| White resting background, hard-coded disabled opacity 0.3 | Transparent, `--opacity-30` token | None (visual only) |
 
 ---
 
 ## Related components
 
 - [Button](button.md): the parent. Use Button for one-off actions with no persistent state.
-- Button Group (draft 0.2.0, Research folder): wraps Toggle Buttons and owns single or multiple selection.
+- [Button Group](button-group.md): wraps Toggle Buttons and owns single or multiple selection and the selected value.
 - [Switch](switch.md): a single setting that applies immediately.
 - [Checkbox](checkbox.md) / [Radio](radio.md): selections inside forms with field labels and validation.
 - [Tabs](tabs.md): switching between content panels. Tabs navigate; Toggle Buttons act.
@@ -300,5 +300,7 @@ Class names are proposals for the build; the selected state is driven by `:has(.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.1.0 | 2026-11-17 | Toggle group now points to the Button Group spec; `ToggleButtonGroupContext` gains `value` and `onToggle` so the group owns the selected value. No change to Toggle Button props. |
+| 0.1.0 | 2026-11-17 | Disabled opacity aligned to Button.css: `--opacity-30` (was `--opacity-40`, copied from an outdated Button spec row). |
 | 0.1.0 | 2026-11-17 | React implementation added (`src/components/ToggleButton/`); status moved to review. Button Group not yet built; stories use a context stand-in. |
 | 0.1.0 | 2026-11-17 | Initial draft in the Ripple repo, from the Toggle button exploration (`brief.md`, `decisions.md`). Supersedes the Research draft 0.1.0: markup follows production (label + native input), styles inherit Button ghost neutral, selection moves to Button Group, `groupName` deprecated. |

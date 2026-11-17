@@ -15,6 +15,7 @@ last_updated: 2026-11-17
 | [Banner Alert](banner-alert.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | feedback, status |
 | [Breadcrumbs](breadcrumbs.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | navigation |
 | [Button](button.md) | draft | 0.1.1 | 2026-11-17 | Vasco Antunes | TBD | action, form |
+| [Button Group](button-group.md) | review | 0.1.0 | 2026-11-17 | Vasco Antunes | [Unit4 design kit](https://www.figma.com/design/t3ssULnSKXkCRP38TLMxiL/Unit4-design-kit?node-id=17087-787) | action, selection, layout |
 | [Buttons Toolbar](buttons-toolbar.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | action, form |
 | [Card](card.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | layout, display |
 | [Checkbox](checkbox.md) | draft | 0.1.0 | 2026-03-19 | Vasco Antunes | TBD | form, input |
@@ -60,7 +61,7 @@ last_updated: 2026-11-17
 | Status | Count |
 |--------|-------|
 | Draft | 42 |
-| Review | 1 |
+| Review | 2 |
 | Stable | 1 |
 | Deprecated | 1 |
 
@@ -74,6 +75,7 @@ last_updated: 2026-11-17
 | Banner Alert | Yes | Yes |
 | Breadcrumbs | No | Yes |
 | Button | Yes | Yes |
+| Button Group | Yes | Yes |
 | Buttons Toolbar | No | Yes |
 | Card | Yes | Yes |
 | Checkbox | No | Yes |

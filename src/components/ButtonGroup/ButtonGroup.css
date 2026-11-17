@@ -1,0 +1,75 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM: BUTTON GROUP
+   Source: components/button-group.md 0.1.0
+
+   Container only. Buttons own every visual state. A <fieldset> in every mode;
+   browser fieldset defaults (border, padding, min-inline-size) are reset.
+   ============================================================================= */
+
+.button-group {
+  /* --- Component tokens (spec: Design Tokens) ------------------------------ */
+  --button-group-gap:              var(--spacing-25);
+  --button-group-padding:          var(--spacing-25);
+  --button-group-color-background: var(--background-surface);
+  --button-group-border-color:     var(--border-neutral);
+  --button-group-border-width:     var(--border-width-100);
+  --button-group-border-radius:    var(--border-radius-container-default);
+  --button-group-legend-color:     var(--text);
+  --button-group-legend-gap:       var(--spacing-50);
+
+  display:         inline-flex;
+  flex-wrap:       nowrap;
+  align-items:     center;
+  gap:             var(--button-group-gap);
+  margin:          0;
+  padding:         0;
+  border:          0;
+  min-inline-size: 0;
+}
+
+.button-group[data-orientation="vertical"] {
+  flex-direction: column;
+  align-items:    stretch;
+}
+
+.button-group[data-padded] {
+  padding:       var(--button-group-padding);
+  background:    var(--button-group-color-background);
+  border:        var(--button-group-border-width) solid var(--button-group-border-color);
+  border-radius: var(--button-group-border-radius);
+}
+
+/* --- Legend --------------------------------------------------------------- */
+
+/* Visually hidden but announced. Ripple has no shared utility yet (spec open question 7). */
+.button-group__legend--hidden {
+  position:    absolute;
+  width:       1px;
+  height:      1px;
+  padding:     0;
+  margin:      -1px;
+  overflow:    hidden;
+  clip-path:   inset(50%);
+  white-space: nowrap;
+  border:      0;
+}
+
+/* Visible legend: a fieldset legend cannot be a flex item, so it is floated to
+   take its own row above the children. */
+.button-group__legend--visible {
+  float:         left;
+  width:         100%;
+  padding:       0;
+  margin-bottom: var(--button-group-legend-gap);
+  font-family:   var(--font-family-base);
+  font-size:     var(--font-size-80);
+  font-weight:   var(--font-weight-semibold);
+  color:         var(--button-group-legend-color);
+}
+
+.button-group:has(> .button-group__legend--visible) {
+  flex-wrap: wrap;
+}
+
+/* Group disabled: native <fieldset disabled>. Buttons and Toggle Buttons style
+   their own disabled state from :disabled, so the group adds nothing. */

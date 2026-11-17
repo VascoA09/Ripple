@@ -7,6 +7,15 @@ export interface ToggleButtonGroupContextValue {
     name?: string;
     /** One size for every toggle in the group. */
     size?: ToggleButtonSize;
+    /**
+     * Current group selection. When provided, a child is checked when its
+     * `value` matches (single) or is included (multiple). `null` means the
+     * group is controlled with nothing selected; `undefined` leaves children
+     * uncontrolled.
+     */
+    value?: string | string[] | null;
+    /** Child reports a change; the group computes the new value. */
+    onToggle?: (childValue: string, checked: boolean) => void;
 }
 export declare const ToggleButtonGroupContext: React.Context<ToggleButtonGroupContextValue | null>;
 export type ToggleButtonSize = 'xsmall' | 'small' | 'medium' | 'large';

@@ -4,10 +4,10 @@ import './ToggleButton.css'
 
 // =============================================================================
 // GROUP CONTEXT
-// Spec: components/toggle-button.md 0.1.0, "Toggle group".
-// Button Group owns selection. It provides the input type, shared name and size
-// to its Toggle Buttons through this context. Toggle Buttons never coordinate
-// with each other. Button Group itself is not built yet (draft 0.2.0).
+// Spec: components/toggle-button.md 0.1.0, "Toggle group"; components/button-group.md 0.1.0.
+// Button Group owns selection and the selected value. It provides input type,
+// shared name, size, value and onToggle to its Toggle Buttons through this
+// context. Toggle Buttons never coordinate with each other.
 // =============================================================================
 
 export interface ToggleButtonGroupContextValue {
@@ -17,6 +17,15 @@ export interface ToggleButtonGroupContextValue {
   name?: string
   /** One size for every toggle in the group. */
   size?: ToggleButtonSize
+  /**
+   * Current group selection. When provided, a child is checked when its
+   * `value` matches (single) or is included (multiple). `null` means the
+   * group is controlled with nothing selected; `undefined` leaves children
+   * uncontrolled.
+   */
+  value?: string | string[] | null
+  /** Child reports a change; the group computes the new value. */
+  onToggle?: (childValue: string, checked: boolean) => void
 }
 
 export const ToggleButtonGroupContext =
@@ -119,6 +128,22 @@ export const ToggleButton = React.forwardRef<HTMLInputElement, ToggleButtonProps
     const name = group?.name ?? nameProp ?? groupName
     const size = group?.size ?? sizeProp ?? 'medium'
 
+    // Group-controlled: the group value decides `checked`; the child reports changes.
+    const childValue = rest.value === undefined ? undefined : String(rest.value)
+    const groupControlled = !!group && group.value !== undefined && childValue !== undefined
+    const groupChecked = groupControlled
+      ? Array.isArray(group.value)
+        ? group.value.includes(childValue as string)
+        : group.value === childValue && group.value !== null
+      : undefined
+    const checked = groupControlled ? groupChecked : selected
+
+    const { onChange, ...inputRest } = rest
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      onChange?.(event)
+      if (group?.onToggle && childValue !== undefined) group.onToggle(childValue, event.target.checked)
+    }
+
     const label = (
       <label
         className={['button', 'toggle-button', className].filter(Boolean).join(' ')}
@@ -135,11 +160,12 @@ export const ToggleButton = React.forwardRef<HTMLInputElement, ToggleButtonProps
           type={type}
           name={name}
           className="toggle-button__input"
-          checked={selected}
-          defaultChecked={selected === undefined ? defaultSelected : undefined}
+          checked={checked}
+          defaultChecked={checked === undefined ? defaultSelected : undefined}
           disabled={disabled}
           aria-label={ariaLabel}
-          {...rest}
+          onChange={handleChange}
+          {...inputRest}
         />
         {icon && (
           <span className="toggle-button__icon" aria-hidden="true">

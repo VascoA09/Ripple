@@ -87,7 +87,7 @@ A Button is composed of:
 | Border width  | `--border-width-default` | 1px |
 | Focus ring width | `--border-width-focus` | 2px |
 | Focus ring color | `--border-focus` | Primary color (theme-aware) |
-| Disabled opacity | `--opacity-40` | 0.4 |
+| Disabled opacity | `--opacity-30` | 0.3 |
 
 ### Color tokens by variant × color
 
@@ -116,7 +116,7 @@ A Button is composed of:
 | Focus | Keyboard focus | 2px focus ring at `var(--border-focus)`, `outline-offset: 2px` |
 | Active | Pointer or key down | Background updates to active value + 1px downward shift |
 | Loading | `loading={true}` | Spinner prepends content; button is disabled; opacity unchanged |
-| Disabled | `disabled={true}` | Opacity `var(--opacity-40)`, cursor `not-allowed` |
+| Disabled | `disabled={true}` | Opacity `var(--opacity-30)`, cursor `not-allowed` |
 
 ---
 
@@ -186,4 +186,4 @@ A Button is composed of:
 | Version | Date | Change |
 |---------|------|--------|
 | 0.1.0 | 2026-03-19 | Initial draft |
-| 0.1.1 | 2026-11-17 | Patch: Ghost neutral token row corrected to match Button.css (hover `--background-neutral-soft`, active `--background-neutral` with `--text-loud-inverse`); the spec previously listed `--background-hover` / `--background-pressed`. Found in the Toggle button exploration. |
+| 0.1.1 | 2026-11-17 | Patch: Ghost neutral token row corrected to match Button.css (hover `--background-neutral-soft`, active `--background-neutral` with `--text-loud-inverse`); the spec previously listed `--background-hover` / `--background-pressed`. Disabled opacity corrected from `--opacity-40` to `--opacity-30` to match Button.css. Found in the Toggle button exploration. |

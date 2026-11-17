@@ -28,6 +28,8 @@ export { Drawer, DrawerHeader, DrawerTools, DrawerContent, DrawerSection, Drawer
 export type { DrawerProps, DrawerSide, DrawerSize, DrawerHeaderProps, DrawerToolsProps, DrawerContentProps, DrawerSectionProps, DrawerMenuItemProps, DrawerMultiLevelItemProps, DrawerListItemProps, DrawerNotificationItemProps, DrawerContextButtonProps, } from './Drawer';
 export { Button } from './Button';
 export type { ButtonProps } from './Button';
+export { ButtonGroup } from './ButtonGroup';
+export type { ButtonGroupProps, ButtonGroupSelection } from './ButtonGroup';
 export { IconButton } from './IconButton';
 export type { IconButtonProps } from './IconButton';
 export { Spinner } from './Spinner';

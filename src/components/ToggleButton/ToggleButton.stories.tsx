@@ -1,14 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
-import { ToggleButton, ToggleButtonGroupContext } from './ToggleButton'
-import type { ToggleButtonProps, ToggleButtonGroupContextValue } from './ToggleButton'
+import { ToggleButton } from './ToggleButton'
+import type { ToggleButtonProps } from './ToggleButton'
+import { ButtonGroup } from '../ButtonGroup'
 import { Filter, Eye, Bookmark } from '../../icons'
 
 // ---------------------------------------------------------------------------
-// Spec: components/toggle-button.md 0.1.0
-// Button Group is not built yet. The group stories use a minimal stand-in that
-// provides ToggleButtonGroupContext inside a <fieldset>, which is what Button
-// Group will render.
+// Spec: components/toggle-button.md 0.1.0. Group stories use Button Group
+// (components/button-group.md 0.1.0), which owns selection.
 // ---------------------------------------------------------------------------
 
 const meta: Meta<ToggleButtonProps> = {
@@ -28,29 +27,6 @@ type Story = StoryObj<ToggleButtonProps>
 const caption = { fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-soft)' } as const
 const column  = { display: 'flex', flexDirection: 'column', gap: 'var(--spacing-100)' } as const
 const row     = { display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 'var(--spacing-100)' } as const
-
-function GroupStandIn({
-  legend,
-  children,
-  ...ctx
-}: ToggleButtonGroupContextValue & { legend: string; children: React.ReactNode }) {
-  return (
-    <ToggleButtonGroupContext.Provider value={ctx}>
-      <fieldset
-        style={{
-          display: 'inline-flex', gap: 'var(--spacing-25)', padding: 'var(--spacing-25)', margin: 0,
-          border: 'var(--border-width-100) solid var(--border-neutral)',
-          borderRadius: 'var(--border-radius-container-default)',
-        }}
-      >
-        <legend style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clipPath: 'inset(50%)' }}>
-          {legend}
-        </legend>
-        {children}
-      </fieldset>
-    </ToggleButtonGroupContext.Provider>
-  )
-}
 
 // ---------------------------------------------------------------------------
 // Default: interactive via controls
@@ -133,18 +109,11 @@ function SingleDemo() {
   const [view, setView] = useState('list')
   return (
     <div style={column}>
-      <GroupStandIn legend="Project view" selection="single" name="project-view" size="small">
+      <ButtonGroup padded legend="Project view" selection="single" size="small" value={view} onChange={v => setView(v as string)}>
         {['List', 'Grid', 'Gallery'].map(v => (
-          <ToggleButton
-            key={v}
-            value={v.toLowerCase()}
-            selected={view === v.toLowerCase()}
-            onChange={e => setView(e.target.value)}
-          >
-            {v}
-          </ToggleButton>
+          <ToggleButton key={v} value={v.toLowerCase()}>{v}</ToggleButton>
         ))}
-      </GroupStandIn>
+      </ButtonGroup>
       <span style={caption} aria-live="polite">Showing projects as: {view}</span>
     </div>
   )
@@ -159,12 +128,12 @@ export const SingleSelection: Story = { name: 'Group: single selection', render:
 export const MultipleSelection: Story = {
   name: 'Group: multiple selection',
   render: () => (
-    <GroupStandIn legend="Timesheet status" selection="multiple" size="small">
-      <ToggleButton value="draft" defaultSelected>Draft</ToggleButton>
-      <ToggleButton value="submitted" defaultSelected>Submitted</ToggleButton>
+    <ButtonGroup padded legend="Timesheet status" selection="multiple" size="small" defaultValue={['draft', 'submitted']}>
+      <ToggleButton value="draft">Draft</ToggleButton>
+      <ToggleButton value="submitted">Submitted</ToggleButton>
       <ToggleButton value="approved">Approved</ToggleButton>
       <ToggleButton value="archived">Archived</ToggleButton>
-    </GroupStandIn>
+    </ButtonGroup>
   ),
 }
 
@@ -175,11 +144,11 @@ export const MultipleSelection: Story = {
 export const IconOnlyToolbar: Story = {
   name: 'Icon-only toolbar',
   render: () => (
-    <GroupStandIn legend="Grid display options" selection="multiple" size="small">
-      <ToggleButton icon={<Filter size={16} />} aria-label="Show filters" defaultSelected />
-      <ToggleButton icon={<Eye size={16} />} aria-label="Show hidden columns" />
-      <ToggleButton icon={<Bookmark size={16} />} aria-label="Bookmarked only" />
-    </GroupStandIn>
+    <ButtonGroup padded legend="Grid display options" selection="multiple" size="small" defaultValue={['filters']}>
+      <ToggleButton value="filters" icon={<Filter size={16} />} aria-label="Show filters" />
+      <ToggleButton value="hidden" icon={<Eye size={16} />} aria-label="Show hidden columns" />
+      <ToggleButton value="bookmarked" icon={<Bookmark size={16} />} aria-label="Bookmarked only" />
+    </ButtonGroup>
   ),
 }
 
@@ -211,10 +180,10 @@ export const DarkTheme: Story = {
         <ToggleButton defaultSelected>Archived</ToggleButton>
         <ToggleButton disabled defaultSelected>Archived</ToggleButton>
       </div>
-      <GroupStandIn legend="Project view" selection="single" name="dark-view" size="small">
-        <ToggleButton value="list" defaultSelected>List</ToggleButton>
+      <ButtonGroup padded legend="Project view" selection="single" size="small" defaultValue="list">
+        <ToggleButton value="list">List</ToggleButton>
         <ToggleButton value="grid">Grid</ToggleButton>
-      </GroupStandIn>
+      </ButtonGroup>
     </div>
   ),
 }
