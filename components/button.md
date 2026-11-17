@@ -1,8 +1,8 @@
 ---
 name: Button
 status: draft
-version: 0.1.0
-last_updated: 2026-03-19
+version: 0.1.1
+last_updated: 2026-11-17
 owner: Vasco Antunes
 figma: TBD
 storybook: TBD
@@ -100,7 +100,9 @@ A Button is composed of:
 | Outline | Neutral | Transparent | `--background-hover` / `--background-pressed` | `--text` | `--border-default` |
 | Outline | Negative | Transparent | `--background-negative-softest` / `--background-negative-soft` | `--text-negative` | `--border-negative` |
 | Ghost | Primary | Transparent | `--background-primary-softest` / `--background-primary-soft` | `--text-accent` | — |
-| Ghost | Neutral | Transparent | `--background-hover` / `--background-pressed` | `--text` | — |
+| Ghost | Neutral | Transparent | `--background-neutral-soft` / `--background-neutral` | `--text` (active: `--text-loud-inverse`) | — |
+
+> Ghost neutral row corrected in 0.1.1 to match `src/components/Button/Button.css`. Ghost neutral pressed is also the selected state of [Toggle Button](toggle-button.md). Other rows in this table have not been re-checked against the code yet (Outline and Ghost active states flip to filled in `Button.css`).
 | Ghost | Negative | Transparent | `--background-negative-softest` / `--background-negative-soft` | `--text-negative` | — |
 
 ---
@@ -176,3 +178,12 @@ A Button is composed of:
 - [ ] Touch target size verified on device
 - [ ] Button grouping (ButtonGroup) pattern documented
 - [ ] Form integration tested (submit, reset types)
+
+---
+
+## Changelog
+
+| Version | Date | Change |
+|---------|------|--------|
+| 0.1.0 | 2026-03-19 | Initial draft |
+| 0.1.1 | 2026-11-17 | Patch: Ghost neutral token row corrected to match Button.css (hover `--background-neutral-soft`, active `--background-neutral` with `--text-loud-inverse`); the spec previously listed `--background-hover` / `--background-pressed`. Found in the Toggle button exploration. |

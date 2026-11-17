@@ -99,6 +99,9 @@ export type { ListProps, ListItemProps, ListSize } from './List'
 export { Switch } from './Switch'
 export type { SwitchProps } from './Switch'
 
+export { ToggleButton, ToggleButtonGroupContext } from './ToggleButton'
+export type { ToggleButtonProps, ToggleButtonSize, ToggleButtonGroupContextValue } from './ToggleButton'
+
 export { Stepper, StepperStep } from './Stepper'
 export type { StepperProps, StepperStepProps, StepperVariant, StepType } from './Stepper'
 

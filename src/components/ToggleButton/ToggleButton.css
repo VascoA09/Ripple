@@ -1,0 +1,87 @@
+/* =============================================================================
+   RIPPLE DESIGN SYSTEM: TOGGLE BUTTON
+   Source: components/toggle-button.md 0.1.0
+
+   Toggle Button is a Button (ghost, neutral) with persistent state. Size,
+   typography, radius, hover and pressed styles come from Button.css through the
+   .button class and data-variant="ghost" data-color="neutral". This file only
+   adds: the hidden native input, the selected state, focus on the label, and
+   disabled on the label (Button's :disabled does not apply to a <label>).
+   ============================================================================= */
+
+.button.toggle-button[data-variant][data-color] {
+  /* Specificity note: must outrank Button's variant x color rule (0,3,0).
+     --- Component tokens (spec: Design Tokens) -------------------------------
+     Aliases of Button ghost neutral so the two cannot drift. */
+  --toggle-button-color-background:                transparent;
+  --toggle-button-color-background-hover:          var(--background-neutral-soft);
+  --toggle-button-color-background-selected:       var(--background-neutral);
+  --toggle-button-color-background-selected-hover: var(--background-neutral-loud);
+  --toggle-button-color-text:                      var(--text);
+  --toggle-button-color-text-selected:             var(--text-loud-inverse);
+  --toggle-button-opacity-disabled:                var(--opacity-40);
+  --toggle-button-border-focus:                    var(--border-focus);
+  --toggle-button-border-width-focus:              var(--border-width-focus);
+
+  --_bg:          var(--toggle-button-color-background);
+  --_bg-hover:     var(--toggle-button-color-background-hover);
+  --_bg-active:    var(--toggle-button-color-background-selected);
+  --_color:        var(--toggle-button-color-text);
+  --_color-active: var(--toggle-button-color-text-selected);
+
+  position: relative;
+}
+
+/* Native input: invisible, stretched over the container so it receives pointer
+   and keyboard input. It owns the checked state. */
+.toggle-button__input {
+  position:   absolute;
+  inset:      0;
+  margin:     0;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border:     0;
+  border-radius: inherit;
+  cursor:     inherit;
+}
+
+.toggle-button__input:focus-visible {
+  outline: none;
+}
+
+.toggle-button__icon {
+  display:        inline-flex;
+  pointer-events: none;
+}
+
+/* --- Selected: reuses the ghost neutral pressed values ---------------------- */
+.button.toggle-button[data-variant][data-color]:has(.toggle-button__input:checked) {
+  --_bg:       var(--toggle-button-color-background-selected);
+  --_color:    var(--toggle-button-color-text-selected);
+  --_bg-hover: var(--toggle-button-color-background-selected-hover);
+}
+
+/* The selected state has no 1px shift; only an active press does (Button). */
+
+/* --- Focus: ring on the container when the input is keyboard-focused -------- */
+.toggle-button:has(.toggle-button__input:focus-visible) {
+  outline:        var(--toggle-button-border-width-focus) solid var(--toggle-button-border-focus);
+  outline-offset: var(--border-width-focus);
+}
+
+/* --- Disabled: current state stays visible, interaction blocked ------------- */
+.toggle-button[data-disabled] {
+  opacity:        var(--toggle-button-opacity-disabled);
+  cursor:         not-allowed;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toggle-button {
+    transition: none;
+  }
+  .toggle-button:active {
+    transform: none;
+  }
+}
